@@ -183,7 +183,7 @@ export class NoteEditorComponent implements OnDestroy, OnInit {
   /**
    * Initializes a new instance of the Tiptap editor with the specified content and extensions.
    *
-   * @property {Tiptap} editor - The Tiptap editor instance.
+   *  @property {Tiptap} editor - The Tiptap editor instance.
    * @property {Object} editor.content - The initial content configuration for the editor.
    * @property {string} editor.content.type - The type of the document, set to 'doc'.
    * @property {Array} editor.extensions - The array of extensions to be used by the editor.

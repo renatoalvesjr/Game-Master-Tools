@@ -1,0 +1,14 @@
+<div class="flex flex-col w-full items-center gap-4">
+  @for(item of navList; track item){
+  <div
+    class="flex flex-col cursor-pointer {{
+      item.active === true ? 'text-black p-2' : 'text-gray-400'
+    }} hover:text-black transition-all ease-in duration-300"
+    (click)="navigate(item)"
+  >
+    <span class="{{ item.iconType }} {{ item.active === true ? 'lg' : '' }}">{{
+      item.icon
+    }}</span>
+  </div>
+  }
+</div>

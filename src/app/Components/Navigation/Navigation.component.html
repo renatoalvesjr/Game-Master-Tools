@@ -6,10 +6,9 @@
         <div class="flex flex-col h-full gap-4">
           <!-- Pages -->
           <div class="flex flex-col items-center py-2 gap-2">
-            <div class="active font-extrabold">NOTES</div>
-            <div>itens</div>
-            <div>systems</div>
-            <div>sounds</div>
+            <app-system-nav-list
+              (systemChange)="checkSystem($event)"
+            ></app-system-nav-list>
           </div>
           <!-- Fim Pages -->
           <!-- Page Items -->
@@ -41,7 +40,26 @@
       class="flex flex-col justify-between h-full w-64 border-r border-[#E1E1E2] p-2 transition-all ease-in-out delay-150 duration-300"
     >
       <div>
-        <div>subcontent</div>
+        <div class="flex flex-col mt-4">
+          <div *ngIf="system === 'campaigns' || !system">
+            <app-CampaignNav></app-CampaignNav>
+          </div>
+          <div *ngIf="system === 'systems'">
+            <app-SystemNav></app-SystemNav>
+          </div>
+          <div *ngIf="system === 'items'">
+            <app-ItemsNav></app-ItemsNav>
+          </div>
+          <div *ngIf="system === 'sound'">
+            <app-SoundNav></app-SoundNav>
+          </div>
+
+          <div *ngIf="subHidden">
+            <span class="material-icons" (click)="toggleSubmenu()"
+              >keyboard_double_arrow_right</span
+            >
+          </div>
+        </div>
       </div>
       <div class="flex flex-row-reverse">
         <span class="material-icons text-[#E1E1E2]" (click)="toggleSubmenu()"
@@ -51,10 +69,23 @@
     </div>
     <!-- Fim Sub Menu -->
   </div>
-  <div class="flex flex-col w-full max-h-screen overflow-y-auto flex-grow">
-    <div class="h-fit w-full p-2">breadcomb</div>
-    <div class="flex h-full w-full p-4 max-h-screen overflow-y-auto flex-grow">
-      <app-note-editor></app-note-editor>
+  <div *ngIf="system === 'campaigns' || !system">
+    <div class="flex flex-col w-full max-h-screen overflow-y-auto flex-grow">
+      <div class="h-fit w-full p-2">breadcomb</div>
+      <div
+        class="flex h-full w-full p-4 max-h-screen overflow-y-auto flex-grow"
+      >
+        <app-note-editor></app-note-editor>
+      </div>
     </div>
+  </div>
+  <div *ngIf="system === 'systems'">
+    <app-SystemNav></app-SystemNav>
+  </div>
+  <div *ngIf="system === 'items'">
+    <app-ItemsNav></app-ItemsNav>
+  </div>
+  <div *ngIf="system === 'sound'">
+    <app-SoundNav></app-SoundNav>
   </div>
 </div>
