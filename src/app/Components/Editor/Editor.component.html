@@ -1,0 +1,330 @@
+<div class="flex flex-col w-full max-w-full">
+  {{ content }}
+  <!-- Toolbar -->
+  <div
+    class="flex flex-row flex-wrap space-2 border-b border-[#E1E1E2] overflow-y-auto"
+  >
+    <!-- History -->
+    <div class="flex flex-row border-r border-[#E1E1E2] px-2 my-2">
+      <button
+        title="Undo"
+        class="rounded-md flex items-center p-1 borderborder-[#ececec] active:bg-[#16404D] active:text-[#A6CDC6]"
+        (click)="editor.chain().focus().undo().run()"
+      >
+        <span class="material-icons">undo</span>
+      </button>
+      <button
+        title="Redo"
+        class="rounded-md flex items-center p-1 borderborder-[#ececec] active:bg-[#16404D] active:text-[#A6CDC6]"
+        (click)="editor.chain().focus().redo().run()"
+      >
+        <span class="material-icons">redo</span>
+      </button>
+      <button
+        title="Clear Format"
+        class="rounded-md flex items-center p-1 borderborder-[#ececec] active:bg-[#16404D] active:text-[#A6CDC6]"
+        (click)="editor.chain().focus().clearNodes().unsetAllMarks().run()"
+      >
+        <span class="material-icons">format_clear</span>
+      </button>
+    </div>
+
+    <!-- Heading styles -->
+    <div class="flex flex-row border-r border-[#E1E1E2] px-2 my-2">
+      <select
+        class="border border-[#E1E1E2] rounded-sm"
+        (change)="onHeadingChange($event)"
+        [value]="
+          editor.isActive('heading', { level: 1 })
+            ? 'heading1'
+            : editor.isActive('heading', { level: 2 })
+            ? 'heading2'
+            : editor.isActive('heading', { level: 3 })
+            ? 'heading3'
+            : 'paragraph'
+        "
+      >
+        <option value="heading1">Title 1</option>
+        <option value="heading2">Title 2</option>
+        <option value="heading3">Title 3</option>
+        <option value="paragraph">Paragraph</option>
+      </select>
+    </div>
+
+    <!-- Font family -->
+    <div class="flex flex-row border-r border-[#E1E1E2] px-2 my-2">
+      <select
+        class="border border-[#E1E1E2] rounded-sm"
+        (change)="fontFamilyChanges($event)"
+        [value]="editor.getAttributes('textStyle')['fontFamily'] || 'Arial'"
+      >
+        <option value="Arial" class="font-inter">Arial</option>
+        <option value="cursive" class="font-cursive">Cursive</option>
+        <option value="serif" class="font-serif">Ibarra Real</option>
+      </select>
+    </div>
+
+    <!-- Font size -->
+    <div class="flex flex-row border-r border-[#E1E1E2] px-2 my-2">
+      <div
+        class="flex flex-row items-center border border-[#e1e1e2] rounded-sm"
+      >
+        <button
+          title="Decrease Font Size"
+          class="rounded-md flex items-center p-1 cursor-pointer"
+          (click)="
+            editor
+              .chain()
+              .focus()
+              .setFontSize(
+                parseInt(fontSizeInput.value.replace('pt', '')) - 2 + 'pt'
+              )
+              .run()
+          "
+        >
+          <span class="material-icons">remove</span>
+        </button>
+        <input
+          type="string"
+          class="w-12 mx-2 text-center"
+          [value]="editor.getAttributes('textStyle')['fontSize'] || '16pt'"
+          (change)="
+            editor
+              .chain()
+              .focus()
+              .setFontSize(fontSizeInput.value + 'pt')
+              .run()
+          "
+          #fontSizeInput
+        />
+        <button
+          title="Increase Font Size"
+          class="rounded-md flex items-center p-1 cursor-pointer"
+          (click)="
+            editor
+              .chain()
+              .focus()
+              .setFontSize(
+                parseInt(fontSizeInput.value.replace('pt', '')) + 2 + 'pt'
+              )
+              .run()
+          "
+        >
+          <span class="material-icons">add</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Text formatting -->
+    <div class="flex flex-row border-r border-[#E1E1E2] px-2 my-2">
+      <button
+        title="Bold"
+        class="{{
+          editor.isActive('bold') ? 'shadow-inner bg-[#586671] text-white' : ''
+        }} rounded-md flex items-center p-1 cursor-pointer"
+        (click)="editor.chain().focus().toggleBold().run()"
+      >
+        <span class="material-icons">format_bold</span>
+      </button>
+      <button
+        title="Italic"
+        class="{{
+          editor.isActive('italic')
+            ? 'shadow-inner bg-[#586671] text-white'
+            : ''
+        }} rounded-md flex items-center p-1 cursor-pointer"
+        (click)="editor.chain().focus().toggleItalic().run()"
+      >
+        <span class="material-icons">format_italic</span>
+      </button>
+
+      <button
+        title="Underline"
+        class="{{
+          editor.isActive('underline')
+            ? 'shadow-inner bg-[#586671] text-white'
+            : ''
+        }} rounded-md flex items-center p-1 cursor-pointer"
+        (click)="editor.chain().focus().toggleUnderline().run()"
+      >
+        <span class="material-icons">format_underlined</span>
+      </button>
+      <button
+        title="Superscript"
+        class="{{
+          editor.isActive('superscript')
+            ? 'shadow-inner bg-[#586671] text-white'
+            : ''
+        }} rounded-md flex items-center p-1 cursor-pointer"
+        (click)="editor.chain().focus().toggleSuperscript().run()"
+      >
+        <span class="material-icons">superscript</span>
+      </button>
+      <button
+        title="Subscript"
+        class="{{
+          editor.isActive('subscript')
+            ? 'shadow-inner bg-[#586671] text-white'
+            : ''
+        }} rounded-md flex items-center p-1 cursor-pointer"
+        (click)="editor.chain().focus().toggleSubscript().run()"
+      >
+        <span class="material-icons">subscript</span>
+      </button>
+      <button
+        title="Highlight"
+        class="{{
+          editor.isActive('highlight')
+            ? 'shadow-inner bg-[#586671] text-white'
+            : ''
+        }} rounded-md flex items-center p-1 cursor-pointer"
+        (click)="editor.chain().focus().toggleHighlight().run()"
+      >
+        <span class="material-symbols-outlined"> format_ink_highlighter </span>
+      </button>
+      <div class="flex flex-row px-2 items-center">
+        <div
+          class="rounded-full w-6 h-6 border border-[#A6CDC6] hover:cursor-pointer hover:shadow-lg hover:border-black transition-all transition-200"
+          [style.background-color]="
+            editor.getAttributes('textStyle')['color'] || '#000000'
+          "
+          (click)="colorPicker.click()"
+        ></div>
+        <input
+          #colorPicker
+          class="hidden"
+          type="color"
+          (change)="onTextColorChange($event)"
+          (input)="onTextColorChange($event)"
+          [value]="editor.getAttributes('textStyle')['color'] || '#000000'"
+        />
+      </div>
+    </div>
+
+    <!-- Insertions -->
+    <div class="flex flex-row border-r border-[#E1E1E2] px-2 my-2">
+      <button
+        title="Link"
+        class="{{
+          editor.isActive('link') ? 'shadow-inner bg-[#586671] text-white' : ''
+        }} rounded-md flex items-center p-1"
+        (click)="toggleLink()"
+      >
+        <span class="material-icons">link</span>
+      </button>
+      <button
+        title="Image"
+        class="{{
+          editor.isActive('image') ? 'shadow-inner bg-[#586671] text-white' : ''
+        }} rounded-md flex items-center p-1"
+        (click)="addImage()"
+      >
+        <span class="material-icons">image</span>
+      </button>
+    </div>
+
+    <!-- List styles -->
+    <div class="flex flex-row border-r border-[#E1E1E2] px-2 my-2 gap-2">
+      <button
+        title="Bullet List"
+        class="{{
+          editor.isActive('bulletList')
+            ? 'shadow-inner bg-[#586671] text-white'
+            : ''
+        }} rounded-md cursor-pointer flex items-center p-1"
+        (click)="editor.chain().focus().toggleBulletList().run()"
+      >
+        <span class="material-icons">format_list_bulleted</span>
+      </button>
+      <button
+        title="Ordered List"
+        class="{{
+          editor.isActive('orderedList')
+            ? 'shadow-inner bg-[#586671] text-white'
+            : ''
+        }} rounded-md cursor-pointer flex items-center p-1"
+        (click)="editor.chain().focus().toggleOrderedList().run()"
+      >
+        <span class="material-icons">format_list_numbered</span>
+      </button>
+      <button
+        title="Task List"
+        class="{{
+          editor.isActive('taskList')
+            ? 'shadow-inner bg-[#586671] text-white'
+            : ''
+        }} rounded-md cursor-pointer flex items-center p-1 "
+        (click)="editor.chain().focus().toggleTaskList().run()"
+      >
+        <span class="material-icons">checklist</span>
+      </button>
+    </div>
+
+    <!-- Text alignment -->
+    <div class="flex flex-row border-r border-[#E1E1E2] px-2 my-2 gap-2">
+      <button
+        title="Align Left"
+        class="{{
+          editor.isActive({ textAlign: 'left' })
+            ? 'shadow-inner bg-[#586671] text-white'
+            : ''
+        }}  rounded-md cursor-pointer flex items-center p-1"
+        (click)="editor.chain().focus().setTextAlign('left').run()"
+      >
+        <span class="material-icons">format_align_left</span>
+      </button>
+      <button
+        title="Align Center"
+        class="{{
+          editor.isActive({ textAlign: 'center' })
+            ? 'shadow-inner bg-[#586671] text-white'
+            : ''
+        }}  rounded-md cursor-pointer flex items-center p-1"
+        (click)="editor.chain().focus().setTextAlign('center').run()"
+      >
+        <span class="material-icons">format_align_center</span>
+      </button>
+      <button
+        title="Align Right"
+        class="{{
+          editor.isActive({ textAlign: 'right' })
+            ? 'shadow-inner bg-[#586671] text-white'
+            : ''
+        }}  rounded-md cursor-pointer flex items-center p-1"
+        (click)="editor.chain().focus().setTextAlign('right').run()"
+      >
+        <span class="material-icons">format_align_right</span>
+      </button>
+      <button
+        title="Justify"
+        class="{{
+          editor.isActive({ textAlign: 'justify' })
+            ? 'shadow-inner bg-[#586671] text-white'
+            : ''
+        }}  rounded-md cursor-pointer flex items-center p-1"
+        (click)="editor.chain().focus().setTextAlign('justify').run()"
+      >
+        <span class="material-icons">format_align_justify</span>
+      </button>
+    </div>
+
+    <!-- Save -->
+    <div class="flex flex-row border-r border-[#E1E1E2] px-2 my-2 gap-2">
+      <button
+        title="Save"
+        class="rounded-md flex items-center p-1 active:bg-[#586671] active:text-white"
+      >
+        <span class="material-icons">save</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Editor -->
+  <div class="flex w-full max-w-full bg-red-200 max-h-full">
+    <tiptap-editor
+      [editor]="editor"
+      [(ngModel)]="content"
+      class="w-full max-h-full m-2 outline-none bg-green-100"
+    ></tiptap-editor>
+  </div>
+</div>

@@ -1,0 +1,60 @@
+<div class="flex flex-row">
+  <div class="flex flex-row h-screen">
+    <div class="h-full w-20 border-r border-[#E1E1E2]">
+      <div class="flex flex-col justify-between h-full">
+        <!-- Pages/Page Items -->
+        <div class="flex flex-col h-full gap-4">
+          <!-- Pages -->
+          <div class="flex flex-col items-center py-2 gap-2">
+            <div class="active font-extrabold">NOTES</div>
+            <div>itens</div>
+            <div>systems</div>
+            <div>sounds</div>
+          </div>
+          <!-- Fim Pages -->
+          <!-- Page Items -->
+          <div class="flex flex-col items-center py-2 gap-2">
+            <div class="flex flex-row justify-center">campaign1</div>
+            <div class="flex flex-row justify-center">
+              <m-button>add</m-button>
+            </div>
+          </div>
+          <!-- Fim Page Items -->
+        </div>
+        <!-- Fim Pages/Page Items -->
+        <!-- Nav Config/Info -->
+        <div class="flex flex-col items-center py-2 gap-2">
+          <div>config</div>
+          <div>info</div>
+          <div *ngIf="subHidden">
+            <span class="material-icons" (click)="toggleSubmenu()"
+              >keyboard_double_arrow_right</span
+            >
+          </div>
+        </div>
+        <!-- Fim Nav Config/Info -->
+      </div>
+    </div>
+    <!-- Sub Menu -->
+    <div
+      *ngIf="!subHidden"
+      class="flex flex-col justify-between h-full w-64 border-r border-[#E1E1E2] p-2 transition-all ease-in-out delay-150 duration-300"
+    >
+      <div>
+        <div>subcontent</div>
+      </div>
+      <div class="flex flex-row-reverse">
+        <span class="material-icons text-[#E1E1E2]" (click)="toggleSubmenu()"
+          >keyboard_double_arrow_left</span
+        >
+      </div>
+    </div>
+    <!-- Fim Sub Menu -->
+  </div>
+  <div class="flex flex-col w-full max-h-screen overflow-y-auto flex-grow">
+    <div class="h-fit w-full p-2">breadcomb</div>
+    <div class="flex h-full w-full p-4 max-h-screen overflow-y-auto flex-grow">
+      <app-note-editor></app-note-editor>
+    </div>
+  </div>
+</div>

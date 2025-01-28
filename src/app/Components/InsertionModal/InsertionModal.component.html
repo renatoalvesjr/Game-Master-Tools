@@ -1,0 +1,8 @@
+<mat-dialog-content>
+  <p>Insert the URL</p>
+  <input [(ngModel)]="url" placeholder="URL" />
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button (click)="onNoClick()">No Thanks</button>
+  <button [mat-dialog-close]="url" cdkFocusInitial>Ok</button>
+</mat-dialog-actions>
