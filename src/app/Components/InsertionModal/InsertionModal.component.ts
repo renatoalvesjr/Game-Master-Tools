@@ -1,11 +1,16 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, model, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import {
+  MAT_DIALOG_DATA,
   MatDialogActions,
   MatDialogClose,
   MatDialogContent,
   MatDialogRef,
 } from '@angular/material/dialog';
+
+interface Data {
+  url: string;
+}
 
 @Component({
   selector: 'app-InsertionModal',
@@ -15,8 +20,9 @@ import {
   imports: [MatDialogContent, FormsModule, MatDialogActions, MatDialogClose],
 })
 export class InsertionModalComponent implements OnInit {
-  url = '';
   readonly dialogRef = inject(MatDialogRef<InsertionModalComponent>);
+  readonly data = inject<Data>(MAT_DIALOG_DATA);
+  readonly url = model(this.data.url);
 
   constructor() {}
 

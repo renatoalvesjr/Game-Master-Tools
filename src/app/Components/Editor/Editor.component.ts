@@ -93,17 +93,18 @@ export class NoteEditorComponent implements OnDestroy, OnInit {
     this.editor.chain().focus().setFontFamily(value).run();
   }
 
-  openDialog(oldUrl: string): void {
-    const dialogRef = this.dialog.open(InsertionModalComponent, {
-      data: { url: oldUrl },
-    });
+  openDialog(oldUrl: string): Promise<string> {
+    return new Promise((resolve) => {
+      const dialogRef = this.dialog.open(InsertionModalComponent, {
+        data: { url: oldUrl || '' },
+      });
 
-    dialogRef.afterClosed().subscribe((result) => {
-      if (result && result !== oldUrl && result !== '') {
-        console.log(result);
-        this.url = result;
-        console.log(this.url);
-      }
+      dialogRef.afterClosed().subscribe((result) => {
+        if (result !== undefined) {
+          this.url = result;
+        }
+        resolve(this.url);
+      });
     });
   }
 
@@ -117,10 +118,8 @@ export class NoteEditorComponent implements OnDestroy, OnInit {
    * @returns {void}
    */
   async toggleLink(): Promise<void> {
-    const previousUrl = this.editor.getAttributes('link')['href'];
-    this.openDialog(previousUrl);
-
-    console.log(this.url);
+    const previousUrl = this.editor.getAttributes('link')['href'] || '';
+    this.url = await this.openDialog(previousUrl);
 
     if (this.url === null) {
       return;

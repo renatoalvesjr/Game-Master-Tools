@@ -4,5 +4,5 @@
 </mat-dialog-content>
 <mat-dialog-actions>
   <button (click)="onNoClick()">No Thanks</button>
-  <button [mat-dialog-close]="url" cdkFocusInitial>Ok</button>
+  <button [mat-dialog-close]="url()" cdkFocusInitial>Ok</button>
 </mat-dialog-actions>
