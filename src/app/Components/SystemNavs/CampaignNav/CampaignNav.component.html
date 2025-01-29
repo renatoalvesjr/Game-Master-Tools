@@ -1,1 +1,61 @@
-@if(campaignId === ''){ No Campagin Selected }
+<div class="flex flex-row w-screen fixed h-full">
+  <div class="flex flex-col h-full max-w-64 p-2 border-r border-gray-200">
+    <!-- Campaign title + description + campaign config menu -->
+    <div class="mb-4">
+      <div class="flex flex-row items-center">
+        <h1>{{ campaign.campaignName }}</h1>
+        <span class="material-icons cursor-pointer select-none"
+          >keyboard_arrow_down</span
+        >
+      </div>
+      <p class="line-clamp-2 text-sm text-gray-400">
+        {{ campaign.campaignDescription }}
+      </p>
+    </div>
+    <!-- Campaign menus -->
+    <div class="flex flex-col gap-2">
+      <!-- Notes -->
+      <div class="flex flex-col">
+        <div class="flex flex-row items-center justify-between">
+          <div class="flex flex-row items-center gap-1">
+            <span class="material-symbols-outlined sm">sticky_note_2</span>
+            <p>Notes</p>
+          </div>
+          <span class="material-icons">add</span>
+        </div>
+        <!-- Page Render -->
+        <ul class="flex flex-col pl-5 truncate">
+          @for(item of campaign.campaignPages; track item){
+          <li>
+            <div class="flex flex-row items-center justify-between">
+              <p>{{ item.pageTitle }}</p>
+              <span class="material-icons cursor-pointer select-none">{{
+                item.pageActive === true
+                  ? "keyboard_arrow_down"
+                  : "keyboard_arrow_right"
+              }}</span>
+            </div>
+            <div class="ml-4 truncate">
+              @for(notes of item.pageNotes; track notes){
+              {{ notes.noteTitle }}
+              }
+            </div>
+          </li>
+          }
+        </ul>
+      </div>
+
+      <!-- Maps -->
+      <div>Mapas</div>
+
+      <!-- Items -->
+      <div>Itens</div>
+
+      <!-- Creatures -->
+      <div>Criaturas/Personagens</div>
+    </div>
+  </div>
+  <div class="w-full p-4">
+    <app-note-editor></app-note-editor>
+  </div>
+</div>

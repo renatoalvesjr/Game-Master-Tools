@@ -1,0 +1,82 @@
+[
+  {
+    "campaignId": "1",
+    "campaignName": "Dummy",
+    "campaignCreationDate": "2025-01-01",
+    "campaignUpdateDate": "2025-01-01",
+    "campaignImageUrl": "https://mir-s3-cdn-cf.behance.net/project_modules/disp/f85e0766901907.5b2732dbe2eaf.png",
+    "campaignPages": [
+      {
+        "pageId": "1",
+        "pageTitle": "Page 1",
+        "pageNotes": [
+          {
+            "noteId": "1",
+            "noteContent": "",
+            "noteIndex": 0,
+            "noteColor": "#ffffff",
+            "noteCreationDate": "2025-01-01",
+            "noteUpdateDate": "2025-01-01",
+            "noteTitle": "Note Nº1"
+          }
+        ],
+        "pageCreationDate": "string",
+        "pageIndex": 1,
+        "pageActive": true
+      }
+    ],
+    "campaignSystemId": "1",
+    "campaignIndex": 0,
+    "campaignDescription": "Uma longa e detalhada descrição para compor o campo que será usado em testes para suas funçãoes de tamanho e renderização na tela de forma dinâmica.",
+    "active": false
+  },
+  {
+    "campaignId": "2",
+    "campaignName": "Dummy 2",
+    "campaignCreationDate": "2025-02-01",
+    "campaignUpdateDate": "2025-02-01",
+    "campaignImageUrl": "https://mir-s3-cdn-cf.behance.net/project_modules/disp/f85e0766901907.5b2732dbe2eaf.png",
+    "campaignPages": [
+      {
+        "pageId": "1",
+        "pageTitle": "Page 1",
+        "pageNotes": [
+          {
+            "noteId": "1",
+            "noteContent": "",
+            "noteIndex": 0,
+            "noteColor": "#ffffff",
+            "noteCreationDate": "2025-01-01",
+            "noteUpdateDate": "2025-01-01",
+            "noteTitle": "Note Nº1"
+          }
+        ],
+        "pageCreationDate": "string",
+        "pageIndex": 1,
+        "pageActive": true
+      },
+      {
+        "pageId": "2",
+        "pageTitle": "Page 2",
+        "pageNotes": [
+          {
+            "noteId": "2",
+            "noteContent": "",
+            "noteIndex": 0,
+            "noteColor": "#ffffff",
+            "noteCreationDate": "2025-01-01",
+            "noteUpdateDate": "2025-01-01",
+            "noteTitle": "Note Nº1"
+          }
+        ],
+        "pageCreationDate": "string",
+        "pageIndex": 1,
+        "pageActive": true
+      }
+    ],
+    "campaignSystemId": "1",
+    "campaignIndex": 1,
+    "campaignDescription": "Uma longa e detalhada descrição para compor o campo que será usado em testes para suas funçãoes de tamanho e renderização na tela de forma dinâmica.",
+    "active": true
+  }
+]

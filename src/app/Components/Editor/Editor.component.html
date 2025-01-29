@@ -1,5 +1,4 @@
 <div class="flex flex-col w-full max-w-full">
-  {{ content }}
   <!-- Toolbar -->
   <div
     class="flex flex-row flex-wrap space-2 border-b border-[#E1E1E2] overflow-y-auto"
@@ -320,11 +319,11 @@
   </div>
 
   <!-- Editor -->
-  <div class="flex w-full max-w-full bg-red-200 max-h-full">
+  <div class="flex w-full max-w-full max-h-full">
     <tiptap-editor
       [editor]="editor"
       [(ngModel)]="content"
-      class="w-full max-h-full m-2 outline-none bg-green-100"
+      class="w-full max-h-full m-2 outline-none active:border-none"
     ></tiptap-editor>
   </div>
 </div>

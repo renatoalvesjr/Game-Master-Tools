@@ -1,0 +1,22 @@
+.activelink {
+  color: black;
+}
+.active > .material-symbols-outlined {
+  font-family: "Material Symbols Outlined";
+  font-weight: normal;
+  font-style: normal;
+  font-size: 36px; /* Preferred icon size */
+  display: inline-block;
+  line-height: 1;
+  text-transform: none;
+  letter-spacing: normal;
+  word-wrap: normal;
+  white-space: nowrap;
+  direction: ltr;
+}
+
+.campaignLink {
+  width: 2rem;
+  border: 1px black solid;
+  border-radius: 8px;
+}
