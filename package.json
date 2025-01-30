@@ -1,11 +1,16 @@
 {
   "name": "game-master-tools",
-  "version": "0.0.0",
+  "version": "0.0.1",
+  "description": "This project was generated with Angular CLI version 12.2.12.",
+  "author": "Renato Alves Junior",
+  "main": "main.js",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
+    "electron": "ng build --base-href ./ && electron .",
+    "quick": "electron .",
     "test": "ng test"
   },
   "private": true,
@@ -63,6 +68,7 @@
     "@angular/cli": "^18.2.12",
     "@angular/compiler-cli": "^18.2.0",
     "@types/jasmine": "~5.1.0",
+    "electron": "^34.0.2",
     "jasmine-core": "~5.2.0",
     "karma": "~6.4.0",
     "karma-chrome-launcher": "~3.2.0",

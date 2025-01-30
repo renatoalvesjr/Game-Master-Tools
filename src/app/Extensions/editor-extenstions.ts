@@ -28,6 +28,7 @@ import { Color as ColorExtension } from '@tiptap/extension-color';
 import ListKeymap from '@tiptap/extension-list-keymap';
 import FontFamily from '@tiptap/extension-font-family';
 import FontSize from 'tiptap-extension-font-size';
+import { ElectronService } from '../Services/electron.service';
 
 const LiteralTab = Extension.create({
   name: 'literalTab',
@@ -52,6 +53,8 @@ export const fonts: FontList[] = [
   { name: 'Comic Sans', value: 'Comic Sans MS' },
   { name: 'Courier New', value: 'Courier New' },
 ];
+
+const es = ElectronService;
 
 export const extensions = [
   Document,
@@ -92,6 +95,8 @@ export const extensions = [
   Link.configure({
     HTMLAttributes: {
       class: 'underline text-blue-500 hover:cursor-pointer',
+      target: '_blank',
+      onclick: '{{es.openExternal(event.target.href)}}',
     },
     openOnClick: true,
     autolink: true,

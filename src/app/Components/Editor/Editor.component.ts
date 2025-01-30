@@ -1,7 +1,14 @@
 import { FontFamily } from './../../../../node_modules/@tiptap/extension-font-family/src/font-family';
 import { Editor as Tiptap, Extension } from '@tiptap/core';
 import { NgxTiptapModule } from 'ngx-tiptap';
-import { Component, Input, OnDestroy, OnInit, signal } from '@angular/core';
+import {
+  Component,
+  inject,
+  Input,
+  OnDestroy,
+  OnInit,
+  signal,
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatSelectModule } from '@angular/material/select';
@@ -13,6 +20,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { extensions, fonts } from '../../Extensions/editor-extenstions';
 import { InsertionModalComponent } from '../InsertionModal/InsertionModal.component';
+import { ElectronService } from '../../Services/electron.service';
 
 @Component({
   selector: 'app-note-editor',
@@ -32,6 +40,7 @@ import { InsertionModalComponent } from '../InsertionModal/InsertionModal.compon
   standalone: true,
 })
 export class NoteEditorComponent implements OnDestroy, OnInit {
+  es = inject(ElectronService);
   @Input() content = '<p></p>';
   @Input() noteId = '';
   fontList = fonts;

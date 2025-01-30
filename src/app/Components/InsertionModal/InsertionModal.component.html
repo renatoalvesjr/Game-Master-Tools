@@ -1,8 +1,23 @@
-<mat-dialog-content>
-  <p>Insert the URL</p>
-  <input [(ngModel)]="url" placeholder="URL" />
+<mat-dialog-content class="flex flex-col p-2">
+  <h1 class="mb-2">Insert the URL</h1>
+  <input
+    class="p-1 outline-none active:outline-none border border-gray-200 rounded-md"
+    [(ngModel)]="url"
+    placeholder="URL"
+    cdkFocusInitial
+  />
 </mat-dialog-content>
 <mat-dialog-actions>
-  <button (click)="onNoClick()">No Thanks</button>
-  <button [mat-dialog-close]="url()" cdkFocusInitial>Ok</button>
+  <button
+    (click)="onNoClick()"
+    class="m-1 p-1 px-3 rounded-full hover:bg-slate-200"
+  >
+    No Thanks
+  </button>
+  <button
+    [mat-dialog-close]="url()"
+    class="m-1 p-1 px-3 rounded-full hover:bg-slate-200"
+  >
+    Ok
+  </button>
 </mat-dialog-actions>
