@@ -1,5 +1,5 @@
 declare interface Window {
   electronAPI: {
-    openFile: () => string;
+    openFile: () => Promise<string>;
   };
 }

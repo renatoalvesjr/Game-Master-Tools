@@ -1,7 +1,7 @@
-import { Component, inject, OnInit } from '@angular/core';
-import { MButtonComponent } from '../Buttons/m-button/m-button.component';
-import { CommonModule } from '@angular/common';
-import { NoteEditorComponent } from '../Editor/Editor.component';
+import {Component, inject, OnInit} from '@angular/core';
+import {MButtonComponent} from '../Buttons/m-button/m-button.component';
+import {CommonModule} from '@angular/common';
+import {NoteEditorComponent} from '../Editor/Editor.component';
 import {
   ActivatedRoute,
   Router,
@@ -9,12 +9,12 @@ import {
   RouterLinkActive,
   RouterOutlet,
 } from '@angular/router';
-import { CampaignNavComponent } from '../SystemNavs/CampaignNav/CampaignNav.component';
-import { ItemsNavComponent } from '../SystemNavs/ItemsNav/ItemsNav.component';
-import { SoundNavComponent } from '../SystemNavs/SoundNav/SoundNav.component';
-import { SystemNavComponent } from '../SystemNavs/SystemNav/SystemNav.component';
-import { CampaignService } from '../../Services/campaign.service';
-import { Campaign } from '../../Interfaces/Campaign.interface';
+import {CampaignNavComponent} from '../SystemNavs/CampaignNav/CampaignNav.component';
+import {ItemsNavComponent} from '../SystemNavs/ItemsNav/ItemsNav.component';
+import {SoundNavComponent} from '../SystemNavs/SoundNav/SoundNav.component';
+import {SystemNavComponent} from '../SystemNavs/SystemNav/SystemNav.component';
+import {CampaignService} from '../../Services/campaign.service';
+import {Campaign} from '../../Interfaces/Campaign.interface';
 import {DividerComponent} from '../divider/divider.component';
 import {WindowRef} from '../../Services/window.service';
 
@@ -91,15 +91,34 @@ export class NavigationComponent implements OnInit {
     this.subHidden = !this.subHidden;
     console.log('to ' + this.subHidden);
   }
+
   constructor() {
     this.window = this.windowRef.nativeWindow;
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+  }
 
 
-  openFile(){
+  async openFile() {
     const path = this.window.electronAPI.openFile();
-    console.log(path);
+
+    this.readFileContent(await path).then(r => {
+    });
+  }
+
+  async readFileContent(filePath: string) {
+    try {
+      const response = await fetch(filePath);
+      if (!response.ok) {
+        throw new Error(`Failed to fetch file: ${response.statusText}`);
+      }
+
+      const text = await response.text();
+
+      console.log('file content:\n', text);
+    } catch (error: any) {
+      console.error(`Error loading file: ${error.message}`);
+    }
   }
 }

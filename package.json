@@ -69,6 +69,7 @@
     "@angular/cli": "^18.2.12",
     "@angular/compiler-cli": "^18.2.0",
     "@types/jasmine": "~5.1.0",
+    "@types/node": "^22.13.1",
     "electron": "^34.0.2",
     "jasmine-core": "~5.2.0",
     "karma": "~6.4.0",
