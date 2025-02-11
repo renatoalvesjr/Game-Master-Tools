@@ -1,65 +1,61 @@
-<div class="flex flex-row w-full">
-  <div class="flex flex-row h-screen w-full">
-    <div class="h-full min-w-14 max-w-24 border-r border-[#E1E1E2]">
-      <div class="flex flex-col justify-between h-full">
-        <div class="flex flex-col h-full gap-4">
-          <div class="flex flex-col items-center py-2 gap-2">
-            <ul class="flex flex-col gap-2 justify-items-center">
-              @for(item of campaignList; track item){
-              <div
-                routerLink="/campaign/{{ item.campaignId }}"
-                routerLinkActive="campaignLink"
-                class="flex self-center w-7 transition-all ease-in duration-150 cursor-pointer select-none"
-              >
-                <img
-                  class="self-center"
-                  src="{{ item.campaignImageUrl }}"
-                  alt=""
-                />
-              </div>
-              }
-              <div>
+<div class="flex flex-row h-screen w-full">
+  <div class="flex flex-col justify-between h-full min-w-14 max-w-24 border-r border-[#E1E1E1]">
+      <ul class="flex flex-col items-center py-4 gap-4 justify-items-center">
+        @for (item of campaignList; track item) {
+          <div
+            routerLink="/campaign/{{ item.campaignId }}"
+            routerLinkActive="campaignLink"
+            class="flex self-center w-7 transition-all ease-in duration-150 cursor-pointer select-none"
+          >
+            <img
+              class="self-center"
+              src="{{ item.campaignImageUrl }}"
+              alt=""
+            />
+          </div>
+        }
+        <div>
                 <span
                   class="material-symbols-outlined hover:text-black {{
                     campaignList.length === 0
                       ? 'border-2 rounded-md border-dashed'
                       : ''
                   }} text-gray-400 lg transition-all ease-in duration-300 cursor-pointer"
-                  >add</span
+                >add</span
                 >
-              </div>
-            </ul>
-          </div>
-          <div class="flex flex-col items-center py-2 gap-2">
-            <div class="flex flex-col w-full items-center gap-4">
-              @for(item of navList; track item){
-              <div
-                class="flex flex-col cursor-pointer hover:text-black text-gray-400 transition-all ease-in duration-300 justify-center items-center gap-1 text-center"
-                routerLink="/{{ item.route }}"
-                routerLinkActive="activelink"
-                [routerLinkActiveOptions]="{ exact: true }"
-              >
-                <span class="{{ item.iconType }}">{{ item.icon }}</span>
-                <p class="flex flex-col text-wrap">{{ item.name }}</p>
-              </div>
-              }
-            </div>
-          </div>
         </div>
-
-        <div class="flex flex-col items-center py-2 gap-2">
-          <div>config</div>
-          <div>info</div>
-          <div *ngIf="subHidden">
-            <span class="material-icons" (click)="toggleSubmenu()"
-              >keyboard_double_arrow_right</span
+      </ul>
+      <divider></divider>
+      <div class="flex flex-col items-center">
+        <div class="flex flex-col w-full items-center gap-4">
+          @for (item of navList; track item) {
+            <div
+              class="flex flex-col cursor-pointer hover:text-black text-gray-400 transition-all ease-in duration-300 justify-center items-center gap-1 text-center"
+              routerLink="/{{ item.route }}"
+              routerLinkActive="activelink"
+              [routerLinkActiveOptions]="{ exact: true }"
             >
-          </div>
+              <span class="{{ item.iconType }}">{{ item.icon }}</span>
+              <p class="flex flex-col text-wrap">{{ item.name }}</p>
+            </div>
+          }
         </div>
       </div>
-    </div>
-    <div class="flex w-full">
-      <router-outlet></router-outlet>
-    </div>
+      <divider></divider>
+      <div class="flex flex-col items-center py-2 gap-4">
+        <div class="text-gray-400 hover:text-black hover:scale-110 transition-all duration-200 cursor-pointer"
+             routerLink="/settings"
+             routerLinkActive="activeLink">
+          <span class="material-symbols-outlined ">settings</span>
+        </div>
+        <div class="text-gray-400 hover:text-black hover:scale-110 transition-all duration-200 cursor-pointer"
+             routerLink="/info"
+             routerLinkActive="activelink">
+          <span class="material-symbols-outlined">info</span>
+        </div>
+      </div>
+  </div>
+  <div class="flex w-full">
+    <router-outlet></router-outlet>
   </div>
 </div>

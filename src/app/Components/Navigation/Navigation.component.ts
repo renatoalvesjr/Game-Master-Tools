@@ -15,6 +15,7 @@ import { SoundNavComponent } from '../SystemNavs/SoundNav/SoundNav.component';
 import { SystemNavComponent } from '../SystemNavs/SystemNav/SystemNav.component';
 import { CampaignService } from '../../Services/campaign.service';
 import { Campaign } from '../../Interfaces/Campaign.interface';
+import {DividerComponent} from '../divider/divider.component';
 
 interface SystemNavList {
   name: string;
@@ -28,7 +29,7 @@ interface SystemNavList {
   selector: 'app-Navigation',
   templateUrl: './Navigation.component.html',
   styleUrls: ['./Navigation.component.scss'],
-  imports: [CommonModule, RouterOutlet, RouterLinkActive, RouterLink],
+  imports: [CommonModule, RouterOutlet, RouterLinkActive, RouterLink, DividerComponent],
   standalone: true,
 })
 export class NavigationComponent implements OnInit {

@@ -5,6 +5,8 @@ import { ItemsNavComponent } from './Components/SystemNavs/ItemsNav/ItemsNav.com
 import { SystemNavComponent } from './Components/SystemNavs/SystemNav/SystemNav.component';
 import { SoundNavComponent } from './Components/SystemNavs/SoundNav/SoundNav.component';
 import { CampaignManagementComponent } from './Components/SystemNavs/CampaignManagement/CampaignManagement.component';
+import {SettingsComponent} from './Pages/settings/settings.component';
+import {InfoComponent} from './Pages/info/info.component';
 
 export const routes: Routes = [
   {
@@ -19,6 +21,8 @@ export const routes: Routes = [
       { path: 'systems', component: SystemNavComponent },
       { path: 'sound', component: SoundNavComponent },
       { path: 'campaign/:campaignId', component: CampaignNavComponent },
+      { path: 'settings', component: SettingsComponent},
+      { path: 'info', component: InfoComponent },
     ],
   },
 ];
