@@ -5,7 +5,7 @@
       <div class="flex flex-row items-center">
         <h1>{{ campaign.campaignName }}</h1>
         <span class="material-icons cursor-pointer select-none"
-          >keyboard_arrow_down</span
+        >keyboard_arrow_down</span
         >
       </div>
       <p class="line-clamp-2 text-sm text-gray-400">
@@ -16,31 +16,37 @@
     <div class="flex flex-col gap-2">
       <!-- Notes -->
       <div class="flex flex-col">
-        <div class="flex flex-row items-center justify-between">
-          <div class="flex flex-row items-center gap-1">
+        <div class="flex flex-row items-center justify-between rounded-xl bg-gray-100 hover:bg-gray-200 transition-all duration-200 p-2 my-2:w
+">
+          <div class="flex flex-row items-center gap-1 cursor-pointer" (click)="pagesHidden = !pagesHidden">
             <span class="material-symbols-outlined sm">sticky_note_2</span>
             <p>Notes</p>
           </div>
-          <span class="material-icons">add</span>
+          <div class="flex items-center cursor-pointer {{pagesHidden?'hidden':''}}">
+            <span class="material-icons">add</span>
+          </div>
         </div>
         <!-- Page Render -->
-        <ul class="flex flex-col pl-5 truncate">
-          @for(item of campaign.campaignPages; track item){
-          <li>
-            <div class="flex flex-row items-center justify-between">
-              <p>{{ item.pageTitle }}</p>
-              <span class="material-icons cursor-pointer select-none">{{
-                item.pageActive === true
-                  ? "keyboard_arrow_down"
-                  : "keyboard_arrow_right"
-              }}</span>
-            </div>
-            <div class="ml-4 truncate">
-              @for(notes of item.pageNotes; track notes){
-              {{ notes.noteTitle }}
-              }
-            </div>
-          </li>
+        <ul class="flex flex-col pl-5 truncate {{ pagesHidden?'hidden ':''}}">
+          @for (item of campaign.campaignPages; track item) {
+            <li>
+              <div
+                class="flex flex-row items-center justify-between border border-transparent border-b-gray-300 p-1 my-2 hover:border-gray-300 hover:rounded-xl transition-all duration-200">
+                <p>{{ item.pageTitle }}</p>
+                <span class="material-icons cursor-pointer select-none" (click)="item.pageActive = !item.pageActive">{{
+                    item.pageActive
+                      ? "keyboard_arrow_down"
+                      : "keyboard_arrow_right"
+                  }}</span>
+              </div>
+              <div class="ml-4 truncate {{item.pageActive?'':'hidden'}}">
+                @for (notes of item.pageNotes; track notes) {
+                  <div class="border border-transparent cursor-pointer select-none border-l-gray-300 px-2 hover:hover:border-l-transparent hover:border-b-gray-300 transition-all duration-500">
+                    {{ notes.noteTitle }}
+                  </div>
+                }
+              </div>
+            </li>
           }
         </ul>
       </div>

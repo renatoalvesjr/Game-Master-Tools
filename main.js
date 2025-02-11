@@ -1,8 +1,18 @@
-const { app, shell, ipcMain, BrowserWindow } = require("electron");
+const {app, shell, ipcMain, BrowserWindow} = require("electron");
 const url = require("url");
 const path = require("path");
 
 let appWindow;
+
+async function handleFileOpen() {
+  const { canceled, filePaths } = await require('electron').dialog.showOpenDialog({
+    properties: ['openFile']
+  });
+  if (!canceled && filePaths.length > 0) {
+    console.log(filePaths)
+    return filePaths[0];
+  }
+}
 
 function initWindow() {
   appWindow = new BrowserWindow({
@@ -10,8 +20,10 @@ function initWindow() {
     width: 1280,
     height: 720,
     webPreferences: {
-      preload: path.join(__dirname, "preload.js"),
-      nodeIntegration: true,
+      nodeIntegration: false,
+      contextIsolation: true,
+      enableRemoteModule: false,
+      preload: path.join(__dirname, "preload.js")
     },
   });
   appWindow.loadURL(
@@ -36,10 +48,6 @@ function initWindow() {
   });
 }
 
-ipcMain.on("open-external-link", (_event, url) => {
-  shell.openExternal(url);
-});
-
 app.on("ready", initWindow);
 
 app.on("window-all-closed", () => {
@@ -48,8 +56,9 @@ app.on("window-all-closed", () => {
   }
 });
 
-app.on("activate", () => {
-  if (appWindow === null) {
-    initWindow();
-  }
-});
+app.whenReady().then(() => {
+  ipcMain.handle('openFile', handleFileOpen)
+  app.on('activate', function () {
+    if (BrowserWindow.getAllWindows().length === 0) initWindow()
+  })
+})

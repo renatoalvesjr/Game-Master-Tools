@@ -1,5 +1,5 @@
 declare interface Window {
   electronAPI: {
-    openExternal: (url: string) => void;
+    openFile: () => string;
   };
 }

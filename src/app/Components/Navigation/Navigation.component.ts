@@ -16,6 +16,7 @@ import { SystemNavComponent } from '../SystemNavs/SystemNav/SystemNav.component'
 import { CampaignService } from '../../Services/campaign.service';
 import { Campaign } from '../../Interfaces/Campaign.interface';
 import {DividerComponent} from '../divider/divider.component';
+import {WindowRef} from '../../Services/window.service';
 
 interface SystemNavList {
   name: string;
@@ -36,6 +37,10 @@ export class NavigationComponent implements OnInit {
   route = inject(ActivatedRoute);
   router = inject(Router);
   campaignService = inject(CampaignService);
+  windowRef = inject(WindowRef);
+
+  private window: any;
+
 
   campaignList: Campaign[] = this.campaignService.getCampaigns();
 
@@ -86,7 +91,15 @@ export class NavigationComponent implements OnInit {
     this.subHidden = !this.subHidden;
     console.log('to ' + this.subHidden);
   }
-  constructor() {}
+  constructor() {
+    this.window = this.windowRef.nativeWindow;
+  }
 
   ngOnInit() {}
+
+
+  openFile(){
+    const path = this.window.electronAPI.openFile();
+    console.log(path);
+  }
 }
