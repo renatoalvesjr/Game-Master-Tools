@@ -1,31 +1,28 @@
-<div class="flex flex-col w-full max-w-full">
-  {{ content }}
+<div class="flex flex-col max-h-full overflow-y-auto">
   <!-- Toolbar -->
-  <div
-    class="flex flex-row flex-wrap space-2 border-b border-[#E1E1E2] overflow-y-auto"
-  >
+  <div class="flex flex-row flex-wrap space-2 border-b border-[#E1E1E2]">
     <!-- History -->
     <div class="flex flex-row border-r border-[#E1E1E2] px-2 my-2">
       <button
         title="Undo"
-        class="rounded-md flex items-center p-1 borderborder-[#ececec] active:bg-[#16404D] active:text-[#A6CDC6]"
+        class="rounded-md flex items-center p-1 active:bg-[#16404D] active:text-[#A6CDC6]"
         (click)="editor.chain().focus().undo().run()"
       >
-        <span class="material-icons">undo</span>
+        <img src="icons/undo.svg" alt="">
       </button>
       <button
         title="Redo"
-        class="rounded-md flex items-center p-1 borderborder-[#ececec] active:bg-[#16404D] active:text-[#A6CDC6]"
+        class="rounded-md flex items-center p-1 active:bg-[#16404D] active:text-[#A6CDC6]"
         (click)="editor.chain().focus().redo().run()"
       >
-        <span class="material-icons">redo</span>
+        <img src="icons/redo.svg" alt="">
       </button>
       <button
         title="Clear Format"
-        class="rounded-md flex items-center p-1 borderborder-[#ececec] active:bg-[#16404D] active:text-[#A6CDC6]"
+        class="rounded-md flex items-center p-1 active:bg-[#16404D] active:text-[#A6CDC6]"
         (click)="editor.chain().focus().clearNodes().unsetAllMarks().run()"
       >
-        <span class="material-icons">format_clear</span>
+        <img src="icons/format_clear.svg" alt="">
       </button>
     </div>
 
@@ -44,10 +41,16 @@
             : 'paragraph'
         "
       >
-        <option value="heading1">Title 1</option>
+        <option value="heading1">
+          <img src="icons/format_h1.svg" alt="">
+          Title 1
+        </option>
         <option value="heading2">Title 2</option>
         <option value="heading3">Title 3</option>
-        <option value="paragraph">Paragraph</option>
+        <option value="paragraph">
+          <img src="icons/format_paragraph.svg" alt="">
+          Paragraph
+        </option>
       </select>
     </div>
 
@@ -82,12 +85,12 @@
               .run()
           "
         >
-          <span class="material-icons">remove</span>
+          <img src="icons/remove.svg" alt="">
         </button>
         <input
-          type="string"
+          type="text"
           class="w-12 mx-2 text-center"
-          [value]="editor.getAttributes('textStyle')['fontSize'] || '16pt'"
+          [value]="editor.getAttributes('textStyle')['fontSize'] || '12pt'"
           (change)="
             editor
               .chain()
@@ -110,7 +113,7 @@
               .run()
           "
         >
-          <span class="material-icons">add</span>
+          <img src="icons/add.svg" alt="">
         </button>
       </div>
     </div>
@@ -124,7 +127,7 @@
         }} rounded-md flex items-center p-1 cursor-pointer"
         (click)="editor.chain().focus().toggleBold().run()"
       >
-        <span class="material-icons">format_bold</span>
+        <img src="icons/format_bold.svg" alt="">
       </button>
       <button
         title="Italic"
@@ -135,7 +138,7 @@
         }} rounded-md flex items-center p-1 cursor-pointer"
         (click)="editor.chain().focus().toggleItalic().run()"
       >
-        <span class="material-icons">format_italic</span>
+        <img src="icons/format_italic.svg" alt="">
       </button>
 
       <button
@@ -147,7 +150,7 @@
         }} rounded-md flex items-center p-1 cursor-pointer"
         (click)="editor.chain().focus().toggleUnderline().run()"
       >
-        <span class="material-icons">format_underlined</span>
+        <img src="icons/format_underlined.svg" alt="">
       </button>
       <button
         title="Superscript"
@@ -158,7 +161,7 @@
         }} rounded-md flex items-center p-1 cursor-pointer"
         (click)="editor.chain().focus().toggleSuperscript().run()"
       >
-        <span class="material-icons">superscript</span>
+        <img src="icons/superscript.svg" alt="">
       </button>
       <button
         title="Subscript"
@@ -169,7 +172,7 @@
         }} rounded-md flex items-center p-1 cursor-pointer"
         (click)="editor.chain().focus().toggleSubscript().run()"
       >
-        <span class="material-icons">subscript</span>
+        <img src="icons/subscript.svg" alt="">
       </button>
       <button
         title="Highlight"
@@ -180,7 +183,7 @@
         }} rounded-md flex items-center p-1 cursor-pointer"
         (click)="editor.chain().focus().toggleHighlight().run()"
       >
-        <span class="material-symbols-outlined"> format_ink_highlighter </span>
+        <img src="icons/format_ink_highlighter.svg" alt="">
       </button>
       <div class="flex flex-row px-2 items-center">
         <div
@@ -210,7 +213,7 @@
         }} rounded-md flex items-center p-1"
         (click)="toggleLink()"
       >
-        <span class="material-icons">link</span>
+        <img src="icons/link.svg" alt="">
       </button>
       <button
         title="Image"
@@ -219,7 +222,7 @@
         }} rounded-md flex items-center p-1"
         (click)="addImage()"
       >
-        <span class="material-icons">image</span>
+        <img src="icons/image.svg" alt="">
       </button>
     </div>
 
@@ -234,7 +237,7 @@
         }} rounded-md cursor-pointer flex items-center p-1"
         (click)="editor.chain().focus().toggleBulletList().run()"
       >
-        <span class="material-icons">format_list_bulleted</span>
+        <img src="icons/format_list_bulleted.svg" alt="">
       </button>
       <button
         title="Ordered List"
@@ -245,7 +248,7 @@
         }} rounded-md cursor-pointer flex items-center p-1"
         (click)="editor.chain().focus().toggleOrderedList().run()"
       >
-        <span class="material-icons">format_list_numbered</span>
+        <img src="icons/format_list_numbered.svg" alt="">
       </button>
       <button
         title="Task List"
@@ -256,7 +259,7 @@
         }} rounded-md cursor-pointer flex items-center p-1 "
         (click)="editor.chain().focus().toggleTaskList().run()"
       >
-        <span class="material-icons">checklist</span>
+        <img src="icons/checklist.svg" alt="">
       </button>
     </div>
 
@@ -271,7 +274,7 @@
         }}  rounded-md cursor-pointer flex items-center p-1"
         (click)="editor.chain().focus().setTextAlign('left').run()"
       >
-        <span class="material-icons">format_align_left</span>
+        <img src="icons/format_align_left.svg" alt="">
       </button>
       <button
         title="Align Center"
@@ -282,7 +285,7 @@
         }}  rounded-md cursor-pointer flex items-center p-1"
         (click)="editor.chain().focus().setTextAlign('center').run()"
       >
-        <span class="material-icons">format_align_center</span>
+        <img src="icons/format_align_center.svg" alt="">
       </button>
       <button
         title="Align Right"
@@ -293,7 +296,7 @@
         }}  rounded-md cursor-pointer flex items-center p-1"
         (click)="editor.chain().focus().setTextAlign('right').run()"
       >
-        <span class="material-icons">format_align_right</span>
+        <img src="icons/format_align_right.svg" alt="">
       </button>
       <button
         title="Justify"
@@ -304,7 +307,7 @@
         }}  rounded-md cursor-pointer flex items-center p-1"
         (click)="editor.chain().focus().setTextAlign('justify').run()"
       >
-        <span class="material-icons">format_align_justify</span>
+        <img src="icons/format_align_justify.svg" alt="">
       </button>
     </div>
 
@@ -314,17 +317,16 @@
         title="Save"
         class="rounded-md flex items-center p-1 active:bg-[#586671] active:text-white"
       >
-        <span class="material-icons">save</span>
+        <img src="icons/save.svg" alt="">
       </button>
     </div>
   </div>
-
-  <!-- Editor -->
-  <div class="flex w-full max-w-full max-h-full">
+  <!--  Editor-->
+  <div class="flex max-h-full overflow-auto">
     <tiptap-editor
       [editor]="editor"
       [(ngModel)]="content"
-      class="w-full max-h-full m-2 outline-none active:border-none"
+      class="max-h-full m-2 "
     ></tiptap-editor>
   </div>
 </div>

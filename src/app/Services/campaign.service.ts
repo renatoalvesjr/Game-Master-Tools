@@ -1,20 +1,36 @@
-import { Injectable } from '@angular/core';
-import { Campaign } from '../Interfaces/Campaign.interface';
+import {Injectable} from '@angular/core';
+import {Campaign} from '../Interfaces/Campaign.interface';
 import campaignList from '../Tests/campaignList.json';
+import {Note} from '../Interfaces/Note.interface';
+import {Page} from '../Interfaces/Page.interface';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CampaignService {
   campaignList = JSON.parse(JSON.stringify(campaignList)) as Campaign[];
-  getCampaigns(): Campaign[] {
-    return campaignList;
+
+  async getCampaigns(): Promise<Campaign[]> {
+    return this.campaignList;
   }
   getCampaignById(campaignId: string): Campaign {
     return campaignList.find(
-      (campaign) => campaign.campaignId === campaignId
+      (campaign: Campaign): boolean => campaign.campaignId === campaignId
     ) as Campaign;
   }
 
+  getPageById(campaignId: string, pageId: string): Page{
+    return this.getCampaignById(campaignId)!.campaignPages!.find(
+      (page: Page): boolean => page.pageId === pageId
+    )! as Page;
+  }
+  getNoteById(campaignId: string, pageId: string, noteId: string): Note{
+    console.log('campaignId: ' + campaignId);
+    return this.getPageById(campaignId, pageId).pageNotes.find(
+      (note: Note): boolean => note.noteId === noteId
+    ) as Note;
+  }
+
   updateCampaignnotes() {}
+
 }

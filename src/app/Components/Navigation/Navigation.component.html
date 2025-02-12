@@ -1,60 +1,64 @@
-<div class="flex flex-row h-screen w-full">
+<div class="flex flex-row h-full min-w-fit w-full select-none">
   <div class="flex flex-col justify-between h-full min-w-14 max-w-24 border-r border-[#E1E1E1]">
-      <ul class="flex flex-col items-center py-4 gap-4 justify-items-center">
-        @for (item of campaignList; track item) {
-          <div
-            routerLink="/campaign/{{ item.campaignId }}"
-            routerLinkActive="campaignLink"
-            class="flex self-center w-7 transition-all ease-in duration-150 cursor-pointer select-none"
-          >
-            <img
-              class="self-center"
-              src="{{ item.campaignImageUrl }}"
-              alt=""
-            />
-          </div>
-        }
-        <div>
-                <span
-                  class="material-symbols-outlined hover:text-black {{
+    <ul class="flex flex-col items-center pt-4 gap-4 justify-items-center">
+      @for (item of campaignList; track item) {
+        <div
+          routerLink="/campaign/{{ item.campaignId }}"
+          routerLinkActive="shadow-sm rounded-lg"
+          class="flex min-w-10 mx-5 p-2 self-center transition-all ease-in duration-300 cursor-pointer select-none"
+          title="{{ item.campaignName }}"
+        >
+          <img
+            class="self-center rounded-md"
+            src="{{ item.campaignImageUrl }}"
+            alt=""
+          />
+        </div>
+      }
+      <img
+        src="icons/add.svg"
+        (click)="openFile()"
+        title="Create New Campaign"
+        class="image-gray-400 scale-125 hover:scale-150{{
                     campaignList.length === 0
                       ? 'border-2 rounded-md border-dashed'
                       : ''
-                  }} text-gray-400 lg transition-all ease-in duration-300 cursor-pointer"
-                  (click)="openFile()"
-                >add</span
-                >
-        </div>
-      </ul>
-      <divider></divider>
-      <div class="flex flex-col items-center">
-        <div class="flex flex-col w-full items-center gap-4">
-          @for (item of navList; track item) {
-            <div
-              class="flex flex-col cursor-pointer hover:text-black text-gray-400 transition-all ease-in duration-300 justify-center items-center gap-1 text-center"
-              routerLink="/{{ item.route }}"
-              routerLinkActive="activelink"
-              [routerLinkActiveOptions]="{ exact: true }"
-            >
-              <span class="{{ item.iconType }}">{{ item.icon }}</span>
-              <p class="flex flex-col text-wrap">{{ item.name }}</p>
-            </div>
-          }
-        </div>
+                  }} text-gray-400 lg transition-all ease-in duration-300 cursor-pointer" alt="">
+    </ul>
+    <divider></divider>
+    <div class="flex flex-col items-center ">
+      <div class="flex flex-col w-full items-center gap-4">
+        @for (item of navList; track item) {
+          <div
+            class="flex flex-col cursor-pointer image-gray-400 transition-all ease-in duration-300 justify-center items-center gap-1 text-center"
+            routerLink="/{{ item.route }}"
+            routerLinkActive="image-black"
+            [routerLinkActiveOptions]="{ exact: true }"
+          >
+            <img src="icons/{{item.icon}}.svg" class="" alt="">
+            <p class="flex flex-col text-wrap text-sm">{{ item.name }}</p>
+          </div>
+        }
       </div>
-      <divider></divider>
-      <div class="flex flex-col items-center py-2 gap-4">
-        <div class="text-gray-400 hover:text-black hover:scale-110 transition-all duration-200 cursor-pointer"
-             routerLink="/settings"
-             routerLinkActive="activeLink">
-          <span class="material-symbols-outlined ">settings</span>
-        </div>
-        <div class="text-gray-400 hover:text-black hover:scale-110 transition-all duration-200 cursor-pointer"
-             routerLink="/info"
-             routerLinkActive="activelink">
-          <span class="material-symbols-outlined">info</span>
-        </div>
+    </div>
+    <divider></divider>
+    <div class="flex flex-col items-center py-2 gap-4">
+      <div class="image-gray-400 hover:scale-110 transition-all duration-300 cursor-pointer"
+           routerLink="/settings"
+           routerLinkActive="image-black">
+        <img src="icons/settings.svg" alt="">
       </div>
+      <div class="text-gray-400 hover:text-black hover:scale-110 transition-all duration-300 cursor-pointer"
+           routerLink="/info"
+           routerLinkActive="activelink">
+        <span class="material-symbols-outlined">info</span>
+      </div>
+      <div class="hover:scale-110 image-red-500 transition-all duration-300 cursor-pointer"
+           routerLink="/"
+           routerLinkActive="">
+        <img src="icons/keyboard_return.svg" alt="">
+      </div>
+    </div>
   </div>
   <div class="flex w-full">
     <router-outlet></router-outlet>

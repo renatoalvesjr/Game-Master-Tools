@@ -1,22 +1,11 @@
 import {Component, inject, OnInit} from '@angular/core';
-import {MButtonComponent} from '../Buttons/m-button/m-button.component';
 import {CommonModule} from '@angular/common';
-import {NoteEditorComponent} from '../Editor/Editor.component';
-import {
-  ActivatedRoute,
-  Router,
-  RouterLink,
-  RouterLinkActive,
-  RouterOutlet,
-} from '@angular/router';
-import {CampaignNavComponent} from '../SystemNavs/CampaignNav/CampaignNav.component';
-import {ItemsNavComponent} from '../SystemNavs/ItemsNav/ItemsNav.component';
-import {SoundNavComponent} from '../SystemNavs/SoundNav/SoundNav.component';
-import {SystemNavComponent} from '../SystemNavs/SystemNav/SystemNav.component';
+import {ActivatedRoute, Router, RouterLink, RouterLinkActive, RouterOutlet,} from '@angular/router';
 import {CampaignService} from '../../Services/campaign.service';
 import {Campaign} from '../../Interfaces/Campaign.interface';
 import {DividerComponent} from '../divider/divider.component';
 import {WindowRef} from '../../Services/window.service';
+import {UtilsService} from '../../Services/utils.service';
 
 interface SystemNavList {
   name: string;
@@ -26,6 +15,7 @@ interface SystemNavList {
   active: boolean;
 }
 
+// noinspection ExceptionCaughtLocallyJS
 @Component({
   selector: 'app-Navigation',
   templateUrl: './Navigation.component.html',
@@ -41,8 +31,7 @@ export class NavigationComponent implements OnInit {
 
   private window: any;
 
-
-  campaignList: Campaign[] = this.campaignService.getCampaigns();
+  campaignList: Campaign[] = [];
 
   subHidden: boolean = false;
 
@@ -82,7 +71,7 @@ export class NavigationComponent implements OnInit {
   navigate(system: SystemNavList) {
     this.navList.forEach((nav) => (nav.active = false));
     system.active = true;
-    this.router.navigate([system.route]);
+    this.router.navigate([system.route]).then();
   }
 
   toggleSubmenu() {
@@ -94,17 +83,18 @@ export class NavigationComponent implements OnInit {
 
   constructor() {
     this.window = this.windowRef.nativeWindow;
+    this.campaignService.getCampaigns().then(campaigns => this.campaignList = campaigns);
   }
 
   ngOnInit() {
   }
-
-
+  utils = inject(UtilsService)
   async openFile() {
+
+    console.log(this.utils.getTimeNow());
     const path = this.window.electronAPI.openFile();
 
-    this.readFileContent(await path).then(r => {
-    });
+    this.readFileContent(await path).then();
   }
 
   async readFileContent(filePath: string) {

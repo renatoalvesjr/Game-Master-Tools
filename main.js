@@ -1,4 +1,4 @@
-const {app, shell, ipcMain, BrowserWindow} = require("electron");
+const {app,ipcMain, BrowserWindow} = require("electron");
 const url = require("url");
 const path = require("path");
 
@@ -35,7 +35,7 @@ function initWindow() {
       protocol: "file",
       slashes: true,
     })
-  );
+  ).then();
 
   appWindow.maximize();
 

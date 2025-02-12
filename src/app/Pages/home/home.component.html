@@ -1,0 +1,21 @@
+<div class="flex flex-row items-center justify-center w-screen h-full fixed ">
+  <div class="flex flex-col rounded-xl p-4">
+    <h1 class="text-center mb-10">Game Master Tools</h1>
+    <div class="flex flex-col">
+      <div class="text-gray-400">
+        <p class="">Recent campaigns...</p>
+        @for (item of campaignList; track item) {
+          <p
+            class="underline my-2 cursor-pointer hover:text-black transition-all duration-300 truncate"
+            routerLink="campaign/{{item.campaignId}}"
+            title="{{item.campaignName}}"
+          >{{ item.campaignName }}</p>
+        }
+      </div>
+      <div class="flex flex-col justify-center w-fit items-center self-center my-4 image-gray-400 transition-all duration-500 cursor-pointer">
+        <img src="icons/add.svg" class="scale-200" alt="">
+        <p>Create New Campaign</p>
+      </div>
+    </div>
+  </div>
+</div>

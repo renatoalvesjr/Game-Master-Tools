@@ -1,13 +1,13 @@
 @use "@angular/material" as mat;
 
 $theme: mat.define-theme(
-  (
-    color: (
-      theme-type: light,
-      primary: mat.$blue-palette,
-      tertiary: mat.$magenta-palette,
-    ),
-  )
+    (
+      color: (
+        theme-type: light,
+        primary: mat.$blue-palette,
+        tertiary: mat.$magenta-palette,
+      ),
+    )
 );
 
 body {
@@ -54,10 +54,32 @@ html {
   outline: none;
 }
 
+.image-gray-400 {
+  filter: invert(73%) sepia(7%) saturate(566%) hue-rotate(180deg) brightness(88%) contrast(88%);
+}
+
+.image-gray-400:hover {
+  filter: invert(0%) sepia(4%) saturate(7483%) hue-rotate(191deg) brightness(101%) contrast(105%);
+}
+
+.image-black {
+  filter: invert(0%) sepia(4%) saturate(7483%) hue-rotate(191deg) brightness(101%) contrast(105%);
+}
+
+image-red-500 {
+
+}
+
+.image-red-500:hover {
+  filter: invert(37%) sepia(71%) saturate(6391%) hue-rotate(341deg) brightness(102%) contrast(104%);
+
+}
+
 .ProseMirror ul {
   padding-left: 1rem;
   list-style: initial !important;
 }
+
 .ProseMirror ul[data-type="taskList"] {
   list-style: none !important;
   padding: 0;
@@ -76,6 +98,7 @@ html {
       flex: 1 1 auto;
     }
   }
+
   input[type="checkbox"] {
     cursor: pointer;
   }
@@ -97,9 +120,11 @@ html {
 h1 {
   font-size: 1.5rem;
 }
+
 h2 {
   font-size: 1.25rem;
 }
+
 h3 {
   font-size: 1.125rem;
 }
@@ -117,6 +142,7 @@ h3 {
   white-space: nowrap;
   direction: ltr;
 }
+
 .material-symbols-outlined.sm {
   font-family: "Material Symbols Outlined";
   font-weight: normal;
@@ -136,6 +162,34 @@ h3 {
   font-weight: normal;
   font-style: normal;
   font-size: 36px; /* Preferred icon size */
+  display: inline-block;
+  line-height: 1;
+  text-transform: none;
+  letter-spacing: normal;
+  word-wrap: normal;
+  white-space: nowrap;
+  direction: ltr;
+}
+
+.material-icons {
+  font-family: "Material Symbols Outlined";
+  font-weight: normal;
+  font-style: normal;
+  font-size: 24px; /* Preferred icon size */
+  display: inline-block;
+  line-height: 1;
+  text-transform: none;
+  letter-spacing: normal;
+  word-wrap: normal;
+  white-space: nowrap;
+  direction: ltr;
+}
+
+.material-symbols-outlined.xl {
+  font-family: "Material Symbols Outlined";
+  font-weight: normal;
+  font-style: normal;
+  font-size: 64px; /* Preferred icon size */
   display: inline-block;
   line-height: 1;
   text-transform: none;

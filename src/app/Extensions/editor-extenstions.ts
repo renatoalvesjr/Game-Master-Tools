@@ -28,7 +28,6 @@ import { Color as ColorExtension } from '@tiptap/extension-color';
 import ListKeymap from '@tiptap/extension-list-keymap';
 import FontFamily from '@tiptap/extension-font-family';
 import FontSize from 'tiptap-extension-font-size';
-import { ElectronService } from '../Services/electron.service';
 
 const LiteralTab = Extension.create({
   name: 'literalTab',
@@ -54,7 +53,6 @@ export const fonts: FontList[] = [
   { name: 'Courier New', value: 'Courier New' },
 ];
 
-const es = ElectronService;
 
 export const extensions = [
   Document,

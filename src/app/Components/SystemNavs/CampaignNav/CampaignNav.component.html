@@ -1,9 +1,9 @@
-<div class="flex flex-row w-screen fixed h-full">
-  <div class="flex flex-col h-full max-w-64 p-2 border-r border-gray-200">
+<div class="flex flex-row w-full h-full">
+  <div class="flex flex-col h-full min-w-48 w-64 p-2 border-r border-gray-200">
     <!-- Campaign title + description + campaign config menu -->
     <div class="mb-4">
-      <div class="flex flex-row items-center">
-        <h1>{{ campaign.campaignName }}</h1>
+      <div class="flex flex-row items-center ">
+        <h1 class="line-clamp-2">{{ campaign.campaignName }}</h1>
         <span class="material-icons cursor-pointer select-none"
         >keyboard_arrow_down</span
         >
@@ -16,8 +16,7 @@
     <div class="flex flex-col gap-2">
       <!-- Notes -->
       <div class="flex flex-col">
-        <div class="flex flex-row items-center justify-between rounded-xl bg-gray-100 hover:bg-gray-200 transition-all duration-200 p-2 my-2:w
-">
+        <div class="flex flex-row items-center justify-between rounded-xl bg-gray-100 hover:bg-gray-200 transition-all duration-300 p-2 my-2">
           <div class="flex flex-row items-center gap-1 cursor-pointer" (click)="pagesHidden = !pagesHidden">
             <span class="material-symbols-outlined sm">sticky_note_2</span>
             <p>Notes</p>
@@ -31,7 +30,7 @@
           @for (item of campaign.campaignPages; track item) {
             <li>
               <div
-                class="flex flex-row items-center justify-between border border-transparent border-b-gray-300 p-1 my-2 hover:border-gray-300 hover:rounded-xl transition-all duration-200">
+                class="flex flex-row items-center justify-between border border-transparent border-b-gray-300 p-1 my-2 hover:border-gray-300 hover:rounded-xl transition-all duration-300">
                 <p>{{ item.pageTitle }}</p>
                 <span class="material-icons cursor-pointer select-none" (click)="item.pageActive = !item.pageActive">{{
                     item.pageActive
@@ -41,7 +40,11 @@
               </div>
               <div class="ml-4 truncate {{item.pageActive?'':'hidden'}}">
                 @for (notes of item.pageNotes; track notes) {
-                  <div class="border border-transparent cursor-pointer select-none border-l-gray-300 px-2 hover:hover:border-l-transparent hover:border-b-gray-300 transition-all duration-500">
+                  <div
+                    class="my-1 border border-transparent cursor-pointer select-none border-r-gray-300 text-end px-2 mr-2 hover:hover:border-l-transparent hover:border-b-gray-500 hover:border-r-gray-500 transition-all duration-300"
+                    (click)="goToNote(item.pageId, notes.noteId)"
+                    id="{{notes.noteId}}"
+                  >
                     {{ notes.noteTitle }}
                   </div>
                 }
@@ -52,16 +55,50 @@
       </div>
 
       <!-- Maps -->
-      <div>Mapas</div>
+      <div class="flex flex-col">
+        <div
+          class="flex flex-row items-center justify-between rounded-xl bg-gray-100 hover:bg-gray-200 transition-all duration-300 p-2 my-2">
+          <div class="flex flex-row items-center gap-1 cursor-pointer" (click)="mapsHidden = !mapsHidden">
+            <span class="material-symbols-outlined sm">map</span>
+            <p>Maps</p>
+          </div>
+          <div class="flex items-center cursor-pointer {{mapsHidden?'hidden':''}}">
+            <span class="material-icons">add</span>
+          </div>
+        </div>
+      </div>
 
       <!-- Items -->
-      <div>Itens</div>
+      <div class="flex flex-col">
+        <div
+          class="flex flex-row items-center justify-between rounded-xl bg-gray-100 hover:bg-gray-200 transition-all duration-300 p-2 my-2">
+          <div class="flex flex-row items-center gap-1 cursor-pointer" (click)="itemsHidden = !itemsHidden">
+            <span class="material-symbols-outlined sm">sword_rose</span>
+            <p>Itens</p>
+          </div>
+          <div class="flex items-center cursor-pointer {{itemsHidden?'hidden':''}}">
+            <span class="material-icons">add</span>
+          </div>
+        </div>
+      </div>
 
       <!-- Creatures -->
-      <div>Criaturas/Personagens</div>
+      <div class="flex flex-col">
+        <div
+          class="flex flex-row items-center justify-between rounded-xl bg-gray-100 hover:bg-gray-200 transition-all duration-300 p-2 my-2">
+          <div class="flex flex-row items-center gap-1 cursor-pointer" (click)="creaturesHidden = !creaturesHidden">
+            <span class="material-symbols-outlined sm">sports_martial_arts</span>
+            <p>Creatures</p>
+          </div>
+          <div class="flex items-center cursor-pointer {{creaturesHidden?'hidden':''}}">
+            <span class="material-symbols-outlined">add</span>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
-  <div class="w-full p-4">
-    <app-note-editor></app-note-editor>
+
+  <div class="h-full">
+    <router-outlet></router-outlet>
   </div>
 </div>

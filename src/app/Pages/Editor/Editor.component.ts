@@ -1,26 +1,24 @@
-import { FontFamily } from './../../../../node_modules/@tiptap/extension-font-family/src/font-family';
-import { Editor as Tiptap, Extension } from '@tiptap/core';
-import { NgxTiptapModule } from 'ngx-tiptap';
+import {Editor as Tiptap, Extension} from '@tiptap/core';
+import {NgxTiptapModule} from 'ngx-tiptap';
 import {
   Component,
   inject,
-  Input,
   OnDestroy,
   OnInit,
-  signal,
 } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MatSelectModule } from '@angular/material/select';
-import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
-import { Note } from '../../Interfaces/Note.interface';
-import { MatDialog, MatDialogModule } from '@angular/material/dialog';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { MatButtonModule } from '@angular/material/button';
-import { extensions, fonts } from '../../Extensions/editor-extenstions';
-import { InsertionModalComponent } from '../InsertionModal/InsertionModal.component';
-import { ElectronService } from '../../Services/electron.service';
+import {CommonModule} from '@angular/common';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {MatSelectModule} from '@angular/material/select';
+import {ActivatedRoute} from '@angular/router';
+import {Note} from '../../Interfaces/Note.interface';
+import {MatDialog, MatDialogModule} from '@angular/material/dialog';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatInputModule} from '@angular/material/input';
+import {MatButtonModule} from '@angular/material/button';
+import {extensions, fonts} from '../../Extensions/editor-extenstions';
+import {InsertionModalComponent} from '../../Components/InsertionModal/InsertionModal.component';
+import {ElectronService} from '../../Services/electron.service';
+import {CampaignService} from '../../Services/campaign.service';
 
 @Component({
   selector: 'app-note-editor',
@@ -41,28 +39,34 @@ import { ElectronService } from '../../Services/electron.service';
 })
 export class NoteEditorComponent implements OnDestroy, OnInit {
   es = inject(ElectronService);
-  @Input() content = '<p></p>';
-  @Input() noteId = '';
+  route = inject(ActivatedRoute);
+  dialog = inject(MatDialog);
+  campaignService = inject(CampaignService);
+  content = '<p>Standard</p>';
+  campaignId: string;
+  pageId: string = this.route.snapshot.paramMap.get('pageId')!;
+  noteId: string = this.route.snapshot.paramMap.get('noteId')!;
+  note!: Note;
   fontList = fonts;
-  note = {} as Note;
   url = '';
 
-  constructor(
-    private route: ActivatedRoute,
-    private router: Router,
-    private dialog: MatDialog
-  ) {
-    this.noteId = this.route.snapshot.paramMap.get('noteId')!;
+  constructor() {
+    this.campaignId = this.route.parent?.snapshot.paramMap.get('campaignId')!;
+    console.log('route: ' + this.route.parent?.snapshot.paramMap.keys +','+ this.route.snapshot.paramMap.keys)
+    this.note = this.campaignService.getNoteById(this.campaignId, this.pageId, this.noteId)
+    console.log(this.note.noteTitle)
     this.content = this.note.noteContent;
   }
 
   ngOnInit() {
+    console.log('route: ' + this.route.parent?.snapshot.paramMap.keys +','+ this.route.snapshot.paramMap.keys)
+    this.campaignId = this.route.parent?.snapshot.paramMap.get('campaignId')!;
     this.noteId = this.route.snapshot.paramMap.get('noteId')!;
-    this.content = this.note.noteContent;
-
+    this.note = this.campaignService.getNoteById(this.campaignId, this.pageId, this.noteId)
     this.editor.on('update', () => {
       this.onEditorUpdate();
     });
+    this.content = this.note.noteContent;
   }
 
   private typingTimeout: any;
@@ -70,7 +74,7 @@ export class NoteEditorComponent implements OnDestroy, OnInit {
   onEditorUpdate() {
     clearTimeout(this.typingTimeout);
     this.typingTimeout = setTimeout(() => {
-      this.saveNote();
+      this.saveNote().then()
     }, 3000);
   }
 
@@ -105,7 +109,7 @@ export class NoteEditorComponent implements OnDestroy, OnInit {
   openDialog(oldUrl: string): Promise<string> {
     return new Promise((resolve) => {
       const dialogRef = this.dialog.open(InsertionModalComponent, {
-        data: { url: oldUrl || '' },
+        data: {url: oldUrl || ''},
       });
 
       dialogRef.afterClosed().subscribe((result) => {
@@ -143,7 +147,7 @@ export class NoteEditorComponent implements OnDestroy, OnInit {
       .chain()
       .focus()
       .extendMarkRange('link')
-      .setLink({ href: this.url })
+      .setLink({href: this.url})
       .run();
   }
 
@@ -152,11 +156,11 @@ export class NoteEditorComponent implements OnDestroy, OnInit {
    * If the user provides a valid URL, the image is added at the current cursor position.
    */
   async addImage(): Promise<void> {
-    this.openDialog('');
+    await this.openDialog('');
     const url = this.url;
 
     if (url) {
-      this.editor.chain().focus().setImage({ src: url }).run();
+      this.editor.chain().focus().setImage({src: url}).run();
     }
   }
 
@@ -169,7 +173,8 @@ export class NoteEditorComponent implements OnDestroy, OnInit {
    * This method retrieves the HTML content from the editor, updates the note content in the service,
    * and then refreshes the note content on the screen.
    */
-  async saveNote() {}
+  async saveNote() {
+  }
 
   onHeadingChange(event: Event): void {
     const target = event.target as HTMLSelectElement;
@@ -184,7 +189,7 @@ export class NoteEditorComponent implements OnDestroy, OnInit {
       this.editor
         .chain()
         .focus()
-        .setHeading({ level: level as any })
+        .setHeading({level: level as any})
         .run();
     }
   }
