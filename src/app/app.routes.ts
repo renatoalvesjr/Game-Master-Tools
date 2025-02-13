@@ -1,4 +1,4 @@
-import {Routes} from '@angular/router';
+import {provideRouter, Routes, withDebugTracing, withRouterConfig} from '@angular/router';
 import {NavigationComponent} from './Components/Navigation/Navigation.component';
 import {CampaignNavComponent} from './Components/SystemNavs/CampaignNav/CampaignNav.component';
 import {ItemsNavComponent} from './Components/SystemNavs/ItemsNav/ItemsNav.component';
@@ -9,6 +9,8 @@ import {SettingsComponent} from './Pages/settings/settings.component';
 import {InfoComponent} from './Pages/info/info.component';
 import {HomeComponent} from './Pages/home/home.component';
 import {NoteEditorComponent} from './Pages/Editor/Editor.component';
+import {bootstrapApplication} from '@angular/platform-browser';
+import {AppComponent} from './app.component';
 
 export const routes: Routes = [
   {
