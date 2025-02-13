@@ -25,12 +25,10 @@ export class CampaignService {
     )! as Page;
   }
   getNoteById(campaignId: string, pageId: string, noteId: string): Note{
-    console.log('campaignId: ' + campaignId);
     return this.getPageById(campaignId, pageId).pageNotes.find(
       (note: Note): boolean => note.noteId === noteId
     ) as Note;
   }
 
-  updateCampaignnotes() {}
 
 }

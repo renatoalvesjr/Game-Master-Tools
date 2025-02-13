@@ -1,12 +1,17 @@
 <div class="flex flex-row w-full h-full">
-  <div class="flex flex-col h-full min-w-48 w-64 p-2 border-r border-gray-200">
+  <div class="flex flex-col h-full min-w-56 w-64 p-2 border-r border-gray-200">
     <!-- Campaign title + description + campaign config menu -->
     <div class="mb-4">
       <div class="flex flex-row items-center ">
         <h1 class="line-clamp-2">{{ campaign.campaignName }}</h1>
-        <span class="material-icons cursor-pointer select-none"
-        >keyboard_arrow_down</span
-        >
+        <span class="material-icons cursor-pointer select-none" [matMenuTriggerFor]="menu">keyboard_arrow_down</span>
+        <mat-menu #menu="matMenu">
+          <button mat-menu-item>Rename</button>
+          <button mat-menu-item>Settings</button>
+          <divider></divider>
+          <button mat-menu-item>Archive</button>
+          <button mat-menu-item>Delete</button>
+        </mat-menu>
       </div>
       <p class="line-clamp-2 text-sm text-gray-400">
         {{ campaign.campaignDescription }}
@@ -27,23 +32,26 @@
         </div>
         <!-- Page Render -->
         <ul class="flex flex-col pl-5 truncate {{ pagesHidden?'hidden ':''}}">
-          @for (item of campaign.campaignPages; track item) {
+          @for (page of getPages(campaignId); track page) {
             <li>
               <div
-                class="flex flex-row items-center justify-between border border-transparent border-b-gray-300 p-1 my-2 hover:border-gray-300 hover:rounded-xl transition-all duration-300">
-                <p>{{ item.pageTitle }}</p>
-                <span class="material-icons cursor-pointer select-none" (click)="item.pageActive = !item.pageActive">{{
-                    item.pageActive
+                class="flex flex-row items-center justify-between border border-transparent border-b-gray-300 p-1 my-2 hover:border-gray-300 hover:rounded-xl transition-all duration-300"
+                title="{{ page.pageTitle }}"
+              >
+                <p>{{ page.pageTitle }}</p>
+                <span class="material-icons cursor-pointer select-none" (click)="page.pageActive = !page.pageActive">{{
+                    page.pageActive
                       ? "keyboard_arrow_down"
                       : "keyboard_arrow_right"
                   }}</span>
               </div>
-              <div class="ml-4 truncate {{item.pageActive?'':'hidden'}}">
-                @for (notes of item.pageNotes; track notes) {
+              <div class="ml-4 truncate {{page.pageActive?'':'hidden'}}">
+                @for (notes of page.pageNotes; track notes) {
                   <div
-                    class="my-1 border border-transparent cursor-pointer select-none border-r-gray-300 text-end px-2 mr-2 hover:hover:border-l-transparent hover:border-b-gray-500 hover:border-r-gray-500 transition-all duration-300"
-                    (click)="goToNote(item.pageId, notes.noteId)"
+                    class="my-1 border border-transparent truncate cursor-pointer select-none border-r-gray-300 text-end px-2 mr-2 hover:hover:border-l-transparent hover:border-b-gray-500 hover:border-r-gray-500 transition-all duration-300"
+                    (click)="goToNote(page.pageId, notes.noteId)"
                     id="{{notes.noteId}}"
+                    title="{{notes.noteTitle}}"
                   >
                     {{ notes.noteTitle }}
                   </div>
