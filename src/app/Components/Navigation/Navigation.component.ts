@@ -92,11 +92,7 @@ export class NavigationComponent implements OnInit {
   utils = inject(UtilsService)
 
   async openFile() {
-
-    console.log(this.utils.getTimeNow());
-    const path = this.window.electronAPI.openFile();
-
-    this.readFileContent(await path).then();
+    this.campaignService.testOpenFile();
   }
 
   async readFileContent(filePath: string) {

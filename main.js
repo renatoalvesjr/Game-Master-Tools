@@ -50,19 +50,17 @@ app.on("window-all-closed", () => {
 app.whenReady().then(() => {
   ipcMain.handle('openFile', openFile)
   ipcMain.handle('saveFile', saveFile)
+
   app.on('activate', function () {
     if (BrowserWindow.getAllWindows().length === 0) initWindow()
   })
 })
 let fs = require('fs');
 
-async function saveFile(data) {
-  const {canceled, filePath} = await require('electron').dialog.showSaveDialog({
-    properties: ['saveFile']
-  });
-  if (!canceled) {
-    fs.writeFileSync(filePath, data, 'utf-8');
-  }
+async function saveFile(event, data) {
+  console.log(app.getPath("appData") + data['fileName'])
+  fs.writeFileSync(app.getPath("appData") + '/' + data['fileName'] + '.json', data['content']);
+
 }
 
 async function openFile() {
@@ -70,7 +68,6 @@ async function openFile() {
     properties: ['openFile']
   });
   if (!canceled && filePaths.length > 0) {
-    console.log(filePaths)
     return filePaths[0];
   }
 }

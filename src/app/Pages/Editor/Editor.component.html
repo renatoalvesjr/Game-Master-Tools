@@ -316,17 +316,18 @@
       <button
         title="Save"
         class="rounded-md flex items-center p-1 active:bg-[#586671] active:text-white"
+        (click)="saveFile()"
       >
         <img src="icons/save.svg" alt="">
       </button>
     </div>
   </div>
   <!--  Editor-->
-  <div class="flex max-h-full h-full border-2 border-pink-500 overflow-auto">
+  <div class="flex max-h-full h-full overflow-auto">
     <tiptap-editor
       [editor]="editor"
       [(ngModel)]="content"
-      class="max-h-full h-full w-full p-4 border-2 border-green-500"
+      class="max-h-full h-full w-full p-4"
     ></tiptap-editor>
   </div>
 </div>

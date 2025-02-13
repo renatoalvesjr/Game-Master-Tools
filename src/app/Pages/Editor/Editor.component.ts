@@ -18,7 +18,13 @@ import {extensions, fonts} from '../../Extensions/editor-extenstions';
 import {InsertionModalComponent} from '../../Components/InsertionModal/InsertionModal.component';
 import {ElectronService} from '../../Services/electron.service';
 import {CampaignService} from '../../Services/campaign.service';
-
+import {WindowRef} from '../../Services/window.service';
+import {UtilsService} from '../../Services/utils.service';
+interface Data{
+  fileName: string;
+  content: string;
+  updateDate: string;
+}
 @Component({
   selector: 'app-note-editor',
   styleUrl: './Editor.component.css',
@@ -38,6 +44,8 @@ import {CampaignService} from '../../Services/campaign.service';
 })
 export class NoteEditorComponent implements OnDestroy {
   es = inject(ElectronService);
+  utils = inject(UtilsService);
+  window = inject(WindowRef).getWindow();
   route = inject(ActivatedRoute);
   dialog = inject(MatDialog);
   campaignService = inject(CampaignService);
@@ -82,6 +90,15 @@ export class NoteEditorComponent implements OnDestroy {
       };
     },
   });
+
+  saveFile() {
+    const data: Data = {
+      fileName: '/'+this.note.noteTitle,
+      content: this.editor.getHTML(),
+      updateDate: this.utils.getTimeNow()
+    }
+    this.window.electronAPI.saveFile(data);
+  }
 
   onTextColorChange(event: Event): void {
     const target = event.target as HTMLSelectElement;
