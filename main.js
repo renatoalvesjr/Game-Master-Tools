@@ -1,18 +1,9 @@
-const {app,ipcMain, BrowserWindow} = require("electron");
+const {app, ipcMain, BrowserWindow} = require("electron");
 const url = require("url");
 const path = require("path");
 
 let appWindow;
 
-async function handleFileOpen() {
-  const { canceled, filePaths } = await require('electron').dialog.showOpenDialog({
-    properties: ['openFile']
-  });
-  if (!canceled && filePaths.length > 0) {
-    console.log(filePaths)
-    return filePaths[0];
-  }
-}
 
 function initWindow() {
   appWindow = new BrowserWindow({
@@ -57,8 +48,29 @@ app.on("window-all-closed", () => {
 });
 
 app.whenReady().then(() => {
-  ipcMain.handle('openFile', handleFileOpen)
+  ipcMain.handle('openFile', openFile)
+  ipcMain.handle('saveFile', saveFile)
   app.on('activate', function () {
     if (BrowserWindow.getAllWindows().length === 0) initWindow()
   })
 })
+let fs = require('fs');
+
+async function saveFile(data) {
+  const {canceled, filePath} = await require('electron').dialog.showSaveDialog({
+    properties: ['saveFile']
+  });
+  if (!canceled) {
+    fs.writeFileSync(filePath, data, 'utf-8');
+  }
+}
+
+async function openFile() {
+  const {canceled, filePaths} = await require('electron').dialog.showOpenDialog({
+    properties: ['openFile']
+  });
+  if (!canceled && filePaths.length > 0) {
+    console.log(filePaths)
+    return filePaths[0];
+  }
+}

@@ -1,16 +1,19 @@
-import {Injectable} from '@angular/core';
+import {inject, Injectable} from '@angular/core';
 import {Campaign} from '../Interfaces/Campaign.interface';
 import campaignList from '../Tests/campaignList.json';
 import {Note} from '../Interfaces/Note.interface';
 import {Page} from '../Interfaces/Page.interface';
+import {WindowRef} from './window.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CampaignService {
   campaignList = JSON.parse(JSON.stringify(campaignList)) as Campaign[];
+  window = inject(WindowRef).getWindow();
 
   async getCampaigns(): Promise<Campaign[]> {
+    const campaign = this.window.electronAPI.openFile
     return this.campaignList;
   }
   getCampaignById(campaignId: string): Campaign {
@@ -25,12 +28,10 @@ export class CampaignService {
     )! as Page;
   }
   getNoteById(campaignId: string, pageId: string, noteId: string): Note{
-    console.log('campaignId: ' + campaignId);
     return this.getPageById(campaignId, pageId).pageNotes.find(
       (note: Note): boolean => note.noteId === noteId
     ) as Note;
   }
 
-  updateCampaignnotes() {}
 
 }

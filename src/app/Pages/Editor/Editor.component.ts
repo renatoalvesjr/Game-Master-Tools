@@ -4,7 +4,6 @@ import {
   Component,
   inject,
   OnDestroy,
-  OnInit,
 } from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
@@ -37,13 +36,13 @@ import {CampaignService} from '../../Services/campaign.service';
   ],
   standalone: true,
 })
-export class NoteEditorComponent implements OnDestroy, OnInit {
+export class NoteEditorComponent implements OnDestroy {
   es = inject(ElectronService);
   route = inject(ActivatedRoute);
   dialog = inject(MatDialog);
   campaignService = inject(CampaignService);
   content = '<p>Standard</p>';
-  campaignId: string;
+  campaignId: string = '';
   pageId: string = this.route.snapshot.paramMap.get('pageId')!;
   noteId: string = this.route.snapshot.paramMap.get('noteId')!;
   note!: Note;
@@ -51,22 +50,13 @@ export class NoteEditorComponent implements OnDestroy, OnInit {
   url = '';
 
   constructor() {
-    this.campaignId = this.route.parent?.snapshot.paramMap.get('campaignId')!;
-    console.log('route: ' + this.route.parent?.snapshot.paramMap.keys +','+ this.route.snapshot.paramMap.keys)
-    this.note = this.campaignService.getNoteById(this.campaignId, this.pageId, this.noteId)
-    console.log(this.note.noteTitle)
-    this.content = this.note.noteContent;
-  }
-
-  ngOnInit() {
-    console.log('route: ' + this.route.parent?.snapshot.paramMap.keys +','+ this.route.snapshot.paramMap.keys)
-    this.campaignId = this.route.parent?.snapshot.paramMap.get('campaignId')!;
-    this.noteId = this.route.snapshot.paramMap.get('noteId')!;
-    this.note = this.campaignService.getNoteById(this.campaignId, this.pageId, this.noteId)
-    this.editor.on('update', () => {
-      this.onEditorUpdate();
-    });
-    this.content = this.note.noteContent;
+    this.route.params.subscribe((params) => {
+      this.campaignId = this.route.parent?.snapshot.paramMap.get('campaignId')!;
+      this.pageId = params['pageId'];
+      this.noteId = params['noteId'];
+      this.note = this.campaignService.getNoteById(this.campaignId, this.pageId, this.noteId);
+      this.content = this.note.noteContent;
+    })
   }
 
   private typingTimeout: any;

@@ -88,7 +88,9 @@ export class NavigationComponent implements OnInit {
 
   ngOnInit() {
   }
+
   utils = inject(UtilsService)
+
   async openFile() {
 
     console.log(this.utils.getTimeNow());
