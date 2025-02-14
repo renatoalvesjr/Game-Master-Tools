@@ -1,9 +1,8 @@
-const {app, ipcMain, BrowserWindow} = require("electron");
+const { app, ipcMain, BrowserWindow } = require("electron");
 const url = require("url");
 const path = require("path");
 
 let appWindow;
-
 
 function initWindow() {
   appWindow = new BrowserWindow({
@@ -14,19 +13,21 @@ function initWindow() {
       nodeIntegration: false,
       contextIsolation: true,
       enableRemoteModule: false,
-      preload: path.join(__dirname, "preload.js")
+      preload: path.join(__dirname, "preload.js"),
     },
   });
-  appWindow.loadURL(
-    url.format({
-      pathname: path.join(
-        __dirname,
-        "/dist/game-master-tools/browser/index.html"
-      ),
-      protocol: "file",
-      slashes: true,
-    })
-  ).then();
+  appWindow
+    .loadURL(
+      url.format({
+        pathname: path.join(
+          __dirname,
+          "/dist/game-master-tools/browser/index.html"
+        ),
+        protocol: "file",
+        slashes: true,
+      })
+    )
+    .then();
 
   appWindow.maximize();
 
@@ -48,25 +49,38 @@ app.on("window-all-closed", () => {
 });
 
 app.whenReady().then(() => {
-  ipcMain.handle('openFile', openFile)
-  ipcMain.handle('saveFile', saveFile)
+  ipcMain.handle("openFile", openFile);
+  ipcMain.handle("saveFile", saveFile);
 
-  app.on('activate', function () {
-    if (BrowserWindow.getAllWindows().length === 0) initWindow()
-  })
-})
-let fs = require('fs');
+  app.on("activate", function () {
+    if (BrowserWindow.getAllWindows().length === 0) initWindow();
+  });
+});
+let fs = require("fs");
+
+async function save(filePath, fileName, data) {
+  if (!fs.existsSync(filePath)) {
+    fs.mkdirSync(filePath);
+  }
+  fs.writeFileSync(filePath + fileName + ".json", data);
+}
 
 async function saveFile(event, data) {
-  console.log(app.getPath("appData") + data['fileName'])
-  fs.writeFileSync(app.getPath("appData") + '/' + data['fileName'] + '.json', data['content']);
-
+  console.log(app.getPath("appData") + data["fileName"]);
+  if (!fs.existsSync(app.getPath("appData") + "/GameMasterTools")) {
+    fs.mkdirSync(app.getPath("appData") + "/GameMasterTools");
+  }
+  fs.writeFileSync(
+    app.getPath("appData") + "/GameMasterTools" + data["fileName"] + ".json",
+    data["content"]
+  );
 }
 
 async function openFile() {
-  const {canceled, filePaths} = await require('electron').dialog.showOpenDialog({
-    properties: ['openFile']
-  });
+  const { canceled, filePaths } =
+    await require("electron").dialog.showOpenDialog({
+      properties: ["openFile"],
+    });
   if (!canceled && filePaths.length > 0) {
     return filePaths[0];
   }
