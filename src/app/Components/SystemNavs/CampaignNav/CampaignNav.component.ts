@@ -110,11 +110,23 @@ export class CampaignNavComponent implements OnInit {
     noteElement.addEventListener('blur', disableContentEditable);
   }
 
-
   deleteNote(noteId: string, pageId: string) {
     const campaign = this.campaign;
     console.log('deleting note: ', noteId);
     campaign.campaignPages.find((page: Page) => page.pageId === pageId)!.pageNotes = campaign.campaignPages.find((page: Page) => page.pageId === pageId)!.pageNotes.filter((note: Note) => note.noteId !== noteId);
     this.campaignService.updateCampaign(campaign).then();
+  }
+
+  addPage(){
+    const page: Page = {
+      pageId: this.utils.getUUID(),
+      pageIndex: 0,
+      pageTitle: 'New Page',
+      pageNotes: [],
+      pageCreationDate: this.utils.getTimeNow(),
+      pageActive: true,
+    }
+    this.campaign.campaignPages.push(page);
+    this.campaignService.updateCampaign(this.campaign).then();
   }
 }
