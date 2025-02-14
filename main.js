@@ -51,22 +51,29 @@ app.whenReady().then(() => {
   ipcMain.handle('openFile', openFile)
   ipcMain.handle('saveFile', saveFile)
 
-  app.on('activate', function () {
-    if (BrowserWindow.getAllWindows().length === 0) initWindow()
-  })
-})
-let fs = require('fs');
+  app.on("activate", function () {
+    if (BrowserWindow.getAllWindows().length === 0) initWindow();
+  });
+});
+let fs = require("fs");
 
-async function saveFile(event, data) {
-  console.log(app.getPath("appData") + data['fileName'])
-  fs.writeFileSync(app.getPath("appData") + '/' + data['fileName'] + '.json', data['content']);
+async function save(filePath, fileName, data) {
+  if (!fs.existsSync(filePath)) {
+    fs.mkdirSync(filePath);
+  }
+  fs.writeFileSync(filePath + fileName + ".json", data);
+}
 
+async function saveFile(event, filePath, data) {
+  console.log(data)
+  save(filePath, data)
 }
 
 async function openFile() {
-  const {canceled, filePaths} = await require('electron').dialog.showOpenDialog({
-    properties: ['openFile']
-  });
+  const { canceled, filePaths } =
+    await require("electron").dialog.showOpenDialog({
+      properties: ["openFile"],
+    });
   if (!canceled && filePaths.length > 0) {
     return filePaths[0];
   }
