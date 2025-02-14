@@ -20,6 +20,7 @@ import {ElectronService} from '../../Services/electron.service';
 import {CampaignService} from '../../Services/campaign.service';
 import {WindowRef} from '../../Services/window.service';
 import {UtilsService} from '../../Services/utils.service';
+import {CampaignDTO} from '../../Interfaces/CampaignDTO.interface';
 
 @Component({
   selector: 'app-note-editor',
@@ -88,9 +89,12 @@ export class NoteEditorComponent implements OnDestroy {
   });
 
   saveFile() {
-    const filePath = '/GameMasterTools/campaign/' + this.campaignService.getCampaignById(this.campaignId).campaignName + '.json';
-    const conteudo = this.campaignService.getCampaignById(this.campaignId);
-    this.window.electronAPI.saveFile(filePath, conteudo);
+    const conteudo: CampaignDTO = {
+      filePath: '/Campaign/Notes',
+      fileName: '/' + this.campaignService.getCampaignById(this.campaignId).campaignId + '.json',
+      content: JSON.stringify(this.campaignService.getCampaignById(this.campaignId)),
+    };
+    this.window.electronAPI.saveFile(conteudo);
   }
 
   onTextColorChange(event: Event): void {

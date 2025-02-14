@@ -57,16 +57,20 @@ app.whenReady().then(() => {
 })
 let fs = require('fs');
 
-async function save(filePath, fileName, data) {
-  if (!fs.existsSync(filePath)) {
-    fs.mkdirSync(filePath);
+async function save(filePath, fileName, content) {
+  console.log('filepath: ' + filePath)
+  console.log('filename: ' + fileName)
+  console.log('content: ' + content)
+  const path = app.getPath("appData") + "/GameMasterTools/" + filePath;
+  if (!fs.existsSync(path)) {
+    fs.mkdirSync(path, {recursive: true});
   }
-  fs.writeFileSync(filePath + fileName + ".json", data);
+  fs.writeFileSync(path + fileName, content, "utf-8");
 }
 
-async function saveFile(event, filePath, data) {
+async function saveFile(event, data) {
   console.log(data)
-  await save(filePath, data)
+  await save(data['filePath'], data['fileName'], data['content'])
 }
 
 async function openFile() {
