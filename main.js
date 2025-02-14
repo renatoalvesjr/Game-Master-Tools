@@ -66,7 +66,7 @@ async function save(filePath, fileName, data) {
 
 async function saveFile(event, filePath, data) {
   console.log(data)
-  save(filePath, data)
+  await save(filePath, data)
 }
 
 async function openFile() {

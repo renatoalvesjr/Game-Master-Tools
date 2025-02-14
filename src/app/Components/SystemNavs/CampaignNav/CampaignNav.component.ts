@@ -48,11 +48,10 @@ export class CampaignNavComponent implements OnInit {
     if (noteElement) {
       noteElement.classList.add('bg-[#BFCFE2]');
     }
-    this.router.onSameUrlNavigation
     if(this.route.snapshot.paramMap.get('noteId')) {
-      this.router.navigate(['page', pageId, 'note', noteId], {relativeTo: this.route.parent, onSameUrlNavigation: 'reload'},);
+      this.router.navigate(['page', pageId, 'note', noteId], {relativeTo: this.route.parent, onSameUrlNavigation: 'reload'},).then();
     }
-    this.router.navigate(['page', pageId, 'note', noteId], {relativeTo: this.route, onSameUrlNavigation: 'reload'});
+    this.router.navigate(['page', pageId, 'note', noteId], {relativeTo: this.route, onSameUrlNavigation: 'reload'}).then();
   }
 
   getPages(campaignId: string): Page[] {

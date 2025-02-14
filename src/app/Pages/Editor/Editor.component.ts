@@ -20,7 +20,6 @@ import {ElectronService} from '../../Services/electron.service';
 import {CampaignService} from '../../Services/campaign.service';
 import {WindowRef} from '../../Services/window.service';
 import {UtilsService} from '../../Services/utils.service';
-import {CampaignDTO} from '../../Interfaces/CampaignDTO.interface';
 
 @Component({
   selector: 'app-note-editor',

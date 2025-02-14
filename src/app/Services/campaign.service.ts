@@ -34,7 +34,6 @@ export class CampaignService {
       throw new Error(`Failed to fetch file: ${response.statusText}`);
     }
 
-    const text = await response.text();
 
   }
 

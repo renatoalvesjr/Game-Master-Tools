@@ -92,7 +92,7 @@ export class NavigationComponent implements OnInit {
   utils = inject(UtilsService)
 
   async openFile() {
-    this.campaignService.testOpenFile();
+    await this.campaignService.testOpenFile();
   }
 
   async readFileContent(filePath: string) {
