@@ -2,7 +2,8 @@
   <div class="flex flex-col justify-between h-full min-w-14 max-w-24 border-r border-[#E1E1E1]">
     <ul class="flex flex-col items-center pt-4 gap-4 justify-items-center">
       <p class="text-gray-400">Campaigns</p>
-      @for (item of campaignList; track item) {
+      @let campaigns = campaignList;
+      @for (item of campaigns; track item) {
         <div
           routerLink="/campaign/{{ item.campaignId }}"
           routerLinkActive="shadow-sm rounded-lg"
@@ -18,13 +19,9 @@
       }
       <img
         src="icons/add.svg"
-        (click)="openFile()"
         title="Create New Campaign"
-        class="m-2 image-gray-400 scale-125 hover:scale-150{{
-                    campaignList.length === 0
-                      ? 'border-2 rounded-md border-dashed'
-                      : ''
-                  }} text-gray-400 lg transition-all ease-in duration-300 cursor-pointer" alt="">
+        class="m-2 image-gray-400 scale-125 hover:scale-150 text-gray-400 lg transition-all ease-in duration-300 cursor-pointer"
+        alt="">
     </ul>
     <divider></divider>
     <div class="flex flex-col items-center ">

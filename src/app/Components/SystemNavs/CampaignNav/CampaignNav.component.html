@@ -3,7 +3,7 @@
     <!-- Campaign title + description + campaign config menu -->
     <div class="mb-4">
       <div class="flex flex-row items-center ">
-        <h1 class="line-clamp-2">{{ campaign.campaignName }}</h1>
+        <h1 class="line-clamp-2" [title]="campaign.campaignName">{{ campaign.campaignName }}</h1>
         <span class="material-icons cursor-pointer select-none" [matMenuTriggerFor]="menu">keyboard_arrow_down</span>
         <mat-menu #menu="matMenu">
           <button mat-menu-item>Rename</button>
@@ -13,7 +13,10 @@
           <button mat-menu-item>Delete</button>
         </mat-menu>
       </div>
-      <p class="line-clamp-2 text-sm text-gray-400">
+      <p
+        class="{{hiddenDescription?'cursor-pointer':'cursor-pointer line-clamp-2 hover:underline'}} text-sm text-gray-400"
+        (click)="hiddenDescription = !hiddenDescription"
+      >
         {{ campaign.campaignDescription }}
       </p>
     </div>
@@ -21,7 +24,8 @@
     <div class="flex flex-col gap-2">
       <!-- Notes -->
       <div class="flex flex-col">
-        <div class="flex flex-row items-center justify-between rounded-xl bg-gray-100 hover:bg-gray-200 transition-all duration-300 p-2 my-2">
+        <div
+          class="flex flex-row items-center justify-between rounded-xl bg-gray-100 hover:bg-gray-200 transition-all duration-300 p-2 my-2">
           <div class="flex flex-row items-center gap-1 cursor-pointer" (click)="pagesHidden = !pagesHidden">
             <span class="material-symbols-outlined sm">sticky_note_2</span>
             <p>Notes</p>
@@ -32,13 +36,21 @@
         </div>
         <!-- Page Render -->
         <ul class="flex flex-col pl-5 truncate {{ pagesHidden?'hidden ':''}}">
-          @for (page of getPages(campaignId); track page) {
+          @for (page of pages; track page) {
             <li>
               <div
                 class="flex flex-row items-center justify-between border border-transparent border-b-gray-300 p-1 my-2 hover:border-gray-300 hover:rounded-xl transition-all duration-300"
                 title="{{ page.pageTitle }}"
               >
-                <p>{{ page.pageTitle }}</p>
+                <div class="flex flex-row gap-1">
+                  <img
+                    src="icons/add.svg" alt="Adding new note"
+                    (click)="addNote(page.pageId)"
+                    class="w-fit h-fit hover:cursor-pointer"
+                  />
+
+                  <p>{{ page.pageTitle }}</p>
+                </div>
                 <span class="material-icons cursor-pointer select-none" (click)="page.pageActive = !page.pageActive">{{
                     page.pageActive
                       ? "keyboard_arrow_down"
@@ -47,13 +59,25 @@
               </div>
               <div class="ml-4 truncate {{page.pageActive?'':'hidden'}}">
                 @for (notes of page.pageNotes; track notes) {
-                  <div
-                    class="my-1 border border-transparent truncate cursor-pointer select-none border-r-gray-300 text-end px-2 mr-2 hover:hover:border-l-transparent hover:border-b-gray-500 hover:border-r-gray-500 transition-all duration-300"
-                    (click)="goToNote(page.pageId, notes.noteId)"
-                    id="{{notes.noteId}}"
-                    title="{{notes.noteTitle}}"
-                  >
-                    {{ notes.noteTitle }}
+                  <div (click)="goToNote(page.pageId, notes.noteId)"
+                       class="flex flex-row justify-between items-center border border-transparent border-r-gray-300 hover:hover:border-l-transparent hover:border-b-gray-500 hover:border-r-gray-500 transition-all duration-300">
+                    <img
+                      src="icons/settings.svg"
+                      alt="Note config"
+                      class="p-2 w-fit h-fit image-gray-400 hover:image-black hover:cursor-pointer"
+                      [matMenuTriggerFor]="noteMenu"
+                    />
+                    <mat-menu #noteMenu="matMenu">
+                      <button mat-menu-item (click)="toggleEditable(notes.noteId)">Rename</button>
+                      <button mat-menu-item (click)="deleteNote(notes.noteId, page.pageId)">Delete</button>
+                    </mat-menu>
+                    <div
+                      class="my-1 truncate cursor-pointer select-none text-end px-2 mr-2 "
+                      id="note-{{notes.noteId}}"
+                      title="{{notes.noteTitle}}"
+                    >
+                      {{ notes.noteTitle }}
+                    </div>
                   </div>
                 }
               </div>

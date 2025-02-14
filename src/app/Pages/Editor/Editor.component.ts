@@ -3,7 +3,7 @@ import {NgxTiptapModule} from 'ngx-tiptap';
 import {
   Component,
   inject,
-  OnDestroy,
+  OnDestroy, OnInit,
 } from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
@@ -20,7 +20,6 @@ import {ElectronService} from '../../Services/electron.service';
 import {CampaignService} from '../../Services/campaign.service';
 import {WindowRef} from '../../Services/window.service';
 import {UtilsService} from '../../Services/utils.service';
-import {CampaignDTO} from '../../Interfaces/CampaignDTO.interface';
 
 @Component({
   selector: 'app-note-editor',
@@ -39,7 +38,7 @@ import {CampaignDTO} from '../../Interfaces/CampaignDTO.interface';
   ],
   standalone: true,
 })
-export class NoteEditorComponent implements OnDestroy {
+export class NoteEditorComponent implements OnDestroy, OnInit {
   es = inject(ElectronService);
   utils = inject(UtilsService);
   window = inject(WindowRef).getWindow();
@@ -55,12 +54,18 @@ export class NoteEditorComponent implements OnDestroy {
   url = '';
 
   constructor() {
-    this.route.params.subscribe((params) => {
+  }
+
+  async ngOnInit(){
+    this.route.params.subscribe(async (params) => {
       this.campaignId = this.route.parent?.snapshot.paramMap.get('campaignId')!;
       this.pageId = params['pageId'];
       this.noteId = params['noteId'];
-      this.note = this.campaignService.getNoteById(this.campaignId, this.pageId, this.noteId);
+      this.note = await this.campaignService.getNoteById(this.campaignId, this.pageId, this.noteId);
       this.content = this.note.noteContent;
+    });
+    this.editor.on('update', () => {
+      this.onEditorUpdate();
     })
   }
 
@@ -70,7 +75,7 @@ export class NoteEditorComponent implements OnDestroy {
     clearTimeout(this.typingTimeout);
     this.typingTimeout = setTimeout(() => {
       this.saveNote().then()
-    }, 3000);
+    }, 1000);
   }
 
   textColor = '#000000';
@@ -88,13 +93,17 @@ export class NoteEditorComponent implements OnDestroy {
     },
   });
 
-  saveFile() {
-    const conteudo: CampaignDTO = {
-      filePath: '/Campaign/Notes',
-      fileName: '/' + this.campaignService.getCampaignById(this.campaignId).campaignId + '.json',
-      content: JSON.stringify(this.campaignService.getCampaignById(this.campaignId)),
-    };
-    this.window.electronAPI.saveFile(conteudo);
+  async saveFile() {
+    const campaign = await this.campaignService.getCampaignById(this.campaignId);
+    const page = campaign.campaignPages.find((p) => p.pageId === this.pageId);
+    const note = page?.pageNotes.find((n) => n.noteId === this.noteId);
+    if (note) {
+      note.noteContent = this.editor.getHTML();
+    }
+    campaign.campaignPages[campaign.campaignPages.indexOf(page!)].pageNotes[page!.pageNotes.indexOf(note!)] = note!;
+    campaign.campaignUpdateDate = this.utils.getTimeNow();
+
+    await this.campaignService.updateCampaign(campaign);
   }
 
   onTextColorChange(event: Event): void {
@@ -125,15 +134,6 @@ export class NoteEditorComponent implements OnDestroy {
     });
   }
 
-  /**
-   * Toggles the link in the editor. If a link is already present, it opens a dialog to edit the URL.
-   * If the URL is empty, it removes the link. If a new URL is provided, it sets the link to the new URL.
-   *
-   * @remarks
-   * This method uses the editor's chainable commands to focus, extend the mark range, and set or unset the link.
-   *
-   * @returns {void}
-   */
   async toggleLink(): Promise<void> {
     const previousUrl = this.editor.getAttributes('link')['href'] || '';
     this.url = await this.openDialog(previousUrl);
@@ -155,10 +155,6 @@ export class NoteEditorComponent implements OnDestroy {
       .run();
   }
 
-  /**
-   * Prompts the user for an image URL and inserts the image into the editor.
-   * If the user provides a valid URL, the image is added at the current cursor position.
-   */
   async addImage(): Promise<void> {
     await this.openDialog('');
     const url = this.url;
@@ -172,17 +168,21 @@ export class NoteEditorComponent implements OnDestroy {
     return parseInt(arg);
   }
 
-  /**
-   * Saves the current content of the editor to the note and updates the note content on the screen.
-   * This method retrieves the HTML content from the editor, updates the note content in the service,
-   * and then refreshes the note content on the screen.
-   */
   async saveNote() {
+    const campaign = await this.campaignService.getCampaignById(this.campaignId);
+    const page = campaign.campaignPages.find((p) => p.pageId === this.pageId);
+    const note = page?.pageNotes.find((n) => n.noteId === this.noteId);
+    if (note) {
+      note.noteContent = this.editor.getHTML();
+    }
+    campaign.campaignPages[campaign.campaignPages.indexOf(page!)].pageNotes[page!.pageNotes.indexOf(note!)] = note!;
+    campaign.campaignUpdateDate = this.utils.getTimeNow();
+
+    await this.campaignService.updateCampaign(campaign);
   }
 
   onHeadingChange(event: Event): void {
     const target = event.target as HTMLSelectElement;
-
     const value = target.value;
 
     if (value === 'paragraph') {
@@ -198,14 +198,6 @@ export class NoteEditorComponent implements OnDestroy {
     }
   }
 
-  /**
-   * Initializes a new instance of the Tiptap editor with the specified content and extensions.
-   *
-   *  @property {Tiptap} editor - The Tiptap editor instance.
-   * @property {Object} editor.content - The initial content configuration for the editor.
-   * @property {string} editor.content.type - The type of the document, set to 'doc'.
-   * @property {Array} editor.extensions - The array of extensions to be used by the editor.
-   */
   editor = new Tiptap({
     content: {
       type: 'doc',

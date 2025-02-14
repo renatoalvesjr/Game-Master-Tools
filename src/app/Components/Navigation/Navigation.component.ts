@@ -1,10 +1,9 @@
 import {Component, inject, OnInit} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {ActivatedRoute, Router, RouterLink, RouterLinkActive, RouterOutlet,} from '@angular/router';
+import {Router, RouterLink, RouterLinkActive, RouterOutlet,} from '@angular/router';
 import {CampaignService} from '../../Services/campaign.service';
 import {Campaign} from '../../Interfaces/Campaign.interface';
 import {DividerComponent} from '../divider/divider.component';
-import {WindowRef} from '../../Services/window.service';
 import {UtilsService} from '../../Services/utils.service';
 
 interface SystemNavList {
@@ -24,18 +23,12 @@ interface SystemNavList {
   standalone: true,
 })
 export class NavigationComponent implements OnInit {
-  route = inject(ActivatedRoute);
   router = inject(Router);
   campaignService = inject(CampaignService);
-  windowRef = inject(WindowRef);
+  utils = inject(UtilsService)
 
-  private window: any;
+  campaignList!: Campaign[];
 
-  campaignList: Campaign[] = [];
-
-  subHidden: boolean = false;
-
-  system!: string;
 
   navList: SystemNavList[] = [
     {
@@ -68,45 +61,22 @@ export class NavigationComponent implements OnInit {
     },
   ];
 
-  navigate(system: SystemNavList) {
-    this.navList.forEach((nav) => (nav.active = false));
-    system.active = true;
-    this.router.navigate([system.route]).then();
-  }
-
-  toggleSubmenu() {
-    console.log('toggleSubmenu');
-    console.log('from ' + this.subHidden);
-    this.subHidden = !this.subHidden;
-    console.log('to ' + this.subHidden);
-  }
-
   constructor() {
-    this.window = this.windowRef.nativeWindow;
-    this.campaignService.getCampaigns().then(campaigns => this.campaignList = campaigns);
   }
 
-  ngOnInit() {
+  async ngOnInit() {
+    this.campaignList = await this.campaignService.loadCampaigns();
   }
 
-  utils = inject(UtilsService)
 
   async openFile() {
-    await this.campaignService.testOpenFile();
-  }
-
-  async readFileContent(filePath: string) {
-    try {
-      const response = await fetch(filePath);
-      if (!response.ok) {
-        throw new Error(`Failed to fetch file: ${response.statusText}`);
-      }
-
-      const text = await response.text();
-
-      console.log('file content:\n', text);
-    } catch (error: any) {
-      console.error(`Error loading file: ${error.message}`);
-    }
+    // const load: CampaignDTO = {
+    //   filePath: 'Campaign/Notes/',
+    //   fileName: '1.json',
+    //   content: ''
+    // }
+    // const returned = this.window.electronAPI.openFile(load);
+    // returned.then((value: any) => {console.log(JSON.parse(value.content) as Campaign)});
+    await this.campaignService.loadCampaigns()
   }
 }

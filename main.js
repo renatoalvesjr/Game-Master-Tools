@@ -50,34 +50,49 @@ app.on("window-all-closed", () => {
 app.whenReady().then(() => {
   ipcMain.handle('openFile', openFile)
   ipcMain.handle('saveFile', saveFile)
-
+  ipcMain.handle('listFiles', listFiles)
+  ipcMain.handle('updateFile', updateFile)
   app.on('activate', function () {
     if (BrowserWindow.getAllWindows().length === 0) initWindow()
   })
 })
 let fs = require('fs');
 
+async function listFiles(event, data) {
+  const filePath = app.getPath("appData") + "/GameMasterTools/" + data['filePath'];
+  return fs.readdirSync(filePath);
+}
+
 async function save(filePath, fileName, content) {
-  console.log('filepath: ' + filePath)
-  console.log('filename: ' + fileName)
-  console.log('content: ' + content)
-  const path = app.getPath("appData") + "/GameMasterTools/" + filePath;
-  if (!fs.existsSync(path)) {
-    fs.mkdirSync(path, {recursive: true});
+  if (!fs.existsSync(filePath)) {
+    fs.mkdirSync(filePath, {recursive: true});
   }
-  fs.writeFileSync(path + fileName, content, "utf-8");
+  fs.writeFileSync(filePath + fileName, content, "utf-8");
 }
 
 async function saveFile(event, data) {
-  console.log(data)
-  await save(data['filePath'], data['fileName'], data['content'])
+  const filePath = app.getPath("appData") + "/GameMasterTools/" + data['filePath'];
+  const fileName = data['fileName'];
+  const content = data['content'];
+  await save(filePath, fileName, content)
 }
 
-async function openFile() {
-  const {canceled, filePaths} = await require('electron').dialog.showOpenDialog({
-    properties: ['openFile']
-  });
-  if (!canceled && filePaths.length > 0) {
-    return filePaths[0];
+async function load(filePath, fileName) {
+  if (fs.existsSync(filePath + fileName)) {
+    const content = fs.readFileSync(filePath + fileName, "utf-8");
+    return { filePath, fileName, content };
   }
+}
+
+async function openFile(event, data) {
+  const filePath = app.getPath('appData') + "/GameMasterTools/" + data['filePath'];
+  const fileName = data['fileName'];
+  return await load(filePath, fileName);
+}
+
+async function updateFile(event, data) {
+  const filePath = app.getPath('appData') + "/GameMasterTools/" + data['filePath'];
+  const fileName = data['fileName'];
+  const content = data['content'];
+  await save(filePath, fileName, content);
 }
