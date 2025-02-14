@@ -51,11 +51,11 @@ app.whenReady().then(() => {
   ipcMain.handle('openFile', openFile)
   ipcMain.handle('saveFile', saveFile)
 
-  app.on("activate", function () {
-    if (BrowserWindow.getAllWindows().length === 0) initWindow();
-  });
-});
-let fs = require("fs");
+  app.on('activate', function () {
+    if (BrowserWindow.getAllWindows().length === 0) initWindow()
+  })
+})
+let fs = require('fs');
 
 async function save(filePath, fileName, data) {
   if (!fs.existsSync(filePath)) {
@@ -70,10 +70,9 @@ async function saveFile(event, filePath, data) {
 }
 
 async function openFile() {
-  const { canceled, filePaths } =
-    await require("electron").dialog.showOpenDialog({
-      properties: ["openFile"],
-    });
+  const {canceled, filePaths} = await require('electron').dialog.showOpenDialog({
+    properties: ['openFile']
+  });
   if (!canceled && filePaths.length > 0) {
     return filePaths[0];
   }
