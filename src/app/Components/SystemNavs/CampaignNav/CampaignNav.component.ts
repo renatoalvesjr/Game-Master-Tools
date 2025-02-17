@@ -9,10 +9,10 @@ import {DividerComponent} from '../../divider/divider.component';
 import {UtilsService} from '../../../Services/utils.service';
 
 @Component({
-    selector: 'app-CampaignNav',
-    templateUrl: './CampaignNav.component.html',
-    styleUrls: ['./CampaignNav.component.scss'],
-    imports: [RouterOutlet, MatMenuModule, DividerComponent]
+  selector: 'app-CampaignNav',
+  templateUrl: './CampaignNav.component.html',
+  styleUrls: ['./CampaignNav.component.scss'],
+  imports: [RouterOutlet, MatMenuModule, DividerComponent]
 })
 export class CampaignNavComponent implements OnInit {
   campaignService = inject(CampaignService);
@@ -37,21 +37,11 @@ export class CampaignNavComponent implements OnInit {
     this.route.params.subscribe(async (params) => {
       this.campaignId = params['campaignId'];
       this.campaign = await this.campaignService.getCampaignById(this.campaignId);
-      console.log(this.campaign);
       this.pages = this.campaign.campaignPages;
     });
   }
 
   goToNote(pageId: string, noteId: string) {
-    const noteElements = document.querySelectorAll('[id^="note-"]');
-    noteElements.forEach((element) => {
-      element.classList.remove('bg-[#BFCFE2]');
-    });
-
-    const noteElement = document.getElementById('note-' + noteId);
-    if (noteElement) {
-      noteElement.classList.add('bg-[#BFCFE2]');
-    }
     if (this.route.snapshot.paramMap.get('noteId')) {
       this.router.navigate(['page', pageId, 'note', noteId], {
         relativeTo: this.route.parent,
@@ -79,14 +69,13 @@ export class CampaignNavComponent implements OnInit {
     this.campaignService.updateCampaign(campaign).then();
   }
 
-  toggleEditable(noteId: string) {
+  toggleNoteEditable(noteId: string) {
     const noteElement = document.getElementById('note-' + noteId);
     if (!noteElement) {
       return;
     }
     noteElement.contentEditable = 'true';
     noteElement.focus();
-    document.execCommand('selectAll', false);
 
     const disableContentEditable = () => {
       noteElement.contentEditable = 'false';
@@ -106,17 +95,73 @@ export class CampaignNavComponent implements OnInit {
       this.campaignService.updateCampaign(this.campaign).then();
     }
 
+    const onKeyDown = (evt: KeyboardEvent) => {
+      if (evt.key === 'Enter') {
+        evt.preventDefault();
+        noteElement.blur();
+      }
+    }
+
     noteElement.addEventListener('blur', disableContentEditable);
+    noteElement.addEventListener('keydown', onKeyDown)
+  }
+
+  togglePageEditable(pageId: string) {
+    const pageElement = document.getElementById('page-' + pageId);
+    if (!pageElement) {
+      return;
+    }
+    pageElement.contentEditable = 'true';
+    pageElement.focus();
+    const range = document.createRange();
+    range.selectNodeContents(pageElement);
+    const selection = window.getSelection();
+    selection!.removeAllRanges();
+    selection!.addRange(range);
+
+    const disableContentEditable = () => {
+      pageElement.contentEditable = 'false';
+      pageElement.removeEventListener('blur', disableContentEditable);
+      pageElement.removeEventListener('keydown', disableContentEditable);
+
+      const updatedTitle = pageElement.innerText.trim();
+      this.campaign.campaignPages.forEach((page: Page) => {
+        if (page.pageId === pageId) {
+          page.pageTitle = updatedTitle;
+        }
+      });
+      this.campaign.campaignUpdateDate = this.utils.getTimeNow();
+      this.campaignService.updateCampaign(this.campaign).then();
+    }
+
+    const onKeyDown = (evt: KeyboardEvent) => {
+      if (evt.key === 'Enter' || evt.key === 'Escape') {
+        evt.preventDefault();
+        pageElement.blur();
+      }
+    }
+
+    pageElement.addEventListener('blur', disableContentEditable)
+    pageElement.addEventListener('keydown', onKeyDown)
   }
 
   deleteNote(noteId: string, pageId: string) {
     const campaign = this.campaign;
-    console.log('deleting note: ', noteId);
     campaign.campaignPages.find((page: Page) => page.pageId === pageId)!.pageNotes = campaign.campaignPages.find((page: Page) => page.pageId === pageId)!.pageNotes.filter((note: Note) => note.noteId !== noteId);
     this.campaignService.updateCampaign(campaign).then();
   }
 
-  addPage(){
+  deletePage(pageId: string) {
+    const campaign = this.campaign;
+    this.campaign.campaignPages.find((page: Page) => page.pageId === pageId)?.pageNotes.forEach((note: Note) => {
+      this.deleteNote(note.noteId, pageId);
+    });
+    this.campaign.campaignPages = this.campaign.campaignPages.filter((page: Page) => page.pageId !== pageId);
+    this.campaignService.updateCampaign(campaign).then();
+    this.pages = this.campaign.campaignPages;
+  }
+
+  addPage() {
     const page: Page = {
       pageId: this.utils.getUUID(),
       pageIndex: 0,

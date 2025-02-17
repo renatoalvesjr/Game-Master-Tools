@@ -1,5 +1,5 @@
-<div class="flex flex-row w-full h-full">
-  <div class="flex flex-col h-full min-w-56 w-64 p-2 border-r border-gray-200">
+<div class="flex flex-row w-full max-w-full h-full ">
+  <div class="flex flex-col h-full min-w-56 w-64 p-2 border-r border-gray-200 overflow-y-auto">
     <!-- Campaign title + description + campaign config menu -->
     <div class="mb-4">
       <div class="flex flex-row items-center ">
@@ -31,7 +31,8 @@
             <p>Notes</p>
           </div>
           <div class="flex items-center cursor-pointer {{pagesHidden?'hidden':''}}">
-            <img src="icons/add.svg" alt="Create new note" class="w-fit h-fit hover:cursor-pointer" (click)="addPage()" />
+            <img src="icons/add.svg" alt="Create new note" class="w-fit h-fit hover:cursor-pointer"
+                 (click)="addPage()"/>
           </div>
         </div>
         <!-- Page Render -->
@@ -39,17 +40,26 @@
           @for (page of pages; track page) {
             <li>
               <div
-                class="flex flex-row items-center justify-between border border-transparent border-b-gray-300 p-1 my-2 hover:border-gray-300 hover:rounded-xl transition-all duration-300"
+                class="flex flex-row items-center pl-2 justify-between group border border-transparent border-b-gray-300 p-1 my-2 hover:border-gray-300 hover:rounded-xl transition-all duration-300"
                 title="{{ page.pageTitle }}"
               >
                 <div class="flex flex-row gap-1">
+                  <p
+                    [title]="page.pageTitle"
+                    class="truncate"
+                    id="page-{{ page.pageId }}"
+                  >{{ page.pageTitle }}</p>
                   <img
-                    src="icons/add.svg" alt="Adding new note"
-                    (click)="addNote(page.pageId)"
-                    class="w-fit h-fit hover:cursor-pointer"
-                  />
-
-                  <p>{{ page.pageTitle }}</p>
+                    src="icons/more_horiz.svg"
+                    class="hidden group-hover:flex cursor-pointer"
+                    alt="Page options button."
+                    [matMenuTriggerFor]="pageMenu"
+                  >
+                  <mat-menu #pageMenu="matMenu">
+                    <button mat-menu-item (click)="addNote(page.pageId)">Add Note</button>
+                    <button mat-menu-item (click)="togglePageEditable(page.pageId)">Rename</button>
+                    <button mat-menu-item (click)="deletePage(page.pageId)" class="text-red-800">Delete</button>
+                  </mat-menu>
                 </div>
                 <span class="material-icons cursor-pointer select-none" (click)="page.pageActive = !page.pageActive">{{
                     page.pageActive
@@ -57,27 +67,28 @@
                       : "keyboard_arrow_right"
                   }}</span>
               </div>
+              <!--Notes Renderer-->
               <div class="ml-4 truncate {{page.pageActive?'':'hidden'}}">
                 @for (notes of page.pageNotes; track notes) {
                   <div (click)="goToNote(page.pageId, notes.noteId)"
-                       class="flex flex-row justify-between items-center border border-transparent border-r-gray-300 hover:hover:border-l-transparent hover:border-b-gray-500 hover:border-r-gray-500 transition-all duration-300">
-                    <img
-                      src="icons/settings.svg"
-                      alt="Note config"
-                      class="p-2 w-fit h-fit image-gray-400 hover:image-black hover:cursor-pointer"
-                      [matMenuTriggerFor]="noteMenu"
-                    />
-                    <mat-menu #noteMenu="matMenu">
-                      <button mat-menu-item (click)="toggleEditable(notes.noteId)">Rename</button>
-                      <button mat-menu-item (click)="deleteNote(notes.noteId, page.pageId)">Delete</button>
-                    </mat-menu>
+                       class="group flex flex-row justify-between items-center border border-transparent border-r-gray-300 hover:border-l-transparent hover:border-b-gray-500 hover:border-r-gray-500 transition-all duration-300">
                     <div
-                      class="my-1 truncate cursor-pointer select-none text-end px-2 mr-2 "
+                      class="my-2 truncate cursor-pointer px-2 mr-2 "
                       id="note-{{notes.noteId}}"
                       title="{{notes.noteTitle}}"
                     >
                       {{ notes.noteTitle }}
                     </div>
+                    <img
+                      src="icons/more_vert.svg"
+                      alt="Note config"
+                      class="p-2 w-fit h-fit hidden group-hover:block"
+                      [matMenuTriggerFor]="noteMenu"
+                    />
+                    <mat-menu #noteMenu="matMenu">
+                      <button mat-menu-item (click)="toggleNoteEditable(notes.noteId)">Rename</button>
+                      <button mat-menu-item (click)="deleteNote(notes.noteId, page.pageId)">Delete</button>
+                    </mat-menu>
                   </div>
                 }
               </div>
@@ -130,7 +141,7 @@
     </div>
   </div>
 
-  <div class="h-full">
+  <div class="h-full w-full">
     <router-outlet></router-outlet>
   </div>
 </div>

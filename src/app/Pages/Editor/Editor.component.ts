@@ -20,36 +20,39 @@ import {ElectronService} from '../../Services/electron.service';
 import {CampaignService} from '../../Services/campaign.service';
 import {WindowRef} from '../../Services/window.service';
 import {UtilsService} from '../../Services/utils.service';
+import {Page} from '../../Interfaces/Page.interface';
+import {ElapsedTimeDirective} from '../../Directives/elapsed-time.directive';
 
 @Component({
     selector: 'app-note-editor',
     styleUrl: './Editor.component.css',
     templateUrl: './Editor.component.html',
-    imports: [
-        CommonModule,
-        FormsModule,
-        ReactiveFormsModule,
-        NgxTiptapModule,
-        MatSelectModule,
-        MatDialogModule,
-        MatFormFieldModule,
-        MatInputModule,
-        MatButtonModule,
-    ]
+  imports: [
+    CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
+    NgxTiptapModule,
+    MatSelectModule,
+    MatDialogModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule,
+    ElapsedTimeDirective,
+  ]
 })
 export class NoteEditorComponent implements OnDestroy, OnInit {
   es = inject(ElectronService);
   utils = inject(UtilsService);
-  window = inject(WindowRef).getWindow();
   route = inject(ActivatedRoute);
   dialog = inject(MatDialog);
   campaignService = inject(CampaignService);
+
   content = '<p>Standard</p>';
   campaignId: string = '';
   pageId: string = this.route.snapshot.paramMap.get('pageId')!;
   noteId: string = this.route.snapshot.paramMap.get('noteId')!;
   note!: Note;
-  fontList = fonts;
+  page!: Page;
   url = '';
 
   constructor() {
@@ -59,6 +62,7 @@ export class NoteEditorComponent implements OnDestroy, OnInit {
     this.route.params.subscribe(async (params) => {
       this.campaignId = this.route.parent?.snapshot.paramMap.get('campaignId')!;
       this.pageId = params['pageId'];
+      this.page = await this.campaignService.getPageById(this.campaignId, this.pageId);
       this.noteId = params['noteId'];
       this.note = await this.campaignService.getNoteById(this.campaignId, this.pageId, this.noteId);
       this.content = this.note.noteContent;
@@ -78,7 +82,6 @@ export class NoteEditorComponent implements OnDestroy, OnInit {
   }
 
   textColor = '#000000';
-  editable = true;
 
   LiteralTab = Extension.create({
     name: 'literalTab',

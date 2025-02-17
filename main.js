@@ -1,9 +1,8 @@
-const {app, ipcMain, BrowserWindow} = require("electron");
+const {app, ipcMain, globalShortcut, BrowserWindow} = require("electron");
 const url = require("url");
 const path = require("path");
 
 let appWindow;
-
 
 function initWindow() {
   appWindow = new BrowserWindow({
@@ -52,6 +51,8 @@ app.whenReady().then(() => {
   ipcMain.handle('saveFile', saveFile)
   ipcMain.handle('listFiles', listFiles)
   ipcMain.handle('updateFile', updateFile)
+  ipcMain.handle('createFile', createFile)
+
   app.on('activate', function () {
     if (BrowserWindow.getAllWindows().length === 0) initWindow()
   })
@@ -75,6 +76,14 @@ async function saveFile(event, data) {
   const fileName = data['fileName'];
   const content = data['content'];
   await save(filePath, fileName, content)
+}
+
+async function createFile(event, data){
+  const filePath = app.getPath("appData") + "/GameMasterTools/" + data['filePath'];
+  const fileName = data['fileName'];
+  const content = data['content'];
+  await save(filePath, fileName, content)
+  return await load(filePath, fileName)
 }
 
 async function load(filePath, fileName) {

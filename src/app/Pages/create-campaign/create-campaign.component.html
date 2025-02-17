@@ -1,0 +1,42 @@
+<div class="flex flex-col md:flex-row items-center justify-center w-full h-full fixed pb-10 pr-16 overflow-y-auto">
+  <div class="flex flex-col w-full md:w-1/2 items-center justify-center">
+    <h1 class="text-3xl font-bold m-2">Create a New Campaign</h1>
+
+    <form class="flex flex-col w-full p-16 " [formGroup]="campaignForm" (ngSubmit)="createCampaign()">
+      <div class="flex flex-col">
+        <label for="name">Campaign name</label>
+        <input class="p-2 border border-gray-300 rounded-md" type="text" id="name" formControlName="campaignName">
+      </div>
+      <div class="flex flex-col">
+        <label for="description">Description</label>
+        <textarea
+          class="w-full h-32 p-2 border border-gray-300 rounded-md resize-none overflow-hidden after:whitespace-pre-wrap"
+          type="text"
+          id="description"
+          formControlName="campaignDescription"
+          placeholder="Campaign description "
+        >
+
+        </textarea>
+      </div>
+      <div class="flex flex-col">
+        <label for="image">Image URL</label>
+        <input class="p-2 border border-gray-300 rounded-md" type="text" id="image" formControlName="campaignImageUrl">
+      </div>
+
+      <p-button class="my-4" type="submit" title="Create new Campaign">Print</p-button>
+    </form>
+  </div>
+
+  <div class="flex flex-col border w-fit border-gray-300 rounded-lg m-4">
+    <div class="flex flex-col text-center">
+      <div class="flex max-w-[400px] flex-col bg-cover bg-center">
+        <h3>{{ campaignForm.value.campaignName }}</h3>
+
+        <img class="max-h-64 min-h-20  my-2" [src]="campaignForm.value.campaignImageUrl" alt="">
+        <p (click)="hiddenDesciption = !hiddenDesciption"
+           class="{{hiddenDesciption?'line-clamp-3 hover:underline cursor-pointer':''}}">{{ campaignForm.value.campaignDescription }}</p>
+      </div>
+    </div>
+  </div>
+</div>

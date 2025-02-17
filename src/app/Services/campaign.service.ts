@@ -4,12 +4,14 @@ import {Note} from '../Interfaces/Note.interface';
 import {Page} from '../Interfaces/Page.interface';
 import {WindowRef} from './window.service';
 import {CampaignDTO} from '../Interfaces/CampaignDTO.interface';
+import {Observable} from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CampaignService {
   campaignList: Campaign[] = [];
+  campaigns!: Observable<Campaign[]>;
   window = inject(WindowRef).getWindow();
 
   async getCampaignById(campaignId: string): Promise<Campaign> {
@@ -31,9 +33,10 @@ export class CampaignService {
       content: JSON.stringify(this.getCampaignById(campaignId)),
     };
     this.window.electronAPI.saveFile(conteudo);
+    await this.loadCampaigns();
   }
 
-  async loadCampaigns(): Promise<Campaign[]> {
+  async loadCampaigns(): Promise<Observable<Campaign[]>> {
     const request = {
       filePath: 'Campaign/',
     }
@@ -57,7 +60,10 @@ export class CampaignService {
       }
     }
     this.campaignList.sort((a, b) => b.campaignUpdateDate.localeCompare(a.campaignUpdateDate));
-    return this.campaignList;
+    this.campaigns = new Observable<Campaign[]>(subscriber => {
+        subscriber.next(this.campaignList);
+      });
+    return this.campaigns;
   }
 
   async getPageById(campaignId: string, pageId: string): Promise<Page> {
@@ -74,6 +80,22 @@ export class CampaignService {
     ) as Note;
   }
 
+  async createCampaign(campaign: Campaign): Promise<Campaign> {
+    const filePath = 'Campaign/';
+    const fileName = campaign.campaignId + '.json';
+    const content = JSON.stringify(campaign);
+
+    const request = {
+      filePath,
+      fileName,
+      content,
+    };
+    await this.window.electronAPI.createFile(request);
+    await this.loadCampaigns();
+
+    return campaign;
+  }
+
   async updateCampaign(campaign: Campaign): Promise<void> {
     const filePath = 'Campaign/';
     const fileName = campaign.campaignId + '.json';
@@ -85,5 +107,6 @@ export class CampaignService {
       content,
     };
     await this.window.electronAPI.updateFile(request);
+    await this.loadCampaigns();
   }
 }

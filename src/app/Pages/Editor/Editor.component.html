@@ -1,4 +1,15 @@
 <div class="flex flex-col max-h-full h-full overflow-y-auto">
+
+  <div class="flex flex-col">
+    <h1>{{ note.noteTitle }}</h1>
+    <div class="flex flex-row items-center gap-10">
+      <h2>{{ page.pageTitle }}</h2>
+      <div class="flex flex-row">
+        <p class="text-gray-400 mr-2">Last update: </p>
+        <p [appElapsedTime]="note.noteUpdateDate" class="text-gray-400"></p>
+      </div>
+    </div>
+  </div>
   <!-- Toolbar -->
   <div class="flex flex-row flex-wrap space-2 border-b border-[#E1E1E2]">
     <!-- History -->
