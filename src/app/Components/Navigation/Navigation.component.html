@@ -1,9 +1,26 @@
 <div class="flex flex-row h-full min-w-fit w-full select-none">
-  <div class="flex flex-col justify-between h-full min-w-14 max-w-24 border-r border-[#E1E1E1]">
-    <ul class="flex flex-col items-center pt-4 gap-4 justify-items-center">
-      <p class="text-gray-400">Campaigns</p>
+  <div class="flex flex-col justify-around h-full min-w-14 max-w-24 border-r border-[#E1E1E1]">
+    <div class="flex flex-col items-center ">
+      <!-- Menu list navigation -->
+      <div class="flex flex-col w-full items-center gap-4 mt-4">
+        @for (item of navList; track item) {
+          <div
+            class="flex flex-col cursor-pointer image-gray-400 transition-all ease-in duration-300 justify-center items-center gap-1 text-center"
+            routerLink="/{{ item.route }}"
+            routerLinkActive="image-black"
+            [routerLinkActiveOptions]="{ exact: true }"
+          >
+            <img src="icons/{{item.icon}}.svg" class="" alt="">
+            <p class="flex flex-col text-wrap text-sm">{{ item.name }}</p>
+          </div>
+        }
+      </div>
+    </div>
+    <divider></divider>
+    <!-- Last updated campaigns -->
+    <ul class="flex flex-col items-center gap-4 justify-items-center mb-4">
       @let campaigns = campaignList;
-      @for (item of campaigns; track item) {
+      @for (item of campaigns | async; track item) {
         <div
           routerLink="/campaign/{{ item.campaignId }}"
           routerLinkActive="shadow-sm rounded-lg"
@@ -21,24 +38,10 @@
         src="icons/add.svg"
         title="Create New Campaign"
         class="m-2 image-gray-400 scale-125 hover:scale-150 text-gray-400 lg transition-all ease-in duration-300 cursor-pointer"
-        alt="">
+        alt=""
+        routerLink="/new-campaign"
+      >
     </ul>
-    <divider></divider>
-    <div class="flex flex-col items-center ">
-      <div class="flex flex-col w-full items-center gap-4">
-        @for (item of navList; track item) {
-          <div
-            class="flex flex-col cursor-pointer image-gray-400 transition-all ease-in duration-300 justify-center items-center gap-1 text-center"
-            routerLink="/{{ item.route }}"
-            routerLinkActive="image-black"
-            [routerLinkActiveOptions]="{ exact: true }"
-          >
-            <img src="icons/{{item.icon}}.svg" class="" alt="">
-            <p class="flex flex-col text-wrap text-sm">{{ item.name }}</p>
-          </div>
-        }
-      </div>
-    </div>
     <divider></divider>
     <div class="flex flex-col items-center py-2 gap-4">
       <div class="image-gray-400 hover:scale-110 transition-all duration-300 cursor-pointer"

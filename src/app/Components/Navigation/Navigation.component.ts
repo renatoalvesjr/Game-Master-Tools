@@ -5,6 +5,8 @@ import {CampaignService} from '../../Services/campaign.service';
 import {Campaign} from '../../Interfaces/Campaign.interface';
 import {DividerComponent} from '../divider/divider.component';
 import {UtilsService} from '../../Services/utils.service';
+import {Observable} from 'rxjs';
+import {map} from 'rxjs/operators';
 
 interface SystemNavList {
   name: string;
@@ -16,17 +18,17 @@ interface SystemNavList {
 
 // noinspection ExceptionCaughtLocallyJS
 @Component({
-    selector: 'app-Navigation',
-    templateUrl: './Navigation.component.html',
-    styleUrls: ['./Navigation.component.scss'],
-    imports: [CommonModule, RouterOutlet, RouterLinkActive, RouterLink, DividerComponent]
+  selector: 'app-Navigation',
+  templateUrl: './Navigation.component.html',
+  styleUrls: ['./Navigation.component.scss'],
+  imports: [CommonModule, RouterOutlet, RouterLinkActive, RouterLink, DividerComponent]
 })
 export class NavigationComponent implements OnInit {
   router = inject(Router);
   campaignService = inject(CampaignService);
   utils = inject(UtilsService)
 
-  campaignList!: Campaign[];
+  campaignList!: Observable<Campaign[]>;
 
 
   navList: SystemNavList[] = [
@@ -63,10 +65,12 @@ export class NavigationComponent implements OnInit {
   constructor() {
   }
 
-  async ngOnInit() {
-    this.campaignList = await this.campaignService.loadCampaigns();
-  }
 
+  async ngOnInit() {
+    this.campaignList = (await this.campaignService.loadCampaigns()).pipe(
+      map(campaigns => campaigns.slice(0, 2))
+    );
+  }
 
   async openFile() {
     // const load: CampaignDTO = {

@@ -1,5 +1,5 @@
-import { Directive, ElementRef, Input, OnInit } from '@angular/core';
-import { interval } from 'rxjs';
+import {Directive, ElementRef, Input, OnInit} from '@angular/core';
+import {interval} from 'rxjs';
 
 @Directive({
   selector: '[appElapsedTime]',
@@ -12,12 +12,11 @@ export class ElapsedTimeDirective implements OnInit {
 
   ngOnInit() {
     this.updateElapsedTime();
-    interval(1000).subscribe(() => this.updateElapsedTime()); // Update every 15 seconds
+    interval(1000).subscribe(() => this.updateElapsedTime()); // Update every second
   }
 
   private updateElapsedTime() {
-    const elapsedTime = this.calculateElapsedTime(this.isoTime);
-    this.el.nativeElement.innerText = 'Created ' + elapsedTime;
+    this.el.nativeElement.innerText = this.calculateElapsedTime(this.isoTime);
   }
 
   private calculateElapsedTime(isoTime: string): string {
