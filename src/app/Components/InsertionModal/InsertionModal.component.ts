@@ -16,19 +16,18 @@ interface Data {
 }
 
 @Component({
-  selector: 'app-InsertionModal',
-  templateUrl: './InsertionModal.component.html',
-  styleUrls: ['./InsertionModal.component.css'],
-  standalone: true,
-  imports: [
-    MatFormFieldModule,
-    MatInputModule,
-    FormsModule,
-    MatButtonModule,
-    MatDialogContent,
-    MatDialogActions,
-    MatDialogClose,
-  ],
+    selector: 'app-InsertionModal',
+    templateUrl: './InsertionModal.component.html',
+    styleUrls: ['./InsertionModal.component.css'],
+    imports: [
+        MatFormFieldModule,
+        MatInputModule,
+        FormsModule,
+        MatButtonModule,
+        MatDialogContent,
+        MatDialogActions,
+        MatDialogClose,
+    ]
 })
 export class InsertionModalComponent implements OnInit {
   readonly dialogRef = inject(MatDialogRef<InsertionModalComponent>);

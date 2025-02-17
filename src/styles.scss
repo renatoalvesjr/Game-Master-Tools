@@ -22,7 +22,8 @@ html {
   height: 100%;
 }
 
-@include mat.core();
+@include mat.elevation-classes();
+@include mat.app-background();
 @include mat.color-variants-backwards-compatibility($theme);
 
 @import "tailwindcss";

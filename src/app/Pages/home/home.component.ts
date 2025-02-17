@@ -5,13 +5,12 @@ import {RouterLink} from '@angular/router';
 import {MatTooltipModule} from '@angular/material/tooltip';
 
 @Component({
-  selector: 'app-home',
-  standalone: true,
-  imports: [
-    RouterLink, MatTooltipModule
-  ],
-  templateUrl: './home.component.html',
-  styleUrl: './home.component.scss'
+    selector: 'app-home',
+    imports: [
+        RouterLink, MatTooltipModule
+    ],
+    templateUrl: './home.component.html',
+    styleUrl: './home.component.scss'
 })
 export class HomeComponent implements OnInit {
   campaignService = inject(CampaignService);

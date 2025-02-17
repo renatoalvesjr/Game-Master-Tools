@@ -16,11 +16,10 @@ interface SystemNavList {
 
 // noinspection ExceptionCaughtLocallyJS
 @Component({
-  selector: 'app-Navigation',
-  templateUrl: './Navigation.component.html',
-  styleUrls: ['./Navigation.component.scss'],
-  imports: [CommonModule, RouterOutlet, RouterLinkActive, RouterLink, DividerComponent],
-  standalone: true,
+    selector: 'app-Navigation',
+    templateUrl: './Navigation.component.html',
+    styleUrls: ['./Navigation.component.scss'],
+    imports: [CommonModule, RouterOutlet, RouterLinkActive, RouterLink, DividerComponent]
 })
 export class NavigationComponent implements OnInit {
   router = inject(Router);

@@ -22,21 +22,20 @@ import {WindowRef} from '../../Services/window.service';
 import {UtilsService} from '../../Services/utils.service';
 
 @Component({
-  selector: 'app-note-editor',
-  styleUrl: './Editor.component.css',
-  templateUrl: './Editor.component.html',
-  imports: [
-    CommonModule,
-    FormsModule,
-    ReactiveFormsModule,
-    NgxTiptapModule,
-    MatSelectModule,
-    MatDialogModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatButtonModule,
-  ],
-  standalone: true,
+    selector: 'app-note-editor',
+    styleUrl: './Editor.component.css',
+    templateUrl: './Editor.component.html',
+    imports: [
+        CommonModule,
+        FormsModule,
+        ReactiveFormsModule,
+        NgxTiptapModule,
+        MatSelectModule,
+        MatDialogModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatButtonModule,
+    ]
 })
 export class NoteEditorComponent implements OnDestroy, OnInit {
   es = inject(ElectronService);

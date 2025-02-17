@@ -9,11 +9,10 @@ import {DividerComponent} from '../../divider/divider.component';
 import {UtilsService} from '../../../Services/utils.service';
 
 @Component({
-  selector: 'app-CampaignNav',
-  templateUrl: './CampaignNav.component.html',
-  styleUrls: ['./CampaignNav.component.scss'],
-  standalone: true,
-  imports: [RouterOutlet, MatMenuModule, DividerComponent],
+    selector: 'app-CampaignNav',
+    templateUrl: './CampaignNav.component.html',
+    styleUrls: ['./CampaignNav.component.scss'],
+    imports: [RouterOutlet, MatMenuModule, DividerComponent]
 })
 export class CampaignNavComponent implements OnInit {
   campaignService = inject(CampaignService);
