@@ -1,1 +1,10 @@
-<p>Gerenciador de campanhas não implementado ainda.</p>
+<div class="cdk-virtual-scroll-data-source-example">
+  <cdk-virtual-scroll-viewport
+    orientation="horizontal"
+    itemSize="200"
+    class="example-viewport">
+    <div *cdkVirtualFor="let campaign of campaignList">
+      {{ campaign }}
+    </div>
+  </cdk-virtual-scroll-viewport>
+</div>

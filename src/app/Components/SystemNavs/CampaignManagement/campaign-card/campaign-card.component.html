@@ -1,0 +1,8 @@
+<div class="max-w-40 min-w-40 border rounded-lg">
+  <img class="w-40 h-30 object-scale-down rounded-t-lg" src="{{campaign.campaignImageUrl}}"
+       alt="">
+  <div class="flex flex-col p-1">
+    <p class="truncate" [title]="campaign.campaignName">{{campaign.campaignName}}</p>
+    <p>Creation Date: {{campaign.campaignCreationDate | date}}</p>
+  </div>
+</div>

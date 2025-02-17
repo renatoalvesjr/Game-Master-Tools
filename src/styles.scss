@@ -56,16 +56,25 @@ html {
   outline: none;
 }
 
+/*
+* This filter changes the svg color to the gray-400 tailwindcss color
+*/
 .image-gray-400 {
   filter: invert(73%) sepia(7%) saturate(566%) hue-rotate(180deg) brightness(88%) contrast(88%);
 }
 
+/*
+* This hover changes the svg color first to black then to #3d2c12
+*/
 .image-gray-400:hover {
-  filter: invert(0%) sepia(4%) saturate(7483%) hue-rotate(191deg) brightness(101%) contrast(105%);
+  filter: brightness(0) saturate(100%) invert(14%) sepia(30%) saturate(1145%) hue-rotate(357deg) brightness(92%) contrast(89%);
 }
 
+/*
+* TODO: Change the name of this filter to image-brown on the project. The color is #6c4416
+*/
 .image-black {
-  filter: brightness(0) saturate(100%) invert(29%) sepia(6%) saturate(5405%) hue-rotate(353deg) brightness(93%) contrast(89%);
+  filter: brightness(0) saturate(100%) invert(24%) sepia(79%) saturate(484%) hue-rotate(352deg) brightness(96%) contrast(90%) ;
 }
 
 image-red-500 {
