@@ -1,4 +1,4 @@
-const {app, ipcMain, globalShortcut, BrowserWindow} = require("electron");
+const {app, ipcMain, BrowserWindow} = require("electron");
 const url = require("url");
 const path = require("path");
 
@@ -52,6 +52,7 @@ app.whenReady().then(() => {
   ipcMain.handle('listFiles', listFiles)
   ipcMain.handle('updateFile', updateFile)
   ipcMain.handle('createFile', createFile)
+  ipcMain.handle('deleteFile', deleteFile)
 
   app.on('activate', function () {
     if (BrowserWindow.getAllWindows().length === 0) initWindow()
@@ -71,27 +72,29 @@ async function save(filePath, fileName, content) {
   fs.writeFileSync(filePath + fileName, content, "utf-8");
 }
 
+async function load(filePath, fileName) {
+  if (fs.existsSync(filePath + fileName)) {
+    const content = fs.readFileSync(filePath + fileName, "utf-8");
+    return {filePath, fileName, content};
+  }
+}
+
 async function saveFile(event, data) {
   const filePath = app.getPath("appData") + "/GameMasterTools/" + data['filePath'];
   const fileName = data['fileName'];
   const content = data['content'];
-  await save(filePath, fileName, content)
+  return await save(filePath, fileName, content)
 }
 
-async function createFile(event, data){
+async function createFile(event, data) {
   const filePath = app.getPath("appData") + "/GameMasterTools/" + data['filePath'];
   const fileName = data['fileName'];
   const content = data['content'];
-  await save(filePath, fileName, content)
-  return await load(filePath, fileName)
-}
-
-async function load(filePath, fileName) {
-  if (fs.existsSync(filePath + fileName)) {
-    const content = fs.readFileSync(filePath + fileName, "utf-8");
-    return { filePath, fileName, content };
+  if (await save(filePath, fileName, content)) {
+    return await load(filePath, fileName)
   }
 }
+
 
 async function openFile(event, data) {
   const filePath = app.getPath('appData') + "/GameMasterTools/" + data['filePath'];
@@ -104,4 +107,12 @@ async function updateFile(event, data) {
   const fileName = data['fileName'];
   const content = data['content'];
   await save(filePath, fileName, content);
+}
+
+async function deleteFile(event, data) {
+  const filePath = app.getPath('appData') + "/GameMasterTools/" + data['filePath'];
+  const fileName = data['fileName'];
+  if (fs.existsSync(filePath + fileName)) {
+    fs.unlinkSync(filePath + fileName);
+  }
 }

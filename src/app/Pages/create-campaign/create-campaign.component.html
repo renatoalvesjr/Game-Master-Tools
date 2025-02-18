@@ -1,16 +1,16 @@
 <div class="flex flex-col md:flex-row items-center justify-center w-full h-full fixed pb-10 pr-16 overflow-y-auto">
-  <div class="flex flex-col w-full md:w-1/2 items-center justify-center">
+  <div class="flex flex-col w-full md:w-1/2 items-center justify-center border border-gray-300 rounded-md">
     <h1 class="text-3xl font-bold m-2">Create a New Campaign</h1>
 
-    <form class="flex flex-col w-full p-16 " [formGroup]="campaignForm" (ngSubmit)="createCampaign()">
+    <form class="flex flex-col w-full p-16 gap-4" [formGroup]="campaignForm" (ngSubmit)="createCampaign()">
       <div class="flex flex-col">
-        <label for="name">Campaign name</label>
+        <label for="name">Nome da Campanha</label>
         <input class="p-2 border border-gray-300 rounded-md" type="text" id="name" formControlName="campaignName">
       </div>
       <div class="flex flex-col">
-        <label for="description">Description</label>
+        <label for="description">Descrição</label>
         <textarea
-          class="w-full h-32 p-2 border border-gray-300 rounded-md resize-none overflow-hidden after:whitespace-pre-wrap"
+          class="w-full h-32 p-2 border border-gray-300 rounded-md resize-none  after:whitespace-pre-wrap"
           type="text"
           id="description"
           formControlName="campaignDescription"
@@ -20,11 +20,36 @@
         </textarea>
       </div>
       <div class="flex flex-col">
-        <label for="image">Image URL</label>
+        <label for="system">Sistema</label>
+        <select id="system" class="border border-gray-300 rounded-md p-1" formControlName="campaignSystemName">
+          <option value="" >-- Selecione um Sistema --</option>
+          <option value="Dungeons and Dragons 3.5">Dungeons and Dragons 3.5</option>
+          <option value="Delta Green">Delta Green</option>
+          <option value="Dungeons and Dragons 5e">Dungeons and Dragon 5e</option>
+          <option value="Call of Cthulhu">Call of Cthulhu</option>
+          <option value="Pathfinder 2e">Pathfinder 2e</option>
+          <option value="Pathfinder 1e">Pathfinder 1e</option>
+          <option value="Starfinder">Starfinder</option>
+          <option value="custom">CUSTOM</option>
+        </select>
+      </div>
+      @if(campaignForm.get('campaignSystemName')!.value === 'custom'){
+        <div class="flex flex-col">
+          <label for="customSystem">Nome do Sistema</label>
+          <input class="p-2 border border-gray-300 rounded-md" type="text" id="customSystem" formControlName="campaignCustomSystemName">
+        </div>
+
+      }
+      <div class="flex flex-col mb-4">
+        <label for="image">URL da Imagem</label>
         <input class="p-2 border border-gray-300 rounded-md" type="text" id="image" formControlName="campaignImageUrl">
       </div>
+      <div class="flex flex-row mb-4 gap-4">
+        <input class="scale-150" type="checkbox" id="favorite" formControlName="active">
+        <label for="favorite" class="group relative inline-block">Adicionar à barra lateral após criação <span class="absolute hidden group-hover:flex bg-gray-700 border-md text-white p-1 rounded-lg bottom-full left-1/2 content[' '] ">teste</span></label>
+      </div>
 
-      <p-button class="my-4" type="submit" title="Create new Campaign">Print</p-button>
+      <p-button class="my-4 self-center" type="submit" title="Create new Campaign"></p-button>
     </form>
   </div>
 

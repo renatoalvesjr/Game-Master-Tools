@@ -1,8 +1,17 @@
-<div class="max-w-40 min-w-40 border rounded-lg">
-  <img class="w-40 h-30 object-scale-down rounded-t-lg" src="{{campaign.campaignImageUrl}}"
-       alt="">
-  <div class="flex flex-col p-1">
-    <p class="truncate" [title]="campaign.campaignName">{{campaign.campaignName}}</p>
-    <p>Creation Date: {{campaign.campaignCreationDate | date}}</p>
+<div class="max-h-32 min-w-62 max-w-[350px] border border-gray-300 rounded-lg group">
+  <div class="flex flex-row justify-between">
+    <div class="flex flex-col p-1 col-span-2 justify-around ">
+      <div class="flex flex-row justify-between">
+        <p class="line-clamp-1 font-bold text-lg" [title]="campaign.campaignName">{{ campaign.campaignName }} </p>
+        <img
+          class="hidden cursor-pointer group-hover:flex hover:scale-110 image-gray-400 transition-all duration-300 ease-out"
+          src="icons/edit_note.svg" alt=""
+          (click)="goTo(campaign.campaignId)"
+        >
+      </div>
+      <p class="">Creation Date: {{ campaign.campaignCreationDate | formatDate }}</p>
+      <p class="line-clamp-3">Description: {{ campaign.campaignDescription }}</p>
+    </div>
   </div>
 </div>
+

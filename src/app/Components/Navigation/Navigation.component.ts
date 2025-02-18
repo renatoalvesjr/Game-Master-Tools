@@ -3,10 +3,7 @@ import {CommonModule} from '@angular/common';
 import {Router, RouterLink, RouterLinkActive, RouterOutlet,} from '@angular/router';
 import {CampaignService} from '../../Services/campaign.service';
 import {Campaign} from '../../Interfaces/Campaign.interface';
-import {DividerComponent} from '../divider/divider.component';
 import {UtilsService} from '../../Services/utils.service';
-import {Observable} from 'rxjs';
-import {map} from 'rxjs/operators';
 
 interface SystemNavList {
   name: string;
@@ -21,19 +18,19 @@ interface SystemNavList {
   selector: 'app-Navigation',
   templateUrl: './Navigation.component.html',
   styleUrls: ['./Navigation.component.scss'],
-  imports: [CommonModule, RouterOutlet, RouterLinkActive, RouterLink, DividerComponent]
+  imports: [CommonModule, RouterOutlet, RouterLinkActive, RouterLink,]
 })
 export class NavigationComponent implements OnInit {
   router = inject(Router);
   campaignService = inject(CampaignService);
   utils = inject(UtilsService)
 
-  campaignList!: Observable<Campaign[]>;
+  campaigns!: Campaign[];
 
 
   navList: SystemNavList[] = [
     {
-      name: 'Campaigns Managment',
+      name: 'Gerenciador de Campanhas',
       route: 'campaign-management',
       icon: 'menu_book',
       iconType: 'material-symbols-outlined',
@@ -47,14 +44,14 @@ export class NavigationComponent implements OnInit {
       active: false,
     },
     {
-      name: 'Systems',
+      name: 'Sistemas',
       route: 'systems',
       icon: 'shelves',
       iconType: 'material-symbols-outlined',
       active: false,
     },
     {
-      name: 'Sound',
+      name: 'Soundoard',
       route: 'sound',
       icon: 'music_cast',
       iconType: 'material-symbols-outlined',
@@ -67,9 +64,10 @@ export class NavigationComponent implements OnInit {
 
 
   async ngOnInit() {
-    this.campaignList = (await this.campaignService.loadCampaigns()).pipe(
-      map(campaigns => campaigns.slice(0, 2))
-    );
+    await this.campaignService.loadCampaigns();
+    this.campaigns = this.campaignService.campaignList;
+    this.campaigns.sort((a, b) => b.campaignUpdateDate.localeCompare(a.campaignUpdateDate));
+    this.campaigns = this.campaigns.slice(0, 3);
   }
 
   async openFile() {

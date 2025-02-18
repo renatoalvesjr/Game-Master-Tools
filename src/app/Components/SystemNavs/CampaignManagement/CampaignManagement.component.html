@@ -1,10 +1,70 @@
-<div class="cdk-virtual-scroll-data-source-example">
-  <cdk-virtual-scroll-viewport
-    orientation="horizontal"
-    itemSize="200"
-    class="example-viewport">
-    <div *cdkVirtualFor="let campaign of campaignList">
-      {{ campaign }}
+<div class="flex flex-row p-4 max-h-full h-full overflow-y-auto gap-4">
+  <div class="flex flex-col h-full max-h-full overflow-y-auto">
+    <div class="flex flex-col h-full max-h-full gap-4">
+      <div class="self-center">
+        <p-button title="Create Campaign" routerLink="/new-campaign"></p-button>
+      </div>
+      @for (campaign of campaigns; track campaign) {
+        <div class="cursor-pointer" (click)="selectCampaign(campaign)">
+          <app-campaign-card [campaign]="campaign"></app-campaign-card>
+        </div>
+      }
     </div>
-  </cdk-virtual-scroll-viewport>
+  </div>
+  <div class="flex flex-col rounded-lg border w-[80%] p-4">
+    @if (!campaignSelected) {
+      <h1>Campaign Settings</h1>
+      <p>Select a campaign to view its settings</p>
+    } @else {
+      <!-- TODO: IMPLEMENTAR EDIÇÃO DAS CAMPANHAS -->
+      <div class="flex flex-col justify-start items-start">
+        <div class="flex flex-col mb-4">
+          <div class="flex flex-row justify-between">
+            <div class="flex flex-row gap-4">
+              <h1 class="font-bold line-clamp-1"
+                  [title]="campaignSelected.campaignName">{{ campaignSelected.campaignName }}</h1>
+              <img class="image-gray-400 scale-90 active:scale-100 cursor-pointer transition-all duration-100"
+                   src="icons/edit.svg" alt="">
+            </div>
+            <img src="" alt="">
+          </div>
+          <p class="font-bold text-sm">{{ campaignSelected.campaignSystemName }}</p>
+        </div>
+        <div class="flex flex-row mb-4">
+          <p class="font-bold">Data de Criação: {{ campaignSelected.campaignCreationDate|formatDate }}</p>
+        </div>
+        <div class="flex flex-col mb-4">
+          <div class="flex flex-row gap-2">
+            <p class="font-bold">Descrição</p>
+            <img class="image-gray-400 scale-75 active:scale-90 cursor-pointer transition-all duration-100"
+                 src="icons/edit.svg" alt="">
+          </div>
+          <p class="border rounded-md p-2">{{ campaignSelected.campaignDescription }}</p>
+        </div>
+        <div class="flex flex-col mb-4 gap-2">
+          <img class="max-h-[200px] max-w-[80%] object-scale-down self-start"
+               src="{{campaignSelected.campaignImageUrl}}" alt="">
+          <p class="line-clamp-1 w-full"><span
+            class="font-bold">URL da imagem:</span> {{ campaignSelected.campaignImageUrl }}</p>
+        </div>
+
+        <div class="w-1/2 border-2 border-red-500 rounded-lg mb-4 gap-4 end-0">
+          <p class="text-red-500 font-bold p-2">Zona de Perigo</p>
+          <div class="flex flex-row p-2">
+            <label for="activateDanger">Ativar opções: </label>
+            <input type="checkbox" id="activateDanger" class="ml-2" [(ngModel)]="dangerMode">
+          </div>
+          <div class="p-4">
+            <button
+              (click)="deleteCampaign(campaignSelected.campaignId)"
+              [disabled]="!dangerMode"
+              class="w-fit p-2 text-white border-2 border-red-500 rounded-full bg-red-400 hover:border-red-600 hover:bg-red-500 cursor-pointer active:bg-red-600 active:border-red-700 transition-all duration-100">
+              Deletar Campanha
+            </button>
+          </div>
+        </div>
+      </div>
+    }
+  </div>
+
 </div>

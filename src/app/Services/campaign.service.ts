@@ -10,7 +10,7 @@ import {Observable} from 'rxjs';
   providedIn: 'root',
 })
 export class CampaignService {
-  campaignList: Campaign[] = [];
+  public campaignList: Campaign[] = [];
   campaigns!: Observable<Campaign[]>;
   window = inject(WindowRef).getWindow();
 
@@ -92,7 +92,6 @@ export class CampaignService {
     };
     await this.window.electronAPI.createFile(request);
     await this.loadCampaigns();
-
     return campaign;
   }
 
@@ -107,6 +106,16 @@ export class CampaignService {
       content,
     };
     await this.window.electronAPI.updateFile(request);
+    await this.loadCampaigns();
+  }
+
+  async deleteCampaign(campaignId: string){
+    const request = {
+      filePath: 'Campaign/',
+      fileName: campaignId + '.json',
+    };
+    this.campaignList = this.campaignList.filter((c: Campaign) => c.campaignId !== campaignId);
+    await this.window.electronAPI.deleteFile(request);
     await this.loadCampaigns();
   }
 }

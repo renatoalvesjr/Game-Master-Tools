@@ -16,7 +16,6 @@ import {MatInputModule} from '@angular/material/input';
 import {MatButtonModule} from '@angular/material/button';
 import {extensions,} from '../../Extensions/editor-extenstions';
 import {InsertionModalComponent} from '../../Components/InsertionModal/InsertionModal.component';
-import {ElectronService} from '../../Services/electron.service';
 import {CampaignService} from '../../Services/campaign.service';
 import {UtilsService} from '../../Services/utils.service';
 import {Page} from '../../Interfaces/Page.interface';
@@ -40,7 +39,6 @@ import {ElapsedTimeDirective} from '../../Directives/elapsed-time.directive';
   ]
 })
 export class NoteEditorComponent implements OnDestroy, OnInit {
-  es = inject(ElectronService);
   utils = inject(UtilsService);
   route = inject(ActivatedRoute);
   dialog = inject(MatDialog);

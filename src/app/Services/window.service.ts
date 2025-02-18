@@ -8,7 +8,4 @@ export class WindowRef {
     return window;
   }
   constructor() { }
-  get nativeWindow(): Window{
-    return this.getWindow();
-  }
 }

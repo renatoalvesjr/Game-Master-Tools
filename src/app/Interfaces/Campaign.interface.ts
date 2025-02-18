@@ -8,7 +8,7 @@ export interface Campaign {
   campaignDescription: string;
   campaignPages: Page[];
   campaignImageUrl: string;
-  campaignSystemId: string; // Only for itens and creatures
+  campaignSystemName: string; // Only for itens and creatures
   campaignIndex: number;
   active: boolean;
 }

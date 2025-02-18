@@ -1,36 +1,54 @@
-import {ChangeDetectionStrategy, Component, inject, OnInit, ViewEncapsulation} from '@angular/core';
+import {Component, inject, OnInit} from '@angular/core';
 import {CampaignCardComponent} from './campaign-card/campaign-card.component';
 import {CampaignService} from '../../../Services/campaign.service';
-import {Observable} from 'rxjs';
 import {Campaign} from '../../../Interfaces/Campaign.interface';
-import {ScrollingModule} from '@angular/cdk/scrolling';
+import {RouterLink} from '@angular/router';
+import {PButtonComponent} from '../../Buttons/p-button/p-button.component';
+import {FormatDatePipe} from '../../../Pipe/format-date.pipe';
+import {FormsModule} from '@angular/forms';
 
 
 @Component({
   selector: 'app-CampaignManagement',
   templateUrl: './CampaignManagement.component.html',
   styleUrls: ['./CampaignManagement.component.css'],
-  encapsulation: ViewEncapsulation.None,
-  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
     CampaignCardComponent,
-    ScrollingModule
+    RouterLink,
+    PButtonComponent,
+    FormatDatePipe,
+    FormsModule
   ],
   standalone: true
 })
 export class CampaignManagementComponent implements OnInit {
   campaignService: CampaignService = inject(CampaignService);
-  campaignList!: Observable<Campaign[]>;
-  items!: Campaign[];
+  campaignSelected!: Campaign | null;
+  campaigns!: Campaign[];
+  array: number[] = [];
+  dangerMode: boolean = false;
 
-  async ngOnInit(){
-    this.campaignList = await this.campaignService.loadCampaigns();
-    this.campaignList.subscribe((campaigns) => {
-      this.items = campaigns;
-    })
-    console.log(this.items)
+  async ngOnInit() {
+    await this.loadCampaign();
   }
-  constructor() { }
 
+  async loadCampaign() {
+    await this.campaignService.loadCampaigns();
+    this.campaigns = this.campaignService.campaignList;
+  }
 
+  selectCampaign(campaign: Campaign) {
+    this.dangerMode = false;
+    this.campaignSelected = campaign;
+  }
+
+  async updateCampaign(campaign: Campaign) {
+    await this.campaignService.updateCampaign(campaign);
+  }
+
+  async deleteCampaign(campaignId: string) {
+    this.campaignSelected = null
+    await this.campaignService.deleteCampaign(campaignId);
+    await this.loadCampaign();
+  }
 }
