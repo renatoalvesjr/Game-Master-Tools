@@ -2,7 +2,7 @@ import {Editor as Tiptap, Extension} from '@tiptap/core';
 import {NgxTiptapModule} from 'ngx-tiptap';
 import {
   Component,
-  inject,
+  inject, Input,
   OnDestroy, OnInit,
 } from '@angular/core';
 import {CommonModule} from '@angular/common';
@@ -20,11 +20,12 @@ import {CampaignService} from '../../Services/campaign.service';
 import {UtilsService} from '../../Services/utils.service';
 import {Page} from '../../Interfaces/Page.interface';
 import {ElapsedTimeDirective} from '../../Directives/elapsed-time.directive';
+import {Campaign} from '../../Interfaces/Campaign.interface';
 
 @Component({
-    selector: 'app-note-editor',
-    styleUrl: './Editor.component.css',
-    templateUrl: './Editor.component.html',
+  selector: 'app-note-editor',
+  styleUrl: './Editor.component.css',
+  templateUrl: './Editor.component.html',
   imports: [
     CommonModule,
     FormsModule,
@@ -44,10 +45,12 @@ export class NoteEditorComponent implements OnDestroy, OnInit {
   dialog = inject(MatDialog);
   campaignService = inject(CampaignService);
 
+  @Input() campaign: Campaign | null = null;
+
   content = '<p>Standard</p>';
   campaignId: string = '';
-  pageId: string = this.route.snapshot.paramMap.get('pageId')!;
-  noteId: string = this.route.snapshot.paramMap.get('noteId')!;
+  pageId!: string;
+  noteId!: string;
   note!: Note;
   page!: Page;
   url = '';
@@ -55,15 +58,13 @@ export class NoteEditorComponent implements OnDestroy, OnInit {
   constructor() {
   }
 
-  async ngOnInit(){
-    this.route.params.subscribe(async (params) => {
-      this.campaignId = this.route.parent?.snapshot.paramMap.get('campaignId')!;
-      this.pageId = params['pageId'];
-      this.page = await this.campaignService.getPageById(this.campaignId, this.pageId);
-      this.noteId = params['noteId'];
-      this.note = await this.campaignService.getNoteById(this.campaignId, this.pageId, this.noteId);
-      this.content = this.note.noteContent;
-    });
+  async ngOnInit() {
+    this.pageId = this.route.snapshot.paramMap.get('pageId')!;
+    this.noteId = this.route.snapshot.paramMap.get('noteId')!;
+    console.log(this.noteId)
+    // this.note = this.campaign?.campaignPages.find(
+    //   page => page.pageId === this.pageId)?.pageNotes.find(
+    //   note => note.noteId === this.noteId)!;
     this.editor.on('update', () => {
       this.onEditorUpdate();
     })
@@ -74,7 +75,7 @@ export class NoteEditorComponent implements OnDestroy, OnInit {
   onEditorUpdate() {
     clearTimeout(this.typingTimeout);
     this.typingTimeout = setTimeout(() => {
-      this.saveNote().then()
+      this.saveFile().then()
     }, 1000);
   }
 
@@ -93,16 +94,16 @@ export class NoteEditorComponent implements OnDestroy, OnInit {
   });
 
   async saveFile() {
-    const campaign = await this.campaignService.getCampaignById(this.campaignId);
-    const page = campaign.campaignPages.find((p) => p.pageId === this.pageId);
-    const note = page?.pageNotes.find((n) => n.noteId === this.noteId);
-    if (note) {
-      note.noteContent = this.editor.getHTML();
-    }
-    campaign.campaignPages[campaign.campaignPages.indexOf(page!)].pageNotes[page!.pageNotes.indexOf(note!)] = note!;
-    campaign.campaignUpdateDate = this.utils.getTimeNow();
-
-    await this.campaignService.updateCampaign(campaign);
+    // const campaign = await this.campaignService.getCampaignById(this.campaignId);
+    // const page = campaign.campaignPages.find((p) => p.pageId === this.pageId);
+    // const note = page?.pageNotes.find((n) => n.noteId === this.noteId);
+    // if (note) {
+    //   note.noteContent = this.editor.getHTML();
+    // }
+    // campaign.campaignPages[campaign.campaignPages.indexOf(page!)].pageNotes[page!.pageNotes.indexOf(note!)] = note!;
+    // campaign.campaignUpdateDate = this.utils.getTimeNow();
+    //
+    // await this.campaignService.updateCampaign(campaign);
   }
 
   onTextColorChange(event: Event): void {
@@ -165,19 +166,6 @@ export class NoteEditorComponent implements OnDestroy, OnInit {
 
   parseInt(arg: string) {
     return parseInt(arg);
-  }
-
-  async saveNote() {
-    const campaign = await this.campaignService.getCampaignById(this.campaignId);
-    const page = campaign.campaignPages.find((p) => p.pageId === this.pageId);
-    const note = page?.pageNotes.find((n) => n.noteId === this.noteId);
-    if (note) {
-      note.noteContent = this.editor.getHTML();
-    }
-    campaign.campaignPages[campaign.campaignPages.indexOf(page!)].pageNotes[page!.pageNotes.indexOf(note!)] = note!;
-    campaign.campaignUpdateDate = this.utils.getTimeNow();
-
-    await this.campaignService.updateCampaign(campaign);
   }
 
   onHeadingChange(event: Event): void {

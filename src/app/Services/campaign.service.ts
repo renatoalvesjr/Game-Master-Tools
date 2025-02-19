@@ -1,121 +1,137 @@
 import {inject, Injectable} from '@angular/core';
 import {Campaign} from '../Interfaces/Campaign.interface';
-import {Note} from '../Interfaces/Note.interface';
-import {Page} from '../Interfaces/Page.interface';
 import {WindowRef} from './window.service';
-import {CampaignDTO} from '../Interfaces/CampaignDTO.interface';
-import {Observable} from 'rxjs';
+import {BehaviorSubject} from 'rxjs';
+import {Request} from '../Interfaces/Request.interface';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CampaignService {
-  public campaignList: Campaign[] = [];
-  campaigns!: Observable<Campaign[]>;
-  window = inject(WindowRef).getWindow();
+  window = inject(WindowRef).getWindow()
 
-  async getCampaignById(campaignId: string): Promise<Campaign> {
-    const request = {
-      filePath: 'Campaign/',
-      fileName: campaignId + '.json',
+  private campaignSubject = new BehaviorSubject<Campaign[]>([]);
+  campaigns = this.campaignSubject.asObservable();
+
+  /**
+   * Carrega todas as campanhas salvas no diret rio 'Campaign'.
+   * A lista de campanhas  atualizada  ser  emitida pela propriedade observ vel 'campaigns'.
+   *
+   * Esta fun o  usada para carregar todas as campanhas salvas no diret rio 'Campaign'.
+   * Ela l  o conte do de todos os arquivos JSON dentro do diret rio e os converte em objetos do tipo Campaign.
+   * A lista de campanhas  atualizada  ser  emitida pela propriedade observ vel 'campaigns'.
+   */
+  async loadAllCampaigns() {
+    const request: Request = {
+      filePath: 'Campaigns/',
+      fileName: '/campaign.json'
     }
-    return await this.window.electronAPI.openFile(request).then((value: any) => {
-      return JSON.parse(value.content) as Campaign;
-    });
-  }
 
-  async saveFile(campaignId: string): Promise<void> {
-    const conteudo: CampaignDTO = {
-      filePath: 'Campaign/',
-      fileName: await this.getCampaignById(campaignId).then((value: any) => {
-        return value
-      }) + '.json',
-      content: JSON.stringify(this.getCampaignById(campaignId)),
-    };
-    this.window.electronAPI.saveFile(conteudo);
-    await this.loadCampaigns();
-  }
-
-  async loadCampaigns(): Promise<Observable<Campaign[]>> {
-    const request = {
-      filePath: 'Campaign/',
-    }
-    let files: string[] = []
-    await this.window.electronAPI.listFiles(request).then((value: string[]) => {
-      files = value
-    });
-
-    if (files) {
-      for (const file of files) {
-        const request = {
-          filePath: 'Campaign/',
-          fileName: file,
-        }
-        await this.window.electronAPI.openFile(request).then((value: any) => {
-            const campaign = JSON.parse(value.content) as Campaign;
-            if (!this.campaignList.find((c: Campaign) => c.campaignId === campaign.campaignId)) {
-              this.campaignList.push(campaign);
-            }
-          });
-      }
-    }
-    this.campaignList.sort((a, b) => b.campaignUpdateDate.localeCompare(a.campaignUpdateDate));
-    this.campaigns = new Observable<Campaign[]>(subscriber => {
-        subscriber.next(this.campaignList);
+    await this.window.electronAPI.returnAllFiles(request).then((value: string[]) => {
+      const campaigns: Campaign[] = [];
+      value.forEach((value) => {
+        campaigns.push(JSON.parse(value) as Campaign);
       });
-    return this.campaigns;
+      this.campaignSubject.next(campaigns);
+    })
   }
 
-  async getPageById(campaignId: string, pageId: string): Promise<Page> {
-    const campaign = await this.getCampaignById(campaignId);
-    return campaign.campaignPages.find(
-      (page: Page): boolean => page.pageId === pageId
-    )! as Page;
+
+  /**
+   * Returns a campaign with the given ID.
+   * @param campaignId The ID of the campaign to be returned.
+   * @returns A promise that resolves with the campaign if found, or rejects if not found.
+   */
+  async getCampaignById(campaignId: string): Promise<Campaign> {
+    if (campaignId === null || campaignId === undefined) {
+      throw new Error('Campaign ID is null or undefined');
+    }
+
+    const request: Request = {
+      filePath: 'Campaigns/' + campaignId + '/campaign.json',
+    }
+
+    try {
+      // Read the content of the file
+      const value = await this.window.electronAPI.returnFile(request);
+
+      // Convert the JSON string to a Campaign object
+      return JSON.parse(value) as Campaign;
+    } catch (error) {
+      console.error('Error on getCampaignById:', error);
+      throw error;
+    }
   }
 
-  async getNoteById(campaignId: string, pageId: string, noteId: string): Promise<Note> {
-    const page = await this.getPageById(campaignId, pageId);
-    return page.pageNotes.find(
-      (note: Note): boolean => note.noteId === noteId
-    ) as Note;
-  }
-
+  /**
+   * Creates a new campaign and saves it to the file system.
+   *
+   * This function creates a new campaign by writing its data to a JSON file
+   * located in the 'Campaigns' directory. After creating the file, it reloads
+   * all campaigns to update the observable list.
+   *
+   * @param campaign The campaign object to be created and saved.
+   * @returns A promise that resolves with the created campaign.
+   */
   async createCampaign(campaign: Campaign): Promise<Campaign> {
-    const filePath = 'Campaign/';
-    const fileName = campaign.campaignId + '.json';
+    const filePath = 'Campaigns/' + campaign.campaignId + '/';
+    const fileName = '/campaign.json';
     const content = JSON.stringify(campaign);
 
-    const request = {
+    const request: Request = {
       filePath,
       fileName,
       content,
     };
-    await this.window.electronAPI.createFile(request);
-    await this.loadCampaigns();
+
+    await this.window.electronAPI.saveFile(request);
+    // Reload all campaigns to refresh the observable list
+    await this.loadAllCampaigns();
     return campaign;
   }
 
   async updateCampaign(campaign: Campaign): Promise<void> {
-    const filePath = 'Campaign/';
-    const fileName = campaign.campaignId + '.json';
+    const filePath = 'Campaigns/' + campaign.campaignId;
+    const fileName = '/campaign.json';
     const content = JSON.stringify(campaign);
 
-    const request = {
+    const request: Request = {
       filePath,
       fileName,
       content,
     };
-    await this.window.electronAPI.updateFile(request);
-    await this.loadCampaigns();
+    await this.window.electronAPI.saveFile(request);
+    await this.loadAllCampaigns();
   }
 
-  async deleteCampaign(campaignId: string){
+  /**
+   * Deletes a campaign from the file system.
+   *
+   * This function is used to delete a campaign from the file system and
+   * update the observable list of campaigns.
+   *
+   * @param campaignId The ID of the campaign to be deleted.
+   * @returns A promise that resolves when the campaign is deleted.
+   */
+  async deleteCampaign(campaignId: string): Promise<void> {
+    const currentCampaigns = this.campaignSubject.value;
+    const updatedCampaigns = currentCampaigns.filter(
+      (campaign) => campaign.campaignId !== campaignId
+    );
+    this.campaignSubject.next(updatedCampaigns);
+
     const request = {
-      filePath: 'Campaign/',
-      fileName: campaignId + '.json',
+      filePath: 'Campaigns/' + campaignId + '/',
+      fileName: '',
     };
-    this.campaignList = this.campaignList.filter((c: Campaign) => c.campaignId !== campaignId);
-    await this.window.electronAPI.deleteFile(request);
-    await this.loadCampaigns();
+
+    try {
+      await this.window.electronAPI.deleteFile(request);
+    } catch (error: any) {
+      console.error('Error on deleteCampaign:', error);
+      if (error.code !== 'ENOENT') {
+        throw error;
+      }
+    }
   }
 }

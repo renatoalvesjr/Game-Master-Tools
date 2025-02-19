@@ -57,8 +57,9 @@ export class HomeComponent implements OnInit {
   }
 
   async ngOnInit() {
-    await this.campaignService.loadCampaigns();
-    this.campaignList = this.campaignService.campaignList;
+    this.campaignService.campaigns.subscribe((campaigns: Campaign[]) => {
+      this.campaignList = campaigns;
+    });
   }
 
 }

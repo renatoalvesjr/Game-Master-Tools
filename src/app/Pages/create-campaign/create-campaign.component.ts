@@ -37,14 +37,11 @@ export class CreateCampaignComponent {
       campaignSystemName: this.campaignForm.value.campaignSystemName! === 'custom' ? this.campaignForm.value.campaignCustomSystemName! :this.campaignForm.value.campaignSystemName!,
       campaignUpdateDate: this.utils.getTimeNow(),
       campaignCreationDate: this.utils.getTimeNow(),
-      campaignPages: [],
       campaignImageUrl: this.campaignForm.value.campaignImageUrl!,
       active: this.campaignForm.value.active!,
     }
-    // await this.campaignService.createCampaign(campaign);
-    // await this.router.navigate(['/campaign/:campaignId', {campaignId: campaign.campaignId}]);
-
-    console.log(campaign);
+    await this.campaignService.createCampaign(campaign);
+    await this.router.navigate(['/campaign/:campaignId', {campaignId: campaign.campaignId}]);
   }
 
 }

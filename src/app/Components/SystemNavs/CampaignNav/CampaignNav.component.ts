@@ -7,12 +7,13 @@ import {Note} from '../../../Interfaces/Note.interface';
 import {MatMenuModule} from '@angular/material/menu';
 import {DividerComponent} from '../../divider/divider.component';
 import {UtilsService} from '../../../Services/utils.service';
+import {NoteEditorComponent} from '../../../Pages/Editor/Editor.component';
 
 @Component({
   selector: 'app-CampaignNav',
   templateUrl: './CampaignNav.component.html',
   styleUrls: ['./CampaignNav.component.scss'],
-  imports: [RouterOutlet, MatMenuModule, DividerComponent]
+  imports: [MatMenuModule, DividerComponent, NoteEditorComponent]
 })
 export class CampaignNavComponent implements OnInit {
   campaignService = inject(CampaignService);
@@ -37,7 +38,7 @@ export class CampaignNavComponent implements OnInit {
     this.route.params.subscribe(async (params) => {
       this.campaignId = params['campaignId'];
       this.campaign = await this.campaignService.getCampaignById(this.campaignId);
-      this.pages = this.campaign.campaignPages;
+      // this.pages = this.campaign.campaignPages;
     });
   }
 
@@ -65,7 +66,7 @@ export class CampaignNavComponent implements OnInit {
       noteUpdateDate: this.utils.getTimeNow(),
     }
     const campaign = this.campaign;
-    campaign.campaignPages.find((page: Page) => page.pageId === pageId)!.pageNotes.push(note);
+    // campaign.campaignPages.find((page: Page) => page.pageId === pageId)!.pageNotes.push(note);
     this.campaignService.updateCampaign(campaign).then();
   }
 
@@ -83,14 +84,14 @@ export class CampaignNavComponent implements OnInit {
       noteElement.removeEventListener('keydown', disableContentEditable);
 
       const updatedTitle = noteElement.innerText.trim();
-      this.campaign.campaignPages.forEach((page: Page) => {
-        page.pageNotes.forEach((note: Note) => {
-          if (note.noteId === noteId) {
-            note.noteTitle = updatedTitle;
-            note.noteUpdateDate = this.utils.getTimeNow();
-          }
-        })
-      });
+      // this.campaign.campaignPages.forEach((page: Page) => {
+      //   page.pageNotes.forEach((note: Note) => {
+      //     if (note.noteId === noteId) {
+      //       note.noteTitle = updatedTitle;
+      //       note.noteUpdateDate = this.utils.getTimeNow();
+      //     }
+      //   })
+      // });
       this.campaign.campaignUpdateDate = this.utils.getTimeNow();
       this.campaignService.updateCampaign(this.campaign).then();
     }
@@ -125,11 +126,11 @@ export class CampaignNavComponent implements OnInit {
       pageElement.removeEventListener('keydown', disableContentEditable);
 
       const updatedTitle = pageElement.innerText.trim();
-      this.campaign.campaignPages.forEach((page: Page) => {
-        if (page.pageId === pageId) {
-          page.pageTitle = updatedTitle;
-        }
-      });
+      // this.campaign.campaignPages.forEach((page: Page) => {
+      //   if (page.pageId === pageId) {
+      //     page.pageTitle = updatedTitle;
+      //   }
+      // });
       this.campaign.campaignUpdateDate = this.utils.getTimeNow();
       this.campaignService.updateCampaign(this.campaign).then();
     }
@@ -147,18 +148,18 @@ export class CampaignNavComponent implements OnInit {
 
   deleteNote(noteId: string, pageId: string) {
     const campaign = this.campaign;
-    campaign.campaignPages.find((page: Page) => page.pageId === pageId)!.pageNotes = campaign.campaignPages.find((page: Page) => page.pageId === pageId)!.pageNotes.filter((note: Note) => note.noteId !== noteId);
+    // campaign.campaignPages.find((page: Page) => page.pageId === pageId)!.pageNotes = campaign.campaignPages.find((page: Page) => page.pageId === pageId)!.pageNotes.filter((note: Note) => note.noteId !== noteId);
     this.campaignService.updateCampaign(campaign).then();
   }
 
   deletePage(pageId: string) {
     const campaign = this.campaign;
-    this.campaign.campaignPages.find((page: Page) => page.pageId === pageId)?.pageNotes.forEach((note: Note) => {
-      this.deleteNote(note.noteId, pageId);
-    });
-    this.campaign.campaignPages = this.campaign.campaignPages.filter((page: Page) => page.pageId !== pageId);
+    // this.campaign.campaignPages.find((page: Page) => page.pageId === pageId)?.pageNotes.forEach((note: Note) => {
+    //   this.deleteNote(note.noteId, pageId);
+    // });
+    // this.campaign.campaignPages = this.campaign.campaignPages.filter((page: Page) => page.pageId !== pageId);
     this.campaignService.updateCampaign(campaign).then();
-    this.pages = this.campaign.campaignPages;
+    // this.pages = this.campaign.campaignPages;
   }
 
   addPage() {
@@ -170,7 +171,7 @@ export class CampaignNavComponent implements OnInit {
       pageCreationDate: this.utils.getTimeNow(),
       pageActive: true,
     }
-    this.campaign.campaignPages.push(page);
+    // this.campaign.campaignPages.push(page);
     this.campaignService.updateCampaign(this.campaign).then();
   }
 }

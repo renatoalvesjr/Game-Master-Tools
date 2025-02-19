@@ -24,7 +24,7 @@ import {FormsModule} from '@angular/forms';
 export class CampaignManagementComponent implements OnInit {
   campaignService: CampaignService = inject(CampaignService);
   campaignSelected!: Campaign | null;
-  campaigns!: Campaign[];
+  campaigns: Campaign[] = [];
   array: number[] = [];
   dangerMode: boolean = false;
 
@@ -33,8 +33,9 @@ export class CampaignManagementComponent implements OnInit {
   }
 
   async loadCampaign() {
-    await this.campaignService.loadCampaigns();
-    this.campaigns = this.campaignService.campaignList;
+    this.campaignService.campaigns.subscribe((campaigns: Campaign[]) => {
+      this.campaigns = campaigns;
+    })
   }
 
   selectCampaign(campaign: Campaign) {

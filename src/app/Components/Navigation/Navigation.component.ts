@@ -62,22 +62,11 @@ export class NavigationComponent implements OnInit {
   constructor() {
   }
 
-
   async ngOnInit() {
-    await this.campaignService.loadCampaigns();
-    this.campaigns = this.campaignService.campaignList;
-    this.campaigns.sort((a, b) => b.campaignUpdateDate.localeCompare(a.campaignUpdateDate));
-    this.campaigns = this.campaigns.slice(0, 3);
-  }
-
-  async openFile() {
-    // const load: CampaignDTO = {
-    //   filePath: 'Campaign/Notes/',
-    //   fileName: '1.json',
-    //   content: ''
-    // }
-    // const returned = this.window.electronAPI.openFile(load);
-    // returned.then((value: any) => {console.log(JSON.parse(value.content) as Campaign)});
-    await this.campaignService.loadCampaigns()
+    this.campaignService.campaigns.subscribe(campaigns => {
+      this.campaigns = campaigns;
+      this.campaigns.sort((a, b) => b.campaignUpdateDate.localeCompare(a.campaignUpdateDate));
+      this.campaigns = this.campaigns.slice(0, 4);
+    });
   }
 }
