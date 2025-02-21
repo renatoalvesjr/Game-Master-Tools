@@ -1,34 +1,34 @@
-import {Component, inject, OnInit} from '@angular/core';
-import {ActivatedRoute, Router, RouterOutlet} from '@angular/router';
+import {Component, inject, Input, OnInit} from '@angular/core';
 import {Campaign} from '../../../Interfaces/Campaign.interface';
+import {MatMenu, MatMenuItem, MatMenuTrigger} from '@angular/material/menu';
 import {CampaignService} from '../../../Services/campaign.service';
+import {PageService} from '../../../Services/page.service';
+import {ActivatedRoute, Router} from '@angular/router';
+import {UtilsService} from '../../../Services/utils.service';
 import {Page} from '../../../Interfaces/Page.interface';
 import {Note} from '../../../Interfaces/Note.interface';
-import {MatMenuModule} from '@angular/material/menu';
-import {DividerComponent} from '../../divider/divider.component';
-import {UtilsService} from '../../../Services/utils.service';
-import {NoteEditorComponent} from '../../../Pages/Editor/Editor.component';
 
 @Component({
-  selector: 'app-CampaignNav',
-  templateUrl: './CampaignNav.component.html',
-  styleUrls: ['./CampaignNav.component.scss'],
-  imports: [MatMenuModule, DividerComponent, NoteEditorComponent]
+  selector: 'app-page-nav',
+  imports: [
+    MatMenu,
+    MatMenuItem,
+    MatMenuTrigger
+  ],
+  templateUrl: './page-nav.component.html',
+  styleUrl: './page-nav.component.scss'
 })
-export class CampaignNavComponent implements OnInit {
+export class PageNavComponent implements OnInit {
+  @Input() campaign!: Campaign;
   campaignService = inject(CampaignService);
+  pageService: PageService = inject(PageService);
   route = inject(ActivatedRoute);
   router = inject(Router);
   utils = inject(UtilsService);
 
   pagesHidden = false;
-  mapsHidden = false;
-  itemsHidden = false;
-  creaturesHidden = false;
-  hiddenDescription = false;
 
   campaignId!: string;
-  campaign!: Campaign;
   pages!: Page[];
 
   constructor() {
@@ -37,8 +37,11 @@ export class CampaignNavComponent implements OnInit {
   async ngOnInit() {
     this.route.params.subscribe(async (params) => {
       this.campaignId = params['campaignId'];
-      this.campaign = await this.campaignService.getCampaignById(this.campaignId);
-      // this.pages = this.campaign.campaignPages;
+      await this.pageService.loadAllpages(this.campaignId);
+      this.pageService.pageList.subscribe(pageList => {
+        this.pages = pageList;
+        console.log(pageList);
+      })
     });
   }
 
@@ -64,6 +67,7 @@ export class CampaignNavComponent implements OnInit {
       noteColor: '#FFFFFF',
       noteCreationDate: this.utils.getTimeNow(),
       noteUpdateDate: this.utils.getTimeNow(),
+      active: true,
     }
     const campaign = this.campaign;
     // campaign.campaignPages.find((page: Page) => page.pageId === pageId)!.pageNotes.push(note);
@@ -167,7 +171,6 @@ export class CampaignNavComponent implements OnInit {
       pageId: this.utils.getUUID(),
       pageIndex: 0,
       pageTitle: 'New Page',
-      pageNotes: [],
       pageCreationDate: this.utils.getTimeNow(),
       pageActive: true,
     }

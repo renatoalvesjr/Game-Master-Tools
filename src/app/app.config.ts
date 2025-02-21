@@ -1,11 +1,13 @@
 import {
-  ApplicationConfig,
+  ApplicationConfig, provideAppInitializer,
   provideZoneChangeDetection
 } from '@angular/core';
 import {provideRouter, withRouterConfig} from '@angular/router';
 
 import {routes} from './app.routes';
 import {provideAnimations} from '@angular/platform-browser/animations';
+import {initializeApp} from './appInitializer';
+import {CampaignService} from './Services/campaign.service';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -17,5 +19,7 @@ export const appConfig: ApplicationConfig = {
       withRouterConfig({urlUpdateStrategy: 'eager'}),
       withRouterConfig({defaultQueryParamsHandling: 'merge'}),
     ),
+    CampaignService,
+    provideAppInitializer(initializeApp)
   ],
 };

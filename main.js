@@ -1,5 +1,4 @@
 const {app, ipcMain, BrowserWindow} = require("electron");
-const url = require("url");
 const path = require("path");
 let fs = require('fs');
 
@@ -13,7 +12,6 @@ function initWindow() {
     webPreferences: {
       nodeIntegration: true,
       contextIsolation: true,
-      enableRemoteModule: false,
       preload: path.join(__dirname, "preload.js")
     },
   });

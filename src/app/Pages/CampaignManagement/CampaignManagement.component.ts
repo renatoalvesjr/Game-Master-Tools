@@ -1,10 +1,10 @@
 import {Component, inject, OnInit} from '@angular/core';
 import {CampaignCardComponent} from './campaign-card/campaign-card.component';
-import {CampaignService} from '../../../Services/campaign.service';
-import {Campaign} from '../../../Interfaces/Campaign.interface';
+import {CampaignService} from '../../Services/campaign.service';
+import {Campaign} from '../../Interfaces/Campaign.interface';
 import {RouterLink} from '@angular/router';
-import {PButtonComponent} from '../../Buttons/p-button/p-button.component';
-import {FormatDatePipe} from '../../../Pipe/format-date.pipe';
+import {PButtonComponent} from '../../Components/Buttons/p-button/p-button.component';
+import {FormatDatePipe} from '../../Pipe/format-date.pipe';
 import {FormsModule} from '@angular/forms';
 
 

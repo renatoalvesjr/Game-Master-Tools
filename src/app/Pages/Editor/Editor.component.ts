@@ -14,7 +14,7 @@ import {MatDialog, MatDialogModule} from '@angular/material/dialog';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
 import {MatButtonModule} from '@angular/material/button';
-import {extensions,} from '../../Extensions/editor-extenstions';
+import {extensions,} from './editor-extenstions';
 import {InsertionModalComponent} from '../../Components/InsertionModal/InsertionModal.component';
 import {CampaignService} from '../../Services/campaign.service';
 import {UtilsService} from '../../Services/utils.service';

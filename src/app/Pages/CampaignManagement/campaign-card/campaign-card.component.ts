@@ -1,6 +1,6 @@
 import {Component, inject, Input} from '@angular/core';
-import {Campaign} from '../../../../Interfaces/Campaign.interface';
-import {FormatDatePipe} from '../../../../Pipe/format-date.pipe';
+import {Campaign} from '../../../Interfaces/Campaign.interface';
+import {FormatDatePipe} from '../../../Pipe/format-date.pipe';
 import {Router} from '@angular/router';
 
 @Component({

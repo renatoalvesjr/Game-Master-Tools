@@ -6,4 +6,5 @@ export interface Note {
   noteCreationDate: string;
   noteUpdateDate: string;
   noteTitle: string;
+  active: boolean;
 }
