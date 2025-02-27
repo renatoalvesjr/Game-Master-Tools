@@ -1,19 +1,27 @@
-import {Component, inject, Input, OnInit} from '@angular/core';
+import {AfterViewInit, Component, inject, Input, OnInit, ViewChild} from '@angular/core';
 import {Campaign} from '../../../Interfaces/Campaign.interface';
-import {MatMenu, MatMenuItem, MatMenuTrigger} from '@angular/material/menu';
+import {MatMenu, MatMenuItem, MatMenuModule, MatMenuTrigger} from '@angular/material/menu';
 import {CampaignService} from '../../../Services/campaign.service';
 import {PageService} from '../../../Services/page.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {UtilsService} from '../../../Services/utils.service';
 import {Page} from '../../../Interfaces/Page.interface';
 import {Note} from '../../../Interfaces/Note.interface';
+import {relativeFrom} from '@angular/compiler-cli';
+import {subscribe} from 'node:diagnostics_channel';
+import {log} from 'node:util';
+import {NoteNavComponent} from './note-nav/note-nav.component';
+import {NoteService} from '../../../Services/note.service';
+import {createInjectableType} from '@angular/compiler';
 
 @Component({
   selector: 'app-page-nav',
   imports: [
+    MatMenuModule,
     MatMenu,
     MatMenuItem,
-    MatMenuTrigger
+    MatMenuTrigger,
+    NoteNavComponent
   ],
   templateUrl: './page-nav.component.html',
   styleUrl: './page-nav.component.scss'
@@ -22,27 +30,30 @@ export class PageNavComponent implements OnInit {
   @Input() campaign!: Campaign;
   campaignService = inject(CampaignService);
   pageService: PageService = inject(PageService);
+  noteService: NoteService = inject(NoteService);
   route = inject(ActivatedRoute);
   router = inject(Router);
   utils = inject(UtilsService);
 
+  @ViewChild(NoteNavComponent) noteNavComponent: NoteNavComponent | undefined;
+
   pagesHidden = false;
 
-  campaignId!: string;
-  pages!: Page[];
+  pages!: Page[] | null;
 
   constructor() {
   }
 
   async ngOnInit() {
-    this.route.params.subscribe(async (params) => {
-      this.campaignId = params['campaignId'];
-      await this.pageService.loadAllpages(this.campaignId);
-      this.pageService.pageList.subscribe(pageList => {
-        this.pages = pageList;
-        console.log(pageList);
-      })
-    });
+    await this.updatePages()
+  }
+
+  async updatePages() {
+    this.route.params.subscribe(async (params: any) => {
+        this.campaign = await this.campaignService.getCampaignById(params['campaignId']);
+        this.pages = await this.pageService.loadAllpages(this.campaign.campaignId);
+      }
+    )
   }
 
   goToNote(pageId: string, noteId: string) {
@@ -58,7 +69,7 @@ export class PageNavComponent implements OnInit {
     }).then();
   }
 
-  addNote(pageId: string) {
+  async addNote(pageId: string) {
     const note: Note = {
       noteId: this.utils.getUUID(),
       noteTitle: 'New Note',
@@ -69,9 +80,14 @@ export class PageNavComponent implements OnInit {
       noteUpdateDate: this.utils.getTimeNow(),
       active: true,
     }
+    await this.noteService.addNote(this.campaign.campaignId, pageId, note);
+    this.campaign.campaignUpdateDate = this.utils.getTimeNow();
+
     const campaign = this.campaign;
-    // campaign.campaignPages.find((page: Page) => page.pageId === pageId)!.pageNotes.push(note);
-    this.campaignService.updateCampaign(campaign).then();
+    await this.campaignService.updateCampaign(campaign).then(async () => {
+      await this.updatePages()
+    });
+    if(this.noteNavComponent) await this.noteNavComponent.loadAllNotes();
   }
 
   toggleNoteEditable(noteId: string) {
@@ -111,8 +127,8 @@ export class PageNavComponent implements OnInit {
     noteElement.addEventListener('keydown', onKeyDown)
   }
 
-  togglePageEditable(pageId: string) {
-    const pageElement = document.getElementById('page-' + pageId);
+  togglePageEditable(page: Page) {
+    const pageElement = document.getElementById('page-' + page.pageId);
     if (!pageElement) {
       return;
     }
@@ -130,11 +146,13 @@ export class PageNavComponent implements OnInit {
       pageElement.removeEventListener('keydown', disableContentEditable);
 
       const updatedTitle = pageElement.innerText.trim();
-      // this.campaign.campaignPages.forEach((page: Page) => {
-      //   if (page.pageId === pageId) {
-      //     page.pageTitle = updatedTitle;
-      //   }
-      // });
+      const updatedPage: Page = {
+        ...page,
+        pageTitle: updatedTitle,
+      }
+      this.pageService.updatePage(this.campaign.campaignId, updatedPage).then(async () => {
+        await this.updatePages();
+      });
       this.campaign.campaignUpdateDate = this.utils.getTimeNow();
       this.campaignService.updateCampaign(this.campaign).then();
     }
@@ -157,24 +175,39 @@ export class PageNavComponent implements OnInit {
   }
 
   deletePage(pageId: string) {
-    const campaign = this.campaign;
+    this.pageService.deletePage(this.campaign.campaignId, pageId).then(async () => {
+      this.pages = await this.pageService.loadAllpages(this.campaign.campaignId)
+    });
     // this.campaign.campaignPages.find((page: Page) => page.pageId === pageId)?.pageNotes.forEach((note: Note) => {
     //   this.deleteNote(note.noteId, pageId);
     // });
     // this.campaign.campaignPages = this.campaign.campaignPages.filter((page: Page) => page.pageId !== pageId);
-    this.campaignService.updateCampaign(campaign).then();
     // this.pages = this.campaign.campaignPages;
   }
 
-  addPage() {
+  async addPage() {
     const page: Page = {
       pageId: this.utils.getUUID(),
       pageIndex: 0,
       pageTitle: 'New Page',
       pageCreationDate: this.utils.getTimeNow(),
       pageActive: true,
+      pageColor: 'white'
     }
+    this.pageService.createPage(page, this.campaign.campaignId).then(async () =>
+      this.pages = await this.pageService.loadAllpages(this.campaign.campaignId)
+    );
     // this.campaign.campaignPages.push(page);
+    this.campaign.campaignUpdateDate = this.utils.getTimeNow();
+    this.campaignService.updateCampaign(this.campaign).then();
+  }
+
+  changeColor(page: Page, color: string) {
+    page.pageColor = color;
+    this.pageService.updatePage(this.campaign.campaignId, page).then(async () =>
+      this.pages = await this.pageService.loadAllpages(this.campaign.campaignId)
+    );
+    this.campaign.campaignUpdateDate = this.utils.getTimeNow();
     this.campaignService.updateCampaign(this.campaign).then();
   }
 }

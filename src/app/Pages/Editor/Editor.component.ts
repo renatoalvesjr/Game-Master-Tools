@@ -61,7 +61,6 @@ export class NoteEditorComponent implements OnDestroy, OnInit {
   async ngOnInit() {
     this.pageId = this.route.snapshot.paramMap.get('pageId')!;
     this.noteId = this.route.snapshot.paramMap.get('noteId')!;
-    console.log(this.noteId)
     // this.note = this.campaign?.campaignPages.find(
     //   page => page.pageId === this.pageId)?.pageNotes.find(
     //   note => note.noteId === this.noteId)!;

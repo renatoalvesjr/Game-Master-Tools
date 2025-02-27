@@ -2,7 +2,6 @@ import {inject, Injectable} from '@angular/core';
 import {Page} from '../Interfaces/Page.interface';
 import {Request} from '../Interfaces/Request.interface';
 import {WindowRef} from './window.service';
-import {BehaviorSubject} from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -10,31 +9,27 @@ import {BehaviorSubject} from 'rxjs';
 export class PageService {
   window = inject(WindowRef).getWindow();
 
-  private pageSubject = new BehaviorSubject<Page[]>([]);
-  pageList = this.pageSubject.asObservable();
-
   constructor() {
   }
 
-  async loadAllpages(campaignId: string) {
+  async loadAllpages(campaignId: string): Promise<Page[]|null>{
     const request: Request = {
       filePath: "Campaigns/" + campaignId + "/Pages/",
       fileName: "/page.json"
     }
 
     try{
+      const pages: Page[] = []
       await this.window.electronAPI.returnAllFiles(request).then((value: string[]) => {
-        const pages: Page[] = [];
         value.forEach((page) => {
           pages.push(JSON.parse(page) as Page);
         })
-        this.pageSubject.next(pages);
       });
+      return pages;
     } catch (error) {
       console.error("Could not load pages: ", error);
     }
-
-
+    return null;
   }
 
   async getPageById(campaignId: string, pageId: string) {

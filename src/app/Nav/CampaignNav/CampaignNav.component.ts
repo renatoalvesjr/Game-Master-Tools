@@ -19,12 +19,10 @@ import {PageNavComponent} from './page-nav/page-nav.component';
 })
 export class CampaignNavComponent implements OnInit {
   campaignService = inject(CampaignService);
-  pageService: PageService = inject(PageService);
   route = inject(ActivatedRoute);
   router = inject(Router);
   utils = inject(UtilsService);
 
-  pagesHidden = false;
   mapsHidden = false;
   itemsHidden = false;
   creaturesHidden = false;
@@ -32,15 +30,23 @@ export class CampaignNavComponent implements OnInit {
 
   campaignId!: string;
   campaign!: Campaign;
+  campaignTitle: string = '';
+  campaignDescription: string = '';
 
   constructor() {
   }
 
   async ngOnInit() {
-    this.route.params.subscribe(async (params) => {
-      this.campaignId = params['campaignId'];
-      this.campaign = await this.campaignService.getCampaignById(this.campaignId);
-    });
+    try {
+      this.route.params.subscribe(async (params) => {
+        this.campaignId = params['campaignId'];
+        this.campaign = await this.campaignService.getCampaignById(this.campaignId);
+        this.campaignTitle = this.campaign.campaignName || '';
+        this.campaignDescription = this.campaign.campaignDescription || '';
+      });
+    }catch (e) {
+      console.error('Error on ngOnInit:', e);
+    }
   }
 
 

@@ -1,350 +1,350 @@
-@if (!campaign){
+<!--@if (!campaign){-->
 
-  <div class="p-4">
-    <p>Crie ou abra uma nova nota no menu à esquerda</p>
-  </div>
-}
-<div class="flex flex-col max-h-full h-full overflow-y-auto">
-  <!-- Campaign Header -->
-  <div class="flex flex-col">
-    <h1>{{ note.noteTitle }}</h1>
-    <div class="flex flex-row items-center gap-10">
-      <h2>{{ page.pageTitle }}</h2>
-      <div class="flex flex-row">
-        <p class="text-gray-400 mr-2">Last update: </p>
-        <p [appElapsedTime]="note.noteUpdateDate" class="text-gray-400"></p>
-      </div>
-    </div>
-  </div>
-  <!-- Toolbar -->
-  <div class="flex flex-row flex-wrap space-2 border-b border-[#E1E1E2]">
-    <!-- History -->
-    <div class="flex flex-row border-r border-[#E1E1E2] px-2 my-2">
-      <button
-        title="Undo"
-        class="rounded-md flex items-center p-1 active:bg-[#16404D] active:text-[#A6CDC6]"
-        (click)="editor.chain().focus().undo().run()"
-      >
-        <img src="icons/undo.svg" alt="">
-      </button>
-      <button
-        title="Redo"
-        class="rounded-md flex items-center p-1 active:bg-[#16404D] active:text-[#A6CDC6]"
-        (click)="editor.chain().focus().redo().run()"
-      >
-        <img src="icons/redo.svg" alt="">
-      </button>
-      <button
-        title="Clear Format"
-        class="rounded-md flex items-center p-1 active:bg-[#16404D] active:text-[#A6CDC6]"
-        (click)="editor.chain().focus().clearNodes().unsetAllMarks().run()"
-      >
-        <img src="icons/format_clear.svg" alt="">
-      </button>
-    </div>
+<!--  <div class="p-4">-->
+<!--    <p>Crie ou abra uma nova nota no menu à esquerda</p>-->
+<!--  </div>-->
+<!--}-->
+<!--<div class="flex flex-col max-h-full h-full overflow-y-auto">-->
+<!--  &lt;!&ndash; Campaign Header &ndash;&gt;-->
+<!--  <div class="flex flex-col">-->
+<!--    <h1>{{ note.noteTitle }}</h1>-->
+<!--    <div class="flex flex-row items-center gap-10">-->
+<!--      <h2>{{ page.pageTitle }}</h2>-->
+<!--      <div class="flex flex-row">-->
+<!--        <p class="text-gray-400 mr-2">Last update: </p>-->
+<!--        <p [appElapsedTime]="note.noteUpdateDate" class="text-gray-400"></p>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--  &lt;!&ndash; Toolbar &ndash;&gt;-->
+<!--  <div class="flex flex-row flex-wrap space-2 border-b border-[#E1E1E2]">-->
+<!--    &lt;!&ndash; History &ndash;&gt;-->
+<!--    <div class="flex flex-row border-r border-[#E1E1E2] px-2 my-2">-->
+<!--      <button-->
+<!--        title="Undo"-->
+<!--        class="rounded-md flex items-center p-1 active:bg-[#16404D] active:text-[#A6CDC6]"-->
+<!--        (click)="editor.chain().focus().undo().run()"-->
+<!--      >-->
+<!--        <img src="icons/undo.svg" alt="">-->
+<!--      </button>-->
+<!--      <button-->
+<!--        title="Redo"-->
+<!--        class="rounded-md flex items-center p-1 active:bg-[#16404D] active:text-[#A6CDC6]"-->
+<!--        (click)="editor.chain().focus().redo().run()"-->
+<!--      >-->
+<!--        <img src="icons/redo.svg" alt="">-->
+<!--      </button>-->
+<!--      <button-->
+<!--        title="Clear Format"-->
+<!--        class="rounded-md flex items-center p-1 active:bg-[#16404D] active:text-[#A6CDC6]"-->
+<!--        (click)="editor.chain().focus().clearNodes().unsetAllMarks().run()"-->
+<!--      >-->
+<!--        <img src="icons/format_clear.svg" alt="">-->
+<!--      </button>-->
+<!--    </div>-->
 
-    <!-- Heading styles -->
-    <div class="flex flex-row border-r border-[#E1E1E2] px-2 my-2">
-      <select
-        class="border border-[#E1E1E2] rounded-sm"
-        (change)="onHeadingChange($event)"
-        [value]="
-          editor.isActive('heading', { level: 1 })
-            ? 'heading1'
-            : editor.isActive('heading', { level: 2 })
-            ? 'heading2'
-            : editor.isActive('heading', { level: 3 })
-            ? 'heading3'
-            : 'paragraph'
-        "
-      >
-        <option value="heading1">
-          <img src="icons/format_h1.svg" alt="">
-          Title 1
-        </option>
-        <option value="heading2">Title 2</option>
-        <option value="heading3">Title 3</option>
-        <option value="paragraph">
-          <img src="icons/format_paragraph.svg" alt="">
-          Paragraph
-        </option>
-      </select>
-    </div>
+<!--    &lt;!&ndash; Heading styles &ndash;&gt;-->
+<!--    <div class="flex flex-row border-r border-[#E1E1E2] px-2 my-2">-->
+<!--      <select-->
+<!--        class="border border-[#E1E1E2] rounded-sm"-->
+<!--        (change)="onHeadingChange($event)"-->
+<!--        [value]="-->
+<!--          editor.isActive('heading', { level: 1 })-->
+<!--            ? 'heading1'-->
+<!--            : editor.isActive('heading', { level: 2 })-->
+<!--            ? 'heading2'-->
+<!--            : editor.isActive('heading', { level: 3 })-->
+<!--            ? 'heading3'-->
+<!--            : 'paragraph'-->
+<!--        "-->
+<!--      >-->
+<!--        <option value="heading1">-->
+<!--          <img src="icons/format_h1.svg" alt="">-->
+<!--          Title 1-->
+<!--        </option>-->
+<!--        <option value="heading2">Title 2</option>-->
+<!--        <option value="heading3">Title 3</option>-->
+<!--        <option value="paragraph">-->
+<!--          <img src="icons/format_paragraph.svg" alt="">-->
+<!--          Paragraph-->
+<!--        </option>-->
+<!--      </select>-->
+<!--    </div>-->
 
-    <!-- Font family -->
-    <div class="flex flex-row border-r border-[#E1E1E2] px-2 my-2">
-      <select
-        class="border border-[#E1E1E2] rounded-sm"
-        (change)="fontFamilyChanges($event)"
-        [value]="editor.getAttributes('textStyle')['fontFamily'] || 'Arial'"
-      >
-        <option value="Arial" class="font-inter">Arial</option>
-        <option value="cursive" class="font-cursive">Cursive</option>
-        <option value="serif" class="font-serif">Ibarra Real</option>
-      </select>
-    </div>
+<!--    &lt;!&ndash; Font family &ndash;&gt;-->
+<!--    <div class="flex flex-row border-r border-[#E1E1E2] px-2 my-2">-->
+<!--      <select-->
+<!--        class="border border-[#E1E1E2] rounded-sm"-->
+<!--        (change)="fontFamilyChanges($event)"-->
+<!--        [value]="editor.getAttributes('textStyle')['fontFamily'] || 'Arial'"-->
+<!--      >-->
+<!--        <option value="Arial" class="font-inter">Arial</option>-->
+<!--        <option value="cursive" class="font-cursive">Cursive</option>-->
+<!--        <option value="serif" class="font-serif">Ibarra Real</option>-->
+<!--      </select>-->
+<!--    </div>-->
 
-    <!-- Font size -->
-    <div class="flex flex-row border-r border-[#E1E1E2] px-2 my-2">
-      <div
-        class="flex flex-row items-center border border-[#e1e1e2] rounded-sm"
-      >
-        <button
-          title="Decrease Font Size"
-          class="rounded-md flex items-center p-1 cursor-pointer"
-          (click)="
-            editor
-              .chain()
-              .focus()
-              .setFontSize(
-                parseInt(fontSizeInput.value.replace('pt', '')) - 2 + 'pt'
-              )
-              .run()
-          "
-        >
-          <img src="icons/remove.svg" alt="">
-        </button>
-        <input
-          type="text"
-          class="w-12 mx-2 text-center"
-          [value]="editor.getAttributes('textStyle')['fontSize'] || '12pt'"
-          (change)="
-            editor
-              .chain()
-              .focus()
-              .setFontSize(fontSizeInput.value + 'pt')
-              .run()
-          "
-          #fontSizeInput
-        />
-        <button
-          title="Increase Font Size"
-          class="rounded-md flex items-center p-1 cursor-pointer"
-          (click)="
-            editor
-              .chain()
-              .focus()
-              .setFontSize(
-                parseInt(fontSizeInput.value.replace('pt', '')) + 2 + 'pt'
-              )
-              .run()
-          "
-        >
-          <img src="icons/add.svg" alt="">
-        </button>
-      </div>
-    </div>
+<!--    &lt;!&ndash; Font size &ndash;&gt;-->
+<!--    <div class="flex flex-row border-r border-[#E1E1E2] px-2 my-2">-->
+<!--      <div-->
+<!--        class="flex flex-row items-center border border-[#e1e1e2] rounded-sm"-->
+<!--      >-->
+<!--        <button-->
+<!--          title="Decrease Font Size"-->
+<!--          class="rounded-md flex items-center p-1 cursor-pointer"-->
+<!--          (click)="-->
+<!--            editor-->
+<!--              .chain()-->
+<!--              .focus()-->
+<!--              .setFontSize(-->
+<!--                parseInt(fontSizeInput.value.replace('pt', '')) - 2 + 'pt'-->
+<!--              )-->
+<!--              .run()-->
+<!--          "-->
+<!--        >-->
+<!--          <img src="icons/remove.svg" alt="">-->
+<!--        </button>-->
+<!--        <input-->
+<!--          type="text"-->
+<!--          class="w-12 mx-2 text-center"-->
+<!--          [value]="editor.getAttributes('textStyle')['fontSize'] || '12pt'"-->
+<!--          (change)="-->
+<!--            editor-->
+<!--              .chain()-->
+<!--              .focus()-->
+<!--              .setFontSize(fontSizeInput.value + 'pt')-->
+<!--              .run()-->
+<!--          "-->
+<!--          #fontSizeInput-->
+<!--        />-->
+<!--        <button-->
+<!--          title="Increase Font Size"-->
+<!--          class="rounded-md flex items-center p-1 cursor-pointer"-->
+<!--          (click)="-->
+<!--            editor-->
+<!--              .chain()-->
+<!--              .focus()-->
+<!--              .setFontSize(-->
+<!--                parseInt(fontSizeInput.value.replace('pt', '')) + 2 + 'pt'-->
+<!--              )-->
+<!--              .run()-->
+<!--          "-->
+<!--        >-->
+<!--          <img src="icons/add.svg" alt="">-->
+<!--        </button>-->
+<!--      </div>-->
+<!--    </div>-->
 
-    <!-- Text formatting -->
-    <div class="flex flex-row border-r border-[#E1E1E2] px-2 my-2">
-      <button
-        title="Bold"
-        class="{{
-          editor.isActive('bold') ? 'shadow-inner bg-[#586671] text-white' : ''
-        }} rounded-md flex items-center p-1 cursor-pointer"
-        (click)="editor.chain().focus().toggleBold().run()"
-      >
-        <img src="icons/format_bold.svg" alt="">
-      </button>
-      <button
-        title="Italic"
-        class="{{
-          editor.isActive('italic')
-            ? 'shadow-inner bg-[#586671] text-white'
-            : ''
-        }} rounded-md flex items-center p-1 cursor-pointer"
-        (click)="editor.chain().focus().toggleItalic().run()"
-      >
-        <img src="icons/format_italic.svg" alt="">
-      </button>
+<!--    &lt;!&ndash; Text formatting &ndash;&gt;-->
+<!--    <div class="flex flex-row border-r border-[#E1E1E2] px-2 my-2">-->
+<!--      <button-->
+<!--        title="Bold"-->
+<!--        class="{{-->
+<!--          editor.isActive('bold') ? 'shadow-inner bg-[#586671] text-white' : ''-->
+<!--        }} rounded-md flex items-center p-1 cursor-pointer"-->
+<!--        (click)="editor.chain().focus().toggleBold().run()"-->
+<!--      >-->
+<!--        <img src="icons/format_bold.svg" alt="">-->
+<!--      </button>-->
+<!--      <button-->
+<!--        title="Italic"-->
+<!--        class="{{-->
+<!--          editor.isActive('italic')-->
+<!--            ? 'shadow-inner bg-[#586671] text-white'-->
+<!--            : ''-->
+<!--        }} rounded-md flex items-center p-1 cursor-pointer"-->
+<!--        (click)="editor.chain().focus().toggleItalic().run()"-->
+<!--      >-->
+<!--        <img src="icons/format_italic.svg" alt="">-->
+<!--      </button>-->
 
-      <button
-        title="Underline"
-        class="{{
-          editor.isActive('underline')
-            ? 'shadow-inner bg-[#586671] text-white'
-            : ''
-        }} rounded-md flex items-center p-1 cursor-pointer"
-        (click)="editor.chain().focus().toggleUnderline().run()"
-      >
-        <img src="icons/format_underlined.svg" alt="">
-      </button>
-      <button
-        title="Superscript"
-        class="{{
-          editor.isActive('superscript')
-            ? 'shadow-inner bg-[#586671] text-white'
-            : ''
-        }} rounded-md flex items-center p-1 cursor-pointer"
-        (click)="editor.chain().focus().toggleSuperscript().run()"
-      >
-        <img src="icons/superscript.svg" alt="">
-      </button>
-      <button
-        title="Subscript"
-        class="{{
-          editor.isActive('subscript')
-            ? 'shadow-inner bg-[#586671] text-white'
-            : ''
-        }} rounded-md flex items-center p-1 cursor-pointer"
-        (click)="editor.chain().focus().toggleSubscript().run()"
-      >
-        <img src="icons/subscript.svg" alt="">
-      </button>
-      <button
-        title="Highlight"
-        class="{{
-          editor.isActive('highlight')
-            ? 'shadow-inner bg-[#586671] text-white'
-            : ''
-        }} rounded-md flex items-center p-1 cursor-pointer"
-        (click)="editor.chain().focus().toggleHighlight().run()"
-      >
-        <img src="icons/format_ink_highlighter.svg" alt="">
-      </button>
-      <div class="flex flex-row px-2 items-center">
-        <div
-          class="rounded-full w-6 h-6 border border-[#A6CDC6] hover:cursor-pointer hover:shadow-lg hover:border-black transition-all transition-200"
-          [style.background-color]="
-            editor.getAttributes('textStyle')['color'] || '#000000'
-          "
-          (click)="colorPicker.click()"
-        ></div>
-        <input
-          #colorPicker
-          class="hidden"
-          type="color"
-          (change)="onTextColorChange($event)"
-          (input)="onTextColorChange($event)"
-          [value]="editor.getAttributes('textStyle')['color'] || '#000000'"
-        />
-      </div>
-    </div>
+<!--      <button-->
+<!--        title="Underline"-->
+<!--        class="{{-->
+<!--          editor.isActive('underline')-->
+<!--            ? 'shadow-inner bg-[#586671] text-white'-->
+<!--            : ''-->
+<!--        }} rounded-md flex items-center p-1 cursor-pointer"-->
+<!--        (click)="editor.chain().focus().toggleUnderline().run()"-->
+<!--      >-->
+<!--        <img src="icons/format_underlined.svg" alt="">-->
+<!--      </button>-->
+<!--      <button-->
+<!--        title="Superscript"-->
+<!--        class="{{-->
+<!--          editor.isActive('superscript')-->
+<!--            ? 'shadow-inner bg-[#586671] text-white'-->
+<!--            : ''-->
+<!--        }} rounded-md flex items-center p-1 cursor-pointer"-->
+<!--        (click)="editor.chain().focus().toggleSuperscript().run()"-->
+<!--      >-->
+<!--        <img src="icons/superscript.svg" alt="">-->
+<!--      </button>-->
+<!--      <button-->
+<!--        title="Subscript"-->
+<!--        class="{{-->
+<!--          editor.isActive('subscript')-->
+<!--            ? 'shadow-inner bg-[#586671] text-white'-->
+<!--            : ''-->
+<!--        }} rounded-md flex items-center p-1 cursor-pointer"-->
+<!--        (click)="editor.chain().focus().toggleSubscript().run()"-->
+<!--      >-->
+<!--        <img src="icons/subscript.svg" alt="">-->
+<!--      </button>-->
+<!--      <button-->
+<!--        title="Highlight"-->
+<!--        class="{{-->
+<!--          editor.isActive('highlight')-->
+<!--            ? 'shadow-inner bg-[#586671] text-white'-->
+<!--            : ''-->
+<!--        }} rounded-md flex items-center p-1 cursor-pointer"-->
+<!--        (click)="editor.chain().focus().toggleHighlight().run()"-->
+<!--      >-->
+<!--        <img src="icons/format_ink_highlighter.svg" alt="">-->
+<!--      </button>-->
+<!--      <div class="flex flex-row px-2 items-center">-->
+<!--        <div-->
+<!--          class="rounded-full w-6 h-6 border border-[#A6CDC6] hover:cursor-pointer hover:shadow-lg hover:border-black transition-all transition-200"-->
+<!--          [style.background-color]="-->
+<!--            editor.getAttributes('textStyle')['color'] || '#000000'-->
+<!--          "-->
+<!--          (click)="colorPicker.click()"-->
+<!--        ></div>-->
+<!--        <input-->
+<!--          #colorPicker-->
+<!--          class="hidden"-->
+<!--          type="color"-->
+<!--          (change)="onTextColorChange($event)"-->
+<!--          (input)="onTextColorChange($event)"-->
+<!--          [value]="editor.getAttributes('textStyle')['color'] || '#000000'"-->
+<!--        />-->
+<!--      </div>-->
+<!--    </div>-->
 
-    <!-- Insertions -->
-    <div class="flex flex-row border-r border-[#E1E1E2] px-2 my-2">
-      <button
-        title="Link"
-        class="{{
-          editor.isActive('link') ? 'shadow-inner bg-[#586671] text-white' : ''
-        }} rounded-md flex items-center p-1"
-        (click)="toggleLink()"
-      >
-        <img src="icons/link.svg" alt="">
-      </button>
-      <button
-        title="Image"
-        class="{{
-          editor.isActive('image') ? 'shadow-inner bg-[#586671] text-white' : ''
-        }} rounded-md flex items-center p-1"
-        (click)="addImage()"
-      >
-        <img src="icons/image.svg" alt="">
-      </button>
-    </div>
+<!--    &lt;!&ndash; Insertions &ndash;&gt;-->
+<!--    <div class="flex flex-row border-r border-[#E1E1E2] px-2 my-2">-->
+<!--      <button-->
+<!--        title="Link"-->
+<!--        class="{{-->
+<!--          editor.isActive('link') ? 'shadow-inner bg-[#586671] text-white' : ''-->
+<!--        }} rounded-md flex items-center p-1"-->
+<!--        (click)="toggleLink()"-->
+<!--      >-->
+<!--        <img src="icons/link.svg" alt="">-->
+<!--      </button>-->
+<!--      <button-->
+<!--        title="Image"-->
+<!--        class="{{-->
+<!--          editor.isActive('image') ? 'shadow-inner bg-[#586671] text-white' : ''-->
+<!--        }} rounded-md flex items-center p-1"-->
+<!--        (click)="addImage()"-->
+<!--      >-->
+<!--        <img src="icons/image.svg" alt="">-->
+<!--      </button>-->
+<!--    </div>-->
 
-    <!-- List styles -->
-    <div class="flex flex-row border-r border-[#E1E1E2] px-2 my-2 gap-2">
-      <button
-        title="Bullet List"
-        class="{{
-          editor.isActive('bulletList')
-            ? 'shadow-inner bg-[#586671] text-white'
-            : ''
-        }} rounded-md cursor-pointer flex items-center p-1"
-        (click)="editor.chain().focus().toggleBulletList().run()"
-      >
-        <img src="icons/format_list_bulleted.svg" alt="">
-      </button>
-      <button
-        title="Ordered List"
-        class="{{
-          editor.isActive('orderedList')
-            ? 'shadow-inner bg-[#586671] text-white'
-            : ''
-        }} rounded-md cursor-pointer flex items-center p-1"
-        (click)="editor.chain().focus().toggleOrderedList().run()"
-      >
-        <img src="icons/format_list_numbered.svg" alt="">
-      </button>
-      <button
-        title="Task List"
-        class="{{
-          editor.isActive('taskList')
-            ? 'shadow-inner bg-[#586671] text-white'
-            : ''
-        }} rounded-md cursor-pointer flex items-center p-1 "
-        (click)="editor.chain().focus().toggleTaskList().run()"
-      >
-        <img src="icons/checklist.svg" alt="">
-      </button>
-    </div>
+<!--    &lt;!&ndash; List styles &ndash;&gt;-->
+<!--    <div class="flex flex-row border-r border-[#E1E1E2] px-2 my-2 gap-2">-->
+<!--      <button-->
+<!--        title="Bullet List"-->
+<!--        class="{{-->
+<!--          editor.isActive('bulletList')-->
+<!--            ? 'shadow-inner bg-[#586671] text-white'-->
+<!--            : ''-->
+<!--        }} rounded-md cursor-pointer flex items-center p-1"-->
+<!--        (click)="editor.chain().focus().toggleBulletList().run()"-->
+<!--      >-->
+<!--        <img src="icons/format_list_bulleted.svg" alt="">-->
+<!--      </button>-->
+<!--      <button-->
+<!--        title="Ordered List"-->
+<!--        class="{{-->
+<!--          editor.isActive('orderedList')-->
+<!--            ? 'shadow-inner bg-[#586671] text-white'-->
+<!--            : ''-->
+<!--        }} rounded-md cursor-pointer flex items-center p-1"-->
+<!--        (click)="editor.chain().focus().toggleOrderedList().run()"-->
+<!--      >-->
+<!--        <img src="icons/format_list_numbered.svg" alt="">-->
+<!--      </button>-->
+<!--      <button-->
+<!--        title="Task List"-->
+<!--        class="{{-->
+<!--          editor.isActive('taskList')-->
+<!--            ? 'shadow-inner bg-[#586671] text-white'-->
+<!--            : ''-->
+<!--        }} rounded-md cursor-pointer flex items-center p-1 "-->
+<!--        (click)="editor.chain().focus().toggleTaskList().run()"-->
+<!--      >-->
+<!--        <img src="icons/checklist.svg" alt="">-->
+<!--      </button>-->
+<!--    </div>-->
 
-    <!-- Text alignment -->
-    <div class="flex flex-row border-r border-[#E1E1E2] px-2 my-2 gap-2">
-      <button
-        title="Align Left"
-        class="{{
-          editor.isActive({ textAlign: 'left' })
-            ? 'shadow-inner bg-[#586671] text-white'
-            : ''
-        }}  rounded-md cursor-pointer flex items-center p-1"
-        (click)="editor.chain().focus().setTextAlign('left').run()"
-      >
-        <img src="icons/format_align_left.svg" alt="">
-      </button>
-      <button
-        title="Align Center"
-        class="{{
-          editor.isActive({ textAlign: 'center' })
-            ? 'shadow-inner bg-[#586671] text-white'
-            : ''
-        }}  rounded-md cursor-pointer flex items-center p-1"
-        (click)="editor.chain().focus().setTextAlign('center').run()"
-      >
-        <img src="icons/format_align_center.svg" alt="">
-      </button>
-      <button
-        title="Align Right"
-        class="{{
-          editor.isActive({ textAlign: 'right' })
-            ? 'shadow-inner bg-[#586671] text-white'
-            : ''
-        }}  rounded-md cursor-pointer flex items-center p-1"
-        (click)="editor.chain().focus().setTextAlign('right').run()"
-      >
-        <img src="icons/format_align_right.svg" alt="">
-      </button>
-      <button
-        title="Justify"
-        class="{{
-          editor.isActive({ textAlign: 'justify' })
-            ? 'shadow-inner bg-[#586671] text-white'
-            : ''
-        }}  rounded-md cursor-pointer flex items-center p-1"
-        (click)="editor.chain().focus().setTextAlign('justify').run()"
-      >
-        <img src="icons/format_align_justify.svg" alt="">
-      </button>
-    </div>
+<!--    &lt;!&ndash; Text alignment &ndash;&gt;-->
+<!--    <div class="flex flex-row border-r border-[#E1E1E2] px-2 my-2 gap-2">-->
+<!--      <button-->
+<!--        title="Align Left"-->
+<!--        class="{{-->
+<!--          editor.isActive({ textAlign: 'left' })-->
+<!--            ? 'shadow-inner bg-[#586671] text-white'-->
+<!--            : ''-->
+<!--        }}  rounded-md cursor-pointer flex items-center p-1"-->
+<!--        (click)="editor.chain().focus().setTextAlign('left').run()"-->
+<!--      >-->
+<!--        <img src="icons/format_align_left.svg" alt="">-->
+<!--      </button>-->
+<!--      <button-->
+<!--        title="Align Center"-->
+<!--        class="{{-->
+<!--          editor.isActive({ textAlign: 'center' })-->
+<!--            ? 'shadow-inner bg-[#586671] text-white'-->
+<!--            : ''-->
+<!--        }}  rounded-md cursor-pointer flex items-center p-1"-->
+<!--        (click)="editor.chain().focus().setTextAlign('center').run()"-->
+<!--      >-->
+<!--        <img src="icons/format_align_center.svg" alt="">-->
+<!--      </button>-->
+<!--      <button-->
+<!--        title="Align Right"-->
+<!--        class="{{-->
+<!--          editor.isActive({ textAlign: 'right' })-->
+<!--            ? 'shadow-inner bg-[#586671] text-white'-->
+<!--            : ''-->
+<!--        }}  rounded-md cursor-pointer flex items-center p-1"-->
+<!--        (click)="editor.chain().focus().setTextAlign('right').run()"-->
+<!--      >-->
+<!--        <img src="icons/format_align_right.svg" alt="">-->
+<!--      </button>-->
+<!--      <button-->
+<!--        title="Justify"-->
+<!--        class="{{-->
+<!--          editor.isActive({ textAlign: 'justify' })-->
+<!--            ? 'shadow-inner bg-[#586671] text-white'-->
+<!--            : ''-->
+<!--        }}  rounded-md cursor-pointer flex items-center p-1"-->
+<!--        (click)="editor.chain().focus().setTextAlign('justify').run()"-->
+<!--      >-->
+<!--        <img src="icons/format_align_justify.svg" alt="">-->
+<!--      </button>-->
+<!--    </div>-->
 
-    <!-- Save -->
-    <div class="flex flex-row border-r border-[#E1E1E2] px-2 my-2 gap-2">
-      <button
-        title="Save"
-        class="rounded-md flex items-center p-1 active:bg-[#586671] active:text-white"
-        (click)="saveFile()"
-      >
-        <img src="icons/save.svg" alt="">
-      </button>
-    </div>
-  </div>
-  <!--  Editor-->
-  <div class="flex max-h-full h-full overflow-auto">
-    <tiptap-editor
-      [editor]="editor"
-      [(ngModel)]="content"
-      class="max-h-full h-full w-full p-4"
-    ></tiptap-editor>
-  </div>
-</div>
+<!--    &lt;!&ndash; Save &ndash;&gt;-->
+<!--    <div class="flex flex-row border-r border-[#E1E1E2] px-2 my-2 gap-2">-->
+<!--      <button-->
+<!--        title="Save"-->
+<!--        class="rounded-md flex items-center p-1 active:bg-[#586671] active:text-white"-->
+<!--        (click)="saveFile()"-->
+<!--      >-->
+<!--        <img src="icons/save.svg" alt="">-->
+<!--      </button>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--  &lt;!&ndash;  Editor&ndash;&gt;-->
+<!--  <div class="flex max-h-full h-full overflow-auto">-->
+<!--    <tiptap-editor-->
+<!--      [editor]="editor"-->
+<!--      [(ngModel)]="content"-->
+<!--      class="max-h-full h-full w-full p-4"-->
+<!--    ></tiptap-editor>-->
+<!--  </div>-->
+<!--</div>-->

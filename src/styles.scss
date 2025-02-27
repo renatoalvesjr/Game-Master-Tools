@@ -1,3 +1,14 @@
+@use '@angular/material' as mat;
+
+html {
+  color-scheme: color-scheme;
+  @include mat.theme((
+    color: mat.$orange-palette,
+    typography: Roboto,
+    density: 0
+  ));
+}
+
 @import "tailwindcss";
 
 @font-face {

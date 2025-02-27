@@ -1,76 +1,77 @@
 <div class="flex flex-row w-full max-w-full h-full ">
-  <div class="flex flex-col h-full min-w-56 w-64 p-2 border-r border-gray-200 overflow-y-auto">
-    <!-- Campaign title + description + campaign config menu -->
-    <div class="mb-4">
-      <div class="flex flex-row items-center ">
-        <p>{{campaign.campaignId}}</p>
-        <h1 class="line-clamp-2" [title]="campaign.campaignName">{{ campaign.campaignName }}</h1>
-        <span class="material-icons cursor-pointer select-none" [matMenuTriggerFor]="menu">keyboard_arrow_down</span>
-        <mat-menu #menu="matMenu">
-          <button mat-menu-item>Rename</button>
-          <button mat-menu-item>Settings</button>
-          <divider></divider>
-          <button mat-menu-item>Archive</button>
-          <button mat-menu-item>Delete</button>
-        </mat-menu>
-      </div>
-      <p
-        class="{{hiddenDescription?'cursor-pointer':'cursor-pointer line-clamp-2 hover:underline'}} text-sm text-gray-400"
-        (click)="hiddenDescription = !hiddenDescription"
-      >
-        {{ campaign.campaignDescription }}
-      </p>
+    <div class="flex flex-col h-full min-w-56 w-64 p-2 border-r border-gray-200 overflow-y-auto">
+        <!-- Campaign title + description + campaign config menu -->
+        <div class="mb-4">
+            <div class="flex flex-row items-center ">
+                <h1 class="line-clamp-2" [title]="campaignTitle">{{ campaignTitle }}</h1>
+                <span class="material-icons cursor-pointer select-none"
+                      [matMenuTriggerFor]="menu">keyboard_arrow_down</span>
+                <mat-menu #menu="matMenu">
+                    <button mat-menu-item>Rename</button>
+                    <button mat-menu-item>Settings</button>
+                    <divider></divider>
+                    <button mat-menu-item>Archive</button>
+                    <button mat-menu-item>Delete</button>
+                </mat-menu>
+            </div>
+            <p
+                    class="{{hiddenDescription?'cursor-pointer':'cursor-pointer line-clamp-2 hover:underline'}} text-sm text-gray-400"
+                    (click)="hiddenDescription = !hiddenDescription"
+            >
+                {{ campaignDescription }}
+            </p>
+        </div>
+        <!-- Campaign menus -->
+        <div class="flex flex-col gap-2">
+            <!-- Notes -->
+            <app-page-nav/>
+
+            <!-- Maps -->
+            <div class="flex flex-col">
+                <div
+                        class="flex flex-row items-center justify-between rounded-xl bg-gray-100 hover:bg-gray-200 transition-all duration-300 p-2 my-2">
+                    <div class="flex flex-row items-center gap-1 cursor-pointer" (click)="mapsHidden = !mapsHidden">
+                        <span class="material-symbols-outlined sm">map</span>
+                        <p>Maps</p>
+                    </div>
+                    <div class="flex items-center cursor-pointer {{mapsHidden?'hidden':''}}">
+                        <span class="material-icons">add</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Items -->
+            <div class="flex flex-col">
+                <div
+                        class="flex flex-row items-center justify-between rounded-xl bg-gray-100 hover:bg-gray-200 transition-all duration-300 p-2 my-2">
+                    <div class="flex flex-row items-center gap-1 cursor-pointer" (click)="itemsHidden = !itemsHidden">
+                        <span class="material-symbols-outlined sm">sword_rose</span>
+                        <p>Itens</p>
+                    </div>
+                    <div class="flex items-center cursor-pointer {{itemsHidden?'hidden':''}}">
+                        <span class="material-icons">add</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Creatures -->
+            <div class="flex flex-col">
+                <div
+                        class="flex flex-row items-center justify-between rounded-xl bg-gray-100 hover:bg-gray-200 transition-all duration-300 p-2 my-2">
+                    <div class="flex flex-row items-center gap-1 cursor-pointer"
+                         (click)="creaturesHidden = !creaturesHidden">
+                        <span class="material-symbols-outlined sm">sports_martial_arts</span>
+                        <p>Creatures</p>
+                    </div>
+                    <div class="flex items-center cursor-pointer {{creaturesHidden?'hidden':''}}">
+                        <span class="material-symbols-outlined">add</span>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-    <!-- Campaign menus -->
-    <div class="flex flex-col gap-2">
-      <!-- Notes -->
-      <app-page-nav [campaign]="campaign"></app-page-nav>
 
-      <!-- Maps -->
-      <div class="flex flex-col">
-        <div
-          class="flex flex-row items-center justify-between rounded-xl bg-gray-100 hover:bg-gray-200 transition-all duration-300 p-2 my-2">
-          <div class="flex flex-row items-center gap-1 cursor-pointer" (click)="mapsHidden = !mapsHidden">
-            <span class="material-symbols-outlined sm">map</span>
-            <p>Maps</p>
-          </div>
-          <div class="flex items-center cursor-pointer {{mapsHidden?'hidden':''}}">
-            <span class="material-icons">add</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- Items -->
-      <div class="flex flex-col">
-        <div
-          class="flex flex-row items-center justify-between rounded-xl bg-gray-100 hover:bg-gray-200 transition-all duration-300 p-2 my-2">
-          <div class="flex flex-row items-center gap-1 cursor-pointer" (click)="itemsHidden = !itemsHidden">
-            <span class="material-symbols-outlined sm">sword_rose</span>
-            <p>Itens</p>
-          </div>
-          <div class="flex items-center cursor-pointer {{itemsHidden?'hidden':''}}">
-            <span class="material-icons">add</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- Creatures -->
-      <div class="flex flex-col">
-        <div
-          class="flex flex-row items-center justify-between rounded-xl bg-gray-100 hover:bg-gray-200 transition-all duration-300 p-2 my-2">
-          <div class="flex flex-row items-center gap-1 cursor-pointer" (click)="creaturesHidden = !creaturesHidden">
-            <span class="material-symbols-outlined sm">sports_martial_arts</span>
-            <p>Creatures</p>
-          </div>
-          <div class="flex items-center cursor-pointer {{creaturesHidden?'hidden':''}}">
-            <span class="material-symbols-outlined">add</span>
-          </div>
-        </div>
-      </div>
+    <div class="h-full w-full">
+        <app-note-editor [campaign]="campaign"></app-note-editor>
     </div>
-  </div>
-
-  <div class="h-full w-full">
-    <app-note-editor [campaign]="campaign"></app-note-editor>
-  </div>
 </div>
