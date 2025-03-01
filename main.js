@@ -118,8 +118,8 @@ async function returnAllFiles(event, data) {
       )
     );
   } else {
+    return []
     // Throw an error if the directory does not exist
-    throw new Error(`The directory at path '${filePath}' does not exist.`);
   }
 }
 
