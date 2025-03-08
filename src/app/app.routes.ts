@@ -29,9 +29,7 @@ export const routes: Routes = [
       {
         path: 'campaign/:campaignId',
         component: CampaignNavComponent,
-        children: [
-          {path: 'page/:pageId/note/:noteId', component: NoteEditorComponent},
-        ]
+
       },
     ],
   },

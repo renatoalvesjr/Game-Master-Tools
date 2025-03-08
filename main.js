@@ -1,13 +1,20 @@
-const {app, ipcMain, BrowserWindow} = require("electron");
+const {app, ipcMain, BrowserWindow, nativeTheme, screen} = require("electron");
 const path = require("path");
 let fs = require('fs');
+let os = require("os");
 
 let appWindow;
+
+const defaultConfig = {
+  colorMode: nativeTheme.themeSource,
+  maximize: false,
+}
+
 
 function initWindow() {
   appWindow = new BrowserWindow({
     simpleFullscreen: true,
-    width: 1280,
+    width: 1024,
     height: 720,
     webPreferences: {
       nodeIntegration: true,
@@ -26,8 +33,10 @@ function initWindow() {
     // })
     'http://localhost:4200'
   ).then();
-
-  appWindow.maximize();
+  if(defaultConfig.maximize) {
+    appWindow.maximize();
+  }
+  // appWindow.setMenu(null);
 
   appWindow.once("ready-to-show", () => {
     appWindow.show();
@@ -60,6 +69,13 @@ app.whenReady().then(() => {
 
 const defaultPath = app.getPath("appData") + "/GameMasterTools/";
 
+async function onStart() {
+  if(!fs.existsSync(path.join(defaultPath))) {
+    fs.mkdirSync(path.join(defaultPath, "GameMasterTools"), { recursive: true });
+    fs.mkdirSync(path.join(defaultPath, "GameMasterTools/config"), { recursive: true });
+    fs.writeFileSync(path.join(defaultPath, "GameMasterTools/config.ini"),defaultConfig);
+  }
+}
 
 /**
  * Returns the contents of a file with the given path and name.

@@ -133,3 +133,7 @@ h2 {
 h3 {
   font-size: 1.125rem;
 }
+
+[contenteditable]:focus {
+  outline: 1px solid transparent;
+}

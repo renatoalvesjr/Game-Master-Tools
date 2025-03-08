@@ -87,45 +87,9 @@ export class PageNavComponent implements OnInit {
     await this.campaignService.updateCampaign(campaign).then(async () => {
       await this.updatePages()
     });
-    if(this.noteNavComponent) await this.noteNavComponent.loadAllNotes();
+    if (this.noteNavComponent) await this.noteNavComponent.loadAllNotes();
   }
 
-  toggleNoteEditable(noteId: string) {
-    const noteElement = document.getElementById('note-' + noteId);
-    if (!noteElement) {
-      return;
-    }
-    noteElement.contentEditable = 'true';
-    noteElement.focus();
-
-    const disableContentEditable = () => {
-      noteElement.contentEditable = 'false';
-      noteElement.removeEventListener('blur', disableContentEditable);
-      noteElement.removeEventListener('keydown', disableContentEditable);
-
-      const updatedTitle = noteElement.innerText.trim();
-      // this.campaign.campaignPages.forEach((page: Page) => {
-      //   page.pageNotes.forEach((note: Note) => {
-      //     if (note.noteId === noteId) {
-      //       note.noteTitle = updatedTitle;
-      //       note.noteUpdateDate = this.utils.getTimeNow();
-      //     }
-      //   })
-      // });
-      this.campaign.campaignUpdateDate = this.utils.getTimeNow();
-      this.campaignService.updateCampaign(this.campaign).then();
-    }
-
-    const onKeyDown = (evt: KeyboardEvent) => {
-      if (evt.key === 'Enter') {
-        evt.preventDefault();
-        noteElement.blur();
-      }
-    }
-
-    noteElement.addEventListener('blur', disableContentEditable);
-    noteElement.addEventListener('keydown', onKeyDown)
-  }
 
   togglePageEditable(page: Page) {
     const pageElement = document.getElementById('page-' + page.pageId);
@@ -134,13 +98,14 @@ export class PageNavComponent implements OnInit {
     }
     pageElement.contentEditable = 'true';
     pageElement.focus();
+
     const range = document.createRange();
     range.selectNodeContents(pageElement);
     const selection = window.getSelection();
     selection!.removeAllRanges();
     selection!.addRange(range);
 
-    const disableContentEditable = () => {
+    const disableContentEditable = async () => {
       pageElement.contentEditable = 'false';
       pageElement.removeEventListener('blur', disableContentEditable);
       pageElement.removeEventListener('keydown', disableContentEditable);
@@ -150,17 +115,19 @@ export class PageNavComponent implements OnInit {
         ...page,
         pageTitle: updatedTitle,
       }
-      this.pageService.updatePage(this.campaign.campaignId, updatedPage).then(async () => {
-        await this.updatePages();
-      });
+      await this.pageService.updatePage(this.campaign.campaignId, updatedPage)
+      await this.updatePages();
+
       this.campaign.campaignUpdateDate = this.utils.getTimeNow();
       this.campaignService.updateCampaign(this.campaign).then();
     }
 
-    const onKeyDown = (evt: KeyboardEvent) => {
-      if (evt.key === 'Enter' || evt.key === 'Escape') {
+    const onKeyDown = async (evt: KeyboardEvent) => {
+      if (evt.key === 'Enter') {
+        await disableContentEditable();
+      } else if (evt.key === 'Esc') {
         evt.preventDefault();
-        pageElement.blur();
+        return;
       }
     }
 
@@ -178,11 +145,6 @@ export class PageNavComponent implements OnInit {
     this.pageService.deletePage(this.campaign.campaignId, pageId).then(async () => {
       this.pages = await this.pageService.loadAllpages(this.campaign.campaignId)
     });
-    // this.campaign.campaignPages.find((page: Page) => page.pageId === pageId)?.pageNotes.forEach((note: Note) => {
-    //   this.deleteNote(note.noteId, pageId);
-    // });
-    // this.campaign.campaignPages = this.campaign.campaignPages.filter((page: Page) => page.pageId !== pageId);
-    // this.pages = this.campaign.campaignPages;
   }
 
   async addPage() {
@@ -192,7 +154,7 @@ export class PageNavComponent implements OnInit {
       pageTitle: 'New Page',
       pageCreationDate: this.utils.getTimeNow(),
       pageActive: true,
-      pageColor: 'white'
+      pageColor: 'red-500'
     }
     this.pageService.createPage(page, this.campaign.campaignId).then(async () =>
       this.pages = await this.pageService.loadAllpages(this.campaign.campaignId)
@@ -203,6 +165,12 @@ export class PageNavComponent implements OnInit {
   }
 
   changeColor(page: Page, color: string) {
+    const pageElement: HTMLElement | null = document.getElementById('page-color-' + page.pageId);
+    if (!pageElement) {
+      return;
+    }
+    pageElement.classList.remove('bg-'+page.pageColor);
+    pageElement.classList.add('bg-'+color);
     page.pageColor = color;
     this.pageService.updatePage(this.campaign.campaignId, page).then(async () =>
       this.pages = await this.pageService.loadAllpages(this.campaign.campaignId)

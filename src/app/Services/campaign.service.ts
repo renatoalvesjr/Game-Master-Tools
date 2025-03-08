@@ -42,7 +42,7 @@ export class CampaignService {
    * @param campaignId The ID of the campaign to be returned.
    * @returns A promise that resolves with the campaign if found, or rejects if not found.
    */
-  async getCampaignById(campaignId: string): Promise<Campaign> {
+  async getCampaignById(campaignId: string | null): Promise<Campaign> {
     if (campaignId === null || campaignId === undefined) {
       throw new Error('Campaign ID is null or undefined');
     }

@@ -18,11 +18,12 @@
         <div
           class="flex flex-row items-center pl-2 justify-between bg-{{page.pageColor}} rounded-xl group border border-gray-300 p-1 my-2  transition-all duration-300"
           title="{{ page.pageTitle }}"
+          id="page-color-{{page.pageId}}"
         >
           <div class="flex flex-row gap-1">
             <p
               [title]="page.pageTitle"
-              class="truncate"
+              class="truncate p-1"
               id="page-{{ page.pageId }}"
             >{{ page.pageTitle }}</p>
             <img

@@ -6,6 +6,8 @@ import {RouterLink} from '@angular/router';
 import {PButtonComponent} from '../../Components/Buttons/p-button/p-button.component';
 import {FormatDatePipe} from '../../Pipe/format-date.pipe';
 import {FormsModule} from '@angular/forms';
+import {UtilsService} from '../../Services/utils.service';
+import {NgIf} from '@angular/common';
 
 
 @Component({
@@ -17,16 +19,20 @@ import {FormsModule} from '@angular/forms';
     RouterLink,
     PButtonComponent,
     FormatDatePipe,
-    FormsModule
+    FormsModule,
+    NgIf
   ],
   standalone: true
 })
 export class CampaignManagementComponent implements OnInit {
   campaignService: CampaignService = inject(CampaignService);
+  utils: UtilsService = inject(UtilsService);
+
   campaignSelected!: Campaign | null;
   campaigns: Campaign[] = [];
   array: number[] = [];
   dangerMode: boolean = false;
+  campaignDescriptionElement: HTMLElement| null = null;
 
   async ngOnInit() {
     await this.loadCampaign();
@@ -52,4 +58,75 @@ export class CampaignManagementComponent implements OnInit {
     await this.campaignService.deleteCampaign(campaignId);
     await this.loadCampaign();
   }
+
+
+  toggleCampaignDescriptionEdit() {
+this.campaignDescriptionElement = document.getElementById(`campaign-${this.campaignSelected!.campaignId}-description`);
+    if (this.campaignSelected) {
+      const campaignDescriptionElement = document.getElementById(`campaign-${this.campaignSelected.campaignId}-description`);
+      if (!campaignDescriptionElement) {
+        return;
+      }
+      campaignDescriptionElement.contentEditable = campaignDescriptionElement.contentEditable === 'true' ? 'false' : 'true';
+      campaignDescriptionElement.focus();
+    }
+  }
+
+  async saveCampaignDescription() {
+    if (this.campaignSelected) {
+      const campaignDescriptionElement = document.getElementById(`campaign-${this.campaignSelected.campaignId}-description`);
+      if (!campaignDescriptionElement) {
+        return;
+      }
+      const updatedDescription = campaignDescriptionElement.innerText.trim();
+      if (updatedDescription !== this.campaignSelected!.campaignDescription) {
+        this.campaignSelected!.campaignDescription = updatedDescription;
+      }
+      await this.updateCampaign(this.campaignSelected!);
+      campaignDescriptionElement.contentEditable = 'false';
+    }
+  }
+
+  async changeCampaignName() {
+    if (this.campaignSelected) {
+      const campaignNameElement = document.getElementById(`campaign-${this.campaignSelected.campaignId}-name`);
+      if (!campaignNameElement) {
+        return;
+      }
+      campaignNameElement.contentEditable = 'true';
+      campaignNameElement.focus();
+      const range = document.createRange();
+      range.selectNodeContents(campaignNameElement);
+      const selection = window.getSelection();
+      selection!.removeAllRanges();
+      selection!.addRange(range);
+
+      const disableContentEditable = async () => {
+        campaignNameElement.contentEditable = 'false';
+        campaignNameElement.removeEventListener('blur', disableContentEditable);
+        campaignNameElement.removeEventListener('keydown', disableContentEditable);
+
+        const updatedName = campaignNameElement.innerText.trim();
+        if (updatedName !== this.campaignSelected!.campaignName.trim()) {
+          this.campaignSelected!.campaignName = updatedName;
+        }
+        await this.updateCampaign(this.campaignSelected!);
+
+        this.campaignSelected!.campaignUpdateDate = this.utils.getTimeNow();
+        this.campaignService.updateCampaign(this.campaignSelected!).then();
+      }
+      const onKeyDown = async (evt: KeyboardEvent) => {
+        if (evt.key === 'Enter') {
+          await disableContentEditable();
+        } else if (evt.key === 'Esc') {
+          evt.preventDefault();
+          return;
+        }
+      }
+
+      campaignNameElement.addEventListener('blur', disableContentEditable);
+      campaignNameElement.addEventListener('keydown', onKeyDown);
+    }
+  }
 }
+

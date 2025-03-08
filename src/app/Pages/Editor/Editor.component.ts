@@ -2,8 +2,8 @@ import {Editor as Tiptap, Extension} from '@tiptap/core';
 import {NgxTiptapModule} from 'ngx-tiptap';
 import {
   Component,
-  inject, Input,
-  OnDestroy, OnInit,
+  inject, Input, OnChanges,
+  OnDestroy, OnInit, SimpleChanges,
 } from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
@@ -21,6 +21,8 @@ import {UtilsService} from '../../Services/utils.service';
 import {Page} from '../../Interfaces/Page.interface';
 import {ElapsedTimeDirective} from '../../Directives/elapsed-time.directive';
 import {Campaign} from '../../Interfaces/Campaign.interface';
+import {NoteService} from '../../Services/note.service';
+import {PageService} from '../../Services/page.service';
 
 @Component({
   selector: 'app-note-editor',
@@ -36,31 +38,35 @@ import {Campaign} from '../../Interfaces/Campaign.interface';
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
-    ElapsedTimeDirective,
   ]
 })
-export class NoteEditorComponent implements OnDestroy, OnInit {
+export class NoteEditorComponent implements OnChanges, OnDestroy, OnInit {
   utils = inject(UtilsService);
   route = inject(ActivatedRoute);
   dialog = inject(MatDialog);
+  noteService = inject(NoteService);
   campaignService = inject(CampaignService);
 
-  @Input() campaign: Campaign | null = null;
+  @Input() note: Note | null = null;
+  @Input() page: Page | null = null;
+  @Input() campaignId!: string | null;
 
-  content = '<p>Standard</p>';
-  campaignId: string = '';
-  pageId!: string;
-  noteId!: string;
-  note!: Note;
-  page!: Page;
+  content = '';
   url = '';
 
   constructor() {
   }
 
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['note'] && changes['note'].currentValue) {
+      this.content = changes['note'].currentValue.noteContent;
+    } else {
+      this.content = '';
+    }
+  }
+
   async ngOnInit() {
-    this.pageId = this.route.snapshot.paramMap.get('pageId')!;
-    this.noteId = this.route.snapshot.paramMap.get('noteId')!;
+    this.content = this.note?.noteContent || '';
     // this.note = this.campaign?.campaignPages.find(
     //   page => page.pageId === this.pageId)?.pageNotes.find(
     //   note => note.noteId === this.noteId)!;
@@ -75,7 +81,7 @@ export class NoteEditorComponent implements OnDestroy, OnInit {
     clearTimeout(this.typingTimeout);
     this.typingTimeout = setTimeout(() => {
       this.saveFile().then()
-    }, 1000);
+    }, 200);
   }
 
   textColor = '#000000';
@@ -93,16 +99,15 @@ export class NoteEditorComponent implements OnDestroy, OnInit {
   });
 
   async saveFile() {
-    // const campaign = await this.campaignService.getCampaignById(this.campaignId);
-    // const page = campaign.campaignPages.find((p) => p.pageId === this.pageId);
-    // const note = page?.pageNotes.find((n) => n.noteId === this.noteId);
-    // if (note) {
-    //   note.noteContent = this.editor.getHTML();
-    // }
-    // campaign.campaignPages[campaign.campaignPages.indexOf(page!)].pageNotes[page!.pageNotes.indexOf(note!)] = note!;
-    // campaign.campaignUpdateDate = this.utils.getTimeNow();
-    //
-    // await this.campaignService.updateCampaign(campaign);
+    if(this.note) {
+      const campaign = await this.campaignService.getCampaignById(this.campaignId!);
+      campaign.campaignUpdateDate = this.utils.getTimeNow();
+      this.campaignService.updateCampaign(campaign).then();
+
+      this.note!.noteContent = this.content;
+      this.note!.noteUpdateDate = this.utils.getTimeNow();
+      await this.noteService.updateNote(this.campaignId, this.page!.pageId, this.note!);
+    }
   }
 
   onTextColorChange(event: Event): void {
@@ -188,7 +193,7 @@ export class NoteEditorComponent implements OnDestroy, OnInit {
     content: {
       type: 'doc',
     },
-    extensions: [...extensions],
+    extensions: [...extensions, this.LiteralTab],
   });
 
   ngOnDestroy(): void {

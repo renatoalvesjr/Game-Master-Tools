@@ -1,5 +1,21 @@
 <div class="flex flex-col gap-2">
-  @for(note of notes; track note) {
-    <p>{{note.noteTitle}}</p>
+  @for (note of notes; track note) {
+    <div class="flex flex-row justify-between gap-1 group" [title]="note.noteTitle" (click)="selectNote(note)">
+      <p
+        class="truncate text-clip overflow-none"
+        id="note-{{note.noteId}}"
+      >{{ note.noteTitle }}</p>
+      <img
+        src="icons/more_horiz.svg"
+        class="hidden group-hover:flex cursor-pointer"
+        alt="Page options button."
+        [matMenuTriggerFor]="noteContext"
+      >
+
+    </div>
+    <mat-menu #noteContext>
+      <button mat-menu-item (click)="renameNote(note)" >Rename</button>
+      <button mat-menu-item (click)="deleteNote(note.noteId)" class="text-red-500">Delete</button>
+    </mat-menu>
   }
 </div>

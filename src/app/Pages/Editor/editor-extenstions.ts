@@ -74,7 +74,6 @@ export const extensions = [
   Italic,
   History,
   Code,
-  Image,
   ImageResize,
   Typography,
   Subscript,
