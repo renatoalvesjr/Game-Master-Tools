@@ -1,5 +1,3 @@
-import { Note } from './Note.interface';
-
 export interface Page {
   pageId: string;
   pageTitle: string;

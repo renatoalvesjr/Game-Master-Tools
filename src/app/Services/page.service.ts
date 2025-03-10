@@ -32,20 +32,6 @@ export class PageService {
     return null;
   }
 
-  async getPageById(campaignId: string, pageId: string) {
-    if (pageId === null) {
-      throw new Error('Page ID is null or undefined');
-    }
-    const request: Request = {
-      filePath: "Campaigns/" + campaignId + "/Pages/" + pageId + "/page.json"
-    }
-    try {
-      return JSON.parse(await this.window.electronAPI.returnFile(request)) as Page;
-    } catch (error) {
-      throw new Error("Error getPageById: " + JSON.stringify(error));
-    }
-  }
-
   async createPage(page: Page, campaignId: string) {
     const request: Request = {
       filePath: "Campaigns/" + campaignId + '/Pages/' + page.pageId,

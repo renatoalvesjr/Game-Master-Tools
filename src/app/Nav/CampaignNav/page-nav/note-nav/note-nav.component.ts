@@ -1,12 +1,10 @@
-import {Component, EventEmitter, inject, Input, OnInit, Output} from '@angular/core';
+import {Component, inject, Input, OnInit} from '@angular/core';
 import {Page} from '../../../../Interfaces/Page.interface';
 import {Note} from '../../../../Interfaces/Note.interface';
 import {NoteService} from '../../../../Services/note.service';
-import {AsyncPipe} from '@angular/common';
 import {MatMenu, MatMenuItem, MatMenuTrigger} from '@angular/material/menu';
 import {CampaignService} from '../../../../Services/campaign.service';
 import {UtilsService} from '../../../../Services/utils.service';
-import {BehaviorSubject} from 'rxjs';
 
 @Component({
   selector: 'app-note-nav',

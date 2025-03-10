@@ -8,7 +8,6 @@ import {
 import {CommonModule} from '@angular/common';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MatSelectModule} from '@angular/material/select';
-import {ActivatedRoute} from '@angular/router';
 import {Note} from '../../Interfaces/Note.interface';
 import {MatDialog, MatDialogModule} from '@angular/material/dialog';
 import {MatFormFieldModule} from '@angular/material/form-field';
@@ -19,10 +18,7 @@ import {InsertionModalComponent} from '../../Components/InsertionModal/Insertion
 import {CampaignService} from '../../Services/campaign.service';
 import {UtilsService} from '../../Services/utils.service';
 import {Page} from '../../Interfaces/Page.interface';
-import {ElapsedTimeDirective} from '../../Directives/elapsed-time.directive';
-import {Campaign} from '../../Interfaces/Campaign.interface';
 import {NoteService} from '../../Services/note.service';
-import {PageService} from '../../Services/page.service';
 
 @Component({
   selector: 'app-note-editor',
@@ -42,7 +38,6 @@ import {PageService} from '../../Services/page.service';
 })
 export class NoteEditorComponent implements OnChanges, OnDestroy, OnInit {
   utils = inject(UtilsService);
-  route = inject(ActivatedRoute);
   dialog = inject(MatDialog);
   noteService = inject(NoteService);
   campaignService = inject(CampaignService);

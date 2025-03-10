@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, inject, Input, OnInit, ViewChild} from '@angular/core';
+import {Component, inject, Input, OnInit, ViewChild} from '@angular/core';
 import {Campaign} from '../../../Interfaces/Campaign.interface';
 import {MatMenu, MatMenuItem, MatMenuModule, MatMenuTrigger} from '@angular/material/menu';
 import {CampaignService} from '../../../Services/campaign.service';
@@ -7,12 +7,8 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {UtilsService} from '../../../Services/utils.service';
 import {Page} from '../../../Interfaces/Page.interface';
 import {Note} from '../../../Interfaces/Note.interface';
-import {relativeFrom} from '@angular/compiler-cli';
-import {subscribe} from 'node:diagnostics_channel';
-import {log} from 'node:util';
 import {NoteNavComponent} from './note-nav/note-nav.component';
 import {NoteService} from '../../../Services/note.service';
-import {createInjectableType} from '@angular/compiler';
 
 @Component({
   selector: 'app-page-nav',
@@ -54,19 +50,6 @@ export class PageNavComponent implements OnInit {
         this.pages = await this.pageService.loadAllpages(this.campaign.campaignId);
       }
     )
-  }
-
-  goToNote(pageId: string, noteId: string) {
-    if (this.route.snapshot.paramMap.get('noteId')) {
-      this.router.navigate(['page', pageId, 'note', noteId], {
-        relativeTo: this.route.parent,
-        onSameUrlNavigation: 'reload'
-      },).then();
-    }
-    this.router.navigate(['page', pageId, 'note', noteId], {
-      relativeTo: this.route,
-      onSameUrlNavigation: 'reload'
-    }).then();
   }
 
   async addNote(pageId: string) {
@@ -135,11 +118,6 @@ export class PageNavComponent implements OnInit {
     pageElement.addEventListener('keydown', onKeyDown)
   }
 
-  deleteNote(noteId: string, pageId: string) {
-    const campaign = this.campaign;
-    // campaign.campaignPages.find((page: Page) => page.pageId === pageId)!.pageNotes = campaign.campaignPages.find((page: Page) => page.pageId === pageId)!.pageNotes.filter((note: Note) => note.noteId !== noteId);
-    this.campaignService.updateCampaign(campaign).then();
-  }
 
   deletePage(pageId: string) {
     this.pageService.deletePage(this.campaign.campaignId, pageId).then(async () => {

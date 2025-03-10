@@ -8,7 +8,6 @@ import Italic from '@tiptap/extension-italic';
 import Heading from '@tiptap/extension-heading';
 import Placeholder from '@tiptap/extension-placeholder';
 import History from '@tiptap/extension-history';
-import Image from '@tiptap/extension-image';
 import Typography from '@tiptap/extension-typography';
 import Subscript from '@tiptap/extension-subscript';
 import Superscript from '@tiptap/extension-superscript';

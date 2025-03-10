@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, inject, OnInit, ViewChild} from '@angular/core';
+import {Component, inject, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {Campaign} from '../../Interfaces/Campaign.interface';
 import {CampaignService} from '../../Services/campaign.service';

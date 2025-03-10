@@ -8,7 +8,6 @@ import {CampaignManagementComponent} from './Pages/CampaignManagement/CampaignMa
 import {SettingsComponent} from './Pages/settings/settings.component';
 import {InfoComponent} from './Pages/info/info.component';
 import {HomeComponent} from './Pages/home/home.component';
-import {NoteEditorComponent} from './Pages/Editor/Editor.component';
 import {CreateCampaignComponent} from './Pages/create-campaign/create-campaign.component';
 
 export const routes: Routes = [

@@ -1,7 +1,6 @@
-const {app, ipcMain, BrowserWindow, nativeTheme, screen} = require("electron");
+const {app, ipcMain, BrowserWindow, nativeTheme} = require("electron");
 const path = require("path");
 let fs = require('fs');
-let os = require("os");
 
 let appWindow;
 

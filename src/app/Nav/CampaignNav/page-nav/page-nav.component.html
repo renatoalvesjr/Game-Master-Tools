@@ -14,66 +14,43 @@
   <ul class="flex flex-col pl-5 truncate {{ pagesHidden?'hidden ':''}}">
     @for (page of pages; track page.pageId) {
       <li>
-<!--TODO: exibição das cores não funciona corretamente-->
+        <!--TODO: exibição das cores não funciona corretamente-->
         <div
-          class="flex flex-row items-center pl-2 justify-between bg-{{page.pageColor}} rounded-xl group border border-gray-300 p-1 my-2  transition-all duration-300"
+          class="flex flex-row gap-1 rounded-xl group border border-gray-300 p-1 my-2  transition-all duration-300"
           title="{{ page.pageTitle }}"
           id="page-color-{{page.pageId}}"
         >
-          <div class="flex flex-row gap-1">
-            <p
-              [title]="page.pageTitle"
-              class="truncate p-1"
-              id="page-{{ page.pageId }}"
-            >{{ page.pageTitle }}</p>
-            <img
-              src="icons/more_horiz.svg"
-              class="hidden group-hover:flex cursor-pointer"
-              alt="Page options button."
-              [matMenuTriggerFor]="pageMenu"
-            >
-            <mat-menu #pageMenu="matMenu" class="bg-white">
-              <button mat-menu-item (click)="addNote(page.pageId)">Add Note</button>
-              <button mat-menu-item [matMenuTriggerFor]="colors">Color</button>
-              <button mat-menu-item (click)="togglePageEditable(page)">Rename</button>
-              <button mat-menu-item (click)="deletePage(page.pageId)" class="text-red-800">Delete</button>
-            </mat-menu>
-            <mat-menu #colors="matMenu">
-              <button mat-menu-item (click)="changeColor(page, 'white')">white</button>
-              <button mat-menu-item (click)="changeColor(page, 'red-200')">red</button>
-            </mat-menu>
-          </div>
+
           <span class="material-icons cursor-pointer select-none" (click)="page.pageActive = !page.pageActive">{{
               page.pageActive
                 ? "keyboard_arrow_down"
                 : "keyboard_arrow_right"
             }}</span>
+          <p
+            [title]="page.pageTitle"
+            class="truncate text-clip overflow-none justify-start self-start start-0 justify-self-start"
+            id="page-{{ page.pageId }}"
+          >{{ page.pageTitle }}</p>
+          <img
+            src="icons/more_horiz.svg"
+            class="hidden group-hover:flex cursor-pointer"
+            alt="Page options button."
+            [matMenuTriggerFor]="pageMenu"
+          >
         </div>
+        <mat-menu #pageMenu="matMenu" class="bg-white">
+          <button mat-menu-item (click)="addNote(page.pageId)">Add Note</button>
+          <button mat-menu-item [matMenuTriggerFor]="colors">Color</button>
+          <button mat-menu-item (click)="togglePageEditable(page)">Rename</button>
+          <button mat-menu-item (click)="deletePage(page.pageId)" class="text-red-800">Delete</button>
+        </mat-menu>
+        <mat-menu #colors="matMenu">
+          <button mat-menu-item (click)="changeColor(page, 'white')">white</button>
+          <button mat-menu-item (click)="changeColor(page, 'red-200')">red</button>
+        </mat-menu>
         <!--Notes Renderer-->
         <div class="ml-4 truncate {{page.pageActive?'':'hidden'}}">
           <app-note-nav [page]="page" [campaignId]="campaign.campaignId"/>
-          <!--          @for (notes of page.pageNotes; track notes) {-->
-          <!--            <div (click)="goToNote(page.pageId, notes.noteId)"-->
-          <!--                 class="group flex flex-row justify-between items-center border border-transparent border-r-gray-300 hover:border-l-transparent hover:border-b-gray-500 hover:border-r-gray-500 transition-all duration-300">-->
-          <!--              <div-->
-          <!--                class="my-2 truncate cursor-pointer px-2 mr-2 "-->
-          <!--                id="note-{{notes.noteId}}"-->
-          <!--                title="{{notes.noteTitle}}"-->
-          <!--              >-->
-          <!--                {{ notes.noteTitle }}-->
-          <!--              </div>-->
-          <!--              <img-->
-          <!--                src="icons/more_vert.svg"-->
-          <!--                alt="Note config"-->
-          <!--                class="p-2 w-fit h-fit hidden group-hover:block"-->
-          <!--                [matMenuTriggerFor]="noteMenu"-->
-          <!--              />-->
-          <!--              <mat-menu #noteMenu="matMenu">-->
-          <!--                <button mat-menu-item (click)="toggleNoteEditable(notes.noteId)">Rename</button>-->
-          <!--                <button mat-menu-item (click)="deleteNote(notes.noteId, page.pageId)">Delete</button>-->
-          <!--              </mat-menu>-->
-          <!--            </div>-->
-          <!--          }-->
         </div>
       </li>
     }

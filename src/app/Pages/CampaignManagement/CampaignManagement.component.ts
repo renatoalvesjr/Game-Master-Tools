@@ -7,8 +7,6 @@ import {PButtonComponent} from '../../Components/Buttons/p-button/p-button.compo
 import {FormatDatePipe} from '../../Pipe/format-date.pipe';
 import {FormsModule} from '@angular/forms';
 import {UtilsService} from '../../Services/utils.service';
-import {NgIf} from '@angular/common';
-
 
 @Component({
   selector: 'app-CampaignManagement',
@@ -19,8 +17,7 @@ import {NgIf} from '@angular/common';
     RouterLink,
     PButtonComponent,
     FormatDatePipe,
-    FormsModule,
-    NgIf
+    FormsModule
   ],
   standalone: true
 })
