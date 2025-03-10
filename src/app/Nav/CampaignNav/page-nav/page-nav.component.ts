@@ -1,4 +1,4 @@
-import {Component, inject, Input, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, inject, Input, OnInit, ViewChild} from '@angular/core';
 import {Campaign} from '../../../Interfaces/Campaign.interface';
 import {MatMenu, MatMenuItem, MatMenuModule, MatMenuTrigger} from '@angular/material/menu';
 import {CampaignService} from '../../../Services/campaign.service';
@@ -9,6 +9,7 @@ import {Page} from '../../../Interfaces/Page.interface';
 import {Note} from '../../../Interfaces/Note.interface';
 import {NoteNavComponent} from './note-nav/note-nav.component';
 import {NoteService} from '../../../Services/note.service';
+import {NgStyle} from '@angular/common';
 
 @Component({
   selector: 'app-page-nav',
@@ -17,7 +18,8 @@ import {NoteService} from '../../../Services/note.service';
     MatMenu,
     MatMenuItem,
     MatMenuTrigger,
-    NoteNavComponent
+    NoteNavComponent,
+    NgStyle
   ],
   templateUrl: './page-nav.component.html',
   styleUrl: './page-nav.component.scss'
@@ -44,10 +46,15 @@ export class PageNavComponent implements OnInit {
     await this.updatePages()
   }
 
+
   async updatePages() {
     this.route.params.subscribe(async (params: any) => {
         this.campaign = await this.campaignService.getCampaignById(params['campaignId']);
         this.pages = await this.pageService.loadAllpages(this.campaign.campaignId);
+
+        console.log("changing colors")
+        this.applyColor();
+        console.log("colors changed")
       }
     )
   }
@@ -132,27 +139,35 @@ export class PageNavComponent implements OnInit {
       pageTitle: 'New Page',
       pageCreationDate: this.utils.getTimeNow(),
       pageActive: true,
-      pageColor: 'red-500'
+      pageColor: '#F3F6F8'
     }
-    this.pageService.createPage(page, this.campaign.campaignId).then(async () =>
-      this.pages = await this.pageService.loadAllpages(this.campaign.campaignId)
-    );
+    this.pageService.createPage(page, this.campaign.campaignId).then(async () => {
+        this.pages = await this.pageService.loadAllpages(this.campaign.campaignId);
+      }
+    )
+    ;
     // this.campaign.campaignPages.push(page);
     this.campaign.campaignUpdateDate = this.utils.getTimeNow();
     this.campaignService.updateCampaign(this.campaign).then();
+    this.applyColor();
+
   }
 
-  changeColor(page: Page, color: string) {
-    const pageElement: HTMLElement | null = document.getElementById('page-color-' + page.pageId);
-    if (!pageElement) {
-      return;
+  applyColor() {
+    for (let page of this.pages!) {
+      if (page) {
+        this.changeColor(page, page.pageColor);
+      }
     }
-    pageElement.classList.remove('bg-'+page.pageColor);
-    pageElement.classList.add('bg-'+color);
+  }
+
+  async changeColor(page: Page, color: string) {
     page.pageColor = color;
-    this.pageService.updatePage(this.campaign.campaignId, page).then(async () =>
-      this.pages = await this.pageService.loadAllpages(this.campaign.campaignId)
-    );
+    const pageColor = document.getElementById('page-color-' + page.pageId);
+    if (pageColor) {
+      pageColor.style.backgroundColor = color;
+    }
+    await this.pageService.updatePage(this.campaign.campaignId, page);
     this.campaign.campaignUpdateDate = this.utils.getTimeNow();
     this.campaignService.updateCampaign(this.campaign).then();
   }
