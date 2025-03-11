@@ -1,0 +1,7 @@
+.icon-svg{
+  cursor: pointer;
+  scale: 90%;
+}
+.icon-svg:hover {
+  scale: 95%;
+}

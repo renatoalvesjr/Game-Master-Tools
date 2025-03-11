@@ -19,5 +19,7 @@ export class CampaignCardComponent {
   async goTo(campaignId: string) {
     await this.router.navigate(['/campaign/:campaignId', {campaignId: campaignId}]);
   }
-  constructor() { }
+
+  constructor() {
+  }
 }

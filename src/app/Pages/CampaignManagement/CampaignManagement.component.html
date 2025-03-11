@@ -49,7 +49,7 @@
             ></svg-icon>
           </div>
           <div class="flex flex-col gap-4 mb-4">
-            <p class="border border-gray-300 rounded-md p-2"
+            <p class="w-fit border border-gray-300 rounded-md p-2"
                id="campaign-{{campaignSelected.campaignId}}-description">{{ campaignSelected.campaignDescription }}</p>
             @if (campaignDescriptionElement?.contentEditable === 'true') {
               <p-button (click)="saveCampaignDescription()" title="Salvar">
@@ -69,12 +69,16 @@
                         (click)="changeCampaignImage()"
               ></svg-icon>
             </div>
-            <p class="truncate border border-gray-300 rounded-md p-2 " id="campaign-{{campaignSelected.campaignId}}-image">
-              {{ campaignSelected.campaignImageUrl }}
-            </p>
+            <div class="flex flex-col mb-4 gap-2 w-fit">
+              <p class="line-clamp-2 w-fit h-fit border border-gray-300 rounded-md p-2" id="campaign-{{campaignSelected.campaignId}}-image">
+                {{ campaignSelected.campaignImageUrl }}
+              </p>
+            </div>
+
+
           </div>
 
-          <div class="w-1/2 border-2 border-red-400 rounded-lg mb-4 gap-4 end-0">
+          <div class="w-fit border-1 border-red-400 rounded-lg mb-4 gap-4 end-0">
             <p class="text-red-400 font-bold p-2">Zona de Perigo</p>
             <div class="flex flex-row p-2">
               <label for="activateDanger">Ativar opções: </label>

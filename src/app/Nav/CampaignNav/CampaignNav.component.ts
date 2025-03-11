@@ -11,12 +11,13 @@ import {PageNavComponent} from './page-nav/page-nav.component';
 import {NgIf} from '@angular/common';
 import {NoteService} from '../../Services/note.service';
 import {Page} from '../../Interfaces/Page.interface';
+import {SvgIconComponent} from 'angular-svg-icon';
 
 @Component({
   selector: 'app-CampaignNav',
   templateUrl: './CampaignNav.component.html',
   styleUrls: ['./CampaignNav.component.scss'],
-  imports: [MatMenuModule, DividerComponent, NoteEditorComponent, PageNavComponent, NgIf]
+  imports: [MatMenuModule, DividerComponent, NoteEditorComponent, PageNavComponent, NgIf, SvgIconComponent]
 })
 export class CampaignNavComponent implements OnInit {
   campaignService = inject(CampaignService);
@@ -55,7 +56,7 @@ export class CampaignNavComponent implements OnInit {
         this.campaignDescription = this.campaign.campaignDescription || '';
       });
       this.noteService.selectedNote$.subscribe((pageNote) => {
-        if(pageNote.note) {
+        if (pageNote.note) {
           this.selectedNote = pageNote.note;
           this.selectedPage = pageNote.page;
           this.selectedCampaign = pageNote.campaignId;
@@ -65,6 +66,10 @@ export class CampaignNavComponent implements OnInit {
     } catch (e) {
       console.error('Error on ngOnInit:', e);
     }
+  }
+
+  async goTo(campaignId: string) {
+    await this.router.navigate(['/campaign-management/', {campaignId: campaignId}]);
   }
 
 
