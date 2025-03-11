@@ -33,16 +33,10 @@ export class NoteNavComponent implements OnInit {
     await this.loadAllNotes();
   }
 
-  addNote(note: Note) {
-    this.notes?.push(note);
-  }
+
 
   selectNote(note: Note) {
     this.noteService.selectNote(note, this.page, this.campaign.campaignId);
-  }
-
-  trackNoteById(note: Note) {
-    return note.noteId;
   }
 
   async loadAllNotes() {

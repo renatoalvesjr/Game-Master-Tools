@@ -155,7 +155,7 @@ export class PageNavComponent implements OnInit {
   applyColor() {
     for (let page of this.pages!) {
       if (page) {
-        this.changeColor(page, page.pageColor);
+        this.changeColor(page, page.pageColor).then();
       }
     }
   }
