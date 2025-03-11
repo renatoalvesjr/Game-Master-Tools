@@ -1,6 +1,6 @@
 <div class="flex flex-col">
   <div
-    class="flex flex-row items-center justify-between rounded-xl bg-gray-100 hover:bg-gray-200 transition-all duration-300 p-2 my-2">
+    class="flex flex-row items-center justify-between rounded-xl bg-[#F3F6F8] hover:bg-gray-200 transition-all duration-300 p-2 my-2">
     <div class="flex flex-row items-center gap-1 cursor-pointer" (click)="pagesHidden = !pagesHidden">
       <span class="material-symbols-outlined sm">sticky_note_2</span>
       <p>Notes</p>
@@ -12,9 +12,8 @@
   </div>
   <!-- Page Render -->
   <ul class="flex flex-col pl-5 truncate {{ pagesHidden?'hidden ':''}}">
-    @for (page of pages; track page.pageId) {
+    @for (page of pages; track page) {
       <li>
-        <!--TODO: exibição das cores não funciona corretamente-->
         <div
           class="flex flex-row gap-1 rounded-xl group border border-gray-300 p-1 my-2  transition-all duration-300"
           title="{{ page.pageTitle }}"
@@ -30,7 +29,7 @@
             [title]="page.pageTitle"
             class="truncate text-clip overflow-none justify-start self-start start-0 justify-self-start"
             id="page-{{ page.pageId }}"
-          >{{ page.pageColor}}</p>
+          >{{ page.pageTitle }}</p>
           <img
             src="icons/more_horiz.svg"
             class="hidden group-hover:flex cursor-pointer"
@@ -39,22 +38,22 @@
           >
         </div>
         <mat-menu #pageMenu="matMenu" class="bg-white">
-          <button mat-menu-item (click)="addNote(page.pageId)">Add Note</button>
-          <button mat-menu-item [matMenuTriggerFor]="colors">Color</button>
-          <button mat-menu-item (click)="togglePageEditable(page)">Rename</button>
-          <button mat-menu-item (click)="deletePage(page.pageId)" class="text-red-800">Delete</button>
+          <button mat-menu-item (click)="addNote(page.pageId)">Nova Nota</button>
+          <button mat-menu-item [matMenuTriggerFor]="colors">Cor</button>
+          <button mat-menu-item (click)="togglePageEditable(page)">Renomear</button>
+          <button mat-menu-item (click)="deletePage(page.pageId)" [ngStyle]="{ 'color': '#9f0712' }">Excluir</button>
         </mat-menu>
-        <mat-menu #colors="matMenu">
-          <button mat-menu-item class="bg-[#fbf7ae]" (click)="changeColor(page, '#F3F6F8')">light gray</button>
-          <button mat-menu-item class="bg-[#fad2da]" (click)="changeColor(page, '#dae3ea')">bluish</button>
-          <button mat-menu-item (click)="changeColor(page, '#a9c6e8')">blue</button>
-          <button mat-menu-item (click)="changeColor(page, '#d6d4df')">gray</button>
-          <button mat-menu-item (click)="changeColor(page, '#fbf7ae')">yelow</button>
-          <button mat-menu-item (click)="changeColor(page, '#fad2da')">pink</button>
+        <mat-menu #colors >
+          <div class="flex flex-col w-full">
+            @for(color of pageColors;track color){
+              <button class="bg-[{{color}}] {{page.pageColor==color?'border-2 border-black':'border-1 border-gray-400'}} w-full h-7 rounded-xl hover:p-2 border hover:border-2 transition-all duration-150 ease-out" (click)="changeColor(page, color)"></button>
+
+            }
+          </div>
         </mat-menu>
         <!--Notes Renderer-->
         <div class="ml-4 truncate {{page.pageActive?'':'hidden'}}">
-          <app-note-nav [page]="page" [campaignId]="campaign.campaignId"/>
+          <app-note-nav [page]="page" [campaign]="campaign"/>
         </div>
       </li>
     }

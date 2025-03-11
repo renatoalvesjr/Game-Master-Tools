@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, inject, Input, OnInit, ViewChild} from '@angular/core';
+import { Component, inject, Input, OnInit, ViewChild} from '@angular/core';
 import {Campaign} from '../../../Interfaces/Campaign.interface';
 import {MatMenu, MatMenuItem, MatMenuModule, MatMenuTrigger} from '@angular/material/menu';
 import {CampaignService} from '../../../Services/campaign.service';
@@ -19,7 +19,7 @@ import {NgStyle} from '@angular/common';
     MatMenuItem,
     MatMenuTrigger,
     NoteNavComponent,
-    NgStyle
+    NgStyle,
   ],
   templateUrl: './page-nav.component.html',
   styleUrl: './page-nav.component.scss'
@@ -39,6 +39,8 @@ export class PageNavComponent implements OnInit {
 
   pages!: Page[] | null;
 
+  pageColors: string[] = ['#F3F6F8', '#dae3ea', '#a9c6e8', '#d6d4df', '#fbf7ae', '#fad2da']
+
   constructor() {
   }
 
@@ -50,13 +52,31 @@ export class PageNavComponent implements OnInit {
   async updatePages() {
     this.route.params.subscribe(async (params: any) => {
         this.campaign = await this.campaignService.getCampaignById(params['campaignId']);
-        this.pages = await this.pageService.loadAllpages(this.campaign.campaignId);
-
-        console.log("changing colors")
+        this.pages = await this.pageService.loadAllPages(this.campaign.campaignId);
         this.applyColor();
-        console.log("colors changed")
       }
     )
+  }
+
+  async addPage() {
+    const page: Page = {
+      pageId: this.utils.getUUID(),
+      pageIndex: 0,
+      pageTitle: 'New Page',
+      pageCreationDate: this.utils.getTimeNow(),
+      pageActive: true,
+      pageColor: '#F3F6F8'
+    }
+    this.pageService.createPage(page, this.campaign.campaignId).then(async () => {
+        this.pages = await this.pageService.loadAllPages(this.campaign.campaignId);
+      }
+    )
+    ;
+    this.campaign.campaignUpdateDate = this.utils.getTimeNow();
+    this.campaignService.updateCampaign(this.campaign).then();
+    this.applyColor();
+    await this.updatePages();
+
   }
 
   async addNote(pageId: string) {
@@ -65,19 +85,18 @@ export class PageNavComponent implements OnInit {
       noteTitle: 'New Note',
       noteContent: '',
       noteIndex: 0,
-      noteColor: '#FFFFFF',
+      noteColor: '#F3F6F8',
       noteCreationDate: this.utils.getTimeNow(),
       noteUpdateDate: this.utils.getTimeNow(),
       active: true,
     }
-    await this.noteService.addNote(this.campaign.campaignId, pageId, note);
+    this.noteService.addNote(this.campaign.campaignId, pageId, note).then(async () => {
+      await this.updatePages()
+    });
     this.campaign.campaignUpdateDate = this.utils.getTimeNow();
 
     const campaign = this.campaign;
-    await this.campaignService.updateCampaign(campaign).then(async () => {
-      await this.updatePages()
-    });
-    if (this.noteNavComponent) await this.noteNavComponent.loadAllNotes();
+    await this.campaignService.updateCampaign(campaign);
   }
 
 
@@ -128,30 +147,10 @@ export class PageNavComponent implements OnInit {
 
   deletePage(pageId: string) {
     this.pageService.deletePage(this.campaign.campaignId, pageId).then(async () => {
-      this.pages = await this.pageService.loadAllpages(this.campaign.campaignId)
+      this.pages = await this.pageService.loadAllPages(this.campaign.campaignId)
     });
   }
 
-  async addPage() {
-    const page: Page = {
-      pageId: this.utils.getUUID(),
-      pageIndex: 0,
-      pageTitle: 'New Page',
-      pageCreationDate: this.utils.getTimeNow(),
-      pageActive: true,
-      pageColor: '#F3F6F8'
-    }
-    this.pageService.createPage(page, this.campaign.campaignId).then(async () => {
-        this.pages = await this.pageService.loadAllpages(this.campaign.campaignId);
-      }
-    )
-    ;
-    // this.campaign.campaignPages.push(page);
-    this.campaign.campaignUpdateDate = this.utils.getTimeNow();
-    this.campaignService.updateCampaign(this.campaign).then();
-    this.applyColor();
-
-  }
 
   applyColor() {
     for (let page of this.pages!) {

@@ -16,7 +16,6 @@ function initWindow() {
     width: 1024,
     height: 720,
     webPreferences: {
-      nodeIntegration: true,
       contextIsolation: true,
       preload: path.join(__dirname, "preload.js")
     },

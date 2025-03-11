@@ -9,7 +9,7 @@
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "electron": "ng build --base-href ./ && electron . --trace-warnings",
+    "electron": "electron . --trace-warnings",
     "quick": "electron .",
     "test": "ng test"
   },
@@ -54,6 +54,7 @@
     "@tiptap/extension-underline": "^2.11.2",
     "@tiptap/starter-kit": "^2.11.0",
     "@types/electron": "^1.6.12",
+    "angular-svg-icon": "^19.1.1",
     "get-screen-resolution": "^1.0.4",
     "ngx-tiptap": "^11.1.0",
     "postcss": "^8.5.1",

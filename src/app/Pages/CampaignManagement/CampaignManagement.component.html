@@ -2,7 +2,7 @@
   <div class="flex flex-col h-full max-h-full overflow-y-auto">
     <div class="flex flex-col h-full max-h-full gap-4">
       <div class="self-center">
-        <p-button title="Create Campaign" routerLink="/new-campaign"></p-button>
+        <p-button title="Criar Campanha" routerLink="/new-campaign"></p-button>
       </div>
       @for (campaign of campaigns; track campaign) {
         <div class="cursor-pointer" (click)="selectCampaign(campaign)">
@@ -11,39 +11,45 @@
       }
     </div>
   </div>
-  <div class="flex flex-col rounded-lg border w-[80%] p-4">
+  <div class="flex flex-col w-[80%] p-4">
     @if (!campaignSelected) {
-      <h1>Campaign Settings</h1>
-      <p>Select a campaign to view its settings</p>
+      <h1>Gerenciador de Campanhas</h1>
+      <p>Selecione uma campanha para ver suas configurações ou cria uma nova campanha.</p>
     } @else {
-      <!-- TODO: IMPLEMENTAR EDIÇÃO DAS CAMPANHAS -->
       <div class="flex flex-col justify-start items-start">
         <div class="flex flex-col mb-4">
-          <div class="flex flex-row justify-between">
-            <div class="flex flex-row gap-4">
-              <h1
-                class="font-bold line-clamp-1"
-                [title]="campaignSelected.campaignName"
-                id="campaign-{{campaignSelected.campaignId}}-name"
-              >{{ campaignSelected.campaignName }}</h1>
-              <img class="image-gray-400 scale-90 active:scale-100 cursor-pointer transition-all duration-100"
-                   src="icons/edit.svg" alt="" (click)="changeCampaignName()">
-            </div>
-            <img src="" alt="">
+          <div class="flex flex-row gap-4 items-center">
+            <h1
+              class="font-bold line-clamp-1"
+              [title]="campaignSelected.campaignName"
+              id="campaign-{{campaignSelected.campaignId}}-name"
+              routerLink="campaign/{{campaignSelected.campaignId}}"
+
+            >{{ campaignSelected.campaignName }}</h1>
+            <svg-icon src="icons/edit.svg"
+                      class="scale-90 hover:scale-100 active:scale-110 cursor-pointer transition-all duration-100"
+                      [svgStyle]="{'fill': '#3D2C12'}"
+                      (click)="changeCampaignName()"
+
+            ></svg-icon>
           </div>
           <p class="font-bold text-sm">{{ campaignSelected.campaignSystemName }}</p>
         </div>
-        <div class="flex flex-row mb-4">
-          <p class="font-bold">Data de Criação: {{ campaignSelected.campaignCreationDate|formatDate }}</p>
+        <div class="flex flex-row mb-4 gap-1">
+          <p class="font-bold">Data de Criação: </p>
+          <p> {{ campaignSelected.campaignCreationDate|formatDate }}</p>
         </div>
         <div class="flex flex-col mb-4">
-          <div class="flex flex-row gap-2">
-            <p class="font-bold">Descrição</p>
-            <img class="image-gray-400 scale-75 active:scale-90 cursor-pointer transition-all duration-100"
-                 src="icons/edit.svg" alt="" (click)="toggleCampaignDescriptionEdit()">
+          <div class="flex flex-row gap-1 mb-2">
+            <p class="font-bold">Descrição:</p>
+            <svg-icon src="icons/edit.svg"
+                      class="scale-75 hover:scale-90 active:scale-100 cursor-pointer transition-all duration-100"
+                      [svgStyle]="{'fill':'#3D2C12'}"
+                      (click)="toggleCampaignDescriptionEdit()"
+            ></svg-icon>
           </div>
           <div class="flex flex-col gap-4 mb-4">
-            <p class="border rounded-md p-2"
+            <p class="border border-gray-300 rounded-md p-2"
                id="campaign-{{campaignSelected.campaignId}}-description">{{ campaignSelected.campaignDescription }}</p>
             @if (campaignDescriptionElement?.contentEditable === 'true') {
               <p-button (click)="saveCampaignDescription()" title="Salvar">
@@ -51,15 +57,25 @@
               </p-button>
             }
           </div>
-          <div class="flex flex-col mb-4 gap-2">
+          <div class="flex flex-col mb-4 gap-2 w-fit">
             <img class="max-h-[200px] max-w-[80%] object-scale-down self-start"
                  src="{{campaignSelected.campaignImageUrl}}" alt="">
-            <p class="line-clamp-1 w-full"><span
-              class="font-bold">URL da imagem:</span> {{ campaignSelected.campaignImageUrl }}</p>
+
+            <div class="flex flex-row">
+              <span class="font-bold">URL da imagem:</span>
+              <svg-icon src="icons/edit.svg"
+                        class="scale-75 hover:scale-90 active:scale-100 cursor-pointer transition-all duration-100"
+                        [svgStyle]="{'fill':'#3D2C12'}"
+                        (click)="changeCampaignImage()"
+              ></svg-icon>
+            </div>
+            <p class="truncate border border-gray-300 rounded-md p-2 " id="campaign-{{campaignSelected.campaignId}}-image">
+              {{ campaignSelected.campaignImageUrl }}
+            </p>
           </div>
 
-          <div class="w-1/2 border-2 border-red-500 rounded-lg mb-4 gap-4 end-0">
-            <p class="text-red-500 font-bold p-2">Zona de Perigo</p>
+          <div class="w-1/2 border-2 border-red-400 rounded-lg mb-4 gap-4 end-0">
+            <p class="text-red-400 font-bold p-2">Zona de Perigo</p>
             <div class="flex flex-row p-2">
               <label for="activateDanger">Ativar opções: </label>
               <input type="checkbox" id="activateDanger" class="ml-2" [(ngModel)]="dangerMode">

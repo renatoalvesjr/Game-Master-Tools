@@ -3,7 +3,6 @@
     <div class="flex flex-row justify-between gap-1 group cursor-pointer"
          [title]="note.noteTitle"
          (click)="selectNote(note)">
-
       <p
         class="truncate text-clip overflow-none"
         id="note-{{note.noteId}}"
@@ -14,11 +13,10 @@
         alt="Page options button."
         [matMenuTriggerFor]="noteContext"
       >
-
     </div>
     <mat-menu #noteContext>
       <button mat-menu-item (click)="renameNote(note)">Rename</button>
-      <button mat-menu-item (click)="deleteNote(note.noteId)" class="text-red-500">Delete</button>
+      <button mat-menu-item (click)="deleteNote(note.noteId)" [ngStyle]="{ 'color': '#9f0712' }">Delete</button>
     </mat-menu>
   }
 </div>

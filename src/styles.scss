@@ -7,6 +7,11 @@ html {
     typography: Roboto,
     density: 0
   ));
+  @include mat.menu-overrides((
+    container-color: #F3F6F8,
+    item-hover-state-layer-color: #eaeaea,
+    item-focus-state-layer-color: #eaeaea,
+  ));
 }
 
 @import "tailwindcss";
@@ -68,7 +73,7 @@ html {
 * TODO: Change the name of this filter to image-brown on the project. The color is #6c4416
 */
 .image-black {
-  filter: brightness(0) saturate(100%) invert(24%) sepia(79%) saturate(484%) hue-rotate(352deg) brightness(96%) contrast(90%) ;
+  filter: brightness(0) saturate(100%) invert(24%) sepia(79%) saturate(484%) hue-rotate(352deg) brightness(96%) contrast(90%);
 }
 
 image-red-500 {

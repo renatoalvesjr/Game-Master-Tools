@@ -12,7 +12,7 @@ export class PageService {
   constructor() {
   }
 
-  async loadAllpages(campaignId: string): Promise<Page[]|null>{
+  async loadAllPages(campaignId: string): Promise<Page[]|null>{
     const request: Request = {
       filePath: "Campaigns/" + campaignId + "/Pages/",
       fileName: "/page.json"
@@ -40,7 +40,7 @@ export class PageService {
     }
     try {
       await this.window.electronAPI.saveFile(request);
-      await this.loadAllpages(campaignId);
+      await this.loadAllPages(campaignId);
     } catch (error) {
       throw new Error("Error creating page: " + JSON.stringify(error));
     }
@@ -54,7 +54,7 @@ export class PageService {
     }
     try {
       await this.window.electronAPI.saveFile(request);
-      await this.loadAllpages(campaignId);
+      await this.loadAllPages(campaignId);
     } catch (error) {
       throw new Error("Error updating page: " + JSON.stringify(error));
     }
@@ -67,7 +67,7 @@ export class PageService {
     }
     try {
       await this.window.electronAPI.deleteFile(request);
-      await this.loadAllpages(campaignId);
+      await this.loadAllPages(campaignId);
     } catch (error) {
       throw new Error("Error deleting page: " + JSON.stringify(error));
     }

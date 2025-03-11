@@ -2,8 +2,8 @@
   <div class="flex flex-col self-center rounded-xl p-4">
     <img class="max-w-[250px]" src="logo.png" alt="Logo Game Master Tools">
     <div class="flex flex-col">
-      <p class="">Recent campaigns...</p>
-      <div class="text-gray-400 ml-4">
+      <p class="font-bold text-[#3D2C12]">Recent campaigns...</p>
+      <div class="text-gray-400 font-bold ml-4">
         @for (item of campaignList; track item; ) {
           <p
             class="underline my-2 cursor-pointer hover:text-black transition-all duration-300 truncate"
@@ -14,11 +14,11 @@
       </div>
       <div
         routerLink="new-campaign"
-        class="flex flex-col justify-center w-fit items-center self-center my-4 image-gray-400 transition-all duration-500 cursor-pointer">
-        <div class="flex flex-row items-center rounded-lg border-2  border-dashed p-4">
-          <img src="icons/add.svg" class="scale-200" alt="">
+        class="flex flex-col justify-center w-fit items-center self-center my-4 group transition-all duration-500 cursor-pointer hover:scale-110">
+        <div class="flex flex-row items-center rounded-lg border-2 border-[#3D2C12] border-dashed p-4">
+          <svg-icon src="icons/add.svg" class="scale-200" [svgStyle]="{fill: '#3D2C12'}"></svg-icon>
         </div>
-        <p>Create New Campaign</p>
+        <p class="text-[#3D2C12]">Create New Campaign</p>
       </div>
     </div>
   </div>

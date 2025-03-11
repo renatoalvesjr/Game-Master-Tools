@@ -1,6 +1,6 @@
 <div class="flex flex-col max-h-full h-full overflow-y-auto">
   <!-- Campaign Header -->
-  <div class="flex flex-col">
+  <div class="flex flex-col bg-[{{page?.pageColor}}]">
     <p class="text-gray-500 m-2 font-semibold">{{page?.pageTitle}} / {{note?.noteTitle}}</p>
   </div>
   <!-- Toolbar -->
@@ -9,21 +9,21 @@
     <div class="flex flex-row border-r border-[#E1E1E2] px-2 my-2">
       <button
         title="Undo"
-        class="rounded-md flex items-center p-1 active:bg-[#16404D] active:text-[#A6CDC6]"
+        class="rounded-md flex items-center p-1 cursor-pointer active:bg-[#a9c6e8] active:text-[#A6CDC6]"
         (click)="editor.chain().focus().undo().run()"
       >
         <img src="icons/undo.svg" alt="">
       </button>
       <button
         title="Redo"
-        class="rounded-md flex items-center p-1 active:bg-[#16404D] active:text-[#A6CDC6]"
+        class="rounded-md flex items-center p-1 cursor-pointer active:bg-[#a9c6e8] active:text-[#A6CDC6]"
         (click)="editor.chain().focus().redo().run()"
       >
         <img src="icons/redo.svg" alt="">
       </button>
       <button
         title="Clear Format"
-        class="rounded-md flex items-center p-1 active:bg-[#16404D] active:text-[#A6CDC6]"
+        class="rounded-md flex items-center p-1 cursor-pointer active:bg-[#a9c6e8] active:text-[#A6CDC6]"
         (click)="editor.chain().focus().clearNodes().unsetAllMarks().run()"
       >
         <img src="icons/format_clear.svg" alt="">
@@ -127,7 +127,7 @@
       <button
         title="Bold"
         class="{{
-          editor.isActive('bold') ? 'shadow-inner bg-[#586671] text-white' : ''
+          editor.isActive('bold') ? 'shadow-inner bg-[#a9c6e8] text-white' : ''
         }} rounded-md flex items-center p-1 cursor-pointer"
         (click)="editor.chain().focus().toggleBold().run()"
       >
@@ -137,7 +137,7 @@
         title="Italic"
         class="{{
           editor.isActive('italic')
-            ? 'shadow-inner bg-[#586671] text-white'
+            ? 'shadow-inner bg-[#a9c6e8] text-white'
             : ''
         }} rounded-md flex items-center p-1 cursor-pointer"
         (click)="editor.chain().focus().toggleItalic().run()"
@@ -149,7 +149,7 @@
         title="Underline"
         class="{{
           editor.isActive('underline')
-            ? 'shadow-inner bg-[#586671] text-white'
+            ? 'shadow-inner bg-[#a9c6e8] text-white'
             : ''
         }} rounded-md flex items-center p-1 cursor-pointer"
         (click)="editor.chain().focus().toggleUnderline().run()"
@@ -160,7 +160,7 @@
         title="Superscript"
         class="{{
           editor.isActive('superscript')
-            ? 'shadow-inner bg-[#586671] text-white'
+            ? 'shadow-inner bg-[#a9c6e8] text-white'
             : ''
         }} rounded-md flex items-center p-1 cursor-pointer"
         (click)="editor.chain().focus().toggleSuperscript().run()"
@@ -171,7 +171,7 @@
         title="Subscript"
         class="{{
           editor.isActive('subscript')
-            ? 'shadow-inner bg-[#586671] text-white'
+            ? 'shadow-inner bg-[#a9c6e8] text-white'
             : ''
         }} rounded-md flex items-center p-1 cursor-pointer"
         (click)="editor.chain().focus().toggleSubscript().run()"
@@ -182,7 +182,7 @@
         title="Highlight"
         class="{{
           editor.isActive('highlight')
-            ? 'shadow-inner bg-[#586671] text-white'
+            ? 'shadow-inner bg-[#a9c6e8] text-white'
             : ''
         }} rounded-md flex items-center p-1 cursor-pointer"
         (click)="editor.chain().focus().toggleHighlight().run()"
@@ -213,8 +213,8 @@
       <button
         title="Link"
         class="{{
-          editor.isActive('link') ? 'shadow-inner bg-[#586671] text-white' : ''
-        }} rounded-md flex items-center p-1"
+          editor.isActive('link') ? 'shadow-inner bg-[#a9c6e8] text-white' : ''
+        }} rounded-md flex items-center p-1 cursor-pointer"
         (click)="toggleLink()"
       >
         <img src="icons/link.svg" alt="">
@@ -222,8 +222,8 @@
       <button
         title="Image"
         class="{{
-          editor.isActive('image') ? 'shadow-inner bg-[#586671] text-white' : ''
-        }} rounded-md flex items-center p-1"
+          editor.isActive('image') ? 'shadow-inner bg-[#a9c6e8] text-white' : ''
+        }} rounded-md flex items-center p-1 cursor-pointer"
         (click)="addImage()"
       >
         <img src="icons/image.svg" alt="">
@@ -236,7 +236,7 @@
         title="Bullet List"
         class="{{
           editor.isActive('bulletList')
-            ? 'shadow-inner bg-[#586671] text-white'
+            ? 'shadow-inner bg-[#a9c6e8] text-white'
             : ''
         }} rounded-md cursor-pointer flex items-center p-1"
         (click)="editor.chain().focus().toggleBulletList().run()"
@@ -247,7 +247,7 @@
         title="Ordered List"
         class="{{
           editor.isActive('orderedList')
-            ? 'shadow-inner bg-[#586671] text-white'
+            ? 'shadow-inner bg-[#a9c6e8] text-white'
             : ''
         }} rounded-md cursor-pointer flex items-center p-1"
         (click)="editor.chain().focus().toggleOrderedList().run()"
@@ -258,7 +258,7 @@
         title="Task List"
         class="{{
           editor.isActive('taskList')
-            ? 'shadow-inner bg-[#586671] text-white'
+            ? 'shadow-inner bg-[#a9c6e8] text-white'
             : ''
         }} rounded-md cursor-pointer flex items-center p-1 "
         (click)="editor.chain().focus().toggleTaskList().run()"
@@ -273,7 +273,7 @@
         title="Align Left"
         class="{{
           editor.isActive({ textAlign: 'left' })
-            ? 'shadow-inner bg-[#586671] text-white'
+            ? 'shadow-inner bg-[#a9c6e8] text-white'
             : ''
         }}  rounded-md cursor-pointer flex items-center p-1"
         (click)="editor.chain().focus().setTextAlign('left').run()"
@@ -284,7 +284,7 @@
         title="Align Center"
         class="{{
           editor.isActive({ textAlign: 'center' })
-            ? 'shadow-inner bg-[#586671] text-white'
+            ? 'shadow-inner bg-[#a9c6e8] text-white'
             : ''
         }}  rounded-md cursor-pointer flex items-center p-1"
         (click)="editor.chain().focus().setTextAlign('center').run()"
@@ -295,7 +295,7 @@
         title="Align Right"
         class="{{
           editor.isActive({ textAlign: 'right' })
-            ? 'shadow-inner bg-[#586671] text-white'
+            ? 'shadow-inner bg-[#a9c6e8] text-white'
             : ''
         }}  rounded-md cursor-pointer flex items-center p-1"
         (click)="editor.chain().focus().setTextAlign('right').run()"
@@ -306,7 +306,7 @@
         title="Justify"
         class="{{
           editor.isActive({ textAlign: 'justify' })
-            ? 'shadow-inner bg-[#586671] text-white'
+            ? 'shadow-inner bg-[#a9c6e8] text-white'
             : ''
         }}  rounded-md cursor-pointer flex items-center p-1"
         (click)="editor.chain().focus().setTextAlign('justify').run()"
@@ -319,7 +319,7 @@
     <div class="flex flex-row border-r border-[#E1E1E2] px-2 my-2 gap-2">
       <button
         title="Save"
-        class="rounded-md flex items-center p-1 active:bg-[#586671] active:text-white"
+        class="rounded-md flex items-center p-1 active:bg-[#a9c6e8] active:text-white"
         (click)="saveFile()"
       >
         <img src="icons/save.svg" alt="">

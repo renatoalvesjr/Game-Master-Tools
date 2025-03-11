@@ -5,13 +5,16 @@ import {NoteService} from '../../../../Services/note.service';
 import {MatMenu, MatMenuItem, MatMenuTrigger} from '@angular/material/menu';
 import {CampaignService} from '../../../../Services/campaign.service';
 import {UtilsService} from '../../../../Services/utils.service';
+import {NgStyle} from '@angular/common';
+import {Campaign} from '../../../../Interfaces/Campaign.interface';
 
 @Component({
   selector: 'app-note-nav',
   imports: [
     MatMenuTrigger,
     MatMenu,
-    MatMenuItem
+    MatMenuItem,
+    NgStyle
   ],
   templateUrl: './note-nav.component.html',
   styleUrl: './note-nav.component.scss'
@@ -22,31 +25,35 @@ export class NoteNavComponent implements OnInit {
   utils = inject(UtilsService);
 
   @Input() page!: Page;
-  @Input() campaignId!: string
+  @Input() campaign!: Campaign
 
   notes: Note[] | null = [];
-
-  selectNote(note: Note) {
-    this.noteService.selectNote(note,this.page, this.campaignId);
-  }
 
   async ngOnInit() {
     await this.loadAllNotes();
   }
 
+  addNote(note: Note) {
+    this.notes?.push(note);
+  }
+
+  selectNote(note: Note) {
+    this.noteService.selectNote(note, this.page, this.campaign.campaignId);
+  }
+
+  trackNoteById(note: Note) {
+    return note.noteId;
+  }
+
   async loadAllNotes() {
-    this.notes = await this.noteService.loadAllNotes(this.campaignId, this.page.pageId).then(async () =>
-      this.notes = await this.noteService.loadAllNotes(this.campaignId, this.page.pageId)
-    )
+    this.notes = await this.noteService.loadAllNotes(this.campaign.campaignId, this.page.pageId);
   }
 
   deleteNote(id: string) {
-    this.noteService.deleteNote(this.campaignId, this.page.pageId, id).then(async () => {
-      this.notes = await this.noteService.loadAllNotes(this.campaignId, this.page.pageId);
+    this.noteService.deleteNote(this.campaign.campaignId, this.page.pageId, id).then(async () => {
+      await this.loadAllNotes();
     });
   }
-
-
 
   async renameNote(note: Note) {
     const noteElement = document.getElementById('note-' + note.noteId);
@@ -71,11 +78,12 @@ export class NoteNavComponent implements OnInit {
       if (updatedTitle !== note.noteTitle.trim()) {
         note.noteTitle = updatedTitle;
       }
-      await this.noteService.updateNote(this.campaignId, this.page.pageId, note);
+      await this.noteService.updateNote(this.campaign.campaignId, this.page.pageId, note);
 
-      const campaign = await this.campaignService.getCampaignById(this.campaignId);
+      const campaign = await this.campaignService.getCampaignById(this.campaign.campaignId);
       campaign.campaignUpdateDate = this.utils.getTimeNow();
       this.campaignService.updateCampaign(campaign).then();
+      this.notes = await this.noteService.loadAllNotes(this.campaign.campaignId, this.page.pageId);
     }
 
     const onKeyDown = (evt: KeyboardEvent) => {

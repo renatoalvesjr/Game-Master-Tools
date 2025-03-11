@@ -7,6 +7,7 @@ import {PButtonComponent} from '../../Components/Buttons/p-button/p-button.compo
 import {FormatDatePipe} from '../../Pipe/format-date.pipe';
 import {FormsModule} from '@angular/forms';
 import {UtilsService} from '../../Services/utils.service';
+import {SvgIconComponent} from 'angular-svg-icon';
 
 @Component({
   selector: 'app-CampaignManagement',
@@ -17,7 +18,8 @@ import {UtilsService} from '../../Services/utils.service';
     RouterLink,
     PButtonComponent,
     FormatDatePipe,
-    FormsModule
+    FormsModule,
+    SvgIconComponent
   ],
   standalone: true
 })
@@ -30,6 +32,7 @@ export class CampaignManagementComponent implements OnInit {
   array: number[] = [];
   dangerMode: boolean = false;
   campaignDescriptionElement: HTMLElement| null = null;
+  iconState: string = '';
 
   async ngOnInit() {
     await this.loadCampaign();
@@ -125,5 +128,48 @@ this.campaignDescriptionElement = document.getElementById(`campaign-${this.campa
       campaignNameElement.addEventListener('keydown', onKeyDown);
     }
   }
+
+  async changeCampaignImage() {
+    if (this.campaignSelected) {
+      const campaignImageElement = document.getElementById(`campaign-${this.campaignSelected.campaignId}-image`);
+      if (!campaignImageElement) {
+        return;
+      }
+      campaignImageElement.contentEditable = 'true';
+      campaignImageElement.focus();
+      const range = document.createRange();
+      range.selectNodeContents(campaignImageElement);
+      const selection = window.getSelection();
+      selection!.removeAllRanges();
+      selection!.addRange(range);
+
+      const disableContentEditable = async () => {
+        campaignImageElement.contentEditable = 'false';
+        campaignImageElement.removeEventListener('blur', disableContentEditable);
+        campaignImageElement.removeEventListener('keydown', disableContentEditable);
+
+        const updatedUrl = campaignImageElement.innerText.trim();
+        if (updatedUrl !== this.campaignSelected!.campaignImageUrl.trim()) {
+          this.campaignSelected!.campaignImageUrl = updatedUrl;
+        }
+        await this.updateCampaign(this.campaignSelected!);
+
+        this.campaignSelected!.campaignUpdateDate = this.utils.getTimeNow();
+        this.campaignService.updateCampaign(this.campaignSelected!).then();
+      }
+      const onKeyDown = async (evt: KeyboardEvent) => {
+        if (evt.key === 'Enter') {
+          await disableContentEditable();
+        } else if (evt.key === 'Esc') {
+          evt.preventDefault();
+          return;
+        }
+      }
+
+      campaignImageElement.addEventListener('blur', disableContentEditable);
+      campaignImageElement.addEventListener('keydown', onKeyDown);
+    }
+  }
+
 }
 
