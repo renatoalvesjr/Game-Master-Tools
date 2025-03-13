@@ -33,8 +33,6 @@ export class NoteNavComponent implements OnInit {
     await this.loadAllNotes();
   }
 
-
-
   selectNote(note: Note) {
     this.noteService.selectNote(note, this.page, this.campaign.campaignId);
   }

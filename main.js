@@ -1,6 +1,7 @@
 const {app, ipcMain, BrowserWindow, nativeTheme} = require("electron");
 const path = require("path");
 let fs = require('fs');
+let url = require('url')
 
 let appWindow;
 
@@ -21,15 +22,15 @@ function initWindow() {
     },
   });
   appWindow.loadURL(
-    // url.format({
-    //   pathname: path.join(
-    //     __dirname,
-    //     "/dist/game-master-tools/browser/index.html"
-    //   ),
-    //   protocol: "file",
-    //   slashes: true,
-    // })
-    'http://localhost:4200'
+    url.format({
+      pathname: path.join(
+        __dirname,
+        "/dist/game-master-tools/browser/index.html"
+      ),
+      protocol: "file",
+      slashes: true,
+    })
+    // "http://localhost:4200"
   ).then();
   if(defaultConfig.maximize) {
     appWindow.maximize();

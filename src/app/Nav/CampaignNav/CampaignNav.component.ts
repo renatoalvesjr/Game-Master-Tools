@@ -10,12 +10,13 @@ import {PageNavComponent} from './page-nav/page-nav.component';
 import {NgIf} from '@angular/common';
 import {NoteService} from '../../Services/note.service';
 import {Page} from '../../Interfaces/Page.interface';
+import {SvgIconComponent} from 'angular-svg-icon';
 
 @Component({
   selector: 'app-CampaignNav',
   templateUrl: './CampaignNav.component.html',
   styleUrls: ['./CampaignNav.component.scss'],
-  imports: [MatMenuModule, NoteEditorComponent, PageNavComponent, NgIf]
+  imports: [MatMenuModule, NoteEditorComponent, PageNavComponent, NgIf, SvgIconComponent]
 })
 export class CampaignNavComponent implements OnInit {
   campaignService = inject(CampaignService);
@@ -65,5 +66,4 @@ export class CampaignNavComponent implements OnInit {
       console.error('Error on ngOnInit:', e);
     }
   }
-
 }

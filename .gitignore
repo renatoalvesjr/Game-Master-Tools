@@ -5,6 +5,7 @@
 /tmp
 /out-tsc
 /bazel-out
+/out
 
 # Node
 /node_modules
@@ -13,6 +14,7 @@ yarn-error.log
 
 # IDEs and editors
 .idea/
+.vscode/
 .project
 .classpath
 .c9/
@@ -37,6 +39,7 @@ yarn-error.log
 testem.log
 /typings
 qodana.yaml
+
 # System files
 .DS_Store
 Thumbs.db
