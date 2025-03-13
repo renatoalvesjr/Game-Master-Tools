@@ -2,7 +2,7 @@
   <div
     class="flex flex-row items-center justify-between rounded-xl bg-[#F3F6F8] hover:bg-gray-200 transition-all duration-300 p-2 my-2">
     <div class="flex flex-row items-center gap-1 cursor-pointer" (click)="pagesHidden = !pagesHidden">
-      <span class="material-symbols-outlined sm">sticky_note_2</span>
+      <svg-icon src="icons/sticky_note_2.svg"></svg-icon>
       <p>Notas</p>
     </div>
     <div class="flex items-center cursor-pointer {{pagesHidden?'hidden':''}}">
@@ -20,11 +20,11 @@
           [ngStyle]="{ 'background-color': page.pageColor }"
           id="page-color-{{page.pageId}}"
         >
-          <span class="material-icons cursor-pointer select-none" (click)="page.pageActive = !page.pageActive">{{
+          <svg-icon src="icons/{{
               page.pageActive
-                ? "keyboard_arrow_down"
-                : "keyboard_arrow_right"
-            }}</span>
+                ? 'keyboard_arrow_down'
+          : 'keyboard_arrow_right'
+          }}.svg"></svg-icon>
           <p
             [title]="page.pageTitle"
             class="truncate text-clip overflow-none justify-start self-start start-0 justify-self-start"
@@ -43,12 +43,26 @@
           <button mat-menu-item (click)="togglePageEditable(page)">Renomear</button>
           <button mat-menu-item (click)="deletePage(page.pageId)" [ngStyle]="{ 'color': '#9f0712' }">Excluir</button>
         </mat-menu>
-        <mat-menu #colors >
+        <mat-menu #colors>
           <div class="flex flex-col w-full">
-            @for(color of pageColors;track color){
-              <button class="bg-[{{color}}] {{page.pageColor==color?'border-2 border-black':'border-1 border-gray-400'}} w-full h-7 rounded-xl hover:p-2 border hover:border-2 transition-all duration-150 ease-out" (click)="changeColor(page, color)"></button>
-
-            }
+            <div
+              class="bg-[#F3F6F8] {{page.pageColor=='#F3F6F8'?'border-2 border-black':'border-1 border-gray-400'}} w-full h-7 rounded-xl hover:p-2 border hover:border-2 transition-all duration-150 ease-out"
+              (click)="changeColor(page, '#F3F6F8')"></div>
+            <div
+              class="bg-[#dae3ea] {{page.pageColor=='#dae3ea'?'border-2 border-black':'border-1 border-gray-400'}} w-full h-7 rounded-xl hover:p-2 border hover:border-2 transition-all duration-150 ease-out"
+              (click)="changeColor(page, '#dae3ea')"></div>
+            <div
+              class="bg-[#a9c6e8] {{page.pageColor=='#a9c6e8'?'border-2 border-black':'border-1 border-gray-400'}} w-full h-7 rounded-xl hover:p-2 border hover:border-2 transition-all duration-150 ease-out"
+              (click)="changeColor(page, '#a9c6e8')"></div>
+            <div
+              class="bg-[#d6d4df] {{page.pageColor=='#d6d4df'?'border-2 border-black':'border-1 border-gray-400'}} w-full h-7 rounded-xl hover:p-2 border hover:border-2 transition-all duration-150 ease-out"
+              (click)="changeColor(page, '#d6d4df')"></div>
+            <div
+              class="bg-[#fbf7ae] {{page.pageColor=='#fbf7ae'?'border-2 border-black':'border-1 border-gray-400'}} w-full h-7 rounded-xl hover:p-2 border hover:border-2 transition-all duration-150 ease-out"
+              (click)="changeColor(page, '#fbf7ae')"></div>
+            <div
+              class="bg-[#fad2da] {{page.pageColor=='#fad2da'?'border-2 border-black':'border-1 border-gray-400'}} w-full h-7 rounded-xl hover:p-2 border hover:border-2 transition-all duration-150 ease-out"
+              (click)="changeColor(page, '#fad2da')"></div>
           </div>
         </mat-menu>
         <!--Notes Renderer-->

@@ -10,6 +10,7 @@ import {Note} from '../../../Interfaces/Note.interface';
 import {NoteNavComponent} from './note-nav/note-nav.component';
 import {NoteService} from '../../../Services/note.service';
 import {NgStyle} from '@angular/common';
+import {SvgIconComponent} from 'angular-svg-icon';
 
 @Component({
   selector: 'app-page-nav',
@@ -20,6 +21,7 @@ import {NgStyle} from '@angular/common';
     MatMenuTrigger,
     NoteNavComponent,
     NgStyle,
+    SvgIconComponent,
   ],
   templateUrl: './page-nav.component.html',
   styleUrl: './page-nav.component.scss'
@@ -39,7 +41,13 @@ export class PageNavComponent implements OnInit {
 
   pages!: Page[] | null;
 
-  pageColors: string[] = ['#F3F6F8', '#dae3ea', '#a9c6e8', '#d6d4df', '#fbf7ae', '#fad2da']
+  pageColors: string[] = [
+    '#F3F6F8',
+    '#dae3ea',
+    '#a9c6e8',
+    '#d6d4df',
+    '#fbf7ae',
+    '#fad2da']
 
   constructor() {
   }
@@ -155,7 +163,7 @@ export class PageNavComponent implements OnInit {
   applyColor() {
     for (let page of this.pages!) {
       if (page) {
-        this.changeColor(page, page.pageColor);
+        this.changeColor(page, page.pageColor).then();
       }
     }
   }

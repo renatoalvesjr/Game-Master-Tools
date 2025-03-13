@@ -4,7 +4,6 @@ import {Campaign} from '../../Interfaces/Campaign.interface';
 import {CampaignService} from '../../Services/campaign.service';
 import {Note} from '../../Interfaces/Note.interface';
 import {MatMenuModule} from '@angular/material/menu';
-import {DividerComponent} from '../../Components/divider/divider.component';
 import {UtilsService} from '../../Services/utils.service';
 import {NoteEditorComponent} from '../../Pages/Editor/Editor.component';
 import {PageNavComponent} from './page-nav/page-nav.component';
@@ -17,7 +16,7 @@ import {SvgIconComponent} from 'angular-svg-icon';
   selector: 'app-CampaignNav',
   templateUrl: './CampaignNav.component.html',
   styleUrls: ['./CampaignNav.component.scss'],
-  imports: [MatMenuModule, DividerComponent, NoteEditorComponent, PageNavComponent, NgIf, SvgIconComponent]
+  imports: [MatMenuModule, NoteEditorComponent, PageNavComponent, NgIf, SvgIconComponent]
 })
 export class CampaignNavComponent implements OnInit {
   campaignService = inject(CampaignService);
@@ -67,10 +66,4 @@ export class CampaignNavComponent implements OnInit {
       console.error('Error on ngOnInit:', e);
     }
   }
-
-  async goTo(campaignId: string) {
-    await this.router.navigate(['/campaign-management/', {campaignId: campaignId}]);
-  }
-
-
 }

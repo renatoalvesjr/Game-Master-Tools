@@ -32,7 +32,6 @@ export class CampaignManagementComponent implements OnInit {
   array: number[] = [];
   dangerMode: boolean = false;
   campaignDescriptionElement: HTMLElement| null = null;
-  iconState: string = '';
 
   async ngOnInit() {
     await this.loadCampaign();
