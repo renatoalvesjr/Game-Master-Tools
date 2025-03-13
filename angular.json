@@ -4,12 +4,6 @@
   "newProjectRoot": "projects",
   "projects": {
     "GameMasterTools": {
-      "i18n": {
-        "sourceLocale": "en-US",
-        "locales": {
-          "pt-BR": "src/locales/messages.pt.xlf"
-        }
-      },
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -63,9 +57,6 @@
               "optimization": false,
               "extractLicenses": false,
               "sourceMap": true
-            },
-            "pt": {
-              "localize": ["pt-BR"]
             }
           },
           "defaultConfiguration": "production"
