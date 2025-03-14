@@ -1,0 +1,69 @@
+{
+  "settings": {
+    "title": "配置",
+    "language": "语言: ",
+    "idioms": {
+      "pt-BR": "巴西葡萄牙语",
+      "en-US": "英语",
+      "zh-Hans": "简体中文",
+      "de-DE": "德语"
+    }
+
+  },
+  "create-campaign": {
+    "title": "创建新活动",
+    "name": "名称: ",
+    "description": "描述: ",
+    "image": "图片 URL: ",
+    "system": "系统: ",
+    "select-system": "选择一个系统",
+    "custom-system": "系统名称: ",
+    "active": "创建后添加到侧边栏",
+    "create-button": "创建活动"
+  },
+  "components": {
+    "insertion-modal": {
+      "title": "插入 URL",
+      "cancelButton": "取消",
+      "okButton": "确定"
+    }
+  },
+  "home": {
+    "createCampaign": "创建新活动",
+    "recentCampaigns": "最近的活动 ..."
+  },
+  "nav": {
+    "navigation": {
+      "campaign-management": "活动管理",
+      "item-vault": "物品库",
+      "systems": "系统",
+      "sound": "音效面板"
+    },
+    "page-nav": {
+      "title": "笔记"
+    }
+  },
+  "page": {
+    "campaign-management": {
+      "createCampaignButton": "创建活动",
+      "no-campaign": {
+        "title": "活动管理",
+        "description": "选择一个活动查看其设置，或创建一个新活动。"
+      },
+      "description": {
+        "creationDate": "创建日期: ",
+        "description": "描述: ",
+        "imageUrl": "图片 URL: ",
+        "dangerZone": {
+          "title": "危险区域",
+          "enableOptions": "启用选项",
+          "deleteCampaign": "删除活动"
+        }
+      },
+      "campaign-card": {
+        "description": "描述: ",
+        "creationDate": "创建时间: "
+      }
+    }
+  }
+}

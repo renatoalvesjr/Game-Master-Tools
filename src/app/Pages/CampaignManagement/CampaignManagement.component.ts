@@ -8,6 +8,7 @@ import {FormatDatePipe} from '../../Pipe/format-date.pipe';
 import {FormsModule} from '@angular/forms';
 import {UtilsService} from '../../Services/utils.service';
 import {SvgIconComponent} from 'angular-svg-icon';
+import {TranslateModule, TranslateService} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-CampaignManagement',
@@ -19,7 +20,8 @@ import {SvgIconComponent} from 'angular-svg-icon';
     PButtonComponent,
     FormatDatePipe,
     FormsModule,
-    SvgIconComponent
+    SvgIconComponent,
+    TranslateModule,
   ],
   standalone: true
 })
@@ -32,6 +34,10 @@ export class CampaignManagementComponent implements OnInit {
   array: number[] = [];
   dangerMode: boolean = false;
   campaignDescriptionElement: HTMLElement| null = null;
+
+  constructor(private translate: TranslateService) {
+    this.translate.use(this.translate.currentLang)
+  }
 
   async ngOnInit() {
     await this.loadCampaign();

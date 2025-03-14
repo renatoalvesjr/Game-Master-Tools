@@ -1,0 +1,69 @@
+{
+  "settings": {
+    "title": "Settings",
+    "language": "Language: ",
+    "idioms": {
+      "pt-BR": "Brazilian Portuguese",
+      "en-US": "English",
+      "zh-Hans": "Simplified Chinese",
+      "de-DE": "German"
+    }
+
+  },
+  "create-campaign": {
+    "title": "Create New Campaign",
+    "name": "Name: ",
+    "description": "Description: ",
+    "image": "Image URL: ",
+    "system": "System: ",
+    "select-system": "Select a System",
+    "custom-system": "System Name: ",
+    "active": "Add to sidebar after creation",
+    "create-button": "Create Campaign"
+  },
+  "components": {
+    "insertion-modal": {
+      "title": "Insert URL",
+      "cancelButton": "Cancel",
+      "okButton": "OK"
+    }
+  },
+  "home": {
+    "createCampaign": "Create New Campaign",
+    "recentCampaigns": "Recent Campaigns ..."
+  },
+  "nav": {
+    "navigation": {
+      "campaign-management": "Campaign Management",
+      "item-vault": "Item Vault",
+      "systems": "Systems",
+      "sound": "Soundboard"
+    },
+    "page-nav": {
+      "title": "Notes"
+    }
+  },
+  "page": {
+    "campaign-management": {
+      "createCampaignButton": "Create New Campaign",
+      "no-campaign": {
+        "title": "Campaign Manager",
+        "description": "Select a campaign to view its settings or create a new campaign."
+      },
+      "description": {
+        "creationDate": "Creation Date: ",
+        "description": "Description: ",
+        "imageUrl": "Image URL: ",
+        "dangerZone": {
+          "title": "Danger Zone",
+          "enableOptions": "Enable Options",
+          "deleteCampaign": "Delete Campaign"
+        }
+      },
+      "campaign-card": {
+        "description": "Description: ",
+        "creationDate": "Creation Date: "
+      }
+    }
+  }
+}

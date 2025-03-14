@@ -3,10 +3,7 @@
     <img class="max-w-[250px]" src="logo.png" alt="Logo Game Master Tools">
     <div class="flex flex-col">
       <div class="flex flex-row items-center">
-
-
         <p class="font-bold text-[#3D2C12]">{{ "home.recentCampaigns" | translate }}</p>
-        <p class="font-bold text-[#3D2C12] ml-4"> <span class="cursor-pointer" (click)="changeLanguage('en')">enUS</span>/<span class="cursor-pointer" (click)="changeLanguage('pt')">ptBR</span></p>
       </div>
       <div class="text-gray-400 font-bold ml-4">
         @for (item of campaignList; track item; ) {

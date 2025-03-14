@@ -4,6 +4,7 @@ import {Router, RouterLink, RouterLinkActive, RouterOutlet,} from '@angular/rout
 import {CampaignService} from '../../Services/campaign.service';
 import {Campaign} from '../../Interfaces/Campaign.interface';
 import {UtilsService} from '../../Services/utils.service';
+import {TranslateModule, TranslateService} from '@ngx-translate/core';
 
 interface SystemNavList {
   name: string;
@@ -18,7 +19,7 @@ interface SystemNavList {
   selector: 'app-Navigation',
   templateUrl: './Navigation.component.html',
   styleUrls: ['./Navigation.component.scss'],
-  imports: [CommonModule, RouterOutlet, RouterLinkActive, RouterLink,]
+  imports: [CommonModule, RouterOutlet, RouterLinkActive, RouterLink, TranslateModule]
 })
 export class NavigationComponent implements OnInit {
   router = inject(Router);
@@ -30,28 +31,28 @@ export class NavigationComponent implements OnInit {
 
   navList: SystemNavList[] = [
     {
-      name: 'Gerenciador de Campanhas',
+      name: 'nav.navigation.campaign-management',
       route: 'campaign-management',
       icon: 'menu_book',
       iconType: 'material-symbols-outlined',
       active: false,
     },
     {
-      name: 'Item Vault',
+      name: 'nav.navigation.item-vault',
       route: 'items',
       icon: 'swords',
       iconType: 'material-symbols-outlined',
       active: false,
     },
     {
-      name: 'Sistemas',
+      name: 'nav.navigation.systems',
       route: 'systems',
       icon: 'shelves',
       iconType: 'material-symbols-outlined',
       active: false,
     },
     {
-      name: 'Soundoard',
+      name: 'nav.navigation.sound',
       route: 'sound',
       icon: 'music_cast',
       iconType: 'material-symbols-outlined',
@@ -59,7 +60,8 @@ export class NavigationComponent implements OnInit {
     },
   ];
 
-  constructor() {
+  constructor(private translate: TranslateService) {
+    this.translate.use(this.translate.currentLang)
   }
 
   async ngOnInit() {

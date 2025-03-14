@@ -22,9 +22,7 @@ export class HomeComponent implements OnInit {
   campaignList!: Campaign[];
 
   constructor(private translate: TranslateService) {
-    this.translate.addLangs(['pt', 'en']);
-    this.translate.setDefaultLang('en');
-    this.translate.use('en');
+    this.translate.use(this.translate.currentLang);
   }
 
   changeLanguage(language: string){

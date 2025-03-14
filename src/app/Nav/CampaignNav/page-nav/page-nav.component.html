@@ -3,10 +3,10 @@
     class="flex flex-row items-center justify-between rounded-xl bg-[#F3F6F8] hover:bg-gray-200 transition-all duration-300 p-2 my-2">
     <div class="flex flex-row items-center gap-1 cursor-pointer" (click)="pagesHidden = !pagesHidden">
       <svg-icon src="icons/sticky_note_2.svg"></svg-icon>
-      <p>Notas</p>
+      <p>{{ "nav.page-nav.title" | translate }}</p>
     </div>
     <div class="flex items-center cursor-pointer {{pagesHidden?'hidden':''}}">
-      <img src="icons/add.svg" alt="Create new note" class="w-fit h-fit hover:cursor-pointer"
+      <img src="icons/add.svg" alt="Create new note" class="select-none w-fit h-fit hover:cursor-pointer"
            (click)="addPage()"/>
     </div>
   </div>
@@ -32,7 +32,7 @@
           >{{ page.pageTitle }}</p>
           <img
             src="icons/more_horiz.svg"
-            class="hidden group-hover:flex cursor-pointer"
+            class="hidden group-hover:flex cursor-pointer select-none"
             alt="Page options button."
             [matMenuTriggerFor]="pageMenu"
           >
@@ -45,24 +45,11 @@
         </mat-menu>
         <mat-menu #colors>
           <div class="flex flex-col w-full">
-            <div
-              class="bg-[#F3F6F8] {{page.pageColor=='#F3F6F8'?'border-2 border-black':'border-1 border-gray-400'}} w-full h-7 rounded-xl hover:p-2 border hover:border-2 transition-all duration-150 ease-out"
-              (click)="changeColor(page, '#F3F6F8')"></div>
-            <div
-              class="bg-[#dae3ea] {{page.pageColor=='#dae3ea'?'border-2 border-black':'border-1 border-gray-400'}} w-full h-7 rounded-xl hover:p-2 border hover:border-2 transition-all duration-150 ease-out"
-              (click)="changeColor(page, '#dae3ea')"></div>
-            <div
-              class="bg-[#a9c6e8] {{page.pageColor=='#a9c6e8'?'border-2 border-black':'border-1 border-gray-400'}} w-full h-7 rounded-xl hover:p-2 border hover:border-2 transition-all duration-150 ease-out"
-              (click)="changeColor(page, '#a9c6e8')"></div>
-            <div
-              class="bg-[#d6d4df] {{page.pageColor=='#d6d4df'?'border-2 border-black':'border-1 border-gray-400'}} w-full h-7 rounded-xl hover:p-2 border hover:border-2 transition-all duration-150 ease-out"
-              (click)="changeColor(page, '#d6d4df')"></div>
-            <div
-              class="bg-[#fbf7ae] {{page.pageColor=='#fbf7ae'?'border-2 border-black':'border-1 border-gray-400'}} w-full h-7 rounded-xl hover:p-2 border hover:border-2 transition-all duration-150 ease-out"
-              (click)="changeColor(page, '#fbf7ae')"></div>
-            <div
-              class="bg-[#fad2da] {{page.pageColor=='#fad2da'?'border-2 border-black':'border-1 border-gray-400'}} w-full h-7 rounded-xl hover:p-2 border hover:border-2 transition-all duration-150 ease-out"
-              (click)="changeColor(page, '#fad2da')"></div>
+            @for (color of pageColors; track color) {
+              <div
+                class="bg-[{{color}}] w-full h-7 rounded-xl hover:p-2 border border-gray-500 hover:border-2 transition-all duration-150 ease-in"
+                (click)="changeColor(page, '{{color}}')"></div>
+            }
           </div>
         </mat-menu>
         <!--Notes Renderer-->

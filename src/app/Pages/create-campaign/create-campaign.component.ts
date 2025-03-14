@@ -5,10 +5,11 @@ import {CampaignService} from '../../Services/campaign.service';
 import {PButtonComponent} from '../../Components/Buttons/p-button/p-button.component';
 import {FormControl, FormGroup, ReactiveFormsModule} from '@angular/forms';
 import {Router} from '@angular/router';
+import {TranslateModule, TranslateService} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-create-campaign',
-  imports: [ReactiveFormsModule, PButtonComponent],
+  imports: [ReactiveFormsModule, PButtonComponent, TranslateModule],
   templateUrl: './create-campaign.component.html',
   styleUrl: './create-campaign.component.scss'
 })
@@ -17,7 +18,11 @@ export class CreateCampaignComponent {
   campaignService: CampaignService = inject(CampaignService);
   router: Router = inject(Router);
 
-  hiddenDesciption = true;
+  hiddenDescription = true;
+
+  constructor(private translate: TranslateService) {
+    this.translate.use(this.translate.currentLang)
+  }
 
   campaignForm = new FormGroup({
     campaignName: new FormControl('Nova Campanha'),

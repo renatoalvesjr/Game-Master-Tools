@@ -5,5 +5,5 @@ contextBridge.exposeInMainWorld('electronAPI', {
   saveFile: (data) => ipcRenderer.invoke('saveFile', data),
   returnAllFiles: (data) => ipcRenderer.invoke('returnAllFiles', data),
   deleteFile: (data) => ipcRenderer.invoke('deleteFile', data),
-  onStart: () => ipcRenderer.invoke('onStart')
+  onStart: () => ipcRenderer.invoke('onStart'),
 })

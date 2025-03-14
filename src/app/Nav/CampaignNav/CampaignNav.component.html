@@ -1,68 +1,29 @@
 <div class="flex flex-row w-full max-w-full h-full ">
-    <div class="flex flex-col h-full min-w-56 w-64 p-2 border-r border-gray-200 overflow-y-auto">
-        <!-- Campaign title + description + campaign config menu -->
-        <div class="mb-4">
-            <div class="flex flex-row items-center">
-                <h1 class="line-clamp-2" [title]="campaignTitle">{{ campaignTitle }}</h1>
-            </div>
-            <p
-                    class="{{hiddenDescription?'cursor-pointer':'cursor-pointer line-clamp-2 hover:underline'}} text-sm text-gray-400"
-                    (click)="hiddenDescription = !hiddenDescription"
-            >
-                {{ campaignDescription }}
-            </p>
-        </div>
-        <!-- Campaign menus -->
-        <div class="flex flex-col gap-2">
-            <!-- Notes -->
-            <app-page-nav/>
-
-            <!-- Maps -->
-            <div class="flex flex-col">
-                <div
-                        class="flex  flex-row items-center justify-between rounded-xl bg-[#F3F6F8] hover:bg-gray-200 transition-all duration-300 p-2 my-2">
-                    <div class="flex flex-row items-center gap-1 cursor-pointer" (click)="mapsHidden = !mapsHidden">
-                      <svg-icon src="icons/map.svg"></svg-icon>
-                        <p>Mapas</p>
-                    </div>
-                    <div class="flex items-center cursor-pointer {{mapsHidden?'hidden':''}}">
-                      <svg-icon src="icons/add.svg"></svg-icon>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Items -->
-            <div class="flex flex-col">
-                <div
-                        class="flex flex-row items-center justify-between rounded-xl bg-[#F3F6F8] hover:bg-gray-200 transition-all duration-300 p-2 my-2">
-                    <div class="flex flex-row items-center gap-1 cursor-pointer" (click)="itemsHidden = !itemsHidden">
-                      <svg-icon src="icons/sword_rose.svg"></svg-icon>
-                        <p>Itens</p>
-                    </div>
-                    <div class="flex items-center cursor-pointer {{itemsHidden?'hidden':''}}">
-                      <svg-icon src="icons/add.svg"></svg-icon>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Creatures -->
-            <div class="flex flex-col">
-                <div
-                        class="flex flex-row items-center justify-between rounded-xl bg-[#F3F6F8] hover:bg-gray-200 transition-all duration-300 p-2 my-2">
-                    <div class="flex flex-row items-center gap-1 cursor-pointer"
-                         (click)="creaturesHidden = !creaturesHidden">
-                      <svg-icon src="icons/sports_martial_arts.svg"></svg-icon>
-                        <p>Criaturas</p>
-                    </div>
-                    <div class="flex items-center cursor-pointer {{creaturesHidden?'hidden':''}}">
-                      <svg-icon src="icons/add.svg"></svg-icon>
-                    </div>
-                </div>
-            </div>
-        </div>
+  <div class="flex flex-col h-full min-w-56 w-64 p-2 border-r border-gray-200 overflow-y-auto">
+    <!-- Campaign title + description + campaign config menu -->
+    <div class="mb-4">
+      <div class="flex flex-row items-center">
+        <h1 class="line-clamp-2" [title]="campaignTitle">{{ campaignTitle }}</h1>
+      </div>
+      <p
+        class="{{hiddenDescription?'cursor-pointer':'cursor-pointer line-clamp-2 hover:underline'}} text-sm text-gray-400"
+        (click)="hiddenDescription = !hiddenDescription"
+      >
+        {{ campaignDescription }}
+      </p>
     </div>
+    <!-- Campaign menus -->
+    <div class="flex flex-col gap-2">
+      <!-- Notes -->
+      <app-page-nav/>
 
-    <div *ngIf="selectedNote" class="h-full w-full">
-        <app-note-editor [note]="selectedNote" [page]="selectedPage" [campaignId]="selectedCampaign"></app-note-editor>
+<!--      <app-map-nav/>-->
+<!--      <app-item-nav/>-->
+<!--      <app-creatures-nav/>-->
     </div>
+  </div>
+
+  <div *ngIf="selectedNote" class="h-full w-full">
+    <app-note-editor [note]="selectedNote" [page]="selectedPage" [campaignId]="selectedCampaign"></app-note-editor>
+  </div>
 </div>

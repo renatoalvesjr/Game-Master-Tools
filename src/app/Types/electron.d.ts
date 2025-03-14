@@ -47,5 +47,7 @@ declare interface Window {
      * @returns {Promise<void>} A Promise that resolves when the file is deleted.
      */
     deleteFile(request: {filePath: string, fileName: string}): Promise<void>;
+
+    changeLanguage(newConfig: Config): void;
   };
 }

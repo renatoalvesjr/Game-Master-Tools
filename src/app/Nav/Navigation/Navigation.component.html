@@ -1,9 +1,9 @@
-<div class="flex flex-row h-full min-w-fit w-full select-none">
+<div class="flex flex-row h-full min-w-fit w-full">
   <div class="flex flex-col justify-between h-full min-w-14 max-w-24 border-r border-[#E1E1E1] z-[1000]">
     <div class="flex flex-col ">
       <div class="flex flex-col items-center border-b border-b-gray-300 pb-2">
         <!-- Menu list navigation -->
-        <div class="flex flex-col w-full items-center gap-4 mt-4">
+        <div class="flex flex-col w-full items-center gap-4 mt-4 select-none">
           @for (item of navList; track item) {
             <div
               class="flex flex-col cursor-pointer image-gray-400 transition-all ease-in duration-300 justify-center items-center gap-1 text-center"
@@ -12,7 +12,7 @@
               [routerLinkActiveOptions]="{ exact: true }"
             >
               <img src="icons/{{item.icon}}.svg" class="" alt="">
-              <p class="flex flex-col text-wrap text-sm">{{ item.name }}</p>
+              <p class="flex flex-col text-wrap text-sm">{{ item.name | translate }}</p>
             </div>
           }
         </div>
@@ -38,19 +38,19 @@
         <img
           src="icons/add.svg"
           title="Create New Campaign"
-          class="m-2 image-gray-400 scale-125 hover:scale-150 text-gray-400 lg transition-all ease-in duration-300 cursor-pointer"
+          class="select-none m-2 image-gray-400 scale-125 hover:scale-150 text-gray-400 lg transition-all ease-in duration-300 cursor-pointer"
           alt=""
           routerLink="/new-campaign"
         >
       </ul>
     </div>
     <div class="flex flex-col items-center py-2 gap-4 pt-2 border-t border-t-gray-300">
-      <div class="image-gray-400 hover:scale-110 transition-all duration-300 cursor-pointer"
+      <div class="select-none image-gray-400 hover:scale-110 transition-all duration-300 cursor-pointer"
            routerLink="/settings"
            routerLinkActive="image-black">
         <img src="icons/settings.svg" alt="">
       </div>
-      <div class="hover:scale-110 image-red-500 transition-all duration-300 cursor-pointer"
+      <div class="select-none hover:scale-110 image-red-500 transition-all duration-300 cursor-pointer"
            routerLink="/"
            routerLinkActive="">
         <img src="icons/home.svg" alt="">

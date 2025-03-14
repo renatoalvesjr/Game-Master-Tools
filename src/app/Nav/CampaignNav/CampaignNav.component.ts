@@ -10,13 +10,16 @@ import {PageNavComponent} from './page-nav/page-nav.component';
 import {NgIf} from '@angular/common';
 import {NoteService} from '../../Services/note.service';
 import {Page} from '../../Interfaces/Page.interface';
-import {SvgIconComponent} from 'angular-svg-icon';
+import {MapNavComponent} from './map-nav/map-nav.component';
+import {ItemNavComponent} from './item-nav/item-nav.component';
+import {CreaturesNavComponent} from './creatures-nav/creatures-nav.component';
+import {TranslateService} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-CampaignNav',
   templateUrl: './CampaignNav.component.html',
   styleUrls: ['./CampaignNav.component.scss'],
-  imports: [MatMenuModule, NoteEditorComponent, PageNavComponent, NgIf, SvgIconComponent]
+  imports: [MatMenuModule, NoteEditorComponent, PageNavComponent, NgIf, MapNavComponent, ItemNavComponent, CreaturesNavComponent]
 })
 export class CampaignNavComponent implements OnInit {
   campaignService = inject(CampaignService);
@@ -25,9 +28,6 @@ export class CampaignNavComponent implements OnInit {
   utils = inject(UtilsService);
   noteService = inject(NoteService);
 
-  mapsHidden = false;
-  itemsHidden = false;
-  creaturesHidden = false;
   hiddenDescription = false;
 
   campaignId!: string;
@@ -39,7 +39,8 @@ export class CampaignNavComponent implements OnInit {
   selectedPage: Page | null = null;
   selectedCampaign: string | null = null;
 
-  constructor() {
+  constructor(private translate: TranslateService) {
+    this.translate.use(this.translate.currentLang)
   }
 
   // In CampaignNavComponent

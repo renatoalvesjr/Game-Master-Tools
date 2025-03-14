@@ -11,6 +11,7 @@ import {NoteNavComponent} from './note-nav/note-nav.component';
 import {NoteService} from '../../../Services/note.service';
 import {NgStyle} from '@angular/common';
 import {SvgIconComponent} from 'angular-svg-icon';
+import {TranslateModule, TranslateService} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-page-nav',
@@ -22,6 +23,7 @@ import {SvgIconComponent} from 'angular-svg-icon';
     NoteNavComponent,
     NgStyle,
     SvgIconComponent,
+    TranslateModule
   ],
   templateUrl: './page-nav.component.html',
   styleUrl: './page-nav.component.scss'
@@ -49,7 +51,8 @@ export class PageNavComponent implements OnInit {
     '#fbf7ae',
     '#fad2da']
 
-  constructor() {
+  constructor(private translate: TranslateService) {
+    this.translate.use(this.translate.currentLang)
   }
 
   async ngOnInit() {

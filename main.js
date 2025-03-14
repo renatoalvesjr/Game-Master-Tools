@@ -1,13 +1,15 @@
 const {app, ipcMain, BrowserWindow, nativeTheme} = require("electron");
 const path = require("path");
 let fs = require('fs');
+// noinspection JSUnusedLocalSymbols
 let url = require('url')
 
 let appWindow;
 
 const defaultConfig = {
   colorMode: nativeTheme.themeSource,
-  maximize: false,
+  language: 'en',
+  supportedLanguages: ['en', 'pt', 'ch']
 }
 
 
@@ -30,9 +32,10 @@ function initWindow() {
     //   protocol: "file",
     //   slashes: true,
     // })
-    "http://localhost:61288/"
+    "http://localhost:4200" +
+    "/"
   ).then();
-  if(defaultConfig.maximize) {
+  if (defaultConfig.maximize) {
     appWindow.maximize();
   }
   // appWindow.setMenu(null);
@@ -69,12 +72,16 @@ app.whenReady().then(() => {
 const defaultPath = app.getPath("appData") + "/GameMasterTools/";
 
 async function onStart() {
-  if(!fs.existsSync(path.join(defaultPath))) {
-    fs.mkdirSync(path.join(defaultPath, "GameMasterTools"), { recursive: true });
-    fs.mkdirSync(path.join(defaultPath, "GameMasterTools/config"), { recursive: true });
-    fs.writeFileSync(path.join(defaultPath, "GameMasterTools/config.ini"),defaultConfig);
+  if (!fs.existsSync(path.join(defaultPath, "config/config.json"))) {
+    fs.mkdirSync(path.join(defaultPath, "config"), {recursive: true});
+    fs.writeFileSync(path.join(defaultPath, "config/config.json"), JSON.stringify(defaultConfig));
+
+    return JSON.stringify(defaultConfig);
+  } else {
+    return fs.readFileSync(path.join(defaultPath, "config/config.json"), "utf-8");
   }
 }
+
 
 /**
  * Returns the contents of a file with the given path and name.
@@ -178,7 +185,7 @@ async function deleteFile(event, data) {
 
   // Recursively delete the file or directory
   try {
-    return fs.rmSync(fullPath,{recursive: true});
+    return fs.rmSync(fullPath, {recursive: true});
   } catch (err) {
     throw Error('Error deleting file: ' + err);
   }

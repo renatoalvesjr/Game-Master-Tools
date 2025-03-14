@@ -14,12 +14,12 @@ export class CampaignService {
   campaigns = this.campaignSubject.asObservable();
 
   /**
-   * Carrega todas as campanhas salvas no diret rio 'Campaign'.
-   * A lista de campanhas  atualizada  ser  emitida pela propriedade observ vel 'campaigns'.
+   * Carrega todas as campanhas salvas no diretório 'Campaigns'.
+   * A lista de campanhas é atualizada e emitida pela propriedade observável 'campaigns'.
    *
-   * Esta fun o  usada para carregar todas as campanhas salvas no diret rio 'Campaign'.
-   * Ela l  o conte do de todos os arquivos JSON dentro do diret rio e os converte em objetos do tipo Campaign.
-   * A lista de campanhas  atualizada  ser  emitida pela propriedade observ vel 'campaigns'.
+   * Esta função é usada para carregar todas as campanhas salvas no diretório 'Campaigns'.
+   * Ela lê o conteúdo de todos os arquivos JSON dentro do diretório e os converte em objetos do tipo Campaign.
+   * A lista de campanhas atualizada é emitida pela propriedade observável 'campaigns'.
    */
   async loadAllCampaigns() {
     const request: Request = {

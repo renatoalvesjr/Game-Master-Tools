@@ -1,0 +1,68 @@
+{
+  "settings": {
+    "title": "Einstellungen",
+    "language": "Sprache: ",
+    "idioms": {
+      "pt-BR": "Brasilianisches Portugiesisch",
+      "en-US": "Englisch",
+      "zh-Hans": "Vereinfachtes Chinesisch",
+      "de-DE": "Deutsch"
+    }
+  },
+  "components": {
+    "insertion-modal": {
+      "title": "URL einfügen",
+      "cancelButton": "Abbrechen",
+      "okButton": "OK"
+    }
+  },
+  "create-campaign": {
+    "title": "Neue Kampagne erstellen",
+    "name": "Name: ",
+    "description": "Beschreibung: ",
+    "image": "Bild-URL: ",
+    "system": "System: ",
+    "select-system": "Wählen Sie ein System",
+    "custom-system": "Systemname: ",
+    "active": "Nach Erstellung zur Seitenleiste hinzufügen",
+    "create-button": "Kampagne erstellen"
+  },
+  "home": {
+    "createCampaign": "Neue Kampagne erstellen",
+    "recentCampaigns": "Letzte Kampagnen ..."
+  },
+  "nav": {
+    "navigation": {
+      "campaign-management": "Kampagnenverwaltung",
+      "item-vault": "Gegenstands-Tresor",
+      "systems": "Systeme",
+      "sound": "Soundboard"
+    },
+    "page-nav": {
+      "title": "Notizen"
+    }
+  },
+  "page": {
+    "campaign-management": {
+      "createCampaignButton": "Kampagne erstellen",
+      "no-campaign": {
+        "title": "Kampagnenverwaltung",
+        "description": "Wählen Sie eine Kampagne aus, um deren Einstellungen anzuzeigen, oder erstellen Sie eine neue Kampagne."
+      },
+      "description": {
+        "creationDate": "Erstellungsdatum: ",
+        "description": "Beschreibung: ",
+        "imageUrl": "Bild-URL: ",
+        "dangerZone": {
+          "title": "Gefahrenzone",
+          "enableOptions": "Optionen aktivieren",
+          "deleteCampaign": "Kampagne löschen"
+        }
+      },
+      "campaign-card": {
+        "description": "Beschreibung: ",
+        "creationDate": "Erstellt am: "
+      }
+    }
+  }
+}
