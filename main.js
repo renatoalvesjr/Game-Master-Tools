@@ -8,8 +8,8 @@ let appWindow;
 
 const defaultConfig = {
   colorMode: nativeTheme.themeSource,
-  language: 'en',
-  supportedLanguages: ['en', 'pt', 'ch']
+  language: 'en-US',
+  supportedLanguages: ['en-US', 'pt-BR', 'zh-Hans', 'de-DE'],
 }
 
 
@@ -32,8 +32,7 @@ function initWindow() {
     //   protocol: "file",
     //   slashes: true,
     // })
-    "http://localhost:4200" +
-    "/"
+    "http://localhost:4200"
   ).then();
   if (defaultConfig.maximize) {
     appWindow.maximize();
@@ -78,7 +77,28 @@ async function onStart() {
 
     return JSON.stringify(defaultConfig);
   } else {
+    await checkSettings();
     return fs.readFileSync(path.join(defaultPath, "config/config.json"), "utf-8");
+  }
+}
+
+async function checkSettings() {
+  if (!fs.existsSync(path.join(defaultPath, "config/config.json"))) {
+    const configFile = fs.readFileSync(path.join(defaultPath, "config/config.json"), "utf-8");
+    const config = JSON.parse(configFile);
+
+    const settings = await fs.promises.readdir(path.join(defaultPath, "settings"));
+    const existingSettings = settings.filter(f => defaultConfig.supportedLanguages.includes(f.replace(".json", "")));
+
+    if (!config.supportedLanguages || !config.supportedLanguages.every(l => defaultConfig.supportedLanguages.includes(l))) {
+      config.supportedLanguages = defaultConfig.supportedLanguages;
+    }
+
+    if (!config.language || !existingSettings.includes(config.language + ".json")) {
+      config.language = existingSettings[0].replace(".json", "");
+    }
+
+    await fs.promises.writeFile(path.join(defaultPath, "config/config.json"), JSON.stringify(config));
   }
 }
 

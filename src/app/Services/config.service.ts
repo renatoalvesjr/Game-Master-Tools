@@ -26,7 +26,7 @@ export class ConfigService {
     await this.window.electronAPI.onStart().then((output: string) => {
       const config: Config = JSON.parse(output);
       this.translate.addLangs(config.supportedLanguages);
-      this.translate.setDefaultLang('en');
+      this.translate.setDefaultLang('en-US');
       this.translate.use(config.language);
     });
   }
@@ -45,5 +45,6 @@ export class ConfigService {
 
     await this.window.electronAPI.saveFile(request);
   }
+
 }
 

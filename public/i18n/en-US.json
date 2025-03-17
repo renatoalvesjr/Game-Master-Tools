@@ -7,7 +7,8 @@
       "en-US": "English",
       "zh-Hans": "Simplified Chinese",
       "de-DE": "German"
-    }
+    },
+    "dark-mode": "Dark Mode: "
 
   },
   "create-campaign": {
@@ -53,6 +54,7 @@
       "description": {
         "creationDate": "Creation Date: ",
         "description": "Description: ",
+        "saveDescription": "Save",
         "imageUrl": "Image URL: ",
         "dangerZone": {
           "title": "Danger Zone",

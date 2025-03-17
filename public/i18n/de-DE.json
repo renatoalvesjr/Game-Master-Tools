@@ -7,7 +7,8 @@
       "en-US": "Englisch",
       "zh-Hans": "Vereinfachtes Chinesisch",
       "de-DE": "Deutsch"
-    }
+    },
+    "dark-mode": "Dunkler Modus: "
   },
   "components": {
     "insertion-modal": {
@@ -52,6 +53,7 @@
       "description": {
         "creationDate": "Erstellungsdatum: ",
         "description": "Beschreibung: ",
+        "saveDescription": "Speichern",
         "imageUrl": "Bild-URL: ",
         "dangerZone": {
           "title": "Gefahrenzone",

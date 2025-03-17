@@ -1,4 +1,4 @@
-import { Component, inject, Input, OnInit, ViewChild} from '@angular/core';
+import {Component, inject, Input, OnInit, ViewChild} from '@angular/core';
 import {Campaign} from '../../../Interfaces/Campaign.interface';
 import {MatMenu, MatMenuItem, MatMenuModule, MatMenuTrigger} from '@angular/material/menu';
 import {CampaignService} from '../../../Services/campaign.service';
@@ -9,7 +9,7 @@ import {Page} from '../../../Interfaces/Page.interface';
 import {Note} from '../../../Interfaces/Note.interface';
 import {NoteNavComponent} from './note-nav/note-nav.component';
 import {NoteService} from '../../../Services/note.service';
-import {NgStyle} from '@angular/common';
+import {NgClass, NgStyle} from '@angular/common';
 import {SvgIconComponent} from 'angular-svg-icon';
 import {TranslateModule, TranslateService} from '@ngx-translate/core';
 
@@ -23,7 +23,8 @@ import {TranslateModule, TranslateService} from '@ngx-translate/core';
     NoteNavComponent,
     NgStyle,
     SvgIconComponent,
-    TranslateModule
+    TranslateModule,
+    NgClass
   ],
   templateUrl: './page-nav.component.html',
   styleUrl: './page-nav.component.scss'
@@ -50,6 +51,7 @@ export class PageNavComponent implements OnInit {
     '#d6d4df',
     '#fbf7ae',
     '#fad2da']
+
 
   constructor(private translate: TranslateService) {
     this.translate.use(this.translate.currentLang)

@@ -17,8 +17,6 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "localize": true,
-            "i18nMissingTranslation": "warning",
             "outputPath": "dist/game-master-tools",
             "index": "src/index.html",
             "browser": "src/main.ts",

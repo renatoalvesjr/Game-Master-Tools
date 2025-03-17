@@ -14,5 +14,12 @@
         }
       </select>
     </div>
+    <div class="flex flex-row p-2">
+      <p>{{"settings.dark-mode" | translate}}</p>
+      <label class="flex flex-row item-center gap-2 mx-2">
+        <svg-icon (click)="changeTheme('dark')" src="icons/dark_mode.svg" class="cursor-pointer hover:scale-110 transition-all duration-300 active:scale-100"></svg-icon>
+        <svg-icon (click)="changeTheme('light')" src="icons/light_mode.svg" class="cursor-pointer hover:scale-110 transition-all duration-300 active:scale-100"></svg-icon>
+      </label>
+    </div>
   </div>
 </div>
