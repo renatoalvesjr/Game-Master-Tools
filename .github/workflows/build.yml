@@ -11,10 +11,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Clonar Repositório
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Configurar Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: '22.x'
 
@@ -28,7 +28,7 @@ jobs:
         run: npm run win-zip
 
       - name: Upload dos Binários
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: electron-build
           path: out/make/
