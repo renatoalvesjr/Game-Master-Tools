@@ -52,6 +52,7 @@
       "description": {
         "creationDate": "Erstellungsdatum: ",
         "description": "Beschreibung: ",
+        "saveDescription": "Speichern",
         "imageUrl": "Bild-URL: ",
         "dangerZone": {
           "title": "Gefahrenzone",

@@ -53,6 +53,7 @@
       "description": {
         "creationDate": "Data de criação: ",
         "description": "Descrição: ",
+        "saveDescription": "Salvar",
         "imageUrl": "URL da imagem: ",
         "dangerZone": {
           "title": "Zona Perigosa",

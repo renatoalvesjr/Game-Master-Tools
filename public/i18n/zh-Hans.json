@@ -53,6 +53,7 @@
       "description": {
         "creationDate": "创建日期: ",
         "description": "描述: ",
+        "saveDescription": "保存",
         "imageUrl": "图片 URL: ",
         "dangerZone": {
           "title": "危险区域",

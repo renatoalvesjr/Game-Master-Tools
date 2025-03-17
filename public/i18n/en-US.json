@@ -53,6 +53,7 @@
       "description": {
         "creationDate": "Creation Date: ",
         "description": "Description: ",
+        "saveDescription": "Save",
         "imageUrl": "Image URL: ",
         "dangerZone": {
           "title": "Danger Zone",
