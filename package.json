@@ -16,7 +16,7 @@
     "package": "electron-forge package",
     "make": "electron-forge make",
     "win-squirrel": "electron-forge make --platform=win32  --targets=@electron-forge/maker-squirrel",
-    "win-zip": "electron-forge make --platform=win32  --targets=@electron-forge/maker-zip",
+    "win-zip": "electron-forge make --platform=win32 --arch=x64 --output-dir=out/make/${npm_package_version}.zip"
     "zip-linux": "electron-forge make --platform=linux  --targets=@electron-forge/maker-zip"
   },
   "private": true,

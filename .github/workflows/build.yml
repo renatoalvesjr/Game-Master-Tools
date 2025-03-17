@@ -27,8 +27,19 @@ jobs:
       - name: Package
         run: npm run win-zip
 
-      - name: Upload dos Binários
-        uses: actions/upload-artifact@v4
+      - name: Create Release
+        uses: actions/create-release@v4
         with:
-          name: electron-build
-          path: out/make/
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          release_name: 'v1.0.0'
+          release_body: 'See [RELEASE_NOTES.md](https://github.com/renatoalvesjr/Game-Master-Tools/blob/main/RELEASE_NOTES.md) for details.'
+          draft: false
+          prerelease: false
+      - name: Upload Release Asset
+        uses: actions/upload-release-asset@v1
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: out/make/${github.event.release.name}.zip
+          asset_name: ${github.event.release.name}.zip
+          asset_content_type: application/zip
