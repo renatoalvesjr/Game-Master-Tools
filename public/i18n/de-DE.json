@@ -40,7 +40,17 @@
       "sound": "Soundboard"
     },
     "page-nav": {
-      "title": "Notizen"
+      "title": "Notizen",
+      "page-menu": {
+        "rename": "Umbenennen",
+        "delete": "Löschen",
+        "change-color": "Farben",
+        "add-note": "Neue Notiz"
+      },
+      "note-menu": {
+        "rename": "Umbenennen",
+        "delete": "Löschen"
+      }
     }
   },
   "page": {

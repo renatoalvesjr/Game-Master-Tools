@@ -41,7 +41,17 @@
       "sound": "Soundboard"
     },
     "page-nav": {
-      "title": "Notes"
+      "title": "Notes",
+      "page-menu": {
+        "rename": "Rename",
+        "delete": "Delete",
+        "change-color": "Color",
+        "add-note": "Add Note"
+      },
+      "note-menu": {
+        "rename": "Rename",
+        "delete": "Delete"
+      }
     }
   },
   "page": {

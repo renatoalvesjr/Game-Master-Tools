@@ -45,14 +45,37 @@ export class PageNavComponent implements OnInit {
   pages!: Page[] | null;
 
   pageColors: string[] = [
-    '#F3F6F8',
-    '#dae3ea',
-    '#a9c6e8',
-    '#d6d4df',
-    '#fbf7ae',
-    '#fad2da']
-
-
+    '#F5F5DC',
+    '#FFF599',
+    '#DAA520',
+    '#FFD700',
+    '#808080',
+    '#C0C0C0',
+    '#8B9467',
+    '#A0522D',
+    '#FFC080',
+    '#FFA07A',
+    '#EEC591',
+    '#C2B280',
+    '#A9D700',
+    '#B2FFFC',
+    '#778899',
+    '#66D9EF',
+    '#8BC34A',
+    '#4CAF50',
+    '#F8E231',
+    '#9C27B0',
+    '#E91E63',
+    '#FF9800',
+    '#795548',
+    '#3E8E41',
+    '#009688',
+    '#455A64',
+    '#607D8B',
+    '#9E9E9E',
+    '#64B5F6',
+    '#2196F3',
+  ]
   constructor(private translate: TranslateService) {
     this.translate.use(this.translate.currentLang)
   }

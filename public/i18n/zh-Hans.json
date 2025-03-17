@@ -9,7 +9,6 @@
       "de-DE": "德语"
     },
     "dark-mode": "夜间模式: "
-
   },
   "create-campaign": {
     "title": "创建新活动",
@@ -41,7 +40,17 @@
       "sound": "音效面板"
     },
     "page-nav": {
-      "title": "笔记"
+      "title": "笔记",
+      "page-menu": {
+        "rename": "重命名",
+        "delete": "删除",
+        "change-color": "颜色",
+        "add-note": "添加笔记"
+      },
+      "note-menu": {
+        "rename": "重命名",
+        "delete": "删除"
+      }
     }
   },
   "page": {

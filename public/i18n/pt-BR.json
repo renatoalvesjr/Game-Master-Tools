@@ -41,7 +41,17 @@
       "sound": "Soundboard"
     },
     "page-nav": {
-      "title": "Notas"
+      "title": "Notas",
+      "page-menu": {
+        "rename": "Renomear",
+        "delete": "Deletar",
+        "change-color": "Cores",
+        "add-note": "Nova Nota"
+      },
+      "note-menu": {
+        "rename": "Renomear",
+        "delete": "Deletar"
+      }
     }
   },
   "page": {

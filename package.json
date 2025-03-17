@@ -15,7 +15,8 @@
     "test": "ng test",
     "package": "electron-forge package",
     "make": "electron-forge make",
-    "zip": "electron-forge make --platform=win32  --targets=@electron-forge/maker-zip",
+    "win-squirrel": "electron-forge make --platform=win32  --targets=@electron-forge/maker-squirrel",
+    "win-zip": "electron-forge make --platform=win32  --targets=@electron-forge/maker-zip",
     "zip-linux": "electron-forge make --platform=linux  --targets=@electron-forge/maker-zip"
   },
   "private": true,

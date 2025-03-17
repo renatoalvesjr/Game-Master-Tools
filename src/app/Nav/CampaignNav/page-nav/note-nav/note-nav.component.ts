@@ -7,6 +7,7 @@ import {CampaignService} from '../../../../Services/campaign.service';
 import {UtilsService} from '../../../../Services/utils.service';
 import {NgStyle} from '@angular/common';
 import {Campaign} from '../../../../Interfaces/Campaign.interface';
+import {TranslatePipe} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-note-nav',
@@ -14,7 +15,8 @@ import {Campaign} from '../../../../Interfaces/Campaign.interface';
     MatMenuTrigger,
     MatMenu,
     MatMenuItem,
-    NgStyle
+    NgStyle,
+    TranslatePipe
   ],
   templateUrl: './note-nav.component.html',
   styleUrl: './note-nav.component.scss'

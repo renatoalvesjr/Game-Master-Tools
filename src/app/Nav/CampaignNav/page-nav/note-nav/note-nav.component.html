@@ -15,8 +15,8 @@
       >
     </div>
     <mat-menu #noteContext>
-      <button mat-menu-item (click)="renameNote(note)">Rename</button>
-      <button mat-menu-item (click)="deleteNote(note.noteId)" [ngStyle]="{ 'color': '#9f0712' }">Delete</button>
+      <button mat-menu-item (click)="renameNote(note)">{{"nav.page-nav.note-menu.rename" | translate}}</button>
+      <button mat-menu-item (click)="deleteNote(note.noteId)" [ngStyle]="{ 'color': '#9f0712' }">{{"nav.page-nav.note-menu.delete" | translate}}</button>
     </mat-menu>
   }
 </div>

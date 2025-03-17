@@ -38,17 +38,17 @@
           >
         </div>
         <mat-menu #pageMenu="matMenu" class="bg-white">
-          <button mat-menu-item (click)="addNote(page.pageId)">Nova Nota</button>
-          <button mat-menu-item [matMenuTriggerFor]="colors">Cor</button>
-          <button mat-menu-item (click)="togglePageEditable(page)">Renomear</button>
-          <button mat-menu-item (click)="deletePage(page.pageId)" [ngStyle]="{ 'color': '#9f0712' }">Excluir</button>
+          <button mat-menu-item (click)="addNote(page.pageId)">{{'nav.page-nav.page-menu.add-note' | translate}}</button>
+          <button mat-menu-item [matMenuTriggerFor]="colors">{{'nav.page-nav.page-menu.change-color' | translate}}</button>
+          <button mat-menu-item (click)="togglePageEditable(page)">{{'nav.page-nav.page-menu.rename' | translate}}</button>
+          <button mat-menu-item (click)="deletePage(page.pageId)" [ngStyle]="{ 'color': '#9f0712' }">{{'nav.page-nav.page-menu.delete' | translate}}</button>
         </mat-menu>
         <mat-menu #colors>
-          <div class="flex flex-col w-full">
+          <div class="grid grid-cols-6 gap-1 p-1">
             @for (color of pageColors; track color) {
               <div
                 [ngStyle]="{ 'background-color': color }"
-                class="w-full h-7 rounded-xl hover:p-2 border border-gray-500 hover:border-2 transition-all duration-150 ease-in"
+                class="h-7 w-7 rounded-xl hover:p-2 border border-gray-500 hover:border-2 transition-all duration-150 ease-in col-span-1 row-span-1 md:col-span-1 md:row-span-1 lg:col-span-2 lg:row-span-2 xl:col-span-3 xl:row-span-3"
                 (click)="changeColor(page, color)"></div>
             }
           </div>
