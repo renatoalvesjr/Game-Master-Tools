@@ -16,7 +16,7 @@
     "package": "electron-forge package",
     "make": "electron-forge make",
     "win-squirrel": "electron-forge make --platform=win32  --targets=@electron-forge/maker-squirrel",
-    "win-zip": "electron-forge make --platform=win32 --arch=x64 --output-dir=out/make/${npm_package_version}.zip"
+    "win-zip": "electron-forge make --platform=win32 --arch=x64 --output-dir=out/make/${npm_package_version}.zip",
     "zip-linux": "electron-forge make --platform=linux  --targets=@electron-forge/maker-zip"
   },
   "private": true,
@@ -52,6 +52,7 @@
     "@tiptap/extension-ordered-list": "^2.11.1",
     "@tiptap/extension-paragraph": "^2.11.0",
     "@tiptap/extension-placeholder": "^2.11.0",
+    "@tiptap/extension-strike": "^2.11.5",
     "@tiptap/extension-subscript": "^2.11.1",
     "@tiptap/extension-superscript": "^2.11.1",
     "@tiptap/extension-task-item": "^2.11.1",

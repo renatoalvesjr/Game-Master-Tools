@@ -32,6 +32,10 @@ html {
   --font-serif: "Ibarra Real Nova", serif;
 }
 
+:root {
+  color-scheme: light dark;
+}
+
 body {
   font-family: Roboto, sans-serif;
   margin: 0;

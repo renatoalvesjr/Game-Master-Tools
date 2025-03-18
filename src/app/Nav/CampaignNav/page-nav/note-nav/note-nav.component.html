@@ -7,15 +7,15 @@
         class="truncate text-clip overflow-none"
         id="note-{{note.noteId}}"
       >{{ note.noteTitle }}</p>
-      <img
+      <svg-icon
         src="icons/more_horiz.svg"
-        class="hidden group-hover:flex cursor-pointer"
-        alt="Page options button."
+        svgClass="fill-current hidden group-hover:flex cursor-pointer"
+        svgAriaLabel="Page options button."
         [matMenuTriggerFor]="noteContext"
-      >
+      ></svg-icon>
     </div>
     <mat-menu #noteContext>
-      <button mat-menu-item (click)="renameNote(note)">{{"nav.page-nav.note-menu.rename" | translate}}</button>
+      <button mat-menu-item (click)="renameNote(note)" [ngStyle]="{ 'color': 'black' }">{{"nav.page-nav.note-menu.rename" | translate}}</button>
       <button mat-menu-item (click)="deleteNote(note.noteId)" [ngStyle]="{ 'color': '#9f0712' }">{{"nav.page-nav.note-menu.delete" | translate}}</button>
     </mat-menu>
   }

@@ -1,18 +1,20 @@
 <div class="flex flex-row h-full min-w-fit w-full">
-  <div class="flex flex-col justify-between h-full min-w-14 max-w-24 border-r border-[#E1E1E1] z-[1000]">
-    <div class="flex flex-col ">
-      <div class="flex flex-col items-center border-b border-b-gray-300 pb-2">
+  <div
+    class="flex flex-col justify-between h-full min-w-14 max-w-24 border-r border-[#E1E1E1] dark:border-stone-900 z-[1000]">
+    <div class="flex flex-col">
+      <div class="flex flex-col items-center border-b border-b-gray-300 dark:border-stone-900 pb-2">
         <!-- Menu list navigation -->
         <div class="flex flex-col w-full items-center gap-4 mt-4 select-none">
           @for (item of navList; track item) {
             <div
-              class="flex flex-col cursor-pointer image-gray-400 transition-all ease-in duration-300 justify-center items-center gap-1 text-center"
+              class="flex flex-col cursor-pointer transition-all ease-in duration-300 justify-center items-center gap-1 text-center group"
               routerLink="/{{ item.route }}"
-              routerLinkActive="image-black"
+              routerLinkActive="dark:text-ambar-100 text-amber-900 text-2xl"
               [routerLinkActiveOptions]="{ exact: true }"
             >
-              <img src="icons/{{item.icon}}.svg" class="" alt="">
-              <p class="flex flex-col text-wrap text-sm">{{ item.name | translate }}</p>
+              <svg-icon src="icons/{{item.icon}}.svg"
+                        svgClass="fill-current  group-hover:fill-slate-600 dark:group-hover:fill-slate-300 group-hover:fill-slate-600 dark:group-hover:fill-slate-300 group-hover:scale-110 transition-all ease-out duration-150 group-active:scale-90"></svg-icon>
+              <p class="flex flex-col text-wrap text-sm text-black dark:text-white">{{ item.name | translate }}</p>
             </div>
           }
         </div>
@@ -23,7 +25,7 @@
           @if (item.active) {
             <div
               routerLink="/campaign/{{ item.campaignId }}"
-              routerLinkActive="shadow-lg rounded-lg bg-gray-50"
+              routerLinkActive="shadow-lg rounded-lg bg-gray-50 dark:bg-gray-900"
               class="flex min-w-10 mx-5 p-2 self-center transition-all ease-in duration-300 cursor-pointer select-none"
               title="{{ item.campaignName }}"
             >
@@ -35,25 +37,26 @@
             </div>
           }
         }
-        <img
+        <svg-icon
           src="icons/add.svg"
           title="Create New Campaign"
-          class="select-none m-2 image-gray-400 scale-125 hover:scale-150 text-gray-400 lg transition-all ease-in duration-300 cursor-pointer"
-          alt=""
+          svgClass="fill-current hover:fill-slate-600 dark:hover:fill-slate-300 group-hover:fill-slate-600 dark:group-hover:fill-slate-300 select-none m-2 scale-125 hover:scale-150  lg transition-all ease-in duration-300 cursor-pointer"
           routerLink="/new-campaign"
-        >
+        ></svg-icon>
       </ul>
     </div>
-    <div class="flex flex-col items-center py-2 gap-4 pt-2 border-t border-t-gray-300">
-      <div class="select-none image-gray-400 hover:scale-110 transition-all duration-300 cursor-pointer"
+    <div class="flex flex-col items-center py-2 gap-4 pt-2 border-t border-t-gray-300 dark:border-t-stone-900">
+      <div class="flex flex-col cursor-pointer transition-all ease-in duration-300 justify-center items-center gap-1 text-center group"
            routerLink="/settings"
-           routerLinkActive="image-black">
-        <img src="icons/settings.svg" alt="">
+           routerLinkActive="dark:text-ambar-300 text-amber-900 text-2x">
+        <svg-icon src="icons/settings.svg" svgClass="fill-current group-hover:fill-slate-600 dark:group-hover:fill-slate-300 group-hover:scale-110 transition-all ease-out duration-150 group-active:scale-90"></svg-icon>
       </div>
-      <div class="select-none hover:scale-110 image-red-500 transition-all duration-300 cursor-pointer"
+      <div class="flex flex-col cursor-pointer transition-all ease-in duration-300 justify-center items-center gap-1 text-center group"
            routerLink="/"
-           routerLinkActive="">
-        <img src="icons/home.svg" alt="">
+           routerLinkActive="dark:text-ambar-300 text-amber-900 text-2x"
+           [routerLinkActiveOptions]="{exact: true}"
+      >
+        <svg-icon src="icons/home.svg" svgClass="fill-current group-hover:fill-slate-600 dark:group-hover:fill-slate-300 group-hover:scale-110 transition-all ease-out duration-150 group-active:scale-90"></svg-icon>
       </div>
     </div>
   </div>

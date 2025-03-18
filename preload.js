@@ -1,4 +1,4 @@
-const { contextBridge, ipcRenderer } = require('electron')
+const {contextBridge, ipcRenderer} = require('electron')
 
 contextBridge.exposeInMainWorld('electronAPI', {
   returnFile: (data) => ipcRenderer.invoke('returnFile', data),
@@ -6,4 +6,5 @@ contextBridge.exposeInMainWorld('electronAPI', {
   returnAllFiles: (data) => ipcRenderer.invoke('returnAllFiles', data),
   deleteFile: (data) => ipcRenderer.invoke('deleteFile', data),
   onStart: () => ipcRenderer.invoke('onStart'),
+  toggleTheme: (data) => ipcRenderer.invoke('toggleTheme', data),
 })

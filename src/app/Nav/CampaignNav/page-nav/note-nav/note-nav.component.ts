@@ -8,6 +8,7 @@ import {UtilsService} from '../../../../Services/utils.service';
 import {NgStyle} from '@angular/common';
 import {Campaign} from '../../../../Interfaces/Campaign.interface';
 import {TranslatePipe} from '@ngx-translate/core';
+import {SvgIconComponent} from 'angular-svg-icon';
 
 @Component({
   selector: 'app-note-nav',
@@ -16,7 +17,8 @@ import {TranslatePipe} from '@ngx-translate/core';
     MatMenu,
     MatMenuItem,
     NgStyle,
-    TranslatePipe
+    TranslatePipe,
+    SvgIconComponent
   ],
   templateUrl: './note-nav.component.html',
   styleUrl: './note-nav.component.scss'

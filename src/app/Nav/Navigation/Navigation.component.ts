@@ -5,6 +5,7 @@ import {CampaignService} from '../../Services/campaign.service';
 import {Campaign} from '../../Interfaces/Campaign.interface';
 import {UtilsService} from '../../Services/utils.service';
 import {TranslateModule, TranslateService} from '@ngx-translate/core';
+import {SvgIconComponent} from 'angular-svg-icon';
 
 interface SystemNavList {
   name: string;
@@ -19,7 +20,7 @@ interface SystemNavList {
   selector: 'app-Navigation',
   templateUrl: './Navigation.component.html',
   styleUrls: ['./Navigation.component.scss'],
-  imports: [CommonModule, RouterOutlet, RouterLinkActive, RouterLink, TranslateModule]
+  imports: [CommonModule, RouterOutlet, RouterLinkActive, RouterLink, TranslateModule, SvgIconComponent]
 })
 export class NavigationComponent implements OnInit {
   router = inject(Router);

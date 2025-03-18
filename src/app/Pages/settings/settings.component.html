@@ -3,7 +3,7 @@
     <h1 class="text-center mb-2">{{ "settings.title" | translate }}</h1>
     <div class="flex flex-row p-2 gap-2">
       <label for="languages">{{ "settings.language" | translate }}</label>
-      <select class="border border-[#E1E1E2] rounded-sm"
+      <select class="border border-[#E1E1E2] rounded-sm dark:text-black dark:bg-white"
               [value]="translate.currentLang"
               (change)="changeLanguage($event)"
               id="languages">
@@ -17,8 +17,8 @@
     <div class="flex flex-row p-2">
       <p>{{"settings.dark-mode" | translate}}</p>
       <label class="flex flex-row item-center gap-2 mx-2">
-        <svg-icon (click)="changeTheme('dark')" src="icons/dark_mode.svg" class="cursor-pointer hover:scale-110 transition-all duration-300 active:scale-100"></svg-icon>
-        <svg-icon (click)="changeTheme('light')" src="icons/light_mode.svg" class="cursor-pointer hover:scale-110 transition-all duration-300 active:scale-100"></svg-icon>
+        <svg-icon svgClass="fill-slate-800 dark:fill-slate-400 cursor-pointer hover:scale-110 transition-all duration-300 active:scale-100" (click)="changeTheme('dark')" src="icons/dark_mode.svg"></svg-icon>
+        <svg-icon svgClass="fill-orange-400 dark:fill-orange-400 cursor-pointer hover:scale-110 transition-all duration-300 active:scale-100" (click)="changeTheme('light')" src="icons/light_mode.svg"></svg-icon>
       </label>
     </div>
   </div>

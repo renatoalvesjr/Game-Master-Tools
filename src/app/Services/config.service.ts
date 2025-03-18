@@ -17,8 +17,26 @@ export class ConfigService {
   campaignService: CampaignService = inject(CampaignService);
   window = inject(WindowRef).getWindow();
 
+
   constructor(private translate: TranslateService) {
     this.window.electronAPI.onStart().then();
+  }
+
+  async changeColorMode(colorMode: "system" | "light" | "dark") {
+    this.window.electronAPI.toggleTheme(colorMode);
+
+    const newConfig: Config = {
+      ...JSON.parse(await this.window.electronAPI.onStart().then((output: string) => output)),
+      colorMode: colorMode
+    }
+
+    const request: Request = {
+      filePath: "config/",
+      fileName: "config.json",
+      content: JSON.stringify(newConfig)
+    }
+
+    await this.window.electronAPI.saveFile(request);
   }
 
   async loadConfig() {
@@ -28,6 +46,7 @@ export class ConfigService {
       this.translate.addLangs(config.supportedLanguages);
       this.translate.setDefaultLang('en-US');
       this.translate.use(config.language);
+      this.window.electronAPI.toggleTheme(config.colorMode);
     });
   }
 

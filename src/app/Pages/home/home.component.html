@@ -3,7 +3,7 @@
     <img class="max-w-[250px]" src="logo.png" alt="Logo Game Master Tools">
     <div class="flex flex-col">
       <div class="flex flex-row items-center">
-        <p class="font-bold text-[#3D2C12]">{{ "home.recentCampaigns" | translate }}</p>
+        <p class="font-bold ">{{ "home.recentCampaigns" | translate }}</p>
       </div>
       <div class="text-gray-400 font-bold ml-4">
         @for (item of campaignList; track item; ) {
@@ -16,11 +16,11 @@
       </div>
       <div
         routerLink="new-campaign"
-        class="flex flex-col justify-center w-fit items-center self-center my-4 group transition-all duration-500 cursor-pointer hover:scale-110">
-        <div class="flex flex-row items-center rounded-lg border-2 border-[#3D2C12] border-dashed p-4">
-          <svg-icon src="icons/add.svg" class="scale-200" [svgStyle]="{fill: '#3D2C12'}"></svg-icon>
+        class="flex flex-col justify-center w-fit items-center self-center my-4 group cursor-pointer group">
+        <div class="flex flex-row items-center rounded-lg border-2 border-[#3D2C12] dark:border-white border-dashed p-4 group-hover:scale-110  transition-all duration-300">
+          <svg-icon src="icons/add.svg" class="scale-200" svgClass="fill-[#3D2C12] dark:fill-white "></svg-icon>
         </div>
-        <p class="text-[#3D2C12]">{{ "home.createCampaign" | translate }}</p>
+        <p class="text-[#3D2C12] dark:text-white group-hover:pt-2 transition-all duration-300">{{ "home.createCampaign" | translate }}</p>
       </div>
     </div>
   </div>

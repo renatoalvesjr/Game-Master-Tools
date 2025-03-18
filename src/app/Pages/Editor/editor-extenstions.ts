@@ -27,6 +27,7 @@ import { Color as ColorExtension } from '@tiptap/extension-color';
 import ListKeymap from '@tiptap/extension-list-keymap';
 import FontFamily from '@tiptap/extension-font-family';
 import FontSize from 'tiptap-extension-font-size';
+import Strike from '@tiptap/extension-strike'
 
 const LiteralTab = Extension.create({
   name: 'literalTab',
@@ -64,6 +65,11 @@ export const extensions = [
   BulletList,
   OrderedList,
   Underline,
+  Strike.configure({
+    HTMLAttributes: {
+      class: 'line-through',
+    },
+  }),
   ListItem,
   LiteralTab,
   TaskList,

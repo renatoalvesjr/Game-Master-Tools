@@ -49,5 +49,6 @@ declare interface Window {
     deleteFile(request: {filePath: string, fileName: string}): Promise<void>;
 
     changeLanguage(newConfig: Config): void;
+    toggleTheme(themeColor: "system" | "light" | "dark"): void;
   };
 }

@@ -5,10 +5,10 @@ import {ConfigService} from '../../Services/config.service';
 import {SvgIconComponent} from 'angular-svg-icon';
 
 @Component({
-    selector: 'app-settings',
+  selector: 'app-settings',
   imports: [TranslateModule, ReactiveFormsModule, FormsModule, SvgIconComponent],
-    templateUrl: './settings.component.html',
-    styleUrl: './settings.component.scss'
+  templateUrl: './settings.component.html',
+  styleUrl: './settings.component.scss'
 })
 export class SettingsComponent {
   configService = inject(ConfigService)
@@ -17,12 +17,13 @@ export class SettingsComponent {
     this.translate.use(this.translate.currentLang)
   }
 
-  async changeLanguage(event:Event) {
+  async changeLanguage(event: Event) {
     const selectElement = event.target as HTMLSelectElement
     this.translate.use(selectElement.value);
     await this.configService.changeLanguage(selectElement.value);
   }
 
-  async changeTheme(theme: 'light' | 'dark') {
+  async changeTheme(theme: 'light' | 'dark' | 'system') {
+    await this.configService.changeColorMode(theme);
   }
 }

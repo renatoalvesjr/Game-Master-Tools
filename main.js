@@ -7,9 +7,9 @@ let url = require('url')
 let appWindow;
 
 const defaultConfig = {
-  colorMode: nativeTheme.themeSource,
   language: 'en-US',
   supportedLanguages: ['en-US', 'pt-BR', 'zh-Hans', 'de-DE'],
+  colorMode: 'light'
 }
 
 
@@ -24,18 +24,18 @@ function initWindow() {
     },
   });
   appWindow.loadURL(
-    url.format({
-      pathname: path.join(
-        __dirname,
-        "/dist/game-master-tools/browser/index.html"
-      ),
-      protocol: "file",
-      slashes: true,
-    })
-    // "http://localhost:4200"
+    // url.format({
+    //   pathname: path.join(
+    //     __dirname,
+    //     "/dist/game-master-tools/browser/index.html"
+    //   ),
+    //   protocol: "file",
+    //   slashes: true,
+    // })
+    "http://localhost:4200"
   ).then();
 
-  appWindow.setMenu(null);
+  // appWindow.setMenu(null);
   appWindow.webContents.session.setSpellCheckerEnabled( false );
 
   appWindow.once("ready-to-show", () => {
@@ -61,6 +61,8 @@ app.whenReady().then(() => {
   ipcMain.handle('returnAllFiles', returnAllFiles)
   ipcMain.handle('deleteFile', deleteFile)
   ipcMain.handle('onStart', onStart)
+  ipcMain.handle('toggleTheme', toggleTheme)
+  ipcMain.handle('systemtheme', systemTheme)
 
   app.on('activate', function () {
     if (BrowserWindow.getAllWindows().length === 0) initWindow()
@@ -68,6 +70,21 @@ app.whenReady().then(() => {
 })
 
 const defaultPath = app.getPath("appData") + "/GameMasterTools/";
+
+async function toggleTheme(event, data){
+  if (data === "dark") {
+    nativeTheme.themeSource = "dark";
+  } else if (data === "light") {
+    nativeTheme.themeSource = "light";
+  } else if (data === "system") {
+    nativeTheme.themeSource = "system";
+  }
+
+}
+
+async function systemTheme(){
+  return nativeTheme.shouldUseDarkColors;
+}
 
 async function onStart() {
   if (!fs.existsSync(path.join(defaultPath, "config/config.json"))) {

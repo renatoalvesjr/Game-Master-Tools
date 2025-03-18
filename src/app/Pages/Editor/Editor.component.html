@@ -1,7 +1,7 @@
 <div class="flex flex-col max-h-full h-full overflow-y-auto">
   <!-- Campaign Header -->
   <div class="flex flex-col">
-    <p class="text-gray-500 m-2 font-semibold">{{page?.pageTitle}} / {{note?.noteTitle}}</p>
+    <p class="text-gray-600 dark:text-gray-300 m-2 font-semibold">{{ page?.pageTitle }} / {{ note?.noteTitle }}</p>
   </div>
   <!-- Toolbar -->
   <div class="flex flex-row flex-wrap space-2 border-b border-[#E1E1E2]">
@@ -12,28 +12,28 @@
         class="rounded-md flex items-center p-1 cursor-pointer active:bg-[#a9c6e8] active:text-[#A6CDC6]"
         (click)="editor.chain().focus().undo().run()"
       >
-        <img src="icons/undo.svg" alt="">
+        <svg-icon svgClass="fill-current" src="icons/undo.svg" svgAriaLabel="Undo button"></svg-icon>
       </button>
       <button
         title="Redo"
         class="rounded-md flex items-center p-1 cursor-pointer active:bg-[#a9c6e8] active:text-[#A6CDC6]"
         (click)="editor.chain().focus().redo().run()"
       >
-        <img src="icons/redo.svg" alt="">
+        <svg-icon svgClass="fill-current" src="icons/redo.svg" svgAriaLabel="Redo button"></svg-icon>
       </button>
       <button
         title="Clear Format"
         class="rounded-md flex items-center p-1 cursor-pointer active:bg-[#a9c6e8] active:text-[#A6CDC6]"
         (click)="editor.chain().focus().clearNodes().unsetAllMarks().run()"
       >
-        <img src="icons/format_clear.svg" alt="">
+        <svg-icon svgClass="fill-current" src="icons/format_clear.svg" svgAriaLabel="Clear Format"></svg-icon>
       </button>
     </div>
 
     <!-- Heading styles -->
     <div class="flex flex-row border-r border-[#E1E1E2] px-2 my-2">
       <select
-        class="border border-[#E1E1E2] rounded-sm"
+        class="border border-[#E1E1E2] rounded-sm dark:text-black dark:bg-white"
         (change)="onHeadingChange($event)"
         [value]="
           editor.isActive('heading', { level: 1 })
@@ -46,13 +46,15 @@
         "
       >
         <option value="heading1">
-          <img src="icons/format_h1.svg" alt="">
-          Title 1
+          Heading 1
         </option>
-        <option value="heading2">Title 2</option>
-        <option value="heading3">Title 3</option>
+        <option value="heading2">
+          Heading 2
+        </option>
+        <option value="heading3">
+          Heading 3
+        </option>
         <option value="paragraph">
-          <img src="icons/format_paragraph.svg" alt="">
           Paragraph
         </option>
       </select>
@@ -61,7 +63,7 @@
     <!-- Font family -->
     <div class="flex flex-row border-r border-[#E1E1E2] px-2 my-2">
       <select
-        class="border border-[#E1E1E2] rounded-sm"
+        class="border border-[#E1E1E2] rounded-sm dark:text-black dark:bg-white"
         (change)="fontFamilyChanges($event)"
         [value]="editor.getAttributes('textStyle')['fontFamily'] || 'Arial'"
       >
@@ -74,7 +76,7 @@
     <!-- Font size -->
     <div class="flex flex-row border-r border-[#E1E1E2] px-2 my-2">
       <div
-        class="flex flex-row items-center border border-[#e1e1e2] rounded-sm"
+        class="flex flex-row items-center border border-[#e1e1e2] rounded-sm dark:text-black dark:bg-white"
       >
         <button
           title="Decrease Font Size"
@@ -89,7 +91,7 @@
               .run()
           "
         >
-          <img src="icons/remove.svg" alt="">
+          <svg-icon svgClass="fill-current" src="icons/remove.svg" svgAriaLabel="Decrease Font Size"></svg-icon>
         </button>
         <input
           type="text"
@@ -117,7 +119,7 @@
               .run()
           "
         >
-          <img src="icons/add.svg" alt="">
+          <svg-icon svgClass="fill-current" src="icons/add.svg" svgAriaLabel="Increase Font Size"></svg-icon>
         </button>
       </div>
     </div>
@@ -131,7 +133,7 @@
         }} rounded-md flex items-center p-1 cursor-pointer"
         (click)="editor.chain().focus().toggleBold().run()"
       >
-        <img src="icons/format_bold.svg" alt="">
+        <svg-icon svgClass="fill-current" src="icons/format_bold.svg" svgAriaLabel="Bold"></svg-icon>
       </button>
       <button
         title="Italic"
@@ -142,7 +144,7 @@
         }} rounded-md flex items-center p-1 cursor-pointer"
         (click)="editor.chain().focus().toggleItalic().run()"
       >
-        <img src="icons/format_italic.svg" alt="">
+        <svg-icon svgClass="fill-current" src="icons/format_italic.svg" svgAriaLabel="Italic"></svg-icon>
       </button>
 
       <button
@@ -154,7 +156,18 @@
         }} rounded-md flex items-center p-1 cursor-pointer"
         (click)="editor.chain().focus().toggleUnderline().run()"
       >
-        <img src="icons/format_underlined.svg" alt="">
+        <svg-icon svgClass="fill-current" src="icons/format_underlined.svg" svgAriaLabel="Underline"></svg-icon>
+      </button>
+      <button
+        title="Strike-through"
+        class="{{
+          editor.isActive('strike')
+            ? 'shadow-inner bg-[#a9c6e8] text-white'
+            : ''
+        }} rounded-md flex items-center p-1 cursor-pointer"
+        (click)="editor.chain().focus().toggleStrike().run()"
+      >
+        <svg-icon svgClass="fill-current" src="icons/strikethrough_s.svg" svgAriaLabel="Strike-through"></svg-icon>
       </button>
       <button
         title="Superscript"
@@ -165,7 +178,7 @@
         }} rounded-md flex items-center p-1 cursor-pointer"
         (click)="editor.chain().focus().toggleSuperscript().run()"
       >
-        <img src="icons/superscript.svg" alt="">
+        <svg-icon svgClass="fill-current" src="icons/superscript.svg" svgAriaLabel="Superscript"></svg-icon>
       </button>
       <button
         title="Subscript"
@@ -176,7 +189,7 @@
         }} rounded-md flex items-center p-1 cursor-pointer"
         (click)="editor.chain().focus().toggleSubscript().run()"
       >
-        <img src="icons/subscript.svg" alt="">
+        <svg-icon svgClass="fill-current" src="icons/subscript.svg" svgAriaLabel="Subscript"></svg-icon>
       </button>
       <button
         title="Highlight"
@@ -187,7 +200,7 @@
         }} rounded-md flex items-center p-1 cursor-pointer"
         (click)="editor.chain().focus().toggleHighlight().run()"
       >
-        <img src="icons/format_ink_highlighter.svg" alt="">
+        <svg-icon svgClass="fill-current" src="icons/highlight.svg" svgAriaLabel="Highlight"></svg-icon>
       </button>
       <div class="flex flex-row px-2 items-center">
         <div
@@ -217,7 +230,7 @@
         }} rounded-md flex items-center p-1 cursor-pointer"
         (click)="toggleLink()"
       >
-        <img src="icons/link.svg" alt="">
+        <svg-icon svgClass="fill-current" src="icons/link.svg" svgAriaLabel="Link"></svg-icon>
       </button>
       <button
         title="Image"
@@ -226,7 +239,7 @@
         }} rounded-md flex items-center p-1 cursor-pointer"
         (click)="addImage()"
       >
-        <img src="icons/image.svg" alt="">
+        <svg-icon svgClass="fill-current" src="icons/image.svg" svgAriaLabel="Image"></svg-icon>
       </button>
     </div>
 
@@ -241,7 +254,7 @@
         }} rounded-md cursor-pointer flex items-center p-1"
         (click)="editor.chain().focus().toggleBulletList().run()"
       >
-        <img src="icons/format_list_bulleted.svg" alt="">
+        <svg-icon svgClass="fill-current" src="icons/format_list_bulleted.svg" svgAriaLabel="Bullet List"></svg-icon>
       </button>
       <button
         title="Ordered List"
@@ -252,7 +265,7 @@
         }} rounded-md cursor-pointer flex items-center p-1"
         (click)="editor.chain().focus().toggleOrderedList().run()"
       >
-        <img src="icons/format_list_numbered.svg" alt="">
+        <svg-icon svgClass="fill-current" src="icons/format_list_numbered.svg" svgAriaLabel="Ordered List"></svg-icon>
       </button>
       <button
         title="Task List"
@@ -263,7 +276,7 @@
         }} rounded-md cursor-pointer flex items-center p-1 "
         (click)="editor.chain().focus().toggleTaskList().run()"
       >
-        <img src="icons/checklist.svg" alt="">
+        <svg-icon svgClass="fill-current" src="icons/task_list.svg" svgAriaLabel="Task List"></svg-icon>
       </button>
     </div>
 
@@ -278,7 +291,7 @@
         }}  rounded-md cursor-pointer flex items-center p-1"
         (click)="editor.chain().focus().setTextAlign('left').run()"
       >
-        <img src="icons/format_align_left.svg" alt="">
+        <svg-icon svgClass="fill-current" src="icons/format_align_left.svg" svgAriaLabel="Align Left"></svg-icon>
       </button>
       <button
         title="Align Center"
@@ -289,7 +302,7 @@
         }}  rounded-md cursor-pointer flex items-center p-1"
         (click)="editor.chain().focus().setTextAlign('center').run()"
       >
-        <img src="icons/format_align_center.svg" alt="">
+        <svg-icon svgClass="fill-current" src="icons/format_align_center.svg" svgAriaLabel="Align Center"></svg-icon>
       </button>
       <button
         title="Align Right"
@@ -300,7 +313,7 @@
         }}  rounded-md cursor-pointer flex items-center p-1"
         (click)="editor.chain().focus().setTextAlign('right').run()"
       >
-        <img src="icons/format_align_right.svg" alt="">
+        <svg-icon svgClass="fill-current" src="icons/format_align_right.svg" svgAriaLabel="Align Right"></svg-icon>
       </button>
       <button
         title="Justify"
@@ -311,7 +324,7 @@
         }}  rounded-md cursor-pointer flex items-center p-1"
         (click)="editor.chain().focus().setTextAlign('justify').run()"
       >
-        <img src="icons/format_align_justify.svg" alt="">
+        <svg-icon svgClass="fill-current" src="icons/format_align_justify.svg" svgAriaLabel="Justify"></svg-icon>
       </button>
     </div>
 
@@ -322,7 +335,7 @@
         class="rounded-md flex items-center p-1 active:bg-[#a9c6e8] active:text-white"
         (click)="saveFile()"
       >
-        <img src="icons/save.svg" alt="">
+        <svg-icon svgClass="fill-current" src="icons/save.svg" svgAriaLabel="Save"></svg-icon>
       </button>
     </div>
   </div>
