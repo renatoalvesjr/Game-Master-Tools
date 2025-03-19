@@ -1,0 +1,23 @@
+<div
+  class="flex flex-row gap-1 rounded-xl group text-black p-1 my-2  transition-all duration-300"
+  title="{{ page?.pageTitle }}"
+  [ngStyle]="{ 'background-color': page?.pageColor }"
+  id="page-color-{{page?.pageId}}"
+>
+  <svg-icon src="icons/{{
+              page?.pageActive
+                ? 'keyboard_arrow_down'
+          : 'keyboard_arrow_right'
+          }}.svg" (click)="togglePage.emit(page!)"></svg-icon>
+  <p
+    [title]="page?.pageTitle"
+    class="truncate text-clip overflow-none justify-start self-start start-0 justify-self-start"
+    id="page-{{ page?.pageId }}"
+  >{{ page?.pageTitle }}</p>
+  <svg-icon
+    src="icons/more_horiz.svg"
+    svgClass="hidden group-hover:flex cursor-pointer select-none"
+    svgAriaLabel="Page options button."
+    [matMenuTriggerFor]="pageMenu"
+  ></svg-icon>
+</div>

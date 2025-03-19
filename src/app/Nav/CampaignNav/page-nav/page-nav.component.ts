@@ -12,6 +12,8 @@ import {NoteService} from '../../../Services/note.service';
 import {NgStyle} from '@angular/common';
 import {SvgIconComponent} from 'angular-svg-icon';
 import {TranslateModule, TranslateService} from '@ngx-translate/core';
+import {PageNavItemComponent} from '../../../Components/page-nav-item/page-nav-item.component';
+import {ColorSelectionComponent} from '../../../Components/color-selection/color-selection.component';
 
 @Component({
   selector: 'app-page-nav',
@@ -24,6 +26,8 @@ import {TranslateModule, TranslateService} from '@ngx-translate/core';
     NgStyle,
     SvgIconComponent,
     TranslateModule,
+    PageNavItemComponent,
+    ColorSelectionComponent,
   ],
   templateUrl: './page-nav.component.html',
   styleUrl: './page-nav.component.scss'

@@ -70,10 +70,6 @@
           "enableOptions": "启用选项",
           "deleteCampaign": "删除活动"
         }
-      },
-      "campaign-card": {
-        "description": "描述: ",
-        "creationDate": "创建时间: "
       }
     }
   }

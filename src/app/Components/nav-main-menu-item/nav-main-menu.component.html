@@ -1,0 +1,13 @@
+<div
+  class="flex flex-col cursor-pointer transition-all ease-in duration-300 justify-center items-center gap-1 text-center group"
+
+>
+  <svg-icon src="icons/{{item?.icon}}.svg"
+            svgClass="fill-current group-hover:fill-slate-600 dark:group-hover:fill-slate-300 group-hover:fill-slate-600 dark:group-hover:fill-slate-300 group-hover:scale-110 transition-all ease-out duration-150 group-active:scale-90"></svg-icon>
+
+  @if (item?.name! !== '') {
+    <p class="flex flex-col text-wrap text-sm text-black dark:text-white">
+      {{ item?.name! | translate }}
+    </p>
+  }
+</div>

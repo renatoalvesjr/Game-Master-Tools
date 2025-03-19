@@ -70,10 +70,6 @@
           "enableOptions": "Optionen aktivieren",
           "deleteCampaign": "Kampagne löschen"
         }
-      },
-      "campaign-card": {
-        "description": "Beschreibung: ",
-        "creationDate": "Erstellt am: "
       }
     }
   }

@@ -71,10 +71,6 @@
           "enableOptions": "Enable Options",
           "deleteCampaign": "Delete Campaign"
         }
-      },
-      "campaign-card": {
-        "description": "Description: ",
-        "creationDate": "Creation Date: "
       }
     }
   }

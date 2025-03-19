@@ -6,21 +6,16 @@ import {Campaign} from '../../Interfaces/Campaign.interface';
 import {UtilsService} from '../../Services/utils.service';
 import {TranslateModule, TranslateService} from '@ngx-translate/core';
 import {SvgIconComponent} from 'angular-svg-icon';
-
-interface SystemNavList {
-  name: string;
-  route: string;
-  icon: string;
-  iconType: string;
-  active: boolean;
-}
+import {NavMainMenuComponent} from '../../Components/nav-main-menu-item/nav-main-menu.component';
+import {SystemNavList} from '../../Interfaces/SystemNavList.interface';
+import {NavCampaignItemComponent} from '../../Components/nav-campaign-item/nav-campaign-item.component';
 
 // noinspection ExceptionCaughtLocallyJS
 @Component({
   selector: 'app-Navigation',
   templateUrl: './Navigation.component.html',
   styleUrls: ['./Navigation.component.scss'],
-  imports: [CommonModule, RouterOutlet, RouterLinkActive, RouterLink, TranslateModule, SvgIconComponent]
+  imports: [CommonModule, RouterOutlet, RouterLinkActive, RouterLink, TranslateModule, SvgIconComponent, NavMainMenuComponent, NavCampaignItemComponent]
 })
 export class NavigationComponent implements OnInit {
   router = inject(Router);
@@ -30,35 +25,46 @@ export class NavigationComponent implements OnInit {
   campaigns!: Campaign[];
 
 
-  navList: SystemNavList[] = [
+  superiorNavList: SystemNavList[] = [
     {
       name: 'nav.navigation.campaign-management',
       route: 'campaign-management',
       icon: 'menu_book',
-      iconType: 'material-symbols-outlined',
       active: false,
     },
     {
       name: 'nav.navigation.item-vault',
       route: 'items',
       icon: 'swords',
-      iconType: 'material-symbols-outlined',
       active: false,
     },
     {
       name: 'nav.navigation.systems',
       route: 'systems',
       icon: 'shelves',
-      iconType: 'material-symbols-outlined',
       active: false,
     },
     {
       name: 'nav.navigation.sound',
       route: 'sound',
       icon: 'music_cast',
-      iconType: 'material-symbols-outlined',
       active: false,
     },
+  ];
+
+  bottomNavList: SystemNavList[] = [
+    {
+      name: '',
+      route: 'settings',
+      icon: 'settings',
+      active: false,
+    },
+    {
+      name: '',
+      route: '/',
+      icon: 'home',
+      active: false,
+    }
   ];
 
   constructor(private translate: TranslateService) {

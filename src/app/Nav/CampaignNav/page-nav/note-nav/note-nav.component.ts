@@ -9,6 +9,7 @@ import {NgStyle} from '@angular/common';
 import {Campaign} from '../../../../Interfaces/Campaign.interface';
 import {TranslatePipe} from '@ngx-translate/core';
 import {SvgIconComponent} from 'angular-svg-icon';
+import {NoteNavItemComponent} from '../../../../Components/note-nav-item/note-nav-item.component';
 
 @Component({
   selector: 'app-note-nav',
@@ -18,7 +19,8 @@ import {SvgIconComponent} from 'angular-svg-icon';
     MatMenuItem,
     NgStyle,
     TranslatePipe,
-    SvgIconComponent
+    SvgIconComponent,
+    NoteNavItemComponent
   ],
   templateUrl: './note-nav.component.html',
   styleUrl: './note-nav.component.scss'

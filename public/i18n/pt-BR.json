@@ -71,10 +71,6 @@
           "enableOptions": "Habilitar Opções",
           "deleteCampaign": "Excluir Campanha"
         }
-      },
-      "campaign-card": {
-        "description": "Descrição: ",
-        "creationDate": "Criação: "
       }
     }
   }

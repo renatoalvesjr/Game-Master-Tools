@@ -1,0 +1,12 @@
+<div
+  routerLink="/campaign/{{ item?.campaignId }}"
+  routerLinkActive="shadow-lg rounded-lg bg-stone-50 dark:bg-stone-700"
+  class="flex min-w-10 mx-5 p-2 self-center transition-all ease-in duration-300 cursor-pointer select-none"
+  title="{{ item?.campaignName }}"
+>
+  <img
+    class="self-center rounded-md"
+    src="{{ item?.campaignImageUrl }}"
+    alt=""
+  />
+</div>

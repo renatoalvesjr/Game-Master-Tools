@@ -2,7 +2,8 @@
   <div class="flex flex-col h-full max-h-full overflow-y-auto">
     <div class="flex flex-col h-full max-h-full gap-4">
       <div class="self-center select-none">
-        <p-button title="{{'page.campaign-management.createCampaignButton' | translate}}" routerLink="/new-campaign"></p-button>
+        <p-button title="{{'page.campaign-management.createCampaignButton' | translate}}"
+                  routerLink="/new-campaign"></p-button>
       </div>
       @for (campaign of campaigns; track campaign) {
         <div class="cursor-pointer" (click)="selectCampaign(campaign)">
@@ -14,7 +15,7 @@
   <div class="flex flex-col w-[80%] p-4">
     @if (!campaignSelected) {
       <h1>{{ "page.campaign-management.no-campaign.title" | translate }}</h1>
-      <p>{{"page.campaign-management.no-campaign.description" | translate}}</p>
+      <p>{{ "page.campaign-management.no-campaign.description" | translate }}</p>
     } @else {
       <div class="flex flex-col justify-start items-start">
         <div class="flex flex-col mb-4">
@@ -26,33 +27,34 @@
               routerLink="campaign/{{campaignSelected.campaignId}}"
 
             >{{ campaignSelected.campaignName }}</h1>
-            <svg-icon src="icons/edit.svg"
-                      class="scale-90 hover:scale-100 active:scale-110 cursor-pointer transition-all duration-100"
-                      [svgStyle]="{'fill': '#3D2C12'}"
-                      (click)="changeCampaignName()"
+            <svg-icon
+              src="icons/edit.svg"
+              svgClass="fill-current scale-90 hover:scale-100 active:scale-110 cursor-pointer transition-all duration-100"
+              (click)="changeCampaignName()"
 
             ></svg-icon>
           </div>
           <p class="font-bold text-sm">{{ campaignSelected.campaignSystemName }}</p>
         </div>
         <div class="flex flex-row mb-4 gap-1">
-          <p class="font-bold select-none">{{ "page.campaign-management.description.creationDate" | translate}}</p>
+          <p class="font-bold select-none">{{ "page.campaign-management.description.creationDate" | translate }}</p>
           <p> {{ campaignSelected.campaignCreationDate|formatDate }}</p>
         </div>
         <div class="flex flex-col mb-4">
           <div class="flex flex-row gap-1 mb-2">
-            <p class="font-bold  select-none">{{ "page.campaign-management.description.description" | translate}}</p>
-            <svg-icon src="icons/edit.svg"
-                      class="scale-75 hover:scale-90 active:scale-100 cursor-pointer transition-all duration-100"
-                      [svgStyle]="{'fill':'#3D2C12'}"
-                      (click)="toggleCampaignDescriptionEdit()"
+            <p class="font-bold  select-none">{{ "page.campaign-management.description.description" | translate }}</p>
+            <svg-icon
+              src="icons/edit.svg"
+              svgClass="fill-current scale-90 hover:scale-100 active:scale-110 cursor-pointer transition-all duration-100"
+              (click)="toggleCampaignDescriptionEdit()"
             ></svg-icon>
           </div>
           <div class="flex flex-col gap-4 mb-4">
             <p class="w-fit border border-gray-300 rounded-md p-2 select-none"
                id="campaign-{{campaignSelected.campaignId}}-description">{{ campaignSelected.campaignDescription }}</p>
             @if (campaignDescriptionElement?.contentEditable === 'true') {
-              <p-button (click)="saveCampaignDescription()" title="{{ 'page.campaign-management.description.saveDescription' | translate}}">
+              <p-button (click)="saveCampaignDescription()"
+                        title="{{ 'page.campaign-management.description.saveDescription' | translate}}">
 
               </p-button>
             }
@@ -61,16 +63,18 @@
             <img class="max-h-[200px] max-w-[80%] object-scale-down self-start"
                  src="{{campaignSelected.campaignImageUrl}}" alt="">
 
-            <div class="flex flex-row">
-              <span class="font-bold select-none">{{ "page.campaign-management.description.imageUrl" | translate}}</span>
-              <svg-icon src="icons/edit.svg"
-                        class="scale-75 hover:scale-90 active:scale-100 cursor-pointer transition-all duration-100"
-                        [svgStyle]="{'fill':'#3D2C12'}"
-                        (click)="changeCampaignImage()"
+            <div class="flex flex-row items-center">
+              <span
+                class="font-bold select-none">{{ "page.campaign-management.description.imageUrl" | translate }}</span>
+              <svg-icon
+                src="icons/edit.svg"
+                svgClass="fill-current self-baseline scale-90 hover:scale-100 active:scale-110 cursor-pointer transition-all duration-100"
+                (click)="changeCampaignImage()"
               ></svg-icon>
             </div>
             <div class="flex flex-col mb-4 gap-2 w-fit">
-              <p class="line-clamp-2 w-fit h-fit border border-gray-300 rounded-md p-2" id="campaign-{{campaignSelected.campaignId}}-image">
+              <p class="line-clamp-2 w-fit h-fit border border-gray-300 rounded-md p-2"
+                 id="campaign-{{campaignSelected.campaignId}}-image">
                 {{ campaignSelected.campaignImageUrl }}
               </p>
             </div>
@@ -79,9 +83,11 @@
           </div>
 
           <div class="w-fit border-1 border-red-400 rounded-lg mb-4 gap-4 end-0 select-none">
-            <p class="text-red-400 font-bold p-2">{{ "page.campaign-management.description.dangerZone.title" | translate}}</p>
+            <p
+              class="text-red-400 font-bold p-2">{{ "page.campaign-management.description.dangerZone.title" | translate }}</p>
             <div class="flex flex-row p-2">
-              <label for="activateDanger">{{ "page.campaign-management.description.dangerZone.enableOptions" | translate}}</label>
+              <label
+                for="activateDanger">{{ "page.campaign-management.description.dangerZone.enableOptions" | translate }}</label>
               <input type="checkbox" id="activateDanger" class="ml-2" [(ngModel)]="dangerMode">
             </div>
             <div class="p-4">
@@ -89,7 +95,7 @@
                 (click)="deleteCampaign(campaignSelected.campaignId)"
                 [disabled]="!dangerMode"
                 class="w-fit p-2 text-white border-2 border-red-500 rounded-full bg-red-400 hover:border-red-600 hover:bg-red-500 cursor-pointer active:bg-red-600 active:border-red-700 transition-all duration-100">
-                {{ "page.campaign-management.description.dangerZone.deleteCampaign" | translate}}
+                {{ "page.campaign-management.description.dangerZone.deleteCampaign" | translate }}
               </button>
             </div>
           </div>

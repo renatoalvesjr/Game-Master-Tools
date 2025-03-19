@@ -1,0 +1,8 @@
+<div class="grid grid-cols-6 gap-1 p-1">
+  @for (color of pageColors; track color) {
+    <div
+      [ngStyle]="{ 'background-color': color }"
+      class="h-7 w-7 rounded-xl hover:p-2 border border-gray-500 hover:border-2 transition-all duration-150 ease-in col-span-1 row-span-1 md:col-span-1 md:row-span-1 lg:col-span-2 lg:row-span-2 xl:col-span-3 xl:row-span-3"
+      (click)="changeColor(page, color)"></div>
+  }
+</div>

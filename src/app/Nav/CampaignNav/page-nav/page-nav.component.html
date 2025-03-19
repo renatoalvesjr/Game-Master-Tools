@@ -14,29 +14,7 @@
   <ul class="flex flex-col pl-5 truncate {{ pagesHidden?'hidden ':''}}">
     @for (page of pages; track page) {
       <li>
-        <div
-          class="flex flex-row gap-1 rounded-xl group text-black p-1 my-2  transition-all duration-300"
-          title="{{ page.pageTitle }}"
-          [ngStyle]="{ 'background-color': page.pageColor }"
-          id="page-color-{{page.pageId}}"
-        >
-          <svg-icon src="icons/{{
-              page.pageActive
-                ? 'keyboard_arrow_down'
-          : 'keyboard_arrow_right'
-          }}.svg" (click)="togglePage(page)"></svg-icon>
-          <p
-            [title]="page.pageTitle"
-            class="truncate text-clip overflow-none justify-start self-start start-0 justify-self-start"
-            id="page-{{ page.pageId }}"
-          >{{ page.pageTitle }}</p>
-          <svg-icon
-            src="icons/more_horiz.svg"
-            svgClass="hidden group-hover:flex cursor-pointer select-none"
-            svgAriaLabel="Page options button."
-            [matMenuTriggerFor]="pageMenu"
-          ></svg-icon>
-        </div>
+        <app-page-nav-item [page]="page" [pageMenu]="pageMenu" (togglePage)="togglePage(page)"></app-page-nav-item>
         <mat-menu #pageMenu="matMenu" class="bg-white">
           <button mat-menu-item (click)="addNote(page.pageId)" [ngStyle]="{ 'color': 'black' }">{{'nav.page-nav.page-menu.add-note' | translate}}</button>
           <button mat-menu-item [matMenuTriggerFor]="colors" [ngStyle]="{ 'color': 'black', 'caret-color': 'black' }">{{'nav.page-nav.page-menu.change-color' | translate}}</button>
@@ -44,14 +22,7 @@
           <button mat-menu-item (click)="deletePage(page.pageId)" [ngStyle]="{ 'color': '#9f0712' }">{{'nav.page-nav.page-menu.delete' | translate}}</button>
         </mat-menu>
         <mat-menu #colors>
-          <div class="grid grid-cols-6 gap-1 p-1">
-            @for (color of pageColors; track color) {
-              <div
-                [ngStyle]="{ 'background-color': color }"
-                class="h-7 w-7 rounded-xl hover:p-2 border border-gray-500 hover:border-2 transition-all duration-150 ease-in col-span-1 row-span-1 md:col-span-1 md:row-span-1 lg:col-span-2 lg:row-span-2 xl:col-span-3 xl:row-span-3"
-                (click)="changeColor(page, color)"></div>
-            }
-          </div>
+          <app-color-selection [changeColor]="changeColor" [page]="page" [pageColors]="pageColors"></app-color-selection>
         </mat-menu>
         <!--Notes Renderer-->
         <div class="ml-4 truncate {{page.pageActive?'':'hidden'}}">
