@@ -39,10 +39,15 @@ jobs:
           prerelease: false
       - name: Upload Release Asset
         uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
           asset_path: out/make/zip/linux/x64/game-master-tools-linux-x64-1.0.1.zip
           asset_name: game-master-tools-linux-x64-1.0.1.zip
+          asset_content_type: application/zip
+      - name: Upload Release Asset
+        uses: actions/upload-release-asset@v1
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: out/make/zip/win32/x64/game-master-tools-win32-x64-1.0.1.zip
+          asset_name: game-master-tools-win32-x64-1.0.1.zip
           asset_content_type: application/zip
