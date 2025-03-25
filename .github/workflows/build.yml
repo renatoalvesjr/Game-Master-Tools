@@ -25,21 +25,24 @@ jobs:
         run: npm run build
 
       - name: Package
-        run: npm run win-zip
+        run: npm run zip
 
       - name: Create Release
-        uses: actions/create-release@v4
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          release_name: 'v1.0.0'
-          release_body: 'See [RELEASE_NOTES.md](https://github.com/renatoalvesjr/Game-Master-Tools/blob/main/RELEASE_NOTES.md) for details.'
+          tag_name: v1.0.1
+          release_name: 'Release v1.0.1'
+          body: 'See [RELEASE_NOTES.md](https://github.com/renatoalvesjr/Game-Master-Tools/blob/main/RELEASE_NOTES.md) for details.'
           draft: false
           prerelease: false
       - name: Upload Release Asset
         uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: out/make/${github.event.release.name}.zip
-          asset_name: ${github.event.release.name}.zip
+          asset_path: out/make/zip/linux/x64/game-master-tools-linux-x64-1.0.1.zip
+          asset_name: game-master-tools-linux-x64-1.0.1.zip
           asset_content_type: application/zip

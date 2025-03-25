@@ -24,18 +24,17 @@ function initWindow() {
     },
   });
   appWindow.loadURL(
-    // url.format({
-    //   pathname: path.join(
-    //     __dirname,
-    //     "/dist/game-master-tools/browser/index.html"
-    //   ),
-    //   protocol: "file",
-    //   slashes: true,
-    // })
-    "http://localhost:4200"
+    url.format({
+      pathname: path.join(
+        __dirname,
+        "/dist/game-master-tools/browser/index.html"
+      ),
+      protocol: "file",
+      slashes: true,
+    })
   ).then();
 
-  // appWindow.setMenu(null);
+  appWindow.setMenu(null);
   appWindow.webContents.session.setSpellCheckerEnabled( false );
 
   appWindow.once("ready-to-show", () => {
