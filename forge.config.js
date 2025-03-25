@@ -21,8 +21,12 @@ module.exports = {
       platforms: ['darwin','linux','win32'],
       config: {
         options: {
-          icon:'/public/logo.png'
-        }
+          icon:'/public/logo.png',
+        },
+        output: {
+          dir: 'out/',
+          name: 'GameMasterTools'
+        },
       }
     },
     {

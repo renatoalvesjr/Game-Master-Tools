@@ -1,6 +1,6 @@
 {
   "name": "game-master-tools",
-  "version": "1.0.2",
+  "version": "1.0.1",
   "description": "This project was generated with Angular CLI version 12.2.12.",
   "author": "Renato Alves Junior",
   "main": "main.js",
@@ -16,8 +16,9 @@
     "package": "electron-forge package",
     "make": "electron-forge make",
     "win-squirrel": "electron-forge make --platform=win32  --targets=@electron-forge/maker-squirrel",
-    "win-zip": "electron-forge make --platform=win32 --arch=x64 --output-dir=out/make/${npm_package_version}.zip",
-    "zip-linux": "electron-forge make --platform=linux  --targets=@electron-forge/maker-zip"
+    "zip-win": "electron-forge make --platform=win32 --targets=@electron-forge/maker-zip --outDir=out/${npm_package_version}.zip",
+    "zip-linux": "electron-forge make --platform=linux  --targets=@electron-forge/maker-zip --ouDir=out/${npm_package_version}.zip",
+    "zip": "npm run zip-win && npm run zip-linux"
   },
   "private": true,
   "dependencies": {
