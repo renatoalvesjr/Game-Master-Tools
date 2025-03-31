@@ -1,7 +1,7 @@
 pipeline {
   agent {
     node {
-      label 'GMT'
+      label 'gmt-build'
     }
 
   }
@@ -25,8 +25,5 @@ pipeline {
       }
     }
 
-  }
-  environment {
-    dependencies = ''
   }
 }
