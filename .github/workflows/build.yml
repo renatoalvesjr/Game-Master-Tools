@@ -35,6 +35,6 @@ jobs:
           draft: true
           prerelease: false
           files: |
-            out/make/**/*.zip  # Inclui todos os arquivos .zip gerados na pasta de build
+            out/make/**/*.zip
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
