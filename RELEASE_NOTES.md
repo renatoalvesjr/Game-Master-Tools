@@ -10,7 +10,7 @@
 
 - Fixed missing translations.
 
-## Minor changes
+### Minor changes
 
 - [README](README.md) has been updated.
 - [Release Notes](RELEASE_NOTES.md) has been updated.
