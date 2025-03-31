@@ -30,11 +30,11 @@ jobs:
       - name: Upload Linux Zip
         uses: actions/upload-artifact@v4
         with:
-          name: electron-build
+          name: Game-Master-Tools-Linux-v1.0.1.zip
           path: out/make/zip/linux/x64/game-master-tools-linux-x64-1.0.1.zip
 
       - name: Upload Windows Zip
         uses: actions/upload-artifact@v4
         with:
-          name: electron-build
+          name: Game-Master-Tools-Windows-v1.0.1.zip
           path: out/make/zip/win32/x64/game-master-tools-win32-x64-1.0.1.zip
