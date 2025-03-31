@@ -1,0 +1,55 @@
+{
+  "settings": {
+    "title": "Configuração",
+    "language": "Idioma: ",
+    "idioms": {
+      "pt": "Português",
+      "en": "Inglês"
+    }
+  },
+  "components": {
+    "insertion-modal": {
+      "title": "Inserir URL",
+      "cancelButton": "Cancelar",
+      "okButton": "Ok"
+    }
+  },
+  "home": {
+    "createCampaign": "Criar nova campanha",
+    "recentCampaigns": "Campanhas recentes ..."
+  },
+  "nav": {
+    "navigation": {
+      "campaign-management": "Gerenciador de Campanhas",
+      "item-vault": "Item Vault",
+      "systems": "Sistemas",
+      "sound": "Soundboard"
+    },
+    "page-nav": {
+      "title": "Notas"
+    }
+  },
+  "page": {
+    "campaign-management": {
+      "createCampaignButton": "Criar Campanha",
+      "no-campaign": {
+        "title": "Gerenciador de Campanhas",
+        "description": "Selecione uma campanha para ver suas configurações ou cria uma nova campanha."
+      },
+      "description": {
+        "creationDate": "Data de criação: ",
+        "description": "Descrição: ",
+        "imageUrl": "URL da imagem: ",
+        "dangerZone": {
+          "title": "Zona Perigosa",
+          "enableOptions": "Habilitar Opções",
+          "deleteCampaign": "Excluir Campanha"
+        }
+      },
+      "campaign-card": {
+        "description": "Descrição: ",
+        "creationDate": "Criação: "
+      }
+    }
+  }
+}
