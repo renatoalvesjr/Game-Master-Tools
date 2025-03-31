@@ -89,7 +89,6 @@ async function onStart() {
   if (!fs.existsSync(path.join(defaultPath, "config/config.json"))) {
     fs.mkdirSync(path.join(defaultPath, "config"), {recursive: true});
     fs.writeFileSync(path.join(defaultPath, "config/config.json"), JSON.stringify(defaultConfig));
-
     return JSON.stringify(defaultConfig);
   } else {
     await checkSettings();
