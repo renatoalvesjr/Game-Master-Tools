@@ -1,7 +1,7 @@
 import {inject, Injectable} from '@angular/core';
 import {WindowRef} from './window.service';
-import {Page} from '../Interfaces/Page.interface';
-import {Note} from '../Interfaces/Note.interface';
+import {Page} from '../Types/Page.type';
+import {Note} from '../Types/Note.type';
 import {BehaviorSubject} from 'rxjs';
 
 @Injectable({

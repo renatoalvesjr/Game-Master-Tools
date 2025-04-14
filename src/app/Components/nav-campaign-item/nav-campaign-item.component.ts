@@ -1,5 +1,5 @@
 import {Component, Input} from '@angular/core';
-import {Campaign} from '../../Interfaces/Campaign.interface';
+import {Campaign} from '../../Types/Campaign.type';
 import {RouterLink, RouterLinkActive} from '@angular/router';
 
 @Component({

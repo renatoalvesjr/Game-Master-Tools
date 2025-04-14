@@ -1,6 +1,6 @@
 import {inject, Injectable} from '@angular/core';
-import {Page} from '../Interfaces/Page.interface';
-import {Request} from '../Interfaces/Request.interface';
+import {Page} from '../Types/Page.type';
+import {Request} from '../Types/Request.type';
 import {WindowRef} from './window.service';
 
 @Injectable({

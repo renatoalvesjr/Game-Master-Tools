@@ -8,7 +8,7 @@ import {
 import {CommonModule} from '@angular/common';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MatSelectModule} from '@angular/material/select';
-import {Note} from '../../Interfaces/Note.interface';
+import {Note} from '../../Types/Note.type';
 import {MatDialog, MatDialogModule} from '@angular/material/dialog';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
@@ -17,7 +17,7 @@ import {extensions,} from './editor-extenstions';
 import {InsertionModalComponent} from '../../Components/InsertionModal/InsertionModal.component';
 import {CampaignService} from '../../Services/campaign.service';
 import {UtilsService} from '../../Services/utils.service';
-import {Page} from '../../Interfaces/Page.interface';
+import {Page} from '../../Types/Page.type';
 import {NoteService} from '../../Services/note.service';
 import {SvgIconComponent} from 'angular-svg-icon';
 

@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
-import {Note} from "../../Interfaces/Note.interface";
+import {Note} from "../../Types/Note.type";
 import {MatMenu, MatMenuTrigger} from '@angular/material/menu';
 import {SvgIconComponent} from 'angular-svg-icon';
 

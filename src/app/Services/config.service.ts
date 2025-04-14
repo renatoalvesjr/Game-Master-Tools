@@ -1,7 +1,7 @@
 import {inject, Injectable} from '@angular/core';
 import {CampaignService} from './campaign.service';
 import {WindowRef} from './window.service';
-import {Request} from '../Interfaces/Request.interface';
+import {Request} from '../Types/Request.type';
 import {TranslateService} from '@ngx-translate/core';
 
 interface Config {

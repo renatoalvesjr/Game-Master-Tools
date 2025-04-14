@@ -1,4 +1,4 @@
-export interface MapPage {
+export type MapPage = {
   mapPageId: string;
   mapPageName: string;
   mapPageMaps: string[];

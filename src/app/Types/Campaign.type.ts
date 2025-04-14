@@ -1,4 +1,4 @@
-export interface Campaign {
+export type Campaign = {
   campaignId: string;
   campaignName: string;
   campaignCreationDate: string;

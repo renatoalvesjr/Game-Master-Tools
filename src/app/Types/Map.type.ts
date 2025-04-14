@@ -1,4 +1,4 @@
-export interface Map {
+export type Map = {
   mapId: string;
   mapName: string;
   mapCreationDate: string;

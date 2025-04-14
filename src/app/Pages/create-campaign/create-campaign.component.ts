@@ -1,6 +1,6 @@
 import {Component, inject} from '@angular/core';
 import {UtilsService} from '../../Services/utils.service';
-import {Campaign} from '../../Interfaces/Campaign.interface';
+import {Campaign} from '../../Types/Campaign.type';
 import {CampaignService} from '../../Services/campaign.service';
 import {PButtonComponent} from '../../Components/Buttons/p-button/p-button.component';
 import {FormControl, FormGroup, ReactiveFormsModule} from '@angular/forms';

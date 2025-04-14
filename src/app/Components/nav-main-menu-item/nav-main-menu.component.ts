@@ -1,6 +1,6 @@
 import {Component, Input} from '@angular/core';
 import {SvgIconComponent} from 'angular-svg-icon';
-import {SystemNavList} from '../../Interfaces/SystemNavList.interface';
+import {SystemNavList} from '../../Types/SystemNavList.type';
 import {TranslatePipe} from '@ngx-translate/core';
 
 @Component({

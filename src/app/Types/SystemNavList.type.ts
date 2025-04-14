@@ -1,4 +1,4 @@
-export interface SystemNavList {
+export type SystemNavList = {
   name: string;
   route: string;
   icon: string;

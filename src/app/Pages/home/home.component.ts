@@ -2,7 +2,7 @@
 
 import {Component, inject, OnInit} from '@angular/core';
 import {CampaignService} from '../../Services/campaign.service';
-import {Campaign} from '../../Interfaces/Campaign.interface';
+import {Campaign} from '../../Types/Campaign.type';
 import {RouterLink} from '@angular/router';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {SvgIconComponent} from 'angular-svg-icon';

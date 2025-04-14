@@ -1,4 +1,4 @@
-export interface Page {
+export type Page = {
   pageId: string;
   pageTitle: string;
   pageCreationDate: string;

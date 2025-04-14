@@ -1,12 +1,12 @@
 import {Component, inject, Input, OnInit, ViewChild} from '@angular/core';
-import {Campaign} from '../../../Interfaces/Campaign.interface';
+import {Campaign} from '../../../Types/Campaign.type';
 import {MatMenu, MatMenuItem, MatMenuModule, MatMenuTrigger} from '@angular/material/menu';
 import {CampaignService} from '../../../Services/campaign.service';
 import {PageService} from '../../../Services/page.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {UtilsService} from '../../../Services/utils.service';
-import {Page} from '../../../Interfaces/Page.interface';
-import {Note} from '../../../Interfaces/Note.interface';
+import {Page} from '../../../Types/Page.type';
+import {Note} from '../../../Types/Note.type';
 import {NoteNavComponent} from './note-nav/note-nav.component';
 import {NoteService} from '../../../Services/note.service';
 import {NgStyle} from '@angular/common';

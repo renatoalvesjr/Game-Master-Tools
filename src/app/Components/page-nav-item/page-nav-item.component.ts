@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
-import {Page} from "../../Interfaces/Page.interface";
+import {Page} from "../../Types/Page.type";
 import {SvgIconComponent} from 'angular-svg-icon';
 import {NgStyle} from '@angular/common';
 import {MatMenu, MatMenuTrigger} from '@angular/material/menu';

@@ -1,5 +1,5 @@
 import {Component, Input} from '@angular/core';
-import {Page} from "../../Interfaces/Page.interface";
+import {Page} from "../../Types/Page.type";
 import {NgStyle} from '@angular/common';
 
 @Component({

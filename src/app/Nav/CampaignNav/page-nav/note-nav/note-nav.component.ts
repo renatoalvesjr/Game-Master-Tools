@@ -1,12 +1,12 @@
 import {Component, inject, Input, OnInit} from '@angular/core';
-import {Page} from '../../../../Interfaces/Page.interface';
-import {Note} from '../../../../Interfaces/Note.interface';
+import {Page} from '../../../../Types/Page.type';
+import {Note} from '../../../../Types/Note.type';
 import {NoteService} from '../../../../Services/note.service';
 import {MatMenu, MatMenuItem, MatMenuTrigger} from '@angular/material/menu';
 import {CampaignService} from '../../../../Services/campaign.service';
 import {UtilsService} from '../../../../Services/utils.service';
 import {NgStyle} from '@angular/common';
-import {Campaign} from '../../../../Interfaces/Campaign.interface';
+import {Campaign} from '../../../../Types/Campaign.type';
 import {TranslatePipe} from '@ngx-translate/core';
 import {SvgIconComponent} from 'angular-svg-icon';
 import {NoteNavItemComponent} from '../../../../Components/note-nav-item/note-nav-item.component';

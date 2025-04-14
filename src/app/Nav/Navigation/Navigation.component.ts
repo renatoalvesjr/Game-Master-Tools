@@ -2,12 +2,12 @@ import {Component, inject, OnInit} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {Router, RouterLink, RouterLinkActive, RouterOutlet,} from '@angular/router';
 import {CampaignService} from '../../Services/campaign.service';
-import {Campaign} from '../../Interfaces/Campaign.interface';
+import {Campaign} from '../../Types/Campaign.type';
 import {UtilsService} from '../../Services/utils.service';
 import {TranslateModule, TranslateService} from '@ngx-translate/core';
 import {SvgIconComponent} from 'angular-svg-icon';
 import {NavMainMenuComponent} from '../../Components/nav-main-menu-item/nav-main-menu.component';
-import {SystemNavList} from '../../Interfaces/SystemNavList.interface';
+import {SystemNavList} from '../../Types/SystemNavList.type';
 import {NavCampaignItemComponent} from '../../Components/nav-campaign-item/nav-campaign-item.component';
 
 // noinspection ExceptionCaughtLocallyJS

@@ -1,4 +1,4 @@
-declare interface Window {
+declare type Window  = {
   electronAPI: {
     /**
      * Returns the contents of a file with the given path and name.

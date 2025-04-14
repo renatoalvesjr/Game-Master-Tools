@@ -1,8 +1,8 @@
 import {inject, Injectable} from '@angular/core';
-import {Campaign} from '../Interfaces/Campaign.interface';
+import {Campaign} from '../Types/Campaign.type';
 import {WindowRef} from './window.service';
 import {BehaviorSubject} from 'rxjs';
-import {Request} from '../Interfaces/Request.interface';
+import {Request} from '../Types/Request.type';
 
 @Injectable({
   providedIn: 'root',

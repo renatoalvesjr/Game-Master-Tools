@@ -1,5 +1,5 @@
 import {Component, inject, Input} from '@angular/core';
-import {Campaign} from '../../../Interfaces/Campaign.interface';
+import {Campaign} from '../../../Types/Campaign.type';
 import {FormatDatePipe} from '../../../Pipe/format-date.pipe';
 import {Router} from '@angular/router';
 import {TranslateModule, TranslateService} from '@ngx-translate/core';
