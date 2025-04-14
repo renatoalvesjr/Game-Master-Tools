@@ -1,4 +1,4 @@
-import {Component, inject, model, OnInit} from '@angular/core';
+import {Component, EventEmitter, inject, model, OnInit, Output} from '@angular/core';
 import {FormsModule} from '@angular/forms';
 import {MatButtonModule} from '@angular/material/button';
 import {
@@ -36,7 +36,8 @@ export class InsertionModalComponent implements OnInit {
     readonly data = inject<Data>(MAT_DIALOG_DATA);
     readonly url = model(this.data.url);
 
-    constructor(private translate: TranslateService) {
+
+  constructor(private translate: TranslateService) {
         this.translate.use(this.translate.currentLang)
     }
 
@@ -46,4 +47,18 @@ export class InsertionModalComponent implements OnInit {
     onNoClick(): void {
         this.dialogRef.close();
     }
+
+  onFileSelected(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    if (!input.files?.length) return;
+
+    const file = input.files[0];
+
+    const reader = new FileReader();
+    reader.onload = () => {
+      // Atualizando o Signal com o valor base64
+      this.url.set(reader.result as string); // Usando `.set()` para atualizar o Signal
+    };
+    reader.readAsDataURL(file); // Lê o arquivo como base64
+  }
 }

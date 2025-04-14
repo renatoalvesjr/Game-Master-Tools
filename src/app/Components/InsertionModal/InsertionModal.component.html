@@ -1,22 +1,39 @@
 <mat-dialog-content class="flex flex-col p-2">
-  <h1 class="mb-2">{{ "components.insertion-modal.title" | translate}}</h1>
-  <input
-    class="p-1 outline-none active:outline-none border border-gray-200 rounded-md"
-    [(ngModel)]="url"
-    placeholder="URL"
-  />
+  <h1 class="mb-4">{{ "components.insertion-modal.title" | translate }}</h1>
+  <div class="flex flex-col gap-4">
+    <label>
+      {{ "components.insertion-modal.url-label" | translate }}
+      <input
+        class="block w-full text-sm p-1 outline-none border rounded-md"
+        [(ngModel)]="url"
+        placeholder="URL"
+      />
+    </label>
+
+
+    <label for="file">
+      {{ "components.insertion-modal.file-label" | translate }}
+      <input
+        class="block w-full text-sm outline-none active:outline-none  rounded-md
+        file:border file:p-1 file:rounded-md file:bg-slate-300 dark:file:bg-slate-600
+        hover:file:bg-slate-200 dark:hover:file:bg-slate-800
+          file:text-black dark:file:text-white"
+        type="file" id="file" accept="image/*" (change)="onFileSelected($event)"/>
+    </label>
+  </div>
 </mat-dialog-content>
 <mat-dialog-actions>
+
   <button
     (click)="onNoClick()"
-    class="m-1 p-1 px-3 rounded-full hover:bg-slate-200"
+    class="m-1 p-1 px-3 rounded-full bg-slate-300 dark:bg-slate-600 hover:bg-slate-200  dark:hover:bg-slate-800"
   >
-    {{ "components.insertion-modal.cancelButton" | translate}}
+    {{ "components.insertion-modal.cancelButton" | translate }}
   </button>
   <button
     [mat-dialog-close]="url()"
-    class="m-1 p-1 px-3 rounded-full hover:bg-slate-200"
+    class="m-1 p-1 px-3 rounded-full bg-slate-300 dark:bg-slate-600 hover:bg-slate-200  dark:hover:bg-slate-800"
   >
-    {{ "components.insertion-modal.okButton" | translate}}
+    {{ "components.insertion-modal.okButton" | translate }}
   </button>
 </mat-dialog-actions>

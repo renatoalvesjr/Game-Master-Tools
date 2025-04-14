@@ -24,7 +24,9 @@
   },
   "components": {
     "insertion-modal": {
-      "title": "Insert URL",
+      "title": "Insert Image",
+      "url-label": "URL",
+      "file-label": "Image",
       "cancelButton": "Cancel",
       "okButton": "OK"
     }

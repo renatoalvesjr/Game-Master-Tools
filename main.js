@@ -25,12 +25,13 @@ function initWindow() {
   });
   appWindow.loadURL(
     url.format({
-      pathname: path.join(
-        __dirname,
-        "/dist/game-master-tools/browser/index.html"
-      ),
-      protocol: "file",
-      slashes: true,
+      // pathname: path.join(
+      //   __dirname,
+      //   "/dist/game-master-tools/browser/index.html"
+      // ),
+      // protocol: "file",
+      // slashes: true,
+      pathname: "http://localhost:4200",
     })
   ).then();
 

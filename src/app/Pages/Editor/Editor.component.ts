@@ -159,7 +159,6 @@ export class NoteEditorComponent implements OnChanges, OnDestroy, OnInit {
   async addImage(): Promise<void> {
     await this.openDialog('');
     const url = this.url;
-
     if (url) {
       this.editor.chain().focus().setImage({src: url}).run();
     }

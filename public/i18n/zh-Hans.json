@@ -23,7 +23,9 @@
   },
   "components": {
     "insertion-modal": {
-      "title": "插入 URL",
+      "title": "插入图片",
+      "url-label": "URL",
+      "file-label": "形象",
       "cancelButton": "取消",
       "okButton": "确定"
     }

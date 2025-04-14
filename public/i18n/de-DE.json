@@ -12,7 +12,9 @@
   },
   "components": {
     "insertion-modal": {
-      "title": "URL einfügen",
+      "title": "Bild einfügen",
+      "url-label": "URL",
+      "file-label": "Bild",
       "cancelButton": "Abbrechen",
       "okButton": "OK"
     }

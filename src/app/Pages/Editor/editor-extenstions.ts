@@ -22,6 +22,7 @@ import TaskList from '@tiptap/extension-task-list';
 import Highlight from '@tiptap/extension-highlight';
 import TextStyle from '@tiptap/extension-text-style';
 import ImageResize from 'tiptap-extension-resize-image';
+import Image from '@tiptap/extension-image'
 import Dropcursor from '@tiptap/extension-dropcursor';
 import { Color as ColorExtension } from '@tiptap/extension-color';
 import ListKeymap from '@tiptap/extension-list-keymap';
@@ -79,6 +80,7 @@ export const extensions = [
   Italic,
   History,
   Code,
+  Image,
   ImageResize,
   Typography,
   Subscript,
