@@ -4,6 +4,8 @@
     <div class="flex flex-row items-center gap-1 cursor-pointer" (click)="pagesHidden = !pagesHidden">
       <svg-icon svgClass="fill-current" src="icons/sticky_note_2.svg"></svg-icon>
       <p>{{ "nav.page-nav.title" | translate }}</p>
+      <svg-icon svgClass="fill-current"
+                src="icons/{{pagesHidden ? 'keyboard_arrow_right':'keyboard_arrow_down'}}.svg"></svg-icon>
     </div>
     <div class="flex items-center cursor-pointer {{pagesHidden?'hidden':''}}">
       <svg-icon src="icons/add.svg" svgAriaLabel="Create new note" svgClass="fill-current select-none w-fit h-fit hover:cursor-pointer hover:scale-105 transition-all ease-in duration-150 active:scale-95"
@@ -22,7 +24,7 @@
           <button mat-menu-item (click)="deletePage(page.pageId)" [ngStyle]="{ 'color': '#9f0712' }">{{'nav.page-nav.page-menu.delete' | translate}}</button>
         </mat-menu>
         <mat-menu #colors>
-          <app-color-selection [changeColor]="changeColor" [page]="page" [pageColors]="pageColors"></app-color-selection>
+          <app-color-selection [changeColor]="changeColor" [page]="page" [pageColors]="utils.pageColors"></app-color-selection>
         </mat-menu>
         <!--Notes Renderer-->
         <div class="ml-4 truncate {{page.pageActive?'':'hidden'}}">

@@ -1,8 +1,9 @@
 export type MapPage = {
   mapPageId: string;
   mapPageName: string;
-  mapPageMaps: string[];
+  mapPageColor: string;
   mapPageCreationDate: string;
   mapPageUpdateDate: string;
   mapPageIndex: number;
+  active: boolean;
 }

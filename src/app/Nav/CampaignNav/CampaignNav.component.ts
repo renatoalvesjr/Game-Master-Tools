@@ -19,7 +19,7 @@ import {TranslateService} from '@ngx-translate/core';
   selector: 'app-CampaignNav',
   templateUrl: './CampaignNav.component.html',
   styleUrls: ['./CampaignNav.component.scss'],
-  imports: [MatMenuModule, NoteEditorComponent, PageNavComponent, NgIf]
+  imports: [MatMenuModule, NoteEditorComponent, PageNavComponent, NgIf, MapNavComponent]
 })
 export class CampaignNavComponent implements OnInit {
   campaignService = inject(CampaignService);

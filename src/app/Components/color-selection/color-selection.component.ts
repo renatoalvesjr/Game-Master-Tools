@@ -1,6 +1,7 @@
 import {Component, Input} from '@angular/core';
 import {Page} from "../../Types/Page.type";
 import {NgStyle} from '@angular/common';
+import {MapPage} from '../../Types/MapPage.type';
 
 @Component({
   selector: 'app-color-selection',
@@ -12,6 +13,6 @@ import {NgStyle} from '@angular/common';
 })
 export class ColorSelectionComponent {
   @Input() pageColors: string[] = [];
-  @Input() changeColor!: (page: Page, color: string) => Promise<void>;
-  @Input() page!: Page;
+  @Input() changeColor!: (page: any, color: string) => Promise<void>;
+  @Input() page!: MapPage | Page;
 }

@@ -44,14 +44,27 @@
     "page-nav": {
       "title": "Notizen",
       "page-menu": {
-        "rename": "Umbenennen",
-        "delete": "Löschen",
-        "change-color": "Farben",
-        "add-note": "Neue Notiz"
+        "rename": "Seite umbenennen",
+        "delete": "Seite löschen",
+        "change-color": "Seitenfarbe",
+        "add-note": "Notiz hinzufügen"
       },
       "note-menu": {
-        "rename": "Umbenennen",
-        "delete": "Löschen"
+        "rename": "Notiz umbenennen",
+        "delete": "Notiz löschen"
+      }
+    },
+    "map-nav": {
+      "title": "Karten",
+      "page-menu": {
+        "rename": "Seite umbenennen",
+        "delete": "Seite löschen",
+        "change-color": "Seitenfarbe",
+        "add-note": "Karte hinzufügen"
+      },
+      "note-menu": {
+        "rename": "Karte umbenennen",
+        "delete": "Karte löschen"
       }
     }
   },

@@ -14,10 +14,12 @@ import {NoteNavItemComponent} from '../../../../Components/note-nav-item/note-na
 @Component({
   selector: 'app-note-nav',
   imports: [
+    MatMenuTrigger,
     MatMenu,
     MatMenuItem,
     NgStyle,
     TranslatePipe,
+    SvgIconComponent,
     NoteNavItemComponent
   ],
   templateUrl: './note-nav.component.html',

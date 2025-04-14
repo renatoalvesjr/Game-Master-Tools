@@ -13,23 +13,42 @@ export class PageService {
   }
 
   async loadAllPages(campaignId: string): Promise<Page[]|null>{
+    if (!campaignId) {
+      console.error('Campaign ID is required to load pages');
+      return null;
+    }
+
     const request: Request = {
       filePath: "Campaigns/" + campaignId + "/Pages/",
       fileName: "/page.json"
-    }
+    };
 
-    try{
-      const pages: Page[] = []
-      await this.window.electronAPI.returnAllFiles(request).then((value: string[]) => {
-        value.forEach((page) => {
+    try {
+      const pages: Page[] = [];
+      const response = await this.window.electronAPI.returnAllFiles(request);
+      if (!response) {
+        console.error('No response received from electronAPI.returnAllFiles');
+        return null;
+      }
+
+      if (!Array.isArray(response)) {
+        console.error('Invalid response from electronAPI.returnAllFiles. Expected an array.');
+        return null;
+      }
+
+      response.forEach((page) => {
+        try {
           pages.push(JSON.parse(page) as Page);
-        })
+        } catch (parseError) {
+          console.error('Failed to parse page JSON:', parseError);
+        }
       });
+
       return pages;
     } catch (error) {
-      console.error("Could not load pages: ", error);
+      console.error('Error loading pages:', error);
+      return null;
     }
-    return null;
   }
 
   async createPage(page: Page, campaignId: string) {

@@ -45,14 +45,27 @@
     "page-nav": {
       "title": "Notes",
       "page-menu": {
-        "rename": "Rename",
-        "delete": "Delete",
-        "change-color": "Color",
+        "rename": "Rename page",
+        "delete": "Delete page",
+        "change-color": "Page color",
         "add-note": "Add Note"
       },
       "note-menu": {
-        "rename": "Rename",
-        "delete": "Delete"
+        "rename": "Rename note",
+        "delete": "Delete note"
+      }
+    },
+    "map-nav": {
+      "title": "Maps",
+      "page-menu": {
+        "rename": "Rename page",
+        "delete": "Delete page",
+        "change-color": "Page color",
+        "add-note": "Add Map"
+      },
+      "note-menu": {
+        "rename": "Rename map",
+        "delete": "Delete map"
       }
     }
   },

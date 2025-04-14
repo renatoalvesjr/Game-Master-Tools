@@ -17,7 +17,7 @@
       <!-- Notes -->
       <app-page-nav/>
 
-      <app-map-nav/>
+<!--      <app-map-nav/>-->
 <!--      <app-item-nav/>-->
 <!--      <app-creatures-nav/>-->
     </div>
