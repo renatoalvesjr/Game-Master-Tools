@@ -32,14 +32,16 @@
                 "input": "public"
               }
             ],
-            "styles": ["src/styles.scss"],
+            "styles": [
+              "src/styles.scss",
+              "node_modules/leaflet/dist/leaflet.css"
+            ],
             "scripts": [],
             "webWorkerTsConfig": "tsconfig.worker.json"
           },
           "configurations": {
             "production": {
               "optimization": false,
-
               "extractLicenses": true,
               "sourceMap": true,
               "outputHashing": "all",
@@ -98,7 +100,10 @@
                 "input": "public"
               }
             ],
-            "styles": ["src/styles.scss"],
+            "styles": [
+              "src/styles.scss",
+              "node_modules/leaflet/dist/leaflet.css"
+            ],
             "scripts": [],
             "webWorkerTsConfig": "tsconfig.worker.json"
           }

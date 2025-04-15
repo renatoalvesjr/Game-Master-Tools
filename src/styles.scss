@@ -1,11 +1,12 @@
 @use "@angular/material" as mat;
 @import "tailwindcss";
+@import "leaflet/dist/leaflet.css";
 
 html {
   color-scheme: color-scheme;
   @include mat.theme((
     color: mat.$orange-palette,
-    typography: Roboto,
+    typography: Roboto,vh
     density: 0
   ));
   @include mat.menu-overrides((

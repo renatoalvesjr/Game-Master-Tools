@@ -1,2 +1,13 @@
-<app-breadcomb [list]="[mapPage?.mapPageName!,map?.mapName!]"></app-breadcomb>
-<p>{{map?.mapId}}</p>
+<app-breadcomb [list]="[mapPage?.mapPageName!,mapCanvas?.mapName!]"></app-breadcomb>
+<div class="m-4">
+  <div id="map" class="h-[80vh]"></div>
+</div>
+<div class="controls">
+  <button (click)="setIconStyle('red')">
+    <svg-icon svgClass="" src="icons/red-pin.svg"></svg-icon>
+  </button>
+  <button (click)="setIconStyle('blue')">
+    <svg-icon svgClass="" src="icons/blue-pin.svg"></svg-icon>
+  </button>
+  <button (click)="clearPins()">Clear Pins</button>
+</div>
