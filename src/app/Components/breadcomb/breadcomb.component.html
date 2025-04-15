@@ -1,0 +1,5 @@
+<div  class="text-gray-600 dark:text-gray-300 m-2 font-semibold">
+  @for (item of list; let i = $index; track i) {
+    <span>{{ item }}{{ i !== list.length - 1 ? ' / ' : '' }}</span>
+  }
+</div>

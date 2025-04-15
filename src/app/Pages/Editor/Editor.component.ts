@@ -20,6 +20,7 @@ import {UtilsService} from '../../Services/utils.service';
 import {Page} from '../../Types/Page.type';
 import {NoteService} from '../../Services/note.service';
 import {SvgIconComponent} from 'angular-svg-icon';
+import {BreadcombComponent} from '../../Components/breadcomb/breadcomb.component';
 
 @Component({
   selector: 'app-note-editor',
@@ -35,7 +36,8 @@ import {SvgIconComponent} from 'angular-svg-icon';
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
-    SvgIconComponent
+    SvgIconComponent,
+    BreadcombComponent
   ]
 })
 export class NoteEditorComponent implements OnChanges, OnDestroy, OnInit {

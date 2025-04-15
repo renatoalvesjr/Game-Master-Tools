@@ -11,6 +11,9 @@ import {MapNavItemComponent} from '../../../Components/map-nav-item/map-nav-item
 import {ColorSelectionComponent} from '../../../Components/color-selection/color-selection.component';
 import {MatMenu, MatMenuItem, MatMenuTrigger} from '@angular/material/menu';
 import {NgStyle} from '@angular/common';
+import {MapCanvas} from '../../../Types/MapCanvas.type';
+import {MapCanvasNavItemComponent} from '../../../Components/map-canvas-nav-item/map-canvas-nav-item.component';
+import {Page} from '../../../Types/Page.type';
 
 @Component({
   selector: 'app-map-nav',
@@ -22,7 +25,8 @@ import {NgStyle} from '@angular/common';
     MatMenu,
     MatMenuItem,
     MatMenuTrigger,
-    NgStyle
+    NgStyle,
+    MapCanvasNavItemComponent
   ],
   templateUrl: './map-nav.component.html',
   styleUrl: './map-nav.component.scss'
@@ -37,27 +41,33 @@ export class MapNavComponent implements OnInit {
 
   mapsHidden: boolean = false;
 
+  mapCanvas: MapCanvas[] | null = [];
+
   async ngOnInit() {
-    await this.updateMapPages()
+    await this.updateMapPages();
   }
+
   async changeColor(mapPage: MapPage, color: string) {
     mapPage.mapPageColor = color;
-    this.mapService.updateMapPage(this.campaign.campaignId, mapPage.mapPageId).then(async () => {
-      this.maps = await this.mapService.loadAllMapPages(this.campaign.campaignId);
-    });
+    const mapPageColor = document.getElementById('map-page-color-' + mapPage.mapPageId);
+    if (mapPageColor) {
+      mapPageColor.style.backgroundColor = color;
+    }
+    await this.mapService.updateMapPage(this.campaign.campaignId, mapPage);
     this.campaign.campaignUpdateDate = this.utils.getTimeNow();
-    const campaign = this.campaign;
-    await this.campaignService.updateCampaign(campaign);
+    this.campaignService.updateCampaign(this.campaign).then();
   }
+
   async toggleMaps(mapPage: MapPage) {
     mapPage.active = !mapPage.active;
-    this.mapService.updateMapPage(this.campaign.campaignId, mapPage.mapPageId).then(async () => {
+    this.mapService.updateMapPage(this.campaign.campaignId, mapPage).then(async () => {
       this.maps = await this.mapService.loadAllMapPages(this.campaign.campaignId);
     });
     this.campaign.campaignUpdateDate = this.utils.getTimeNow();
     const campaign = this.campaign;
     await this.campaignService.updateCampaign(campaign);
   }
+
   async addMapPage() {
     const map: MapPage = {
       mapPageId: this.utils.getUUID(),
@@ -77,15 +87,86 @@ export class MapNavComponent implements OnInit {
       console.error('Error on addMapPage:', e);
     }
   }
+
   async updateMapPages() {
     this.route.params.subscribe(async (params: any) => {
       this.campaign = await this.campaignService.getCampaignById(params['campaignId']);
       this.maps = await this.mapService.loadAllMapPages(this.campaign.campaignId);
     })
   }
+
   async deleteMapPage(mapPageId: string) {
     this.mapService.deleteMapPage(this.campaign.campaignId, mapPageId).then(async () => {
       this.maps = await this.mapService.loadAllMapPages(this.campaign.campaignId);
     });
+  }
+
+  async addMap(mapPage: MapPage) {
+    const map: MapCanvas = {
+      mapId: this.utils.getUUID(),
+      mapName: 'New Map',
+      mapCreationDate: this.utils.getTimeNow(),
+      mapUpdateDate: this.utils.getTimeNow(),
+      mapContent: '',
+      mapIndex: 0,
+      active: true,
+    }
+    this.mapService.addMap(this.campaign.campaignId, mapPage, map).then(async () => {
+      this.maps = await this.mapService.loadAllMapPages(this.campaign.campaignId);
+    });
+  }
+
+  togglePageEditable(mapPage: MapPage) {
+    const mapPageElement = document.getElementById('map-page-' + mapPage.mapPageId);
+    if (!mapPageElement) {
+      return;
+    }
+    mapPageElement.contentEditable = 'true';
+    mapPageElement.focus();
+
+    const range = document.createRange();
+    range.selectNodeContents(mapPageElement);
+    const selection = window.getSelection();
+    selection!.removeAllRanges();
+    selection!.addRange(range);
+
+    const disableContentEditable = async () => {
+      mapPageElement.contentEditable = 'false';
+      mapPageElement.removeEventListener('blur', disableContentEditable);
+      mapPageElement.removeEventListener('keydown', disableContentEditable);
+
+      const updateName = mapPageElement.innerText.trim();
+      const updatedMapPage: MapPage = {
+        ...mapPage,
+        mapPageName: updateName,
+      }
+      await this.mapService.updateMapPage(this.campaign.campaignId, updatedMapPage)
+      await this.updateMapPages();
+
+      this.campaign.campaignUpdateDate = this.utils.getTimeNow();
+      this.campaignService.updateCampaign(this.campaign).then();
+    }
+
+    const onKeyDown = async (evt: KeyboardEvent) => {
+      if (evt.key === 'Enter') {
+        await disableContentEditable();
+      } else if (evt.key === 'Esc') {
+        evt.preventDefault();
+        return;
+      }
+    }
+
+    mapPageElement.addEventListener('blur', disableContentEditable)
+    mapPageElement.addEventListener('keydown', onKeyDown)
+  }
+
+  async loadAllMaps(mapPage: MapPage) {
+    try {
+      for(mapPage of this.maps as MapPage[]) {
+        this.mapCanvas = await this.mapService.loadAllMaps(this.campaign.campaignId, mapPage.mapPageId);
+      }
+    } catch (e) {
+      console.error('Error on loadMapsByPage:', e);
+    }
   }
 }

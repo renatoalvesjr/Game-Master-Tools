@@ -1,8 +1,6 @@
 <div class="flex flex-col max-h-full h-full overflow-y-auto">
   <!-- Campaign Header -->
-  <div class="flex flex-col">
-    <p class="text-gray-600 dark:text-gray-300 m-2 font-semibold">{{ page?.pageTitle }} / {{ note?.noteTitle }}</p>
-  </div>
+  <app-breadcomb [list]="[page?.pageTitle!,note?.noteTitle!]"></app-breadcomb>
   <!-- Toolbar -->
   <div class="flex flex-row flex-wrap space-2 border-b border-[#E1E1E2]">
     <!-- History -->

@@ -26,4 +26,7 @@
   <div *ngIf="selectedNote" class="h-full w-full">
     <app-note-editor [note]="selectedNote" [page]="selectedPage" [campaignId]="selectedCampaign"></app-note-editor>
   </div>
+  <div *ngIf="selectedMap" class="h-full w-full">
+    <app-map-canvas [map]="selectedMap" [mapPage]="selectedMapPage" [campaignId]="selectedCampaign"></app-map-canvas>
+  </div>
 </div>

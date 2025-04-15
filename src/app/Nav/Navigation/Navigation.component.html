@@ -17,7 +17,7 @@
       </div>
       <!-- Last updated campaigns -->
       <ul class="flex flex-col items-center gap-4 justify-items-center mb-2 pt-2">
-        @for (item of campaigns; track item) {
+        @for (item of campaigns; track item.campaignId) {
           @if (item.active) {
             <app-nav-campaign-item [item]="item"></app-nav-campaign-item>
           }

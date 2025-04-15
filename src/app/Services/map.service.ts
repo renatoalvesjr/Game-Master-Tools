@@ -18,6 +18,10 @@ export class MapService {
     this.selectedDataSubject.next({ map: map, mapPage: mapPage, campaignId});
   }
 
+  unselectMap() {
+    this.selectedDataSubject.next({ map: null, mapPage: null, campaignId: '' });
+  }
+
   async loadAllMapPages(campaignId: string): Promise<MapPage[] | null> {
     if (!campaignId) {
       console.error('Error: campaignId is null or undefined');
@@ -57,7 +61,6 @@ export class MapService {
       return Promise.resolve(null);
     }
   }
-
   async addMapPage(campaignId: string, map: MapPage) {
     const request = {
       filePath: "Campaigns/" + campaignId + "/Maps/" + map.mapPageId,
@@ -70,11 +73,11 @@ export class MapService {
       console.error('Error on addMapPage:', e);
     }
   }
-
-  async updateMapPage(campaignId: string, mapPageId: string) {
+  async updateMapPage(campaignId: string, mapPage: MapPage) {
     const request = {
-      filePath: "Campaigns/" + campaignId + "/Maps/" + mapPageId,
-      fileName: "/maps.json"
+      filePath: "Campaigns/" + campaignId + "/Maps/" + mapPage.mapPageId,
+      fileName: "/maps.json",
+      content: JSON.stringify(mapPage)
     }
     try {
       await this.window.electronAPI.saveFile(request);
@@ -83,7 +86,6 @@ export class MapService {
       console.error('Error on updateMapPage:', e);
     }
   }
-
   async deleteMapPage(campaignId: string, mapPageId: string) {
     const request = {
       filePath: "Campaigns/" + campaignId + "/Maps/" + mapPageId,
@@ -99,7 +101,7 @@ export class MapService {
 
   async addMap(campaignId: string, mapPage: MapPage, map: MapCanvas) {
     const request = {
-      filePath: "Campaigns/" + campaignId + "/Maps/" + mapPage.mapPageId + "/" + map.mapId,
+      filePath: "Campaigns/" + campaignId + "/Maps/" + mapPage.mapPageId + "/MapList/" + map.mapId,
       fileName: "/map.json",
       content: JSON.stringify(map)
     }
@@ -109,10 +111,9 @@ export class MapService {
       console.error('Error on addMap:', e);
     }
   }
-
   async deleteMap(campaignId: string, mapPageId: string, mapId: string) {
     const request = {
-      filePath: "Campaigns/" + campaignId + "/Maps/" + mapPageId + "/" + mapId,
+      filePath: "Campaigns/" + campaignId + "/Maps/" + mapPageId + "/MapList/" + mapId,
       fileName: ""
     }
     try {
@@ -122,11 +123,11 @@ export class MapService {
       console.error('Error on deleteMap:', e);
     }
   }
-
-  async updateMap(campaignId: string, mapPageId: string, mapId: string) {
+  async updateMap(campaignId: string, mapPageId: string, map: MapCanvas) {
     const request = {
-      filePath: "Campaigns/" + campaignId + "/Maps/" + mapPageId + "/" + mapId,
-      fileName: "/map.json"
+      filePath: "Campaigns/" + campaignId + "/Maps/" + mapPageId + "/MapList/" + map.mapId,
+      fileName: "/map.json",
+      content: JSON.stringify(map)
     }
     try {
       await this.window.electronAPI.saveFile(request);
@@ -135,23 +136,43 @@ export class MapService {
       console.error('Error on updateMap:', e);
     }
   }
-
   async loadAllMaps(campaignId: string, mapPageId: string): Promise<MapCanvas[] | null> {
+    if (!campaignId) {
+      console.error('Error: campaignId is null or undefined');
+      return Promise.resolve(null);
+    }
+
     const request = {
-      filePath: "Campaigns/" + campaignId + "/Maps/" + mapPageId + "/",
+      filePath: "Campaigns/" + campaignId + "/Maps/" + mapPageId + "/MapList",
       fileName: "/map.json"
-    }
+    };
+
     try {
-      const maps: MapCanvas[] = [];
-      await this.window.electronAPI.returnAllFiles(request).then((value: string[]) => {
-        value.forEach((map) => {
-          maps.push(JSON.parse(map) as MapCanvas);
+      return this.window.electronAPI.returnAllFiles(request)
+        .then((files: string[]) => {
+          if (!files) {
+            console.error('Error: returnAllFiles returned null or undefined');
+            return null;
+          }
+
+          const maps: MapCanvas[] = files.map((file: string) => {
+            try {
+              return JSON.parse(file) as MapCanvas;
+            } catch (e) {
+              console.error(`Error parsing file: ${e}`);
+              return null;
+            }
+          }).filter((map: MapCanvas | null) => map !== null);
+
+          return maps;
+        })
+        .catch((error: any) => {
+          console.error(`Error loading map pages: ${error}`);
+          return null;
         });
-      });
-      return maps;
     } catch (e) {
-      console.error('Error on loadAllMaps:', e);
+      console.error(`Error creating request: ${e}`);
+      return Promise.resolve(null);
     }
-    return null;
   }
 }

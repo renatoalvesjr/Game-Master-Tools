@@ -2,7 +2,7 @@
   class="flex flex-row gap-1 rounded-xl group text-black p-1 my-2  transition-all duration-300"
   title="{{ mapPage?.mapPageName }}"
   [ngStyle]="{ 'background-color': mapPage?.mapPageColor }"
-  id="page-color-{{mapPage?.mapPageId}}"
+  id="map-page-color-{{mapPage?.mapPageId}}"
 >
   <svg-icon src="icons/{{
               mapPage?.active
@@ -12,7 +12,7 @@
   <p
     [title]="mapPage?.mapPageName"
     class="truncate text-clip overflow-none justify-start self-start start-0 justify-self-start"
-    id="page-{{ mapPage?.mapPageId }}"
+    id="map-page-{{ mapPage?.mapPageId }}"
   >{{ mapPage?.mapPageName }}</p>
   <svg-icon
     src="icons/more_horiz.svg"

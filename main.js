@@ -9,7 +9,7 @@ let appWindow;
 const defaultConfig = {
   language: 'en-US',
   supportedLanguages: ['en-US', 'pt-BR', 'zh-Hans', 'de-DE'],
-  colorMode: 'light'
+  colorMode: 'dark'
 }
 
 
@@ -18,6 +18,7 @@ function initWindow() {
     simpleFullscreen: true,
     width: 1024,
     height: 720,
+    backgroundColor: '#292524',
     webPreferences: {
       contextIsolation: true,
       preload: path.join(__dirname, "preload.js")
@@ -35,7 +36,7 @@ function initWindow() {
     })
   ).then();
 
-  appWindow.setMenu(null);
+  // appWindow.setMenu(null);
   appWindow.webContents.session.setSpellCheckerEnabled( false );
 
   appWindow.once("ready-to-show", () => {
@@ -79,7 +80,6 @@ async function toggleTheme(event, data){
   } else if (data === "system") {
     nativeTheme.themeSource = "system";
   }
-
 }
 
 async function systemTheme(){

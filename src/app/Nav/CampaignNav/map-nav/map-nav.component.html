@@ -1,6 +1,6 @@
 <div class="flex flex-col">
   <div
-    class="flex flex-row items-center justify-between rounded-xl text-black bg-[#F3F6F8] hover:bg-gray-200 dark:text-white dark:bg-stone-600! dark:hover:stone-700 transition-all duration-300 p-2 my-2">
+    class="flex flex-row items-center justify-between rounded-xl text-black bg-stone-300 hover:bg-gray-200 dark:text-white dark:bg-stone-600! dark:hover:bg-stone-400! transition-all duration-300 p-2 my-2">
     <div class="flex flex-row items-center gap-1 cursor-pointer" (click)="mapsHidden = !mapsHidden">
       <svg-icon svgClass="fill-current" src="icons/map.svg"></svg-icon>
       <p>{{ "nav.map-nav.title" | translate }}</p>
@@ -14,25 +14,32 @@
     </div>
   </div>
   <ul class="flex flex-col pl-5 truncate {{ mapsHidden?'hidden ':''}}">
-    @for (map of maps; track map) {
+    @for (map of maps; track map.mapPageId) {
       <li>
         <app-map-nav-item [mapPage]="map" [mapPageMenu]="mapPageMenu"
                           (toggleMapPage)="toggleMaps(map)"></app-map-nav-item>
 
         <mat-menu #mapPageMenu="matMenu" class="bg-white">
-          <!--          <button mat-menu-item (click)="addMap(map.mapPageId)" [ngStyle]="{ 'color': 'black' }">{{'nav.page-nav.page-menu.add-note' | translate}}</button>-->
+          <button mat-menu-item (click)="addMap(map)"
+                  [ngStyle]="{ 'color': 'black' }">{{ 'nav.page-nav.page-menu.add-note' | translate }}
+          </button>
           <button mat-menu-item [matMenuTriggerFor]="colors"
                   [ngStyle]="{ 'color': 'black', 'caret-color': 'black' }">{{ 'nav.page-nav.page-menu.change-color' | translate }}
           </button>
-          <!--          <button mat-menu-item (click)="togglePageEditable(page)" [ngStyle]="{ 'color': 'black' }">{{'nav.page-nav.page-menu.rename' | translate}}</button>-->
+          <button mat-menu-item (click)="togglePageEditable(map)"
+                  [ngStyle]="{ 'color': 'black' }">{{ 'nav.page-nav.page-menu.rename' | translate }}
+          </button>
           <button mat-menu-item (click)="deleteMapPage(map.mapPageId)"
                   [ngStyle]="{ 'color': '#9f0712' }">{{ 'nav.page-nav.page-menu.delete' | translate }}
           </button>
         </mat-menu>
         <mat-menu #colors>
-          <app-color-selection [changeColor]="changeColor" [page]="map"
+          <app-color-selection [changeColor]="changeColor.bind(this)" [page]="map"
                                [pageColors]="utils.pageColors"></app-color-selection>
         </mat-menu>
+        @if (map.active) {
+          <app-map-canvas-nav-item [mapPage]="map" [campaign]="campaign"></app-map-canvas-nav-item>
+        }
       </li>
     }
   </ul>

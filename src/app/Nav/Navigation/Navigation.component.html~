@@ -35,7 +35,8 @@
         <app-nav-main-menu-item
           routerLink="/{{ item.route }}"
           routerLinkActive="dark:text-ambar-100 text-amber-900 text-2xl"
-          [routerLinkActiveOptions]="{ exact: true }" [item]="item"
+          [routerLinkActiveOptions]="{ exact: true }"
+          [item]="item"
         ></app-nav-main-menu-item>
       }
     </div>

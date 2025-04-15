@@ -14,12 +14,16 @@ import {MapNavComponent} from './map-nav/map-nav.component';
 import {ItemNavComponent} from './item-nav/item-nav.component';
 import {CreaturesNavComponent} from './creatures-nav/creatures-nav.component';
 import {TranslateService} from '@ngx-translate/core';
+import {MapService} from '../../Services/map.service';
+import {MapCanvas} from '../../Types/MapCanvas.type';
+import {MapCanvasComponent} from '../../Pages/map-canvas/map-canvas.component';
+import {MapPage} from '../../Types/MapPage.type';
 
 @Component({
   selector: 'app-CampaignNav',
   templateUrl: './CampaignNav.component.html',
   styleUrls: ['./CampaignNav.component.scss'],
-  imports: [MatMenuModule, NoteEditorComponent, PageNavComponent, NgIf, MapNavComponent]
+  imports: [MatMenuModule, NoteEditorComponent, PageNavComponent, NgIf, MapNavComponent, MapCanvasComponent]
 })
 export class CampaignNavComponent implements OnInit {
   campaignService = inject(CampaignService);
@@ -27,6 +31,7 @@ export class CampaignNavComponent implements OnInit {
   router = inject(Router);
   utils = inject(UtilsService);
   noteService = inject(NoteService);
+  mapService = inject(MapService);
 
   hiddenDescription = false;
 
@@ -38,6 +43,9 @@ export class CampaignNavComponent implements OnInit {
   selectedNote: Note | undefined = undefined;
   selectedPage: Page | null = null;
   selectedCampaign: string | null = null;
+
+  selectedMapPage: MapPage | null = null;
+  selectedMap: MapCanvas | null = null;
 
   constructor(private translate: TranslateService) {
     this.translate.use(this.translate.currentLang)
@@ -57,11 +65,24 @@ export class CampaignNavComponent implements OnInit {
       });
       this.noteService.selectedNote$.subscribe((pageNote) => {
         if (pageNote.note) {
+          this.selectedMap = null;
+          this.selectedMapPage = null;
+          this.mapService.unselectMap();
           this.selectedNote = pageNote.note;
           this.selectedPage = pageNote.page;
           this.selectedCampaign = pageNote.campaignId;
         }
       });
+      this.mapService.selectedMap$.subscribe((map) => {
+        if(map.map) {
+          this.selectedNote = undefined;
+          this.selectedPage = null;
+          this.noteService.unselectNote();
+          this.selectedMap = map.map;
+          this.selectedMapPage = map.mapPage;
+          this.selectedCampaign = map.campaignId;
+        }
+      })
 
     } catch (e) {
       console.error('Error on ngOnInit:', e);

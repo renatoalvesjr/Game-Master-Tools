@@ -5,4 +5,5 @@ export type MapCanvas = {
   mapUpdateDate: string;
   mapIndex: number;
   mapContent: string;
+  active: boolean;
 }

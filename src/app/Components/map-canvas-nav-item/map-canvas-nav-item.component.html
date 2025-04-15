@@ -1,0 +1,20 @@
+@for (map of maps; track map.mapId) {
+  <li (click)="selectMap(map)"
+      class=" flex flex-row ml-4 p-1 rounded-full justify-between gap-1 group cursor-pointer {{selected?.mapId == map.mapId ? 'font-bold' : ''}}">
+    <p class="truncate" id="map-canvas-{{map.mapId}}">{{ map.mapName }}</p>
+    <svg-icon
+      src="icons/more_horiz.svg"
+      svgClass="fill-current hidden group-hover:flex cursor-pointer"
+      svgAriaLabel="Page options button."
+      [matMenuTriggerFor]="noteContext!"
+    ></svg-icon>
+    <mat-menu #noteContext>
+      <button mat-menu-item (click)="renameMap(map)"
+              [ngStyle]="{ 'color': 'black' }">{{ "nav.page-nav.note-menu.rename" | translate }}
+      </button>
+      <button mat-menu-item (click)="deleteMap(map)"
+              [ngStyle]="{ 'color': '#9f0712' }">{{ "nav.page-nav.note-menu.delete" | translate }}
+      </button>
+    </mat-menu>
+  </li>
+}

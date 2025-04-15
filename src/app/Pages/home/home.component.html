@@ -6,7 +6,7 @@
         <p class="font-bold ">{{ "home.recentCampaigns" | translate }}</p>
       </div>
       <div class="text-gray-400 font-bold ml-4">
-        @for (item of campaignList; track item; ) {
+        @for (item of campaignList; track item.campaignId; ) {
           <p
             class="underline my-2 cursor-pointer hover:text-black transition-all duration-300 truncate"
             routerLink="campaign/{{item.campaignId}}"

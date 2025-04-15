@@ -159,7 +159,6 @@ export class PageNavComponent implements OnInit {
     });
   }
 
-
   applyColor() {
     for (let page of this.pages!) {
       if (page) {

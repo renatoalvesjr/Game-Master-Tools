@@ -15,6 +15,9 @@ export class NoteService {
   selectNote(note: Note | null, page: Page | null, campaignId: string) {
     this.selectedDataSubject.next({ note: note, page: page, campaignId});
   }
+  unselectNote() {
+    this.selectedDataSubject.next({ note: null, page: null, campaignId: '' });
+  }
 
   async loadAllNotes(campaignId: string, pageId: string): Promise<Note[] | null> {
     const request = {
