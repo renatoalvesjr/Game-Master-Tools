@@ -14,7 +14,7 @@
     </div>
   </div>
   <ul class="flex flex-col pl-5 truncate {{ mapsHidden?'hidden ':''}}">
-    @for (map of maps; track map.mapPageId) {
+    @for (map of maps; track map) {
       <li>
         <app-map-nav-item [mapPage]="map" [mapPageMenu]="mapPageMenu"
                           (toggleMapPage)="toggleMaps(map)"></app-map-nav-item>

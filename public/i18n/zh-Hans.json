@@ -87,5 +87,20 @@
         }
       }
     }
+  },
+  "map-canvas": {
+    "map": {
+      "change-map": "切换地图",
+      "rclick-instruction": "右键点击地图以打开地图菜单。",
+      "map-menu": {
+        "add-pin": "添加标记",
+        "exit": "退出"
+      }
+    },
+    "no-map": {
+      "title": "目前尚未選擇地圖。",
+      "description": "載入一張新地圖以開始使用。",
+      "insert-button": "載入地圖"
+    }
   }
 }

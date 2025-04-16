@@ -107,7 +107,7 @@ export class MapNavComponent implements OnInit {
       mapName: 'New Map',
       mapCreationDate: this.utils.getTimeNow(),
       mapUpdateDate: this.utils.getTimeNow(),
-      mapContent:undefined,
+      mapContent: '',
       mapIndex: 0,
       active: true,
     }

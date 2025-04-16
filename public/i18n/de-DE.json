@@ -87,5 +87,20 @@
         }
       }
     }
+  },
+  "map-canvas": {
+    "map": {
+      "change-map": "Karte wechseln",
+      "rclick-instruction": "Rechtsklicken auf die Karte, um das Karte-Menü zu zeigen.",
+      "map-menu": {
+        "add-pin": "Pin hinzufügen",
+        "exit": "Beenden"
+      }
+    },
+    "no-map": {
+      "title": "Es gibt derzeit keine Karte ausgewählt.",
+      "description": "Laden Sie eine neue Karte, um loszulegen.",
+      "insert-button": "Karte laden"
+    }
   }
 }

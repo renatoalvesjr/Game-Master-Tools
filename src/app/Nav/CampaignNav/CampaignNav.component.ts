@@ -74,15 +74,22 @@ export class CampaignNavComponent implements OnInit {
         }
       });
       this.mapService.selectedMap$.subscribe((map) => {
-        if(map.map) {
+        if (map.map) {
           this.selectedNote = undefined;
           this.selectedPage = null;
           this.noteService.unselectNote();
-          this.selectedMap = map.map;
-          this.selectedMapPage = map.mapPage;
-          this.selectedCampaign = map.campaignId;
+
+          // Força recriação do componente
+          this.selectedMap = null;
+          this.selectedMapPage = null;
+
+          setTimeout(() => {
+            this.selectedMap = map.map;
+            this.selectedMapPage = map.mapPage;
+            this.selectedCampaign = map.campaignId;
+          }, 0);
         }
-      })
+      });
 
     } catch (e) {
       console.error('Error on ngOnInit:', e);

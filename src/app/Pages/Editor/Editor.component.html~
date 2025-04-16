@@ -198,7 +198,7 @@
         }} rounded-md flex items-center p-1 cursor-pointer"
         (click)="editor.chain().focus().toggleHighlight().run()"
       >
-        <svg-icon svgClass="fill-current" src="icons/format_ink_highlighter.svg" svgAriaLabel="Highlight"></svg-icon>
+        <svg-icon svgClass="fill-current" src="icons/format_ink_highlighter.svg.svg" svgAriaLabel="Highlight"></svg-icon>
       </button>
       <div class="flex flex-row px-2 items-center">
         <div

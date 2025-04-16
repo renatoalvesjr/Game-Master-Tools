@@ -88,5 +88,20 @@
         }
       }
     }
+  },
+  "map-canvas": {
+    "map": {
+      "change-map": "Mudar Mapa",
+      "rclick-instruction": "Clique com o botão direito no mapa para abrir o Menu do Mapa.",
+      "map-menu": {
+        "add-pin": "Adicionar Pin",
+        "exit": "Sair"
+      }
+    },
+    "no-map": {
+      "title": "Nenhum mapa selecionado.",
+      "description": "Carregue um novo mapa para começar.",
+      "insert-button": "Carregar Mapa"
+    }
   }
 }

@@ -4,6 +4,20 @@ export type MapCanvas = {
   mapCreationDate: string;
   mapUpdateDate: string;
   mapIndex: number;
-  mapContent: string;
+  mapContent?: MapContent;
   active: boolean;
+}
+
+export type MapContent = {
+  base64: string;
+  bounds: [[number,number],[number,number]];
+  pins: MapPin[]
+}
+
+export type MapPin = {
+  id: string;
+  x: number;
+  y: number;
+  type: 'enemy' | 'npc' | 'treasure' | 'trap' | 'custom';
+  label?: string;
 }

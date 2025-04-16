@@ -1,4 +1,4 @@
-const {app, ipcMain, BrowserWindow, nativeTheme} = require("electron");
+const {app, ipcMain, BrowserWindow, nativeTheme, dialog} = require("electron");
 const path = require("path");
 let fs = require('fs');
 // noinspection JSUnusedLocalSymbols
@@ -21,7 +21,8 @@ function initWindow() {
     backgroundColor: '#292524',
     webPreferences: {
       contextIsolation: true,
-      preload: path.join(__dirname, "preload.js")
+      preload: path.join(__dirname, "preload.js"),
+      webSecurity: false
     },
   });
   appWindow.loadURL(
@@ -37,7 +38,7 @@ function initWindow() {
   ).then();
 
   // appWindow.setMenu(null);
-  appWindow.webContents.session.setSpellCheckerEnabled( false );
+  appWindow.webContents.session.setSpellCheckerEnabled(false);
 
   appWindow.once("ready-to-show", () => {
     appWindow.show();
@@ -64,6 +65,8 @@ app.whenReady().then(() => {
   ipcMain.handle('onStart', onStart)
   ipcMain.handle('toggleTheme', toggleTheme)
   ipcMain.handle('systemtheme', systemTheme)
+  ipcMain.handle('select-image', selectFile)
+  ipcMain.handle('readImageAsBase64', readImageAsBase64)
 
   app.on('activate', function () {
     if (BrowserWindow.getAllWindows().length === 0) initWindow()
@@ -72,7 +75,43 @@ app.whenReady().then(() => {
 
 const defaultPath = app.getPath("appData") + "/GameMasterTools/";
 
-async function toggleTheme(event, data){
+async function selectFile() {
+  const result = await dialog.showOpenDialog({
+    properties: ['openFile'],
+    filters: [
+      { name: 'Images', extensions: ['jpg', 'jpeg', 'png', 'webp'] },
+    ]
+  });
+
+  if (result.canceled || result.filePaths.length === 0) {
+    console.error('Nenhum arquivo selecionado ou o usuário cancelou.');
+    return null;
+  }
+
+  console.log('Arquivo selecionado:', result.filePaths[0]);
+  return result.filePaths[0];
+}
+
+
+async function readImageAsBase64(event,data) {
+  const path = data['content']
+  if (!path || typeof path !== 'string') {
+    console.error('Caminho fornecido é inválido:', path);
+    throw new Error('Invalid path provided to loadImageAsBase64');
+  }
+
+  try {
+    const data = fs.readFileSync(path);
+    const ext = path.split('.').pop();
+    const base64 = data.toString('base64');
+    return `data:image/${ext};base64,${base64}`;
+  } catch (error) {
+    console.error('Erro ao ler arquivo:', error);
+    throw new Error('Falha ao ler o arquivo de imagem');
+  }
+}
+
+async function toggleTheme(event, data) {
   if (data === "dark") {
     nativeTheme.themeSource = "dark";
   } else if (data === "light") {
@@ -82,7 +121,7 @@ async function toggleTheme(event, data){
   }
 }
 
-async function systemTheme(){
+async function systemTheme() {
   return nativeTheme.shouldUseDarkColors;
 }
 

@@ -7,4 +7,6 @@ contextBridge.exposeInMainWorld('electronAPI', {
   deleteFile: (data) => ipcRenderer.invoke('deleteFile', data),
   onStart: () => ipcRenderer.invoke('onStart'),
   toggleTheme: (data) => ipcRenderer.invoke('toggleTheme', data),
+  selectImage: () => ipcRenderer.invoke('select-image'),
+  readImageAsBase64: (data) => ipcRenderer.invoke('readImageAsBase64', data)
 })

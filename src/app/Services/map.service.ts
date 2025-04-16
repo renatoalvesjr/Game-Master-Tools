@@ -3,8 +3,7 @@ import {WindowRef} from './window.service';
 import {MapPage} from '../Types/MapPage.type';
 import {MapCanvas} from '../Types/MapCanvas.type';
 import {BehaviorSubject} from 'rxjs';
-import {Note} from '../Types/Note.type';
-import {Page} from '../Types/Page.type';
+import {Request} from '../Types/Request.type';
 
 @Injectable({
   providedIn: 'root'
@@ -28,7 +27,7 @@ export class MapService {
       return Promise.resolve(null);
     }
 
-    const request = {
+    const request: Request = {
       filePath: "Campaigns/" + campaignId + "/Maps/",
       fileName: "/maps.json"
     };
@@ -62,7 +61,7 @@ export class MapService {
     }
   }
   async addMapPage(campaignId: string, map: MapPage) {
-    const request = {
+    const request: Request = {
       filePath: "Campaigns/" + campaignId + "/Maps/" + map.mapPageId,
       fileName: "/maps.json",
       content: JSON.stringify(map)
@@ -74,7 +73,7 @@ export class MapService {
     }
   }
   async updateMapPage(campaignId: string, mapPage: MapPage) {
-    const request = {
+    const request: Request = {
       filePath: "Campaigns/" + campaignId + "/Maps/" + mapPage.mapPageId,
       fileName: "/maps.json",
       content: JSON.stringify(mapPage)
@@ -87,7 +86,7 @@ export class MapService {
     }
   }
   async deleteMapPage(campaignId: string, mapPageId: string) {
-    const request = {
+    const request: Request = {
       filePath: "Campaigns/" + campaignId + "/Maps/" + mapPageId,
       fileName: ""
     }
@@ -100,7 +99,7 @@ export class MapService {
   }
 
   async addMap(campaignId: string, mapPage: MapPage, map: MapCanvas) {
-    const request = {
+    const request: Request = {
       filePath: "Campaigns/" + campaignId + "/Maps/" + mapPage.mapPageId + "/MapList/" + map.mapId,
       fileName: "/map.json",
       content: JSON.stringify(map)
@@ -112,7 +111,7 @@ export class MapService {
     }
   }
   async deleteMap(campaignId: string, mapPageId: string, mapId: string) {
-    const request = {
+    const request: Request = {
       filePath: "Campaigns/" + campaignId + "/Maps/" + mapPageId + "/MapList/" + mapId,
       fileName: ""
     }
@@ -124,7 +123,7 @@ export class MapService {
     }
   }
   async updateMap(campaignId: string, mapPageId: string, map: MapCanvas) {
-    const request = {
+    const request: Request = {
       filePath: "Campaigns/" + campaignId + "/Maps/" + mapPageId + "/MapList/" + map.mapId,
       fileName: "/map.json",
       content: JSON.stringify(map)
@@ -142,7 +141,7 @@ export class MapService {
       return Promise.resolve(null);
     }
 
-    const request = {
+    const request: Request = {
       filePath: "Campaigns/" + campaignId + "/Maps/" + mapPageId + "/MapList",
       fileName: "/map.json"
     };

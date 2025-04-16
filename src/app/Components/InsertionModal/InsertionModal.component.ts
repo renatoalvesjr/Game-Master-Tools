@@ -2,51 +2,64 @@ import {Component, EventEmitter, inject, model, OnInit, Output} from '@angular/c
 import {FormsModule} from '@angular/forms';
 import {MatButtonModule} from '@angular/material/button';
 import {
-    MAT_DIALOG_DATA,
-    MatDialogActions,
-    MatDialogClose,
-    MatDialogContent,
-    MatDialogRef,
+  MAT_DIALOG_DATA,
+  MatDialogActions,
+  MatDialogClose,
+  MatDialogContent,
+  MatDialogRef,
 } from '@angular/material/dialog';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
 import {TranslateModule, TranslateService} from '@ngx-translate/core';
+import {WindowRef} from '../../Services/window.service';
 
 interface Data {
-    url: string;
+  url: string;
 }
 
 @Component({
-    selector: 'app-InsertionModal',
-    templateUrl: './InsertionModal.component.html',
-    styleUrls: ['./InsertionModal.component.css'],
-    imports: [
-        MatFormFieldModule,
-        MatInputModule,
-        FormsModule,
-        MatButtonModule,
-        MatDialogContent,
-        MatDialogActions,
-        MatDialogClose,
-        TranslateModule
-    ]
+  selector: 'app-InsertionModal',
+  templateUrl: './InsertionModal.component.html',
+  styleUrls: ['./InsertionModal.component.css'],
+  imports: [
+    MatFormFieldModule,
+    MatInputModule,
+    FormsModule,
+    MatButtonModule,
+    MatDialogContent,
+    MatDialogActions,
+    MatDialogClose,
+    TranslateModule
+  ]
 })
 export class InsertionModalComponent implements OnInit {
-    readonly dialogRef = inject(MatDialogRef<InsertionModalComponent>);
-    readonly data = inject<Data>(MAT_DIALOG_DATA);
-    readonly url = model(this.data.url);
+  window = inject(WindowRef).getWindow()
+
+  readonly dialogRef = inject(MatDialogRef<InsertionModalComponent>);
+  readonly data = inject<Data>(MAT_DIALOG_DATA);
+  readonly url = model(this.data.url);
 
 
   constructor(private translate: TranslateService) {
-        this.translate.use(this.translate.currentLang)
-    }
+    this.translate.use(this.translate.currentLang)
+  }
 
-    ngOnInit() {
-    }
+  ngOnInit() {
+  }
 
-    onNoClick(): void {
-        this.dialogRef.close();
+  onNoClick(): void {
+    this.dialogRef.close();
+  }
+
+
+  async selectFile() {
+    try {
+      const url: string = await this.window.electronAPI.selectImage();
+      this.url.set(url);
+    } catch (e) {
+      console.error("Error on selecting a image: ", e);
     }
+  }
 
   onFileSelected(event: Event): void {
     const input = event.target as HTMLInputElement;
