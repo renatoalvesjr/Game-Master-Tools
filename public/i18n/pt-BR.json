@@ -1,107 +1,141 @@
 {
-  "settings": {
-    "title": "Configuração",
-    "language": "Idioma: ",
-    "idioms": {
-      "pt-BR": "Português Brasileiro",
-      "en-US": "Inglês",
-      "zh-Hans": "Chinês Simplificado",
-      "de-DE": "Alemão"
-    },
-    "dark-mode": "Modo Escuro: "
-
-  },
-  "create-campaign":{
-    "title": "Criar nova campanha",
-    "name": "Nome: ",
-    "description": "Descrição: ",
-    "image": "URL da imagem: ",
-    "system": "Sistema: ",
-    "select-system": "Selecione um Sistema",
-    "custom-system": "Nome do Sistema: ",
-    "active": "Adicionar à barra lateral após criação",
-    "create-button": "Criar Campanha"
-  },
-  "components": {
-    "insertion-modal": {
-      "title": "Inserir Imagem",
-      "url-label": "URL",
-      "file-label": "Imagem",
-      "cancelButton": "Cancelar",
-      "okButton": "Ok"
-    }
-  },
-  "home": {
-    "createCampaign": "Criar nova campanha",
-    "recentCampaigns": "Campanhas recentes ..."
-  },
-  "nav": {
-    "navigation": {
+  "not-ready-yet": "Função do sistema não desenvolvida ainda. Por favor, aguarde novas versões.",
+  "navigation": {
+    "titles": {
       "campaign-management": "Gerenciador de Campanhas",
       "item-vault": "Item Vault",
       "systems": "Sistemas",
-      "sound": "Soundboard"
+      "sound": "Soundboard",
+      "config": "Configurações",
+      "create-campaign": "Criar nova Campanha",
+      "home": "Início"
     },
-    "page-nav": {
-      "title": "Notas",
-      "page-menu": {
-        "rename": "Renomear página",
-        "delete": "Excluir página",
-        "change-color": "Cor da página",
-        "add-note": "Adicionar nota"
-      },
-      "note-menu": {
-        "rename": "Renomear nota",
-        "delete": "Excluir nota"
-      }
-    },
-    "map-nav": {
-      "title": "Mapas",
-      "page-menu": {
-        "rename": "Renomear página",
-        "delete": "Excluir página",
-        "change-color": "Cor da página",
-        "add-note": "Adicionar mapa"
-      },
-      "note-menu": {
-        "rename": "Renomear mapa",
-        "delete": "Excluir mapa"
-      }
+    "campaign-navigation": {
+      "notes": "Notas",
+      "maps": "Mapas",
+      "items": "Itens",
+      "characters": "Personagens"
     }
   },
-  "page": {
-    "campaign-management": {
-      "createCampaignButton": "Criar Campanha",
-      "no-campaign": {
-        "title": "Gerenciador de Campanhas",
-        "description": "Selecione uma campanha para ver suas configurações ou cria uma nova campanha."
-      },
-      "description": {
-        "creationDate": "Data de criação: ",
-        "description": "Descrição: ",
-        "saveDescription": "Salvar",
-        "imageUrl": "URL da imagem: ",
-        "dangerZone": {
-          "title": "Zona Perigosa",
-          "enableOptions": "Habilitar Opções",
-          "deleteCampaign": "Excluir Campanha"
-        }
-      }
-    }
+  "languages": {
+    "pt-BR": "Português Brasileiro",
+    "en-US": "Inglês",
+    "zh-Hans": "Chinês Simplificado",
+    "de-DE": "Alemão"
   },
-  "map-canvas": {
-    "map": {
-      "change-map": "Mudar Mapa",
-      "rclick-instruction": "Clique com o botão direito no mapa para abrir o Menu do Mapa.",
-      "map-menu": {
-        "add-pin": "Adicionar Pin",
-        "exit": "Sair"
-      }
-    },
-    "no-map": {
-      "title": "Nenhum mapa selecionado.",
-      "description": "Carregue um novo mapa para começar.",
-      "insert-button": "Carregar Mapa"
-    }
+  "settings": {
+    "language":"Idioma: ",
+    "dark-mode": "Modo Escuro: "
+  },
+  "button": {
+    "save": "Salvar",
+    "cancel": "Cancelar",
+    "delete": "Excluir",
+    "delete-campaign": "Excluir Campanha",
+    "rename": "Renomear",
+    "edit": "Editar",
+    "show": "Ver",
+    "add": "Adicionar",
+    "create": "Criar",
+    "create-campaign": "Criar Nova Campanha",
+    "close": "Fechar",
+    "ok": "Ok",
+    "yes": "Sim",
+    "no": "Nao",
+    "exit": "Sair",
+    "insert": "Inserir",
+    "remove": "Remover",
+    "change": "Mudar"
+  },
+  "editor": {
+    "paragraph": "Parágrafo",
+    "heading1": "Título 1",
+    "heading2": "Título 2",
+    "heading3": "Título 3"
+  },
+  "menu-options": {
+    "add-page": "Adicionar Página",
+    "add-character": "Adicionar Personagem",
+    "add-note": "Adicionar Nota",
+    "add-map": "Adicionar Mapa",
+    "add-item": "Adicionar Item",
+
+    "rename-page": "Renomear Página",
+    "rename-note": "Renomear Nota",
+    "rename-map": "Renomear Mapa",
+    "rename-item": "Renomear Item",
+    "rename-character": "Renomear Personagem",
+
+    "delete-page": "Excluir Página",
+    "delete-note": "Excluir Nota",
+    "delete-map": "Excluir Mapa",
+    "delete-item": "Excluir Item",
+    "delete-character": "Excluir Personagem",
+
+    "page-color": "Mudar Cor"
+  },
+  "page-text": {
+    "no-campaign-manager": "Selecione uma campanha para visualizar suas configurações ou crie uma nova campanha."
+  },
+  "label": {
+    "name": "Nome: ",
+    "description": "Descrição: ",
+    "image": "Imagem: ",
+    "system": "Sistema: ",
+    "select-system": "Selecione um Sistema",
+    "system-name": "Nome do Sistema: ",
+    "active": "Adicionar ao sidebar depois de criação",
+    "creation-date": "Data de criação: ",
+    "update-date": "Data da última atualização: ",
+    "url": "URL: ",
+    "width": "Largura: ",
+    "height": "Altura: ",
+    "color": "Cor: ",
+    "opacity": "Opacidade: ",
+    "danger-zone": "Zona Perigosa",
+    "enable-options": "Habilitar Opções",
+    "recent-campaigns": "Campanhas Recentes: "
+  },
+  "placeholders": {
+    "name": "Nome...",
+    "description": "Descrição...",
+    "url": "URL da imagem..."
+  },
+  "hover": {
+    "rename": "Renomear",
+    "delete": "Excluir",
+    "add-page": "Adicionar Página",
+    "add-character": "Adicionar Personagem",
+    "open": "Abrir",
+    "campaign-description": "Descrição da Campanha",
+    "edit": "Editar",
+    "options": "Opções",
+    "show": "Ver mais",
+    "hide": "Esconder",
+    "close": "Fechar",
+    "redo": "Redo",
+    "undo": "Undo",
+    "clear": "Limpar",
+    "save": "Salvar",
+    "decrease": "Diminuir",
+    "increase": "Aumentar",
+    "bold": "Negrito",
+    "italic": "Itálico",
+    "underline": "Sublinhado",
+    "strike": "Tachado",
+    "superscript": "Sobrescrito",
+    "subscript": "Subscrito",
+    "color-wheel": "Seletor de cores",
+    "link": "Link",
+    "image": "Imagem",
+    "bullet-list": "Lista de itens",
+    "ordered-list": "Lista numerada",
+    "task-list": "Lista de tarefas",
+    "code": "Código",
+    "highlight": "Destaque",
+    "align-left": "Alinhar a esquerda",
+    "align-center": "Alinhar ao centro",
+    "align-right": "Alinhar a direita",
+    "align-justify": "Justificar"
   }
 }

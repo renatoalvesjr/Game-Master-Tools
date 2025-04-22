@@ -13,7 +13,7 @@ import {Page} from '../../Types/Page.type';
 import {MapNavComponent} from './map-nav/map-nav.component';
 import {ItemNavComponent} from './item-nav/item-nav.component';
 import {CreaturesNavComponent} from './creatures-nav/creatures-nav.component';
-import {TranslateService} from '@ngx-translate/core';
+import {TranslatePipe, TranslateService} from '@ngx-translate/core';
 import {MapService} from '../../Services/map.service';
 import {MapCanvas} from '../../Types/MapCanvas.type';
 import {MapCanvasComponent} from '../../Pages/map-canvas/map-canvas.component';
@@ -23,7 +23,7 @@ import {MapPage} from '../../Types/MapPage.type';
   selector: 'app-CampaignNav',
   templateUrl: './CampaignNav.component.html',
   styleUrls: ['./CampaignNav.component.scss'],
-  imports: [MatMenuModule, NoteEditorComponent, PageNavComponent, NgIf, MapNavComponent, MapCanvasComponent]
+  imports: [MatMenuModule, NoteEditorComponent, PageNavComponent, NgIf, MapNavComponent, MapCanvasComponent, TranslatePipe]
 })
 export class CampaignNavComponent implements OnInit {
   campaignService = inject(CampaignService);

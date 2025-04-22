@@ -1,4 +1,4 @@
 <div class="m-4 gap-4">
-  <h1>{{'navigation.titles.sound' | translate}}</h1>
+  <h1>{{'navigation.titles.soundboard' | translate}}</h1>
   <p>{{'not-ready-yet' | translate}}</p>
 </div>

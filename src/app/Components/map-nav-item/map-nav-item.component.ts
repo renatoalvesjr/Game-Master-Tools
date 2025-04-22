@@ -4,13 +4,15 @@ import {MatMenu, MatMenuTrigger} from '@angular/material/menu';
 import {MapPage} from '../../Types/MapPage.type';
 import {SvgIconComponent} from 'angular-svg-icon';
 import {NgStyle} from '@angular/common';
+import {TranslatePipe} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-map-nav-item',
   imports: [
     SvgIconComponent,
     MatMenuTrigger,
-    NgStyle
+    NgStyle,
+    TranslatePipe
   ],
   templateUrl: './map-nav-item.component.html',
   styleUrl: './map-nav-item.component.scss'

@@ -1,0 +1,141 @@
+{
+  "not-ready-yet": "系統功能尚未開發，請等待新版本。",
+  "navigation": {
+    "titles": {
+      "campaign-management": "戰役管理",
+      "item-vault": "物品庫",
+      "systems": "系統",
+      "sound": "音效板",
+      "config": "設定",
+      "create-campaign": "創建新戰役",
+      "home": "首頁"
+    },
+    "campaign-navigation": {
+      "notes": "筆記",
+      "maps": "地圖",
+      "items": "物品",
+      "characters": "角色"
+    }
+  },
+  "languages": {
+    "pt-BR": "巴西葡萄牙語",
+    "en-US": "英語",
+    "es-ES": "西班牙語",
+    "fr-FR": "法語",
+    "de-DE": "德語",
+    "zh-Hans": "簡體中文",
+    "zh-Hant": "繁體中文"
+  },
+  "settings": {
+    "language":"語言: ",
+    "dark-mode": "暗黑模式: "
+  },
+  "button": {
+    "save": "保存",
+    "cancel": "取消",
+    "delete": "刪除",
+    "delete-campaign": "刪除戰役",
+    "rename": "重新命名",
+    "edit": "編輯",
+    "show": "查看",
+    "add": "添加",
+    "create": "創建",
+    "create-campaign": "創建新戰役",
+    "close": "關閉",
+    "ok": "確定",
+    "yes": "是",
+    "no": "否",
+    "exit": "退出",
+    "insert": "插入",
+    "remove": "移除",
+    "change": "更改"
+  },
+  "editor": {
+    "paragraph": "段落",
+    "heading1": "標題1",
+    "heading2": "標題2",
+    "heading3": "標題3"
+  },
+  "menu-options": {
+    "add-page": "添加頁面",
+    "add-character": "添加角色",
+    "add-note": "添加筆記",
+    "add-map": "添加地圖",
+    "add-item": "添加物品",
+    "rename-page": "重新命名頁面",
+    "rename-note": "重新命名筆記",
+    "rename-map": "重新命名地圖",
+    "rename-item": "重新命名物品",
+    "rename-character": "重新命名角色",
+    "delete-page": "刪除頁面",
+    "delete-note": "刪除筆記",
+    "delete-map": "刪除地圖",
+    "delete-item": "刪除物品",
+    "delete-character": "刪除角色",
+    "page-color": "更改顏色"
+  },
+  "page-text": {
+    "no-campaign-manager": "選擇戰役以查看其設定或創建新戰役。"
+  },
+  "label": {
+    "name": "名稱: ",
+    "description": "描述: ",
+    "image": "圖片: ",
+    "system": "系統: ",
+    "select-system": "選擇系統",
+    "system-name": "系統名稱: ",
+    "active": "創建後添加到側邊欄",
+    "creation-date": "創建日期: ",
+    "update-date": "最後更新日期: ",
+    "url": "URL: ",
+    "width": "寬度: ",
+    "height": "高度: ",
+    "color": "顏色: ",
+    "opacity": "不透明度: ",
+    "danger-zone": "危險區域",
+    "enable-options": "啟用選項",
+    "recent-campaigns": "近期戰役: "
+  },
+  "placeholders": {
+    "name": "名稱...",
+    "description": "描述...",
+    "url": "圖片URL..."
+  },
+  "hover": {
+    "rename": "重新命名",
+    "delete": "刪除",
+    "add-page": "添加頁面",
+    "add-character": "添加角色",
+    "open": "打開",
+    "campaign-description": "戰役描述",
+    "edit": "編輯",
+    "options": "選項",
+    "show": "查看更多",
+    "hide": "隱藏",
+    "close": "關閉",
+    "redo": "重做",
+    "undo": "撤銷",
+    "clear": "清空",
+    "save": "保存",
+    "decrease": "減少",
+    "increase": "增加",
+    "bold": "粗體",
+    "italic": "斜體",
+    "underline": "下劃線",
+    "strike": "刪除線",
+    "superscript": "上標",
+    "subscript": "下標",
+    "color-wheel": "顏色選擇器",
+    "link": "鏈接",
+    "image": "圖片",
+    "bullet-list": "無序列表",
+    "ordered-list": "有序列表",
+    "task-list": "任務列表",
+    "code": "代碼",
+    "highlight": "高亮",
+    "align-left": "左對齊",
+    "align-center": "居中",
+    "align-right": "右對齊",
+    "align-justify": "兩端對齊"
+  }
+}

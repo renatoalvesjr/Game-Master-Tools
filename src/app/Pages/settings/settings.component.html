@@ -1,6 +1,6 @@
 <div class="flex flex-row items-center justify-center w-screen h-full fixed ">
   <div class="flex flex-col border border-[#e1e1e1] rounded-xl p-4">
-    <h1 class="text-center mb-2">{{ "settings.title" | translate }}</h1>
+    <h1 class="text-center mb-2">{{ "navigation.titles.config" | translate }}</h1>
     <div class="flex flex-row p-2 gap-2">
       <label for="languages">{{ "settings.language" | translate }}</label>
       <select class="border border-[#E1E1E2] rounded-sm dark:text-black dark:bg-white"
@@ -9,7 +9,7 @@
               id="languages">
         @for (language of translate.langs; track language) {
           <option [selected]="language === translate.currentLang"
-                  value="{{language}}">{{ "settings.idioms." + language | translate }}
+                  value="{{language}}">{{ "languages." + language | translate }}
           </option>
         }
       </select>

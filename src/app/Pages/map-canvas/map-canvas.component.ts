@@ -31,10 +31,6 @@ import {MatButton} from '@angular/material/button';
     PButtonComponent,
     TranslatePipe,
     NgStyle,
-    MatMenuTrigger,
-    MatMenu,
-    MatMenuItem,
-    MatButton,
     SvgIconComponent
   ],
   templateUrl: './map-canvas.component.html',

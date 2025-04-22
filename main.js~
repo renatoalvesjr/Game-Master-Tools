@@ -149,7 +149,7 @@ async function checkSettings() {
       conflict = true;
     }
 
-    if (!config.colorMode || config.colorMode !== 'dark' || config.colorMode !== 'light' || config.colorMode !== 'system') {
+    if (!config.colorMode || config.colorMode !== 'dark' | 'light' | 'system') {
       config.colorMode = defaultConfig.colorMode;
       conflict = true;
     }

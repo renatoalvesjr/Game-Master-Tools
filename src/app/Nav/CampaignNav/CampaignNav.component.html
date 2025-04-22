@@ -7,7 +7,7 @@
       </div>
       <p
         class="{{hiddenDescription?'cursor-pointer':'cursor-pointer line-clamp-2 hover:underline'}} text-sm text-gray-400"
-        (click)="hiddenDescription = !hiddenDescription"
+        (click)="hiddenDescription = !hiddenDescription" title="{{(hiddenDescription?'hover.hide' :'hover.show') | translate}}"
       >
         {{ campaignDescription }}
       </p>

@@ -1,14 +1,15 @@
 <div class="flex flex-col">
   <div
     class="flex flex-row items-center justify-between rounded-xl text-black bg-stone-300 hover:bg-gray-200 dark:text-white dark:bg-stone-600! dark:hover:bg-stone-400! transition-all duration-300 p-2 my-2">
-    <div class="flex flex-row items-center gap-1 cursor-pointer" (click)="mapsHidden = !mapsHidden">
+    <div class="flex flex-row items-center gap-1 cursor-pointer" (click)="mapsHidden = !mapsHidden" title="{{(mapsHidden?'hover.show':'hover.hide') | translate}}">
       <svg-icon svgClass="fill-current" src="icons/map.svg"></svg-icon>
-      <p>{{ "nav.map-nav.title" | translate }}</p>
+      <p>{{ "navigation.campaign-navigation.maps" | translate }}</p>
       <svg-icon svgClass="fill-current"
                 src="icons/{{mapsHidden ? 'keyboard_arrow_right':'keyboard_arrow_down'}}.svg"></svg-icon>
     </div>
     <div class="flex items-center cursor-pointer {{mapsHidden?'hidden':''}}">
-      <svg-icon src="icons/add.svg" svgAriaLabel="Create new note"
+      <svg-icon src="icons/add.svg" svgAriaLabel="{{'hover.add-page' | translate}}"
+                title="{{'hover.add-page' | translate}}"
                 svgClass="fill-current select-none w-fit h-fit hover:cursor-pointer hover:scale-105 transition-all ease-in duration-150 active:scale-95"
                 (click)="addMapPage()"></svg-icon>
     </div>
@@ -21,16 +22,16 @@
 
         <mat-menu #mapPageMenu="matMenu" class="bg-white">
           <button mat-menu-item (click)="addMap(map)"
-                  [ngStyle]="{ 'color': 'black' }">{{ 'nav.page-nav.page-menu.add-note' | translate }}
+                  [ngStyle]="{ 'color': 'black' }">{{ 'menu-options.add-page' | translate }}
           </button>
           <button mat-menu-item [matMenuTriggerFor]="colors"
-                  [ngStyle]="{ 'color': 'black', 'caret-color': 'black' }">{{ 'nav.page-nav.page-menu.change-color' | translate }}
+                  [ngStyle]="{ 'color': 'black', 'caret-color': 'black' }">{{ 'menu-options.page-color' | translate }}
           </button>
           <button mat-menu-item (click)="togglePageEditable(map)"
-                  [ngStyle]="{ 'color': 'black' }">{{ 'nav.page-nav.page-menu.rename' | translate }}
+                  [ngStyle]="{ 'color': 'black' }">{{ 'menu-options.rename-page' | translate }}
           </button>
           <button mat-menu-item (click)="deleteMapPage(map.mapPageId)"
-                  [ngStyle]="{ 'color': '#9f0712' }">{{ 'nav.page-nav.page-menu.delete' | translate }}
+                  [ngStyle]="{ 'color': '#9f0712' }">{{ 'menu-options.delete-page' | translate }}
           </button>
         </mat-menu>
         <mat-menu #colors>

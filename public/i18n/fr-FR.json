@@ -1,0 +1,141 @@
+{
+  "not-ready-yet": "Fonctionnalité système non encore développée. Veuillez attendre les nouvelles versions.",
+  "navigation": {
+    "titles": {
+      "campaign-management": "Gestionnaire de Campagne",
+      "item-vault": "Réserve d'Objets",
+      "systems": "Systèmes",
+      "sound": "Tableau de Son",
+      "config": "Paramètres",
+      "create-campaign": "Créer une Nouvelle Campagne",
+      "home": "Accueil"
+    },
+    "campaign-navigation": {
+      "notes": "Notes",
+      "maps": "Cartes",
+      "items": "Objets",
+      "characters": "Personnages"
+    }
+  },
+  "languages": {
+    "pt-BR": "Portugais Brésilien",
+    "en-US": "Anglais",
+    "es-ES": "Espagnol",
+    "fr-FR": "Français",
+    "de-DE": "Allemand",
+    "zh-Hans": "Chinois Simplifié",
+    "zh-Hant": "Chinois Traditionnel"
+  },
+  "settings": {
+    "language":"Langue: ",
+    "dark-mode": "Mode Sombre: "
+  },
+  "button": {
+    "save": "Enregistrer",
+    "cancel": "Annuler",
+    "delete": "Supprimer",
+    "delete-campaign": "Supprimer la Campagne",
+    "rename": "Renommer",
+    "edit": "Modifier",
+    "show": "Voir",
+    "add": "Ajouter",
+    "create": "Créer",
+    "create-campaign": "Créer une Nouvelle Campagne",
+    "close": "Fermer",
+    "ok": "OK",
+    "yes": "Oui",
+    "no": "Non",
+    "exit": "Quitter",
+    "insert": "Insérer",
+    "remove": "Supprimer",
+    "change": "Changer"
+  },
+  "editor": {
+    "paragraph": "Paragraphe",
+    "heading1": "Titre 1",
+    "heading2": "Titre 2",
+    "heading3": "Titre 3"
+  },
+  "menu-options": {
+    "add-page": "Ajouter une Page",
+    "add-character": "Ajouter un Personnage",
+    "add-note": "Ajouter une Note",
+    "add-map": "Ajouter une Carte",
+    "add-item": "Ajouter un Objet",
+    "rename-page": "Renommer la Page",
+    "rename-note": "Renommer la Note",
+    "rename-map": "Renommer la Carte",
+    "rename-item": "Renommer l'Objet",
+    "rename-character": "Renommer le Personnage",
+    "delete-page": "Supprimer la Page",
+    "delete-note": "Supprimer la Note",
+    "delete-map": "Supprimer la Carte",
+    "delete-item": "Supprimer l'Objet",
+    "delete-character": "Supprimer le Personnage",
+    "page-color": "Changer la Couleur"
+  },
+  "page-text": {
+    "no-campaign-manager": "Sélectionnez une campagne pour voir ses paramètres ou créez une nouvelle campagne."
+  },
+  "label": {
+    "name": "Nom: ",
+    "description": "Description: ",
+    "image": "Image: ",
+    "system": "Système: ",
+    "select-system": "Sélectionner un Système",
+    "system-name": "Nom du Système: ",
+    "active": "Ajouter à la barre latérale après création",
+    "creation-date": "Date de création: ",
+    "update-date": "Date de dernière mise à jour: ",
+    "url": "URL: ",
+    "width": "Largeur: ",
+    "height": "Hauteur: ",
+    "color": "Couleur: ",
+    "opacity": "Opacité: ",
+    "danger-zone": "Zone Dangereuse",
+    "enable-options": "Activer les Options",
+    "recent-campaigns": "Campagnes Récentes: "
+  },
+  "placeholders": {
+    "name": "Nom...",
+    "description": "Description...",
+    "url": "URL de l'image..."
+  },
+  "hover": {
+    "rename": "Renommer",
+    "delete": "Supprimer",
+    "add-page": "Ajouter une Page",
+    "add-character": "Ajouter un Personnage",
+    "open": "Ouvrir",
+    "campaign-description": "Description de la Campagne",
+    "edit": "Modifier",
+    "options": "Options",
+    "show": "Voir plus",
+    "hide": "Masquer",
+    "close": "Fermer",
+    "redo": "Refaire",
+    "undo": "Annuler",
+    "clear": "Effacer",
+    "save": "Enregistrer",
+    "decrease": "Diminuer",
+    "increase": "Augmenter",
+    "bold": "Gras",
+    "italic": "Italique",
+    "underline": "Souligné",
+    "strike": "Barré",
+    "superscript": "Exposant",
+    "subscript": "Indice",
+    "color-wheel": "Sélecteur de couleur",
+    "link": "Lien",
+    "image": "Image",
+    "bullet-list": "Liste à puces",
+    "ordered-list": "Liste numérotée",
+    "task-list": "Liste de tâches",
+    "code": "Code",
+    "highlight": "Surligner",
+    "align-left": "Aligner à gauche",
+    "align-center": "Centrer",
+    "align-right": "Aligner à droite",
+    "align-justify": "Justifier"
+  }
+}

@@ -2,8 +2,8 @@
   @for (note of notes; track note.noteId) {
     <app-note-nav-item [note]="note" (selectNote)="selectNote(note)" [noteContext]="noteContext"></app-note-nav-item>
     <mat-menu #noteContext>
-      <button mat-menu-item (click)="renameNote(note)" [ngStyle]="{ 'color': 'black' }">{{"nav.page-nav.note-menu.rename" | translate}}</button>
-      <button mat-menu-item (click)="deleteNote(note.noteId)" [ngStyle]="{ 'color': '#9f0712' }">{{"nav.page-nav.note-menu.delete" | translate}}</button>
+      <button mat-menu-item (click)="renameNote(note)" [ngStyle]="{ 'color': 'black' }">{{"menu-options.rename-note" | translate}}</button>
+      <button mat-menu-item (click)="deleteNote(note.noteId)" [ngStyle]="{ 'color': '#9f0712' }">{{"menu-options.delete-note" | translate}}</button>
     </mat-menu>
   }
 </div>

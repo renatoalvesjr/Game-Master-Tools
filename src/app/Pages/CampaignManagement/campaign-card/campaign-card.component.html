@@ -1,18 +1,19 @@
-<div class="border max-w-[200px] border-gray-300 rounded-lg group">
+<div class="border max-w-[250px] border-gray-300 rounded-lg group">
   <div class="flex flex-row justify-between">
     <div class="flex flex-col p-1 col-span-2 justify-around w-full">
       <div class="flex flex-row justify-between w-full">
         <p class="font-bold text-lg truncate text-clip overflow-none"
            [title]="campaign.campaignName">{{ campaign.campaignName }} </p>
-        <svg-icon src="icons/play_circle.svg" class="hidden group-hover:flex" [svgStyle]="{fill: hover ? '#3D2C12' : '#7C7C7C'}"
+        <svg-icon src="icons/play_circle.svg" class="hidden group-hover:flex"
+                  [svgStyle]="{fill: hover ? '#3D2C12' : '#7C7C7C'}"
                   (mouseover)="hover = true" (mouseout)="hover = false"
-                  (click)="goTo(campaign.campaignId)"></svg-icon>
-
+                  (click)="goTo(campaign.campaignId)"
+                  title="{{'hover.open' | translate}}"></svg-icon>
       </div>
       <p
-        class="min-w-fit">{{ "page.campaign-management.description.creationDate" | translate }} {{ campaign.campaignCreationDate | formatDate }}</p>
+        class="min-w-fit">{{ "label.creation-date" | translate }} {{ campaign.campaignCreationDate | formatDate }}</p>
       <p
-        class="line-clamp-2">{{ "page.campaign-management.description.description" | translate }} {{ campaign.campaignDescription }}</p>
+        class="line-clamp-2">{{ "label.description" | translate }} {{ campaign.campaignDescription }}</p>
     </div>
   </div>
 </div>

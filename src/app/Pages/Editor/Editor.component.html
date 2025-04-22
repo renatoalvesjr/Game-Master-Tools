@@ -6,21 +6,21 @@
     <!-- History -->
     <div class="flex flex-row border-r border-[#E1E1E2] px-2 my-2">
       <button
-        title="Undo"
+        title="{{'hover.undo' | translate}}"
         class="rounded-md flex items-center p-1 cursor-pointer active:bg-[#a9c6e8] active:text-[#A6CDC6]"
         (click)="editor.chain().focus().undo().run()"
       >
         <svg-icon svgClass="fill-current" src="icons/undo.svg" svgAriaLabel="Undo button"></svg-icon>
       </button>
       <button
-        title="Redo"
+        title="{{'hover.redo' | translate}}"
         class="rounded-md flex items-center p-1 cursor-pointer active:bg-[#a9c6e8] active:text-[#A6CDC6]"
         (click)="editor.chain().focus().redo().run()"
       >
         <svg-icon svgClass="fill-current" src="icons/redo.svg" svgAriaLabel="Redo button"></svg-icon>
       </button>
       <button
-        title="Clear Format"
+        title="{{'hover.clear' | translate}}"
         class="rounded-md flex items-center p-1 cursor-pointer active:bg-[#a9c6e8] active:text-[#A6CDC6]"
         (click)="editor.chain().focus().clearNodes().unsetAllMarks().run()"
       >
@@ -43,18 +43,19 @@
             : 'paragraph'
         "
       >
+        <option value="paragraph">
+          {{'editor.paragraph' | translate}}
+        </option>
         <option value="heading1">
-          Heading 1
+          {{'editor.heading1' | translate}}
         </option>
         <option value="heading2">
-          Heading 2
+          {{'editor.heading2' | translate}}
         </option>
         <option value="heading3">
-          Heading 3
+          {{'editor.heading3' | translate}}
         </option>
-        <option value="paragraph">
-          Paragraph
-        </option>
+
       </select>
     </div>
 
@@ -77,7 +78,7 @@
         class="flex flex-row items-center border border-[#e1e1e2] rounded-sm dark:text-black dark:bg-white"
       >
         <button
-          title="Decrease Font Size"
+          title="{{'hover.decrease' | translate}}"
           class="rounded-md flex items-center p-1 cursor-pointer"
           (click)="
             editor
@@ -105,7 +106,7 @@
           #fontSizeInput
         />
         <button
-          title="Increase Font Size"
+          title="{{'hover.increase' | translate}}"
           class="rounded-md flex items-center p-1 cursor-pointer"
           (click)="
             editor
@@ -125,7 +126,7 @@
     <!-- Text formatting -->
     <div class="flex flex-row border-r border-[#E1E1E2] px-2 my-2">
       <button
-        title="Bold"
+        title="{{'hover.bold' | translate}}"
         class="{{
           editor.isActive('bold') ? 'shadow-inner bg-[#a9c6e8] text-white' : ''
         }} rounded-md flex items-center p-1 cursor-pointer"
@@ -134,7 +135,7 @@
         <svg-icon svgClass="fill-current" src="icons/format_bold.svg" svgAriaLabel="Bold"></svg-icon>
       </button>
       <button
-        title="Italic"
+        title="{{'hover.italic' | translate}}"
         class="{{
           editor.isActive('italic')
             ? 'shadow-inner bg-[#a9c6e8] text-white'
@@ -146,7 +147,7 @@
       </button>
 
       <button
-        title="Underline"
+        title="{{'hover.underline' | translate}}"
         class="{{
           editor.isActive('underline')
             ? 'shadow-inner bg-[#a9c6e8] text-white'
@@ -157,7 +158,7 @@
         <svg-icon svgClass="fill-current" src="icons/format_underlined.svg" svgAriaLabel="Underline"></svg-icon>
       </button>
       <button
-        title="Strike-through"
+        title="{{'hover.strike' | translate}}"
         class="{{
           editor.isActive('strike')
             ? 'shadow-inner bg-[#a9c6e8] text-white'
@@ -168,7 +169,7 @@
         <svg-icon svgClass="fill-current" src="icons/strikethrough_s.svg" svgAriaLabel="Strike-through"></svg-icon>
       </button>
       <button
-        title="Superscript"
+        title="{{'hover.superscript' | translate}}"
         class="{{
           editor.isActive('superscript')
             ? 'shadow-inner bg-[#a9c6e8] text-white'
@@ -179,7 +180,7 @@
         <svg-icon svgClass="fill-current" src="icons/superscript.svg" svgAriaLabel="Superscript"></svg-icon>
       </button>
       <button
-        title="Subscript"
+        title="{{'hover.subscript' | translate}}"
         class="{{
           editor.isActive('subscript')
             ? 'shadow-inner bg-[#a9c6e8] text-white'
@@ -190,7 +191,7 @@
         <svg-icon svgClass="fill-current" src="icons/subscript.svg" svgAriaLabel="Subscript"></svg-icon>
       </button>
       <button
-        title="Highlight"
+        title="{{'hover.highlight' | translate}}"
         class="{{
           editor.isActive('highlight')
             ? 'shadow-inner bg-[#a9c6e8] text-white'
@@ -200,7 +201,7 @@
       >
         <svg-icon svgClass="fill-current" src="icons/format_ink_highlighter.svg" svgAriaLabel="Highlight"></svg-icon>
       </button>
-      <div class="flex flex-row px-2 items-center">
+      <div class="flex flex-row px-2 items-center" title="{{'hover.color-wheel' | translate}}">
         <div
           class="rounded-full w-6 h-6 border border-[#A6CDC6] hover:cursor-pointer hover:shadow-lg hover:border-black transition-all transition-200"
           [style.background-color]="
@@ -222,7 +223,7 @@
     <!-- Insertions -->
     <div class="flex flex-row border-r border-[#E1E1E2] px-2 my-2">
       <button
-        title="Link"
+        title="{{'hover.link' | translate}}"
         class="{{
           editor.isActive('link') ? 'shadow-inner bg-[#a9c6e8] text-white' : ''
         }} rounded-md flex items-center p-1 cursor-pointer"
@@ -231,7 +232,7 @@
         <svg-icon svgClass="fill-current" src="icons/link.svg" svgAriaLabel="Link"></svg-icon>
       </button>
       <button
-        title="Image"
+        title="{{'hover.image' | translate}}"
         class="{{
           editor.isActive('image') ? 'shadow-inner bg-[#a9c6e8] text-white' : ''
         }} rounded-md flex items-center p-1 cursor-pointer"
@@ -244,7 +245,7 @@
     <!-- List styles -->
     <div class="flex flex-row border-r border-[#E1E1E2] px-2 my-2 gap-2">
       <button
-        title="Bullet List"
+        title="{{'hover.bullet-list' | translate}}"
         class="{{
           editor.isActive('bulletList')
             ? 'shadow-inner bg-[#a9c6e8] text-white'
@@ -255,7 +256,7 @@
         <svg-icon svgClass="fill-current" src="icons/format_list_bulleted.svg" svgAriaLabel="Bullet List"></svg-icon>
       </button>
       <button
-        title="Ordered List"
+        title="{{'hover.ordered-list' | translate}}"
         class="{{
           editor.isActive('orderedList')
             ? 'shadow-inner bg-[#a9c6e8] text-white'
@@ -266,7 +267,7 @@
         <svg-icon svgClass="fill-current" src="icons/format_list_numbered.svg" svgAriaLabel="Ordered List"></svg-icon>
       </button>
       <button
-        title="Task List"
+        title="{{'hover.task-list' | translate}}"
         class="{{
           editor.isActive('taskList')
             ? 'shadow-inner bg-[#a9c6e8] text-white'
@@ -281,7 +282,7 @@
     <!-- Text alignment -->
     <div class="flex flex-row border-r border-[#E1E1E2] px-2 my-2 gap-2">
       <button
-        title="Align Left"
+        title="{{'hover.align-left' | translate}}"
         class="{{
           editor.isActive({ textAlign: 'left' })
             ? 'shadow-inner bg-[#a9c6e8] text-white'
@@ -292,7 +293,7 @@
         <svg-icon svgClass="fill-current" src="icons/format_align_left.svg" svgAriaLabel="Align Left"></svg-icon>
       </button>
       <button
-        title="Align Center"
+        title="{{'hover.align-center' | translate}}"
         class="{{
           editor.isActive({ textAlign: 'center' })
             ? 'shadow-inner bg-[#a9c6e8] text-white'
@@ -303,7 +304,7 @@
         <svg-icon svgClass="fill-current" src="icons/format_align_center.svg" svgAriaLabel="Align Center"></svg-icon>
       </button>
       <button
-        title="Align Right"
+        title="{{'hover.align-right' | translate}}"
         class="{{
           editor.isActive({ textAlign: 'right' })
             ? 'shadow-inner bg-[#a9c6e8] text-white'
@@ -314,7 +315,7 @@
         <svg-icon svgClass="fill-current" src="icons/format_align_right.svg" svgAriaLabel="Align Right"></svg-icon>
       </button>
       <button
-        title="Justify"
+        title="{{'hover.align-justify' | translate}}"
         class="{{
           editor.isActive({ textAlign: 'justify' })
             ? 'shadow-inner bg-[#a9c6e8] text-white'
@@ -329,7 +330,7 @@
     <!-- Save -->
     <div class="flex flex-row border-r border-[#E1E1E2] px-2 my-2 gap-2">
       <button
-        title="Save"
+        title="{{'hover.save' | translate}}"
         class="rounded-md flex items-center p-1 active:bg-[#a9c6e8] active:text-white"
         (click)="saveFile()"
       >

@@ -27,25 +27,25 @@ export class NavigationComponent implements OnInit {
 
   superiorNavList: SystemNavList[] = [
     {
-      name: 'nav.navigation.campaign-management',
+      name: 'navigation.titles.campaign-management',
       route: 'campaign-management',
       icon: 'menu_book',
       active: false,
     },
     {
-      name: 'nav.navigation.item-vault',
+      name: 'navigation.titles.item-vault',
       route: 'items',
       icon: 'swords',
       active: false,
     },
     {
-      name: 'nav.navigation.systems',
+      name: 'navigation.titles.systems',
       route: 'systems',
       icon: 'shelves',
       active: false,
     },
     {
-      name: 'nav.navigation.sound',
+      name: 'navigation.titles.sound',
       route: 'sound',
       icon: 'music_cast',
       active: false,
@@ -54,13 +54,13 @@ export class NavigationComponent implements OnInit {
 
   bottomNavList: SystemNavList[] = [
     {
-      name: '',
+      name: 'navigation.titles.config',
       route: 'settings',
       icon: 'settings',
       active: false,
     },
     {
-      name: '',
+      name: 'navigation.titles.home',
       route: '/',
       icon: 'home',
       active: false,

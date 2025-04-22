@@ -3,13 +3,15 @@ import {Page} from "../../Types/Page.type";
 import {SvgIconComponent} from 'angular-svg-icon';
 import {NgStyle} from '@angular/common';
 import {MatMenu, MatMenuTrigger} from '@angular/material/menu';
+import {TranslatePipe} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-page-nav-item',
   imports: [
     SvgIconComponent,
     NgStyle,
-    MatMenuTrigger
+    MatMenuTrigger,
+    TranslatePipe
   ],
   templateUrl: './page-nav-item.component.html',
   styleUrl: './page-nav-item.component.scss'

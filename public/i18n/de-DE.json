@@ -1,106 +1,141 @@
 {
-  "settings": {
-    "title": "Einstellungen",
-    "language": "Sprache: ",
-    "idioms": {
-      "pt-BR": "Brasilianisches Portugiesisch",
-      "en-US": "Englisch",
-      "zh-Hans": "Vereinfachtes Chinesisch",
-      "de-DE": "Deutsch"
-    },
-    "dark-mode": "Dunkler Modus: "
-  },
-  "components": {
-    "insertion-modal": {
-      "title": "Bild einfügen",
-      "url-label": "URL",
-      "file-label": "Bild",
-      "cancelButton": "Abbrechen",
-      "okButton": "OK"
-    }
-  },
-  "create-campaign": {
-    "title": "Neue Kampagne erstellen",
-    "name": "Name: ",
-    "description": "Beschreibung: ",
-    "image": "Bild-URL: ",
-    "system": "System: ",
-    "select-system": "Wählen Sie ein System",
-    "custom-system": "Systemname: ",
-    "active": "Nach Erstellung zur Seitenleiste hinzufügen",
-    "create-button": "Kampagne erstellen"
-  },
-  "home": {
-    "createCampaign": "Neue Kampagne erstellen",
-    "recentCampaigns": "Letzte Kampagnen ..."
-  },
-  "nav": {
-    "navigation": {
-      "campaign-management": "Kampagnenverwaltung",
+  "not-ready-yet": "Systemfunktion noch nicht entwickelt. Bitte warten Sie auf neue Versionen.",
+  "navigation": {
+    "titles": {
+      "campaign-management": "Kampagnen-Manager",
       "item-vault": "Gegenstands-Tresor",
       "systems": "Systeme",
-      "sound": "Soundboard"
+      "sound": "Soundboard",
+      "config": "Einstellungen",
+      "create-campaign": "Neue Kampagne erstellen",
+      "home": "Startseite"
     },
-    "page-nav": {
-      "title": "Notizen",
-      "page-menu": {
-        "rename": "Seite umbenennen",
-        "delete": "Seite löschen",
-        "change-color": "Seitenfarbe",
-        "add-note": "Notiz hinzufügen"
-      },
-      "note-menu": {
-        "rename": "Notiz umbenennen",
-        "delete": "Notiz löschen"
-      }
-    },
-    "map-nav": {
-      "title": "Karten",
-      "page-menu": {
-        "rename": "Seite umbenennen",
-        "delete": "Seite löschen",
-        "change-color": "Seitenfarbe",
-        "add-note": "Karte hinzufügen"
-      },
-      "note-menu": {
-        "rename": "Karte umbenennen",
-        "delete": "Karte löschen"
-      }
+    "campaign-navigation": {
+      "notes": "Notizen",
+      "maps": "Karten",
+      "items": "Gegenstände",
+      "characters": "Charaktere"
     }
   },
-  "page": {
-    "campaign-management": {
-      "createCampaignButton": "Kampagne erstellen",
-      "no-campaign": {
-        "title": "Kampagnenverwaltung",
-        "description": "Wählen Sie eine Kampagne aus, um deren Einstellungen anzuzeigen, oder erstellen Sie eine neue Kampagne."
-      },
-      "description": {
-        "creationDate": "Erstellungsdatum: ",
-        "description": "Beschreibung: ",
-        "saveDescription": "Speichern",
-        "imageUrl": "Bild-URL: ",
-        "dangerZone": {
-          "title": "Gefahrenzone",
-          "enableOptions": "Optionen aktivieren",
-          "deleteCampaign": "Kampagne löschen"
-        }
-      }
-    }
+  "languages": {
+    "pt-BR": "Brasilianisches Portugiesisch",
+    "en-US": "Englisch",
+    "es-ES": "Spanisch",
+    "fr-FR": "Französisch",
+    "de-DE": "Deutsch",
+    "zh-Hans": "Vereinfachtes Chinesisch",
+    "zh-Hant": "Traditionelles Chinesisch"
   },
-  "map-canvas": {
-    "map": {
-      "change-map": "Karte wechseln",
-      "rclick-instruction": "Rechtsklicken auf die Karte, um das Karte-Menü zu zeigen.",
-      "map-menu": {
-        "add-pin": "Pin hinzufügen",
-        "exit": "Beenden"
-      }
-    },
-    "no-map": {
-      "title": "Es gibt derzeit keine Karte ausgewählt.",
-      "description": "Laden Sie eine neue Karte, um loszulegen.",
-      "insert-button": "Karte laden"
-    }
+  "settings": {
+    "language":"Sprache: ",
+    "dark-mode": "Dunkelmodus: "
+  },
+  "button": {
+    "save": "Speichern",
+    "cancel": "Abbrechen",
+    "delete": "Löschen",
+    "delete-campaign": "Kampagne löschen",
+    "rename": "Umbenennen",
+    "edit": "Bearbeiten",
+    "show": "Anzeigen",
+    "add": "Hinzufügen",
+    "create": "Erstellen",
+    "create-campaign": "Neue Kampagne erstellen",
+    "close": "Schließen",
+    "ok": "OK",
+    "yes": "Ja",
+    "no": "Nein",
+    "exit": "Beenden",
+    "insert": "Einfügen",
+    "remove": "Entfernen",
+    "change": "Ändern"
+  },
+  "editor": {
+    "paragraph": "Absatz",
+    "heading1": "Überschrift 1",
+    "heading2": "Überschrift 2",
+    "heading3": "Überschrift 3"
+  },
+  "menu-options": {
+    "add-page": "Seite hinzufügen",
+    "add-character": "Charakter hinzufügen",
+    "add-note": "Notiz hinzufügen",
+    "add-map": "Karte hinzufügen",
+    "add-item": "Gegenstand hinzufügen",
+    "rename-page": "Seite umbenennen",
+    "rename-note": "Notiz umbenennen",
+    "rename-map": "Karte umbenennen",
+    "rename-item": "Gegenstand umbenennen",
+    "rename-character": "Charakter umbenennen",
+    "delete-page": "Seite löschen",
+    "delete-note": "Notiz löschen",
+    "delete-map": "Karte löschen",
+    "delete-item": "Gegenstand löschen",
+    "delete-character": "Charakter löschen",
+    "page-color": "Farbe ändern"
+  },
+  "page-text": {
+    "no-campaign-manager": "Wählen Sie eine Kampagne aus, um ihre Einstellungen anzuzeigen, oder erstellen Sie eine neue Kampagne."
+  },
+  "label": {
+    "name": "Name: ",
+    "description": "Beschreibung: ",
+    "image": "Bild: ",
+    "system": "System: ",
+    "select-system": "System auswählen",
+    "system-name": "Systemname: ",
+    "active": "Nach Erstellung zur Seitenleiste hinzufügen",
+    "creation-date": "Erstellungsdatum: ",
+    "update-date": "Letztes Aktualisierungsdatum: ",
+    "url": "URL: ",
+    "width": "Breite: ",
+    "height": "Höhe: ",
+    "color": "Farbe: ",
+    "opacity": "Deckkraft: ",
+    "danger-zone": "Gefahrenzone",
+    "enable-options": "Optionen aktivieren",
+    "recent-campaigns": "Aktuelle Kampagnen: "
+  },
+  "placeholders": {
+    "name": "Name...",
+    "description": "Beschreibung...",
+    "url": "Bild-URL..."
+  },
+  "hover": {
+    "rename": "Umbenennen",
+    "delete": "Löschen",
+    "add-page": "Seite hinzufügen",
+    "add-character": "Charakter hinzufügen",
+    "open": "Öffnen",
+    "campaign-description": "Kampagnenbeschreibung",
+    "edit": "Bearbeiten",
+    "options": "Optionen",
+    "show": "Mehr anzeigen",
+    "hide": "Ausblenden",
+    "close": "Schließen",
+    "redo": "Wiederholen",
+    "undo": "Rückgängig",
+    "clear": "Löschen",
+    "save": "Speichern",
+    "decrease": "Verringern",
+    "increase": "Erhöhen",
+    "bold": "Fett",
+    "italic": "Kursiv",
+    "underline": "Unterstrichen",
+    "strike": "Durchgestrichen",
+    "superscript": "Hochgestellt",
+    "subscript": "Tiefgestellt",
+    "color-wheel": "Farbauswahl",
+    "link": "Link",
+    "image": "Bild",
+    "bullet-list": "Aufzählung",
+    "ordered-list": "Nummerierte Liste",
+    "task-list": "Aufgabenliste",
+    "code": "Code",
+    "highlight": "Hervorheben",
+    "align-left": "Linksbündig",
+    "align-center": "Zentriert",
+    "align-right": "Rechtsbündig",
+    "align-justify": "Blocksatz"
   }
 }

@@ -4,11 +4,13 @@
   <p
     class="truncate text-clip overflow-none"
     id="note-{{note?.noteId}}"
+    title="{{note?.noteTitle}}"
   >{{ note?.noteTitle }}</p>
   <svg-icon
     src="icons/more_horiz.svg"
     svgClass="fill-current hidden group-hover:flex cursor-pointer"
     svgAriaLabel="Page options button."
+    title="{{'hover.options' | translate}}"
     [matMenuTriggerFor]="noteContext!"
   ></svg-icon>
 </div>

@@ -1,6 +1,5 @@
 <div
   class="flex flex-row gap-1 rounded-xl group text-black p-1 my-2  transition-all duration-300"
-  title="{{ mapPage?.mapPageName }}"
   [ngStyle]="{ 'background-color': mapPage?.mapPageColor }"
   id="map-page-color-{{mapPage?.mapPageId}}"
 >
@@ -8,7 +7,9 @@
               mapPage?.active
                 ? 'keyboard_arrow_down'
           : 'keyboard_arrow_right'
-          }}.svg" (click)="toggleMapPage.emit(mapPage!)"></svg-icon>
+          }}.svg" (click)="toggleMapPage.emit(mapPage!)"
+            title="{{(mapPage?.active?'hover.hide':'hover.show') | translate}}"
+  ></svg-icon>
   <p
     [title]="mapPage?.mapPageName"
     class="truncate text-clip overflow-none justify-start self-start start-0 justify-self-start"
@@ -18,6 +19,7 @@
     src="icons/more_horiz.svg"
     svgClass="hidden group-hover:flex cursor-pointer select-none"
     svgAriaLabel="Page options button."
+    title="{{'hover.options' | translate}}"
     [matMenuTriggerFor]="mapPageMenu"
   ></svg-icon>
 </div>

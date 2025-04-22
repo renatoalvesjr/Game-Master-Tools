@@ -1,107 +1,141 @@
 {
-  "settings": {
-    "title": "Settings",
-    "language": "Language: ",
-    "idioms": {
-      "pt-BR": "Brazilian Portuguese",
-      "en-US": "English",
-      "zh-Hans": "Simplified Chinese",
-      "de-DE": "German"
-    },
-    "dark-mode": "Dark Mode: "
-
-  },
-  "create-campaign": {
-    "title": "Create New Campaign",
-    "name": "Name: ",
-    "description": "Description: ",
-    "image": "Image URL: ",
-    "system": "System: ",
-    "select-system": "Select a System",
-    "custom-system": "System Name: ",
-    "active": "Add to sidebar after creation",
-    "create-button": "Create Campaign"
-  },
-  "components": {
-    "insertion-modal": {
-      "title": "Insert Image",
-      "url-label": "URL",
-      "file-label": "Image",
-      "cancelButton": "Cancel",
-      "okButton": "OK"
-    }
-  },
-  "home": {
-    "createCampaign": "Create New Campaign",
-    "recentCampaigns": "Recent Campaigns ..."
-  },
-  "nav": {
-    "navigation": {
-      "campaign-management": "Campaign Management",
+  "not-ready-yet": "System feature not developed yet. Please wait for new versions.",
+  "navigation": {
+    "titles": {
+      "campaign-management": "Campaign Manager",
       "item-vault": "Item Vault",
       "systems": "Systems",
-      "sound": "Soundboard"
+      "sound": "Soundboard",
+      "config": "Settings",
+      "create-campaign": "Create New Campaign",
+      "home": "Home"
     },
-    "page-nav": {
-      "title": "Notes",
-      "page-menu": {
-        "rename": "Rename page",
-        "delete": "Delete page",
-        "change-color": "Page color",
-        "add-note": "Add Note"
-      },
-      "note-menu": {
-        "rename": "Rename note",
-        "delete": "Delete note"
-      }
-    },
-    "map-nav": {
-      "title": "Maps",
-      "page-menu": {
-        "rename": "Rename page",
-        "delete": "Delete page",
-        "change-color": "Page color",
-        "add-note": "Add Map"
-      },
-      "note-menu": {
-        "rename": "Rename map",
-        "delete": "Delete map"
-      }
+    "campaign-navigation": {
+      "notes": "Notes",
+      "maps": "Maps",
+      "items": "Items",
+      "characters": "Characters"
     }
   },
-  "page": {
-    "campaign-management": {
-      "createCampaignButton": "Create New Campaign",
-      "no-campaign": {
-        "title": "Campaign Manager",
-        "description": "Select a campaign to view its settings or create a new campaign."
-      },
-      "description": {
-        "creationDate": "Creation Date: ",
-        "description": "Description: ",
-        "saveDescription": "Save",
-        "imageUrl": "Image URL: ",
-        "dangerZone": {
-          "title": "Danger Zone",
-          "enableOptions": "Enable Options",
-          "deleteCampaign": "Delete Campaign"
-        }
-      }
-    }
+  "languages": {
+    "pt-BR": "Brazilian Portuguese",
+    "en-US": "English",
+    "es-ES": "Spanish",
+    "fr-FR": "French",
+    "de-DE": "German",
+    "zh-Hans": "Simplified Chinese",
+    "zh-Hant": "Traditional Chinese"
   },
-  "map-canvas": {
-    "map": {
-      "change-map": "Change Map",
-      "rclick-instruction": "Right click on the map to open the Map Menu.",
-      "map-menu": {
-        "add-pin": "Add Pin",
-        "exit": "Exit"
-      }
-    },
-    "no-map": {
-      "title": "No map is currently selected.",
-      "description": "Load a new map to get started.",
-      "insert-button": "Load Map"
-    }
+  "settings": {
+    "language":"Language: ",
+    "dark-mode": "Dark Mode: "
+  },
+  "button": {
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "delete-campaign": "Delete Campaign",
+    "rename": "Rename",
+    "edit": "Edit",
+    "show": "View",
+    "add": "Add",
+    "create": "Create",
+    "create-campaign": "Create New Campaign",
+    "close": "Close",
+    "ok": "OK",
+    "yes": "Yes",
+    "no": "No",
+    "exit": "Exit",
+    "insert": "Insert",
+    "remove": "Remove",
+    "change": "Change"
+  },
+  "editor": {
+    "paragraph": "Paragraph",
+    "heading1": "Heading 1",
+    "heading2": "Heading 2",
+    "heading3": "Heading 3"
+  },
+  "menu-options": {
+    "add-page": "Add Page",
+    "add-character": "Add Character",
+    "add-note": "Add Note",
+    "add-map": "Add Map",
+    "add-item": "Add Item",
+    "rename-page": "Rename Page",
+    "rename-note": "Rename Note",
+    "rename-map": "Rename Map",
+    "rename-item": "Rename Item",
+    "rename-character": "Rename Character",
+    "delete-page": "Delete Page",
+    "delete-note": "Delete Note",
+    "delete-map": "Delete Map",
+    "delete-item": "Delete Item",
+    "delete-character": "Delete Character",
+    "page-color": "Change Color"
+  },
+  "page-text": {
+    "no-campaign-manager": "Select a campaign to view its settings or create a new campaign."
+  },
+  "label": {
+    "name": "Name: ",
+    "description": "Description: ",
+    "image": "Image: ",
+    "system": "System: ",
+    "select-system": "Select a System",
+    "system-name": "System Name: ",
+    "active": "Add to sidebar after creation",
+    "creation-date": "Creation date: ",
+    "update-date": "Last update date: ",
+    "url": "URL: ",
+    "width": "Width: ",
+    "height": "Height: ",
+    "color": "Color: ",
+    "opacity": "Opacity: ",
+    "danger-zone": "Danger Zone",
+    "enable-options": "Enable Options",
+    "recent-campaigns": "Recent Campaigns: "
+  },
+  "placeholders": {
+    "name": "Name...",
+    "description": "Description...",
+    "url": "Image URL..."
+  },
+  "hover": {
+    "rename": "Rename",
+    "delete": "Delete",
+    "add-page": "Add Page",
+    "add-character": "Add Character",
+    "open": "Open",
+    "campaign-description": "Campaign Description",
+    "edit": "Edit",
+    "options": "Options",
+    "show": "Show more",
+    "hide": "Hide",
+    "close": "Close",
+    "redo": "Redo",
+    "undo": "Undo",
+    "clear": "Clear",
+    "save": "Save",
+    "decrease": "Decrease",
+    "increase": "Increase",
+    "bold": "Bold",
+    "italic": "Italic",
+    "underline": "Underline",
+    "strike": "Strikethrough",
+    "superscript": "Superscript",
+    "subscript": "Subscript",
+    "color-wheel": "Color picker",
+    "link": "Link",
+    "image": "Image",
+    "bullet-list": "Bullet list",
+    "ordered-list": "Numbered list",
+    "task-list": "Task list",
+    "code": "Code",
+    "highlight": "Highlight",
+    "align-left": "Align left",
+    "align-center": "Align center",
+    "align-right": "Align right",
+    "align-justify": "Justify"
   }
 }
