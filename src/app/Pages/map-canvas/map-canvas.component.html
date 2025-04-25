@@ -2,36 +2,36 @@
 
 
 <div class="flex flex-col m-4 {{isEmpty ? 'hidden' : ''}} gap-4">
-  <div>{{"map-canvas.map.rclick-instruction" | translate}}</div>
+  <div>{{"page-text.rclick-instruction" | translate}}</div>
 
   <div id="map" class="h-[80vh]"></div>
   <p-button class="self-center" (click)="onImageSelected()"
-            [title]="'map-canvas.map.change-map' | translate"></p-button>
+            [title]="'button.change-map' | translate"></p-button>
 </div>
 
 @if (showContextMenu) {
   <div
-    class="fixed w-[160px] z-[1000] bg-stone-50 border rounded shadow p-2"
+    class="fixed w-[200px] z-[1000] bg-stone-50 border rounded shadow"
     [ngStyle]="{ top: contextMenuPosition.y + 'px', left: contextMenuPosition.x + 'px' }"
   >
     <div class="">
-      <button class="block w-full text-left text-black px-2 py-1 z-50"
+      <button class="block w-full bg-green-400 hover:bg-gray-200 text-black px-2 py-1 z-50"
               (click)="showPinMenu = !showPinMenu"
               [ngStyle]="{ 'padding-right': '2.5rem' }">
-        <div class="flex flex-row justify-between">
-          <span>{{"map-canvas.map.map-menu.add-pin" | translate}}</span>
+        <div class="w-full bg-red-500 flex flex-row justify-between">
+          <span>{{"menu-options.add-pin" | translate}}</span>
           <svg-icon src="icons/keyboard_arrow_{{showPinMenu?'down':'right'}}.svg"></svg-icon>
         </div>
       </button>
-      <div class="pl-4 w-fit border-b border-gray-500 {{showPinMenu?'flex flex-col':'hidden'}}"
+      <div class="w-fit border-b border-gray-500 {{showPinMenu?'flex flex-col':'hidden'}}"
            [ngStyle]="{ 'min-width': '100%' }">
-        <button class="block w-full text-left text-black  px-2 py-1 z-50" (click)="closeMenu()"><svg-icon svgClass="fill-current" src="icons/cave.svg"></svg-icon>Red Pind</button>
-        <button class="block w-full text-left text-black  px-2 py-1 z-50" (click)="closeMenu()">Blue Pin</button>
-        <!-- vocé pode adicionar mais opções -->
+        <button class="block pl-4 w-full hover:bg-gray-200 text-left text-black  px-2 py-1 z-50" (click)="closeMenu()"><svg-icon svgClass="" src="icons/red-pin.svg"></svg-icon></button>
+         <button class="block pl-4 w-full text-left hover:bg-gray-200 text-black  px-2 py-1 z-50" (click)="closeMenu()"><svg-icon svgClass="" src="icons/blue-pin.svg"></svg-icon></button>
+       <!-- vocé pode adicionar mais opções -->
       </div>
     </div>
 <!--    <button class="block w-full text-left text-black  px-2 py-1 z-50" (click)="addPin()">{{"map-canvas.map.map-menu.add-pin" | translate}}</button>-->
-    <button class="block w-full text-left text-black  px-2 py-1 z-50" (click)="closeMenu()">{{"map-canvas.map.map-menu.exit" | translate}}</button>
+    <button class="block w-full hover:bg-gray-200 text-left text-black  px-2 py-1 z-50" (click)="closeMenu()">{{"menu-options.close" | translate}}</button>
     <!-- você pode adicionar mais opções -->
   </div>
 }

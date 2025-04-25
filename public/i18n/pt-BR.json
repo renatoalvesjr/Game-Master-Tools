@@ -45,7 +45,8 @@
     "exit": "Sair",
     "insert": "Inserir",
     "remove": "Remover",
-    "change": "Mudar"
+    "change": "Mudar",
+    "change-map": "Trocar Mapa"
   },
   "editor": {
     "paragraph": "Parágrafo",
@@ -59,6 +60,7 @@
     "add-note": "Adicionar Nota",
     "add-map": "Adicionar Mapa",
     "add-item": "Adicionar Item",
+    "add-pin": "Adicionar Pin",
 
     "rename-page": "Renomear Página",
     "rename-note": "Renomear Nota",
@@ -72,10 +74,13 @@
     "delete-item": "Excluir Item",
     "delete-character": "Excluir Personagem",
 
+    "close": "Fechar",
+
     "page-color": "Mudar Cor"
   },
   "page-text": {
-    "no-campaign-manager": "Selecione uma campanha para visualizar suas configurações ou crie uma nova campanha."
+    "no-campaign-manager": "Selecione uma campanha para visualizar suas configurações ou crie uma nova campanha.",
+    "rclick-instruction": "Clique com o botão direito do mapa para adicionar pins."
   },
   "label": {
     "name": "Nome: ",
