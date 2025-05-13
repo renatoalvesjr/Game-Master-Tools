@@ -18,6 +18,9 @@ export type MapPin = {
   id: string;
   x: number;
   y: number;
+  url?: string;
   type: 'enemy' | 'npc' | 'treasure' | 'trap' | 'custom';
   label?: string;
+  hasNote: boolean;
+  note?: string;
 }

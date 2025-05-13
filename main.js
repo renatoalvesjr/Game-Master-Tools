@@ -88,7 +88,6 @@ async function selectFile() {
     return null;
   }
 
-  console.log('Arquivo selecionado:', result.filePaths[0]);
   return result.filePaths[0];
 }
 
@@ -141,8 +140,6 @@ async function checkSettings() {
     let conflict = false;
     const configFile = fs.readFileSync(path.join(defaultPath, "config/config.json"), "utf-8");
     const config = JSON.parse(configFile);
-    console.log(config)
-    console.log(defaultConfig)
 
     if (config.supportedLanguages !== defaultConfig.supportedLanguages || !config.supportedLanguages) {
       config.supportedLanguages = defaultConfig.supportedLanguages;

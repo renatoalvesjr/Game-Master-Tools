@@ -2,7 +2,7 @@
 
 
 <div class="flex flex-col m-4 {{isEmpty ? 'hidden' : ''}} gap-4">
-  <div>{{"page-text.rclick-instruction" | translate}}</div>
+  <div>{{ "page-text.rclick-instruction" | translate }}</div>
 
   <div id="map" class="h-[80vh]"></div>
   <p-button class="self-center" (click)="onImageSelected()"
@@ -11,28 +11,50 @@
 
 @if (showContextMenu) {
   <div
-    class="fixed w-[200px] z-[1000] bg-stone-50 border rounded shadow"
+    class="absolute w-[200px] z-[1000]"
     [ngStyle]="{ top: contextMenuPosition.y + 'px', left: contextMenuPosition.x + 'px' }"
   >
-    <div class="">
-      <button class="block w-full bg-green-400 hover:bg-gray-200 text-black px-2 py-1 z-50"
-              (click)="showPinMenu = !showPinMenu"
-              [ngStyle]="{ 'padding-right': '2.5rem' }">
-        <div class="w-full bg-red-500 flex flex-row justify-between">
-          <span>{{"menu-options.add-pin" | translate}}</span>
-          <svg-icon src="icons/keyboard_arrow_{{showPinMenu?'down':'right'}}.svg"></svg-icon>
-        </div>
-      </button>
-      <div class="w-fit border-b border-gray-500 {{showPinMenu?'flex flex-col':'hidden'}}"
-           [ngStyle]="{ 'min-width': '100%' }">
-        <button class="block pl-4 w-full hover:bg-gray-200 text-left text-black  px-2 py-1 z-50" (click)="closeMenu()"><svg-icon svgClass="" src="icons/red-pin.svg"></svg-icon></button>
-         <button class="block pl-4 w-full text-left hover:bg-gray-200 text-black  px-2 py-1 z-50" (click)="closeMenu()"><svg-icon svgClass="" src="icons/blue-pin.svg"></svg-icon></button>
-       <!-- vocé pode adicionar mais opções -->
+    <div class="flex flex-col bg-stone-50 p-2 border rounded shadow gap-1 text-black ">
+      <div (click)="showPinMenu = !showPinMenu"
+           class="flex flex-row justify-between hover:bg-gray-200 p-1 rounded-md">
+        <span>{{ "menu-options.add-pin" | translate }}</span>
+        <svg-icon src="icons/keyboard_arrow_{{showPinMenu?'down':'right'}}.svg"></svg-icon>
       </div>
+      <div class=" {{showPinMenu?'flex':'hidden'}}">
+        <div class="flex flex-col w-full ml-4">
+          @for (pin of icons; track pin.url) {
+            <button class="flex flex-row w-full hover:bg-gray-200 rounded-md text-left text-black p-1 z-50 gap-2"
+                    (click)="addPin(pin)">
+              <svg-icon src="{{pin.url}}"></svg-icon>
+              <span>{{ "pin-colors." + pin.name | translate }}</span>
+            </button>
+          }
+        </div>
+      </div>
+      <div class="block w-full border-b border-gray-300 my-2"></div>
+      <button class="block w-full hover:bg-gray-200 text-left text-black rounded-md py-1 px-2 z-50"
+              (click)="closeMenu()">{{ "menu-options.close" | translate }}
+      </button>
     </div>
-<!--    <button class="block w-full text-left text-black  px-2 py-1 z-50" (click)="addPin()">{{"map-canvas.map.map-menu.add-pin" | translate}}</button>-->
-    <button class="block w-full hover:bg-gray-200 text-left text-black  px-2 py-1 z-50" (click)="closeMenu()">{{"menu-options.close" | translate}}</button>
     <!-- você pode adicionar mais opções -->
+  </div>
+}
+
+@if (showPinContextMenu) {
+  <div
+    class="fixed w-[200px] z-[1000]"
+    [ngStyle]="{ top: contextMenuPosition.y + 'px', left: contextMenuPosition.x + 'px' }"
+  >
+    <div class="flex flex-col bg-stone-50 p-2 border rounded shadow gap-1 text-black ">
+      <div (click)="closeMenu()"
+           class="flex flex-row justify-between hover:bg-gray-200 p-1 rounded-md">
+        <span class="text-red-700">{{ "menu-options.delete-pin" | translate }}</span>
+      </div>
+      <div class="block w-full border-b border-gray-300 my-2"></div>
+      <button class="block w-full hover:bg-gray-200 text-left text-black rounded-md py-1 px-2 z-50"
+              (click)="closeMenu()">{{ "menu-options.close" | translate }}
+      </button>
+    </div>
   </div>
 }
 

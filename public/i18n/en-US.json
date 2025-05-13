@@ -27,7 +27,7 @@
     "zh-Hant": "Traditional Chinese"
   },
   "settings": {
-    "language":"Language: ",
+    "language": "Language: ",
     "dark-mode": "Dark Mode: "
   },
   "button": {
@@ -48,7 +48,8 @@
     "exit": "Exit",
     "insert": "Insert",
     "remove": "Remove",
-    "change": "Change"
+    "change": "Change",
+    "change-map": "Change Map"
   },
   "editor": {
     "paragraph": "Paragraph",
@@ -62,20 +63,46 @@
     "add-note": "Add Note",
     "add-map": "Add Map",
     "add-item": "Add Item",
+    "add-pin": "Add Pin",
     "rename-page": "Rename Page",
     "rename-note": "Rename Note",
     "rename-map": "Rename Map",
     "rename-item": "Rename Item",
     "rename-character": "Rename Character",
+    "rename-pin": "Rename Pin",
     "delete-page": "Delete Page",
     "delete-note": "Delete Note",
     "delete-map": "Delete Map",
     "delete-item": "Delete Item",
     "delete-character": "Delete Character",
+    "delete-pin": "Delete Pin",
+    "duplicate-page": "Duplicate Page",
+    "duplicate-note": "Duplicate Note",
+    "duplicate-map": "Duplicate Map",
+    "duplicate-item": "Duplicate Item",
+    "duplicate-character": "Duplicate Character",
+    "duplicate-pin": "Duplicate Pin",
+    "export-note": "Export Note",
+    "export-map": "Export Map",
+    "export-item": "Export Item",
+    "export-character": "Export Character",
+    "move-page": "Move Page",
+    "move-note": "Move Note",
+    "move-map": "Move Map",
+    "move-item": "Move Item",
+    "move-character": "Move Character",
+    "move-pin": "Move Pin",
+    "change-pin-color": "Change Pin Color",
+    "edit-pin-label": "Edit Pin Label",
+    "center-on-pin": "Center on Pin",
+    "hide-pin": "Hide Pin",
+    "show-pin": "Show Pin",
+    "close": "Close",
     "page-color": "Change Color"
   },
   "page-text": {
-    "no-campaign-manager": "Select a campaign to view its settings or create a new campaign."
+    "no-campaign-manager": "Select a campaign to view its settings or create a new campaign.",
+    "rclick-instruction": "Right-click on the map to add pins."
   },
   "label": {
     "name": "Name: ",
@@ -137,5 +164,13 @@
     "align-center": "Align center",
     "align-right": "Align right",
     "align-justify": "Justify"
+  },
+  "pin-colors": {
+    "red": "Red Pin",
+    "blue": "Blue Pin",
+    "green": "Green Pin",
+    "yellow": "Yellow Pin",
+    "black": "Black Pin",
+    "white": "White Pin"
   }
 }

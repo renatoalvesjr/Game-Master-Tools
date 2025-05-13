@@ -20,8 +20,11 @@
   "languages": {
     "pt-BR": "Português Brasileiro",
     "en-US": "Inglês",
+    "es-ES": "Espanhol",
+    "fr-FR": "Francês",
+    "de-DE": "Alemão",
     "zh-Hans": "Chinês Simplificado",
-    "de-DE": "Alemão"
+    "zh-Hant": "Chinês Tradicional"
   },
   "settings": {
     "language":"Idioma: ",
@@ -61,22 +64,41 @@
     "add-map": "Adicionar Mapa",
     "add-item": "Adicionar Item",
     "add-pin": "Adicionar Pin",
-
     "rename-page": "Renomear Página",
     "rename-note": "Renomear Nota",
     "rename-map": "Renomear Mapa",
     "rename-item": "Renomear Item",
     "rename-character": "Renomear Personagem",
-
+    "rename-pin": "Renomear Pin",
     "delete-page": "Excluir Página",
     "delete-note": "Excluir Nota",
     "delete-map": "Excluir Mapa",
     "delete-item": "Excluir Item",
     "delete-character": "Excluir Personagem",
-
+    "delete-pin": "Excluir Pin",
+    "duplicate-page": "Duplicar Página",
+    "duplicate-note": "Duplicar Nota",
+    "duplicate-map": "Duplicar Mapa",
+    "duplicate-item": "Duplicar Item",
+    "duplicate-character": "Duplicar Personagem",
+    "duplicate-pin": "Duplicar Pin",
+    "export-note": "Exportar Nota",
+    "export-map": "Exportar Mapa",
+    "export-item": "Exportar Item",
+    "export-character": "Exportar Personagem",
+    "move-page": "Mover Página",
+    "move-note": "Mover Nota",
+    "move-map": "Mover Mapa",
+    "move-item": "Mover Item",
+    "move-character": "Mover Personagem",
+    "move-pin": "Mover Pino",
+    "change-pin-color": "Alterar Cor do Pin",
+    "edit-pin-label": "Editar Rótulo do Pin",
+    "center-on-pin": "Centralizar no Pin",
+    "hide-pin": "Ocultar Pin",
+    "show-pin": "Mostrar Pin",
     "close": "Fechar",
-
-    "page-color": "Mudar Cor"
+    "page-color": "Alterar Cor"
   },
   "page-text": {
     "no-campaign-manager": "Selecione uma campanha para visualizar suas configurações ou crie uma nova campanha.",
@@ -142,5 +164,13 @@
     "align-center": "Alinhar ao centro",
     "align-right": "Alinhar a direita",
     "align-justify": "Justificar"
+  },
+  "pin-colors": {
+    "red": "Pin Vermelho",
+    "blue": "Pin Azul",
+    "green": "Pin Verde",
+    "yellow": "Pin Amarelo",
+    "black": "Pin Preto",
+    "white": "Pin Branco"
   }
 }

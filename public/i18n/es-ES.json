@@ -27,7 +27,7 @@
     "zh-Hant": "Chino Tradicional"
   },
   "settings": {
-    "language":"Idioma: ",
+    "language": "Idioma: ",
     "dark-mode": "Modo Oscuro: "
   },
   "button": {
@@ -57,22 +57,47 @@
     "heading3": "Título 3"
   },
   "menu-options": {
-    "add-page": "Agregar Página",
-    "add-character": "Agregar Personaje",
-    "add-note": "Agregar Nota",
-    "add-map": "Agregar Mapa",
-    "add-item": "Agregar Objeto",
-    "rename-page": "Renombrar Página",
-    "rename-note": "Renombrar Nota",
-    "rename-map": "Renombrar Mapa",
-    "rename-item": "Renombrar Objeto",
-    "rename-character": "Renombrar Personaje",
-    "delete-page": "Eliminar Página",
-    "delete-note": "Eliminar Nota",
-    "delete-map": "Eliminar Mapa",
-    "delete-item": "Eliminar Objeto",
-    "delete-character": "Eliminar Personaje",
-    "page-color": "Cambiar Color"
+    "add-page": "Agregar página",
+    "add-character": "Agregar personaje",
+    "add-note": "Agregar nota",
+    "add-map": "Agregar mapa",
+    "add-item": "Agregar elemento",
+    "add-pin": "Agregar pin",
+    "rename-page": "Renombrar página",
+    "rename-note": "Renombrar nota",
+    "rename-map": "Renombrar mapa",
+    "rename-item": "Renombrar elemento",
+    "rename-character": "Renombrar personaje",
+    "rename-pin": "Renombrar pin",
+    "delete-page": "Eliminar página",
+    "delete-note": "Eliminar nota",
+    "delete-map": "Eliminar mapa",
+    "delete-item": "Eliminar elemento",
+    "delete-character": "Eliminar personaje",
+    "delete-pin": "Eliminar pin",
+    "duplicate-page": "Duplicar página",
+    "duplicate-note": "Duplicar nota",
+    "duplicate-map": "Duplicar mapa",
+    "duplicate-item": "Duplicar elemento",
+    "duplicate-character": "Duplicar personaje",
+    "duplicate-pin": "Duplicar pin",
+    "export-note": "Exportar nota",
+    "export-map": "Exportar mapa",
+    "export-item": "Exportar elemento",
+    "export-character": "Exportar personaje",
+    "move-page": "Mover página",
+    "move-note": "Mover nota",
+    "move-map": "Mover mapa",
+    "move-item": "Mover elemento",
+    "move-character": "Mover personaje",
+    "move-pin": "Mover pin",
+    "change-pin-color": "Cambiar color del pin",
+    "edit-pin-label": "Editar etiqueta del pin",
+    "center-on-pin": "Centrar en el pin",
+    "hide-pin": "Ocultar pin",
+    "show-pin": "Mostrar pin",
+    "close": "Cerrar",
+    "page-color": "Cambiar color"
   },
   "page-text": {
     "no-campaign-manager": "Seleccione una campaña para ver su configuración o cree una nueva campaña."
@@ -137,5 +162,13 @@
     "align-center": "Centrar",
     "align-right": "Alinear a la derecha",
     "align-justify": "Justificar"
+  },
+  "pin-colors": {
+    "red": "Pin Rojo",
+    "blue": "Pin Azul",
+    "green": "Pin Verde",
+    "yellow": "Pin Amarillo",
+    "black": "Pin Negro",
+    "white": "Pin Blanco"
   }
 }

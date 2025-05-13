@@ -48,6 +48,10 @@ html {
   height: 100%;
 }
 
+span {
+  user-select: none;
+}
+
 .tiptap p.is-editor-empty:first-child::before {
   color: #adb5bd;
   content: attr(data-placeholder);
@@ -58,27 +62,6 @@ html {
 
 .ProseMirror-focused {
   outline: none;
-}
-
-/*
-* This filter changes the svg color to the gray-400 tailwindcss color
-*/
-.image-gray-400 {
-  filter: invert(73%) sepia(7%) saturate(566%) hue-rotate(180deg) brightness(88%) contrast(88%);
-}
-
-/*
-* This hover changes the svg color first to black then to #3d2c12
-*/
-.image-gray-400:hover {
-  filter: brightness(0) saturate(100%) invert(14%) sepia(30%) saturate(1145%) hue-rotate(357deg) brightness(92%) contrast(89%);
-}
-
-/*
-* TODO: Change the name of this filter to image-brown on the project. The color is #6c4416
-*/
-.image-black {
-  filter: brightness(0) saturate(100%) invert(24%) sepia(79%) saturate(484%) hue-rotate(352deg) brightness(96%) contrast(90%);
 }
 
 .ProseMirror ul {

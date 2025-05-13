@@ -19,8 +19,12 @@ export class SettingsComponent {
 
   async changeLanguage(event: Event) {
     const selectElement = event.target as HTMLSelectElement
-    this.translate.use(selectElement.value);
-    await this.configService.changeLanguage(selectElement.value);
+    const languages = this.translate.getLangs();
+    if(languages.includes(selectElement.value)) {
+      console.log("Changing language to " + selectElement.value);
+      this.translate.use(selectElement.value);
+      await this.configService.changeLanguage(selectElement.value);
+    }
   }
 
   async changeTheme(theme: 'light' | 'dark' | 'system') {
