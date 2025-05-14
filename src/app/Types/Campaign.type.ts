@@ -1,5 +1,6 @@
 export type Campaign = {
   campaignId: string;
+  authorId?: string;
   campaignName: string;
   campaignCreationDate: string;
   campaignUpdateDate: string;
