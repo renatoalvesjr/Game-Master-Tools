@@ -102,7 +102,9 @@
   },
   "page-text": {
     "no-campaign-manager": "Select a campaign to view its settings or create a new campaign.",
-    "rclick-instruction": "Right-click on the map to add pins."
+    "rclick-instruction": "Right-click on the map to add pins.",
+    "no-map-title": "No map selected",
+    "no-map-description": "Select a new map to start creating your world"
   },
   "label": {
     "name": "Name: ",
@@ -172,5 +174,9 @@
     "yellow": "Yellow Pin",
     "black": "Black Pin",
     "white": "White Pin"
+  },
+  "alt": {
+    "logo": "Logo Game Master Tools",
+    "campaign-image": "Campaign Image"
   }
 }

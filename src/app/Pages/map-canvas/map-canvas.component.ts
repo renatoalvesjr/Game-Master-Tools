@@ -268,7 +268,7 @@ export class MapCanvasComponent implements OnInit {
       const request: Request = {
         content: imagePath
       }
-      const imageBase64 = this.window.electronAPI.readImageAsBase64(request);
+      const imageBase64 = await this.window.electronAPI.readImageAsBase64(request);
 
       // Espera a imagem carregar para garantir que a sobreposição seja configurada corretamente
       await this.setImage(imageBase64);

@@ -48,8 +48,9 @@ declare type Window  = {
      */
     deleteFile(request: {filePath: string, fileName: string}): Promise<void>;
 
+    //TODO: Docstring missing
     selectImage: () => Promise<string|null>;
-    readImageAsBase64: (request: {content: string}) => string;
+    readImageAsBase64: (request: {content: string}) => Promise<string>;
 
     changeLanguage(newConfig: Config): void;
     toggleTheme(themeColor: "system" | "light" | "dark"): void;

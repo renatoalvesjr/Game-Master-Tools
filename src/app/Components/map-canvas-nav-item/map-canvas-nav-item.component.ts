@@ -6,7 +6,6 @@ import {MatMenu, MatMenuItem, MatMenuTrigger} from '@angular/material/menu';
 import {TranslatePipe} from '@ngx-translate/core';
 import {NgStyle} from '@angular/common';
 import {SvgIconComponent} from 'angular-svg-icon';
-import {MapCanvasComponent} from '../../Pages/map-canvas/map-canvas.component';
 import {Campaign} from '../../Types/Campaign.type';
 import {UtilsService} from '../../Services/utils.service';
 import {CampaignService} from '../../Services/campaign.service';

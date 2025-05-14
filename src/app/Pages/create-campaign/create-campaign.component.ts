@@ -18,8 +18,6 @@ export class CreateCampaignComponent {
   campaignService: CampaignService = inject(CampaignService);
   router: Router = inject(Router);
 
-  hiddenDescription = true;
-
   constructor(private translate: TranslateService) {
     this.translate.use(this.translate.currentLang)
   }
