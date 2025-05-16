@@ -23,4 +23,5 @@ export type MapPin = {
   label?: string;
   hasNote: boolean;
   note?: string;
+  attribution?: string;
 }

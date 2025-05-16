@@ -87,6 +87,7 @@ export class MapCanvasComponent implements OnInit {
   showContextMenu = false;
   showPinContextMenu = false;
   contextMenuPosition = {x: 0, y: 0};
+  selectedMarker: string = '';
 
   imageWidth = 0;
   imageHeight = 0;
@@ -125,67 +126,14 @@ export class MapCanvasComponent implements OnInit {
     this.closeMenu();
   }
 
-  onPinRightClick(event: L.LeafletMouseEvent) {
+  onPinRightClick(event: L.LeafletMouseEvent, marker: L.Marker) {
     this.closeMenu();
-    this.rightClickCoords = event.latlng;
-    console.log(this.rightClickCoords)
     this.contextMenuPosition = {
       x: event.originalEvent.clientX,
       y: event.originalEvent.clientY
     };
     this.showPinContextMenu = true;
-  }
-
-  async addPin(icon: Pin) {
-    console.log(this.rightClickCoords)
-    if (this.rightClickCoords) {
-      console.log(`Adding pin ${icon} at ${this.rightClickCoords}`);
-      const newIcon = L.icon({
-        iconUrl: icon.url,
-        iconSize: [25, 41],
-        iconAnchor: [12, 41],
-        popupAnchor: [1, -34],
-        shadowSize: [41, 41],
-      });
-
-      const newMarker = L.marker(this.rightClickCoords, {
-        icon: newIcon,
-        draggable: true,
-        zIndexOffset: 200,
-        riseOnHover: true,
-        interactive: true,
-      });
-      newMarker.on('contextmenu', this.onPinRightClick.bind(this));
-      newMarker.on('mouseover', () => {
-        console.log("Mouse over")
-      })
-      newMarker.on('move', (latLang: LeafletEvent) => {
-        newMarker.setLatLng(new L.LatLng(latLang.target._latlng.lat, latLang.target._latlng.lng));
-        this.mapCanvas!.mapContent!.pins.forEach(pin => {
-          if (pin.id === icon.id) {
-            pin.x = latLang.target._latlng.lat;
-            pin.y = latLang.target._latlng.lng;
-          }
-        })
-
-        this.updateMap(this.mapCanvas!);
-      })
-
-      const newPin: MapPin = {
-        id: icon.id,
-        x: this.rightClickCoords.lat,
-        y: this.rightClickCoords.lng,
-        url: icon.url,
-        label: icon.name,
-        type: icon.type || 'custom',
-        hasNote: false
-      }
-      this.mapCanvas!.mapContent!.pins.push(newPin)
-      this.pins.push(newMarker.addTo(this.map!))
-      await this.mapsService.updateMap(this.campaignId!, this.mapPage!.mapPageId, this.mapCanvas!)
-      this.closeMenu();
-    }
-    await this.ngOnInit();
+    this.selectedMarker = marker.options.attribution!;
   }
 
   async loadMap(imageBase64: string) {
@@ -235,16 +183,17 @@ export class MapCanvasComponent implements OnInit {
         const newMarker = L.marker(new L.LatLng(pin.x, pin.y), {
           icon: newIcon,
           draggable: true,
+          attribution: pin.attribution,
           zIndexOffset: 200,
           riseOnHover: true,
           interactive: true,
         });
-        newMarker.on('contextmenu', this.onPinRightClick.bind(this));
+        newMarker.on('contextmenu', (event) => {this.onPinRightClick(event, newMarker)});
         newMarker.on('move', async () => {
           pin.x = newMarker.getLatLng().lat;
           pin.y = newMarker.getLatLng().lng;
           this.mapCanvas!.mapContent!.pins = this.mapCanvas!.mapContent!.pins.map(p => {
-            if (p.id === pin.id) return pin;
+            if (p.attribution === pin.attribution) return pin;
             return p;
           })
           await this.updateMap(this.mapCanvas!);
@@ -255,6 +204,73 @@ export class MapCanvasComponent implements OnInit {
       const updatedMap: MapCanvas = {...this.mapCanvas, mapContent: this.mapCanvas.mapContent};
       await this.updateMap(updatedMap);
     }
+  }
+
+  async addPin(icon: Pin) {
+    console.log(this.rightClickCoords)
+    if (this.rightClickCoords) {
+      console.log(`Adding pin ${icon} at ${this.rightClickCoords}`);
+      const newIcon = L.icon({
+        iconUrl: icon.url,
+        iconSize: [25, 41],
+        iconAnchor: [12, 41],
+        popupAnchor: [1, -34],
+        shadowSize: [41, 41],
+      });
+
+      const newMarker = L.marker(this.rightClickCoords, {
+        icon: newIcon,
+        draggable: true,
+        attribution: this.utils.getUUID(),
+        zIndexOffset: 200,
+        riseOnHover: true,
+        interactive: true,
+      });
+      newMarker.on('contextmenu', (event) => {this.onPinRightClick(event, newMarker)});
+      newMarker.on('mouseover', () => {
+        console.log("Mouse over")
+      })
+      newMarker.on('move', (latLang: LeafletEvent) => {
+        newMarker.setLatLng(new L.LatLng(latLang.target._latlng.lat, latLang.target._latlng.lng));
+        this.mapCanvas!.mapContent!.pins.forEach(pin => {
+          if (pin.id === icon.id) {
+            pin.x = latLang.target._latlng.lat;
+            pin.y = latLang.target._latlng.lng;
+          }
+        })
+
+        this.updateMap(this.mapCanvas!);
+      })
+
+      const newPin: MapPin = {
+        id: icon.id,
+        x: this.rightClickCoords.lat,
+        y: this.rightClickCoords.lng,
+        url: icon.url,
+        label: icon.name,
+        type: icon.type || 'custom',
+        hasNote: false,
+        attribution: newMarker.options.attribution
+      }
+      this.mapCanvas!.mapContent!.pins.push(newPin)
+      this.pins.push(newMarker.addTo(this.map!))
+      await this.mapsService.updateMap(this.campaignId!, this.mapPage!.mapPageId, this.mapCanvas!)
+      this.closeMenu();
+    }
+    await this.ngOnInit();
+  }
+
+  async removePin() {
+    this.pins.forEach(pin => {
+      if (pin.options.attribution === this.selectedMarker) {
+        this.map!.removeLayer(pin);
+        this.pins = this.pins.filter(p => p.options.attribution !== this.selectedMarker);
+        this.mapCanvas!.mapContent!.pins = this.mapCanvas!.mapContent!.pins.filter(p => p.attribution !== this.selectedMarker);
+        this.updateMap(this.mapCanvas!);
+        this.closeMenu();
+      }
+    })
+
   }
 
   async updateMap(map: MapCanvas) {
@@ -276,10 +292,6 @@ export class MapCanvasComponent implements OnInit {
     } catch (e) {
       console.error("Error on selecting a image: ", e);
     }
-  }
-
-  async removePin(event: LeafletEvent) {
-
   }
 
   async setImage(imageBase64: string) {

@@ -30,13 +30,13 @@
             </button>
           }
         </div>
+        <!-- você pode adicionar mais opções -->
       </div>
       <div class="block w-full border-b border-gray-300 my-2"></div>
       <button class="block w-full hover:bg-gray-200 text-left text-black rounded-md py-1 px-2 z-50"
               (click)="closeMenu()">{{ "menu-options.close" | translate }}
       </button>
     </div>
-    <!-- você pode adicionar mais opções -->
   </div>
 }
 
@@ -46,7 +46,7 @@
     [ngStyle]="{ top: contextMenuPosition.y + 'px', left: contextMenuPosition.x + 'px' }"
   >
     <div class="flex flex-col bg-stone-50 p-2 border rounded shadow gap-1 text-black ">
-      <div (click)="closeMenu()"
+      <div (click)="removePin()"
            class="flex flex-row justify-between hover:bg-gray-200 p-1 rounded-md">
         <span class="text-red-700">{{ "menu-options.delete-pin" | translate }}</span>
       </div>
