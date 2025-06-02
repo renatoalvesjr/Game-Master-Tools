@@ -22,15 +22,15 @@
   },
   "private": true,
   "dependencies": {
-    "@angular/animations": "^19.1.6",
-    "@angular/common": "^19.1.6",
-    "@angular/compiler": "^19.1.6",
-    "@angular/core": "^19.1.6",
-    "@angular/forms": "^19.1.6",
+    "@angular/animations": "^20.0.0",
+    "@angular/common": "^20.0.0",
+    "@angular/compiler": "^20.0.0",
+    "@angular/core": "^20.0.0",
+    "@angular/forms": "^20.0.0",
     "@angular/material": "^19.1.4",
-    "@angular/platform-browser": "^19.1.6",
-    "@angular/platform-browser-dynamic": "^19.1.6",
-    "@angular/router": "^19.1.6",
+    "@angular/platform-browser": "^20.0.0",
+    "@angular/platform-browser-dynamic": "^20.0.0",
+    "@angular/router": "^20.0.0",
     "@colsen1991/ngx-translate-extract-marker": "^3.0.1",
     "@ngx-translate/core": "^16.0.4",
     "@ngx-translate/http-loader": "^16.0.1",
@@ -79,10 +79,10 @@
     "zone.js": "~0.15.0"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "^19.1.7",
-    "@angular/cli": "^19.1.7",
-    "@angular/compiler-cli": "^19.1.6",
-    "@angular/localize": "^19.1.6",
+    "@angular/build": "^20.0.0",
+    "@angular/cli": "^20.0.0",
+    "@angular/compiler-cli": "^20.0.0",
+    "@angular/localize": "^20.0.0",
     "@electron-forge/cli": "^7.7.0",
     "@electron-forge/maker-deb": "^7.7.0",
     "@electron-forge/maker-rpm": "^7.7.0",
@@ -108,6 +108,6 @@
     "postcss": "^8.5.3",
     "postcss-scss": "^4.0.9",
     "tailwindcss": "^4.0.13",
-    "typescript": "~5.5.2"
+    "typescript": "~5.8.3"
   }
 }
