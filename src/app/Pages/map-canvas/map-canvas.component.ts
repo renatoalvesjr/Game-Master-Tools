@@ -1,13 +1,9 @@
 import {
-  AfterViewInit,
   Component,
   ElementRef,
-  HostListener,
   inject,
   Input,
-  OnDestroy,
-  OnInit,
-  ViewChild
+  OnInit
 } from '@angular/core';
 import {MapService} from '../../Services/map.service';
 import {MapPage} from '../../Types/MapPage.type';
@@ -18,12 +14,14 @@ import {SvgIconComponent} from 'angular-svg-icon';
 import {WindowRef} from '../../Services/window.service';
 import {PButtonComponent} from '../../Components/Buttons/p-button/p-button.component';
 import {Request} from '../../Types/Request.type'
-import {Icon, IconOptions, ImageOverlay, LeafletEvent} from 'leaflet';
+import {LeafletEvent, LeafletMouseEvent} from 'leaflet';
 import {TranslatePipe} from '@ngx-translate/core';
 import {NgStyle} from '@angular/common';
-import {MatMenu, MatMenuItem, MatMenuTrigger} from '@angular/material/menu';
-import {MatButton} from '@angular/material/button';
 import {UtilsService} from '../../Services/utils.service';
+import {NgxTiptapModule} from 'ngx-tiptap';
+import {FormsModule} from '@angular/forms';
+import {TooltipService} from '../../Services/tooltip.service';
+import {TooltipType} from '../../Types/Tooltip.type';
 
 
 interface Pin {
@@ -40,7 +38,9 @@ interface Pin {
     PButtonComponent,
     TranslatePipe,
     NgStyle,
-    SvgIconComponent
+    SvgIconComponent,
+    NgxTiptapModule,
+    FormsModule
   ],
   templateUrl: './map-canvas.component.html',
   styleUrl: './map-canvas.component.scss'
@@ -54,6 +54,7 @@ export class MapCanvasComponent implements OnInit {
   utils = inject(UtilsService);
   mapsService = inject(MapService);
   window = inject(WindowRef).getWindow();
+  tooltip = inject(TooltipService);
   elementRef = inject(ElementRef);
 
   map: L.Map | null = null;
@@ -86,12 +87,16 @@ export class MapCanvasComponent implements OnInit {
   rightClickCoords: L.LatLng | null = null;
   showContextMenu = false;
   showPinContextMenu = false;
+  showPinTooltip = false;
   contextMenuPosition = {x: 0, y: 0};
   selectedMarker: string = '';
+  selectedPin: string = '';
+  selectedTooltip: TooltipType = {} as TooltipType;
 
   imageWidth = 0;
   imageHeight = 0;
   imageOverlay?: L.ImageOverlay;
+
 
   isEmpty: boolean = true;
   showPinMenu: boolean = false;
@@ -105,10 +110,21 @@ export class MapCanvasComponent implements OnInit {
     console.log("MapCanvasComponent initialized after map load");
   }
 
-  closeMenu() {
-    this.showContextMenu = false
-    this.showPinMenu = false
+  closeMenu(event?: Event, tooltip?: TooltipType) {
+
+    console.log("event:", event)
+    if(event) {
+      event.stopPropagation();
+    }
+    this.showContextMenu = false;
+    this.showPinMenu = false;
     this.showPinContextMenu = false;
+    this.showPinTooltip = false;
+    this.selectedPin = '';
+    if(tooltip) {
+      this.tooltip.updateTooltip(this.campaignId!, this.mapPage!.mapPageId, this.mapCanvas!.mapId, tooltip).
+        then(()=> {});
+    }
   }
 
   onMapRightClick(event: L.LeafletMouseEvent) {
@@ -179,6 +195,7 @@ export class MapCanvasComponent implements OnInit {
           iconAnchor: [12, 41],
           popupAnchor: [1, -34],
           shadowSize: [41, 41],
+          attribution: pin.attribution
         });
         const newMarker = L.marker(new L.LatLng(pin.x, pin.y), {
           icon: newIcon,
@@ -188,7 +205,12 @@ export class MapCanvasComponent implements OnInit {
           riseOnHover: true,
           interactive: true,
         });
-        newMarker.on('contextmenu', (event) => {this.onPinRightClick(event, newMarker)});
+        newMarker.on('contextmenu', (event) => {
+          this.onPinRightClick(event, newMarker)
+        });
+        newMarker.on('dblclick', (event) => {
+          this.showTooltipModal(event, newMarker);
+        })
         newMarker.on('move', async () => {
           pin.x = newMarker.getLatLng().lat;
           pin.y = newMarker.getLatLng().lng;
@@ -198,12 +220,34 @@ export class MapCanvasComponent implements OnInit {
           })
           await this.updateMap(this.mapCanvas!);
         })
-        this.pins.push(newMarker.addTo(this.map!))
+        this.pins.push(newMarker.addTo(this.map!));
+        const newTooltip: TooltipType = {
+          id: pin.attribution!,
+          title: '',
+          content: '',
+          linkTo: '',
+          creationDate: this.utils.getTimeNow()
+        }
+        this.createTooltip(newMarker).then();
       })
 
       const updatedMap: MapCanvas = {...this.mapCanvas, mapContent: this.mapCanvas.mapContent};
       await this.updateMap(updatedMap);
     }
+  }
+
+  async showTooltipModal(event: LeafletMouseEvent, marker: L.Marker) {
+    this.closeMenu()
+    if (marker.getAttribution?.()) {
+      console.log("Mouse click on pin: ", marker.getAttribution());
+      this.selectedPin = marker.getAttribution()!;
+      this.showPinTooltip = true;
+      this.selectedTooltip = await this.tooltip.getTooltip(this.campaignId!, this.mapPage!.mapPageId, this.mapCanvas!.mapId, this.selectedPin);
+    }
+  }
+
+  async setPinTooltip(marker: L.Marker) {
+
   }
 
   async addPin(icon: Pin) {
@@ -226,9 +270,11 @@ export class MapCanvasComponent implements OnInit {
         riseOnHover: true,
         interactive: true,
       });
-      newMarker.on('contextmenu', (event) => {this.onPinRightClick(event, newMarker)});
-      newMarker.on('mouseover', () => {
-        console.log("Mouse over")
+      newMarker.on('contextmenu', (event) => {
+        this.onPinRightClick(event, newMarker)
+      });
+      newMarker.on('mouseover', (event) => {
+        this.showTooltipModal(event, newMarker);
       })
       newMarker.on('move', (latLang: LeafletEvent) => {
         newMarker.setLatLng(new L.LatLng(latLang.target._latlng.lat, latLang.target._latlng.lng));
@@ -255,6 +301,7 @@ export class MapCanvasComponent implements OnInit {
       this.mapCanvas!.mapContent!.pins.push(newPin)
       this.pins.push(newMarker.addTo(this.map!))
       await this.mapsService.updateMap(this.campaignId!, this.mapPage!.mapPageId, this.mapCanvas!)
+      await this.createTooltip(newMarker);
       this.closeMenu();
     }
     await this.ngOnInit();
@@ -315,4 +362,24 @@ export class MapCanvasComponent implements OnInit {
     img.src = imageBase64;
   }
 
+  async createTooltip( marker: L.Marker) {
+    const newTooltip: TooltipType = {
+      id: marker.getAttribution!()!,
+      title: '',
+      content: '',
+      linkTo: '',
+      creationDate: this.utils.getTimeNow()
+    }
+    try {
+      await this.tooltip.addTooltip(this.campaignId!, this.mapPage!.mapPageId, this.mapCanvas!.mapId, newTooltip);
+      return true;
+    } catch (e) {
+      console.error('Error on creating Tooltip: ', e);
+      return false;
+    }
+
+  }
+
+  protected readonly close = close;
+  protected readonly event = event;
 }

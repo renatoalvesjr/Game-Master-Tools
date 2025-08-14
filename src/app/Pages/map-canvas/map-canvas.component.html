@@ -5,8 +5,7 @@
   <div>{{ "page-text.rclick-instruction" | translate }}</div>
 
   <div id="map" class="h-[80vh]"></div>
-  <p-button class="self-center" (click)="onImageSelected()"
-            [title]="'button.change-map' | translate"></p-button>
+
 </div>
 
 @if (showContextMenu) {
@@ -32,14 +31,18 @@
         </div>
         <!-- você pode adicionar mais opções -->
       </div>
+
       <div class="block w-full border-b border-gray-300 my-2"></div>
+      <button
+        (click)="onImageSelected()"
+        class="block w-full hover:bg-gray-200 text-left text-black rounded-md py-1 px-2 z-50">{{ "button.change-map" | translate }}
+      </button>
       <button class="block w-full hover:bg-gray-200 text-left text-black rounded-md py-1 px-2 z-50"
               (click)="closeMenu()">{{ "menu-options.close" | translate }}
       </button>
     </div>
   </div>
 }
-
 @if (showPinContextMenu) {
   <div
     class="fixed w-[200px] z-[1000]"
@@ -65,6 +68,37 @@
     <p-button (click)="onImageSelected()" [title]="'button.change-map' | translate"></p-button>
   </div>
 </div>
+
+@if (showPinTooltip) {
+
+  <div [id]="selectedPin" class="fixed w-full h-full z-[1004] p-4 w-64 h-64 top-0 left-0" >
+
+    <div class="fixed inset-0 z-[1005] bg-black/35 transition-all duration-300" (click)="closeMenu()"></div>
+    <div class="flex flex-col z-[1006] border-2 p-4 bg-amber-50 absolute text-black rounded-lg top-1/2 left-1/2">
+      {{this.selectedTooltip.id}}
+      {{this.selectedTooltip.creationDate}}
+      <input
+        type="text"
+        placeholder="{{'placeholders.tooltip-title' | translate}}"
+        class="appearance-none outline-none placeholder:opacity-1/2 border-b placeholder:text-gray-400"
+      />
+
+      <textarea
+        class="h-auto resize-none field-sizing-content border border-transparent placeholder:text-gray-400 hover:border-slate-200 appearance-none rounded px-1.5 py-2.5 outline-none focus:border-indigo-400 focus:ring-2 focus:ring-indigo-100"
+        name="message"
+        id="message"
+        rows="2"
+        onInput="this.parentNode.dataset.clonedVal = this.value"
+        [placeholder]="'placeholders.tooltip-content' | translate"
+        required
+      ></textarea>
+    </div>
+  </div>
+
+}
+
+
+
 <!--<div class="controls">-->
 <!--  <button (click)="setIconStyle('red')">-->
 <!--    <svg-icon svgClass="" src="icons/red-pin.svg"></svg-icon>-->

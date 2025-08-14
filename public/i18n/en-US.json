@@ -128,7 +128,9 @@
   "placeholders": {
     "name": "Name...",
     "description": "Description...",
-    "url": "Image URL..."
+    "url": "Image URL...",
+    "tooltip-content": "Type note here ...",
+    "tooltip-title": "Tooltip title"
   },
   "hover": {
     "rename": "Rename",

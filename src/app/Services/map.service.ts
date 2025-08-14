@@ -10,15 +10,19 @@ import {Request} from '../Types/Request.type';
 })
 export class MapService {
   window = inject(WindowRef).getWindow();
-  private selectedDataSubject = new BehaviorSubject<{ map: MapCanvas | null, mapPage: MapPage | null, campaignId: string}>({ map: null, mapPage: null, campaignId: '' });
+  private selectedDataSubject = new BehaviorSubject<{
+    map: MapCanvas | null,
+    mapPage: MapPage | null,
+    campaignId: string
+  }>({map: null, mapPage: null, campaignId: ''});
   selectedMap$ = this.selectedDataSubject.asObservable();
 
   selectMap(map: MapCanvas | null, mapPage: MapPage | null, campaignId: string) {
-    this.selectedDataSubject.next({ map: map, mapPage: mapPage, campaignId});
+    this.selectedDataSubject.next({map: map, mapPage: mapPage, campaignId});
   }
 
   unselectMap() {
-    this.selectedDataSubject.next({ map: null, mapPage: null, campaignId: '' });
+    this.selectedDataSubject.next({map: null, mapPage: null, campaignId: ''});
   }
 
   async loadAllMapPages(campaignId: string): Promise<MapPage[] | null> {
@@ -60,18 +64,20 @@ export class MapService {
       return Promise.resolve(null);
     }
   }
+
   async addMapPage(campaignId: string, map: MapPage) {
     const request: Request = {
       filePath: "Campaigns/" + campaignId + "/Maps/" + map.mapPageId,
       fileName: "/maps.json",
       content: JSON.stringify(map)
     }
-    try{
+    try {
       await this.window.electronAPI.saveFile(request);
     } catch (e) {
       console.error('Error on addMapPage:', e);
     }
   }
+
   async updateMapPage(campaignId: string, mapPage: MapPage) {
     const request: Request = {
       filePath: "Campaigns/" + campaignId + "/Maps/" + mapPage.mapPageId,
@@ -85,6 +91,7 @@ export class MapService {
       console.error('Error on updateMapPage:', e);
     }
   }
+
   async deleteMapPage(campaignId: string, mapPageId: string) {
     const request: Request = {
       filePath: "Campaigns/" + campaignId + "/Maps/" + mapPageId,
@@ -104,12 +111,13 @@ export class MapService {
       fileName: "/map.json",
       content: JSON.stringify(map)
     }
-    try{
+    try {
       await this.window.electronAPI.saveFile(request);
     } catch (e) {
       console.error('Error on addMap:', e);
     }
   }
+
   async deleteMap(campaignId: string, mapPageId: string, mapId: string) {
     const request: Request = {
       filePath: "Campaigns/" + campaignId + "/Maps/" + mapPageId + "/MapList/" + mapId,
@@ -122,6 +130,7 @@ export class MapService {
       console.error('Error on deleteMap:', e);
     }
   }
+
   async updateMap(campaignId: string, mapPageId: string, map: MapCanvas) {
     const request: Request = {
       filePath: "Campaigns/" + campaignId + "/Maps/" + mapPageId + "/MapList/" + map.mapId,
@@ -135,6 +144,7 @@ export class MapService {
       console.error('Error on updateMap:', e);
     }
   }
+
   async loadAllMaps(campaignId: string, mapPageId: string): Promise<MapCanvas[] | null> {
     if (!campaignId) {
       console.error('Error: campaignId is null or undefined');
