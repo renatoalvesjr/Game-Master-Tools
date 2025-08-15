@@ -1,30 +1,41 @@
-<app-breadcomb [list]="[mapPage?.mapPageName!,mapCanvas?.mapName!]"></app-breadcomb>
+<app-breadcomb
+  [list]="[mapPage?.mapPageName!, mapCanvas?.mapName!]"
+></app-breadcomb>
 
-
-<div class="flex flex-col m-4 {{isEmpty ? 'hidden' : ''}} gap-4">
+<div class="flex flex-col m-4 {{ isEmpty ? 'hidden' : '' }} gap-4">
   <div>{{ "page-text.rclick-instruction" | translate }}</div>
 
   <div id="map" class="h-[80vh]"></div>
-
 </div>
 
 @if (showContextMenu) {
   <div
     class="absolute w-[200px] z-[1000]"
-    [ngStyle]="{ top: contextMenuPosition.y + 'px', left: contextMenuPosition.x + 'px' }"
+    [ngStyle]="{
+      top: contextMenuPosition.y + 'px',
+      left: contextMenuPosition.x + 'px',
+    }"
   >
-    <div class="flex flex-col bg-stone-50 p-2 border rounded shadow gap-1 text-black ">
-      <div (click)="showPinMenu = !showPinMenu"
-           class="flex flex-row justify-between hover:bg-gray-200 p-1 rounded-md">
+    <div
+      class="flex flex-col bg-stone-50 p-2 border rounded shadow gap-1 text-black"
+    >
+      <div
+        (click)="showPinMenu = !showPinMenu"
+        class="flex flex-row justify-between hover:bg-gray-200 p-1 rounded-md"
+      >
         <span>{{ "menu-options.add-pin" | translate }}</span>
-        <svg-icon src="icons/keyboard_arrow_{{showPinMenu?'down':'right'}}.svg"></svg-icon>
+        <svg-icon
+          src="icons/keyboard_arrow_{{ showPinMenu ? 'down' : 'right' }}.svg"
+        ></svg-icon>
       </div>
-      <div class=" {{showPinMenu?'flex':'hidden'}}">
+      <div class=" {{ showPinMenu ? 'flex' : 'hidden' }}">
         <div class="flex flex-col w-full ml-4">
           @for (pin of icons; track pin.url) {
-            <button class="flex flex-row w-full hover:bg-gray-200 rounded-md text-left text-black p-1 z-50 gap-2"
-                    (click)="addPin(pin)">
-              <svg-icon src="{{pin.url}}"></svg-icon>
+            <button
+              class="flex flex-row w-full hover:bg-gray-200 rounded-md text-left text-black p-1 z-50 gap-2"
+              (click)="addPin(pin)"
+            >
+              <svg-icon src="{{ pin.url }}"></svg-icon>
               <span>{{ "pin-colors." + pin.name | translate }}</span>
             </button>
           }
@@ -34,11 +45,18 @@
 
       <div class="block w-full border-b border-gray-300 my-2"></div>
       <button
+      type="button"
         (click)="onImageSelected()"
-        class="block w-full hover:bg-gray-200 text-left text-black rounded-md py-1 px-2 z-50">{{ "button.change-map" | translate }}
+        class="block w-full hover:bg-gray-200 text-left text-black rounded-md py-1 px-2 z-50"
+      >
+        {{ "button.change-map" | translate }}
       </button>
-      <button class="block w-full hover:bg-gray-200 text-left text-black rounded-md py-1 px-2 z-50"
-              (click)="closeMenu()">{{ "menu-options.close" | translate }}
+      <button
+        type="button"
+        class="block w-full hover:bg-gray-200 text-left text-black rounded-md py-1 px-2 z-50"
+        (click)="closeMenu()"
+      >
+        {{ "menu-options.close" | translate }}
       </button>
     </div>
   </div>
@@ -46,43 +64,67 @@
 @if (showPinContextMenu) {
   <div
     class="fixed w-[200px] z-[1000]"
-    [ngStyle]="{ top: contextMenuPosition.y + 'px', left: contextMenuPosition.x + 'px' }"
+    [ngStyle]="{
+      top: contextMenuPosition.y + 'px',
+      left: contextMenuPosition.x + 'px',
+    }"
   >
-    <div class="flex flex-col bg-stone-50 p-2 border rounded shadow gap-1 text-black ">
-      <div (click)="removePin()"
-           class="flex flex-row justify-between hover:bg-gray-200 p-1 rounded-md">
-        <span class="text-red-700">{{ "menu-options.delete-pin" | translate }}</span>
+    <div
+      class="flex flex-col bg-stone-50 p-2 border rounded shadow gap-1 text-black"
+    >
+      <div
+        (click)="removePin()"
+        class="flex flex-row justify-between hover:bg-gray-200 p-1 rounded-md"
+      >
+        <span class="text-red-700">{{
+          "menu-options.delete-pin" | translate
+        }}</span>
       </div>
       <div class="block w-full border-b border-gray-300 my-2"></div>
-      <button class="block w-full hover:bg-gray-200 text-left text-black rounded-md py-1 px-2 z-50"
-              (click)="closeMenu()">{{ "menu-options.close" | translate }}
+      <button
+        type="button"
+        class="block w-full hover:bg-gray-200 text-left text-black rounded-md py-1 px-2 z-50"
+        (click)="closeMenu()"
+      >
+        {{ "menu-options.close" | translate }}
       </button>
     </div>
   </div>
 }
 
-<div class="{{isEmpty?'':'hidden'}}">
+<div class="{{ isEmpty ? '' : 'hidden' }}">
   <div class="flex flex-col items-center justify-center h-[80vh]">
-    <h2 class="m-4 p-2 font-bold">{{ "page-text.no-map-title" | translate }}</h2>
+    <h2 class="m-4 p-2 font-bold">
+      {{ "page-text.no-map-title" | translate }}
+    </h2>
     <p class="m-2">{{ "page-text.no-map-description" | translate }}</p>
-    <p-button (click)="onImageSelected()" [title]="'button.change-map' | translate"></p-button>
+    <p-button
+      (click)="onImageSelected()"
+      [title]="'button.change-map' | translate"
+    ></p-button>
   </div>
 </div>
 
 @if (showPinTooltip) {
-
-  <div [id]="selectedPin" class="fixed w-full h-full z-[1004] p-4 w-64 h-64 top-0 left-0" >
-
-    <div class="fixed inset-0 z-[1005] bg-black/35 transition-all duration-300" (click)="closeMenu()"></div>
-    <div class="flex flex-col z-[1006] border-2 p-4 bg-amber-50 absolute text-black rounded-lg top-1/2 left-1/2">
-      {{this.selectedTooltip.id}}
-      {{this.selectedTooltip.creationDate}}
+  <div
+    [id]="selectedPin"
+    class="fixed w-full h-full z-[1004] p-4 top-0 left-0"
+  >
+    <div
+      class="fixed inset-0 z-[1005] bg-black/35 transition-all duration-300"
+      (click)="closeMenu()"
+    ></div>
+    <div
+      class="flex flex-col z-[1006] border-2 p-4 bg-amber-50 absolute text-black rounded-lg top-1/2 left-1/2"
+      [formGroup]="tooltipForm"
+    >
       <input
         type="text"
-        placeholder="{{'placeholders.tooltip-title' | translate}}"
+        placeholder="{{ 'placeholders.tooltip-title' | translate }}"
         class="appearance-none outline-none placeholder:opacity-1/2 border-b placeholder:text-gray-400"
+        formControlName="title"
+        (blur)="updateTooltip()"
       />
-
       <textarea
         class="h-auto resize-none field-sizing-content border border-transparent placeholder:text-gray-400 hover:border-slate-200 appearance-none rounded px-1.5 py-2.5 outline-none focus:border-indigo-400 focus:ring-2 focus:ring-indigo-100"
         name="message"
@@ -91,13 +133,12 @@
         onInput="this.parentNode.dataset.clonedVal = this.value"
         [placeholder]="'placeholders.tooltip-content' | translate"
         required
+        formControlName="content"
+        (blur)="updateTooltip()"
       ></textarea>
     </div>
   </div>
-
 }
-
-
 
 <!--<div class="controls">-->
 <!--  <button (click)="setIconStyle('red')">-->

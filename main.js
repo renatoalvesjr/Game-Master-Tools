@@ -67,6 +67,7 @@ app.whenReady().then(() => {
   ipcMain.handle('systemtheme', systemTheme)
   ipcMain.handle('select-image', selectFile)
   ipcMain.handle('readImageAsBase64', readImageAsBase64)
+  ipcMain.handle('getDefaultPath', getDefaultPath)
 
   app.on('activate', function () {
     if (BrowserWindow.getAllWindows().length === 0) initWindow()
@@ -74,6 +75,10 @@ app.whenReady().then(() => {
 })
 
 const defaultPath = app.getPath("appData") + "/GameMasterTools/";
+
+function getDefaultPath() {
+  return defaultPath;
+}
 
 async function selectFile() {
   const result = await dialog.showOpenDialog({
@@ -128,6 +133,8 @@ async function onStart() {
   if (!fs.existsSync(path.join(defaultPath, "config/config.json"))) {
     fs.mkdirSync(path.join(defaultPath, "config"), {recursive: true});
     fs.writeFileSync(path.join(defaultPath, "config/config.json"), JSON.stringify(defaultConfig));
+    console.log(defaultPath);
+    
     return JSON.stringify(defaultConfig);
   } else {
     await checkSettings();

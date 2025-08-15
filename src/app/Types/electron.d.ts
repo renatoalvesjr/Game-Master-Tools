@@ -1,4 +1,4 @@
-declare type Window  = {
+declare type Window = {
   electronAPI: {
     /**
      * Returns the contents of a file with the given path and name.
@@ -9,7 +9,7 @@ declare type Window  = {
      * @param {{filePath: string}} request The path to the file.
      * @returns {Promise<string>} A Promise that resolves with the contents of the file.
      */
-    returnFile(request: {filePath: string}): Promise<string>;
+    returnFile(request: { filePath: string }): Promise<string>;
 
     /**
      * Returns the contents of all files in the directory.
@@ -22,7 +22,10 @@ declare type Window  = {
      * @returns {Promise<string[]>} A Promise that resolves with an array of file contents.
      * @throws {Error} If the directory does not exist.
      */
-    returnAllFiles(request: {filePath: string, fileName: string}): Promise<string[]>;
+    returnAllFiles(request: {
+      filePath: string;
+      fileName: string;
+    }): Promise<string[]>;
 
     /**
      * Recursively deletes a file or directory at the given path.
@@ -30,7 +33,7 @@ declare type Window  = {
      * @param {{filePath: string, fileName: string}} request The path to the file or directory to be deleted.
      * @returns {Promise<void>} A Promise that resolves when the file or directory is deleted.
      */
-    deleteFile(request: {filePath: string, fileName: string}): Promise<void>;
+    deleteFile(request: { filePath: string; fileName: string }): Promise<void>;
 
     /**
      * Saves a file to the given path.
@@ -38,7 +41,11 @@ declare type Window  = {
      * @param {{filePath: string, fileName: string, content: string}} request The path to the file, the name of the file, and the content of the file.
      * @returns {Promise<void>} A Promise that resolves when the file is saved.
      */
-    saveFile(request: {filePath: string, fileName: string, content: string}): Promise<void>;
+    saveFile(request: {
+      filePath: string;
+      fileName: string;
+      content: string;
+    }): Promise<void>;
 
     /**
      * Deletes a file at the given path.
@@ -46,13 +53,15 @@ declare type Window  = {
      * @param {{filePath: string, fileName: string}} request The path to the file and the name of the file.
      * @returns {Promise<void>} A Promise that resolves when the file is deleted.
      */
-    deleteFile(request: {filePath: string, fileName: string}): Promise<void>;
+    deleteFile(request: { filePath: string; fileName: string }): Promise<void>;
 
     //TODO: Docstring missing
-    selectImage: () => Promise<string|null>;
-    readImageAsBase64: (request: {content: string}) => Promise<string>;
+    selectImage: () => Promise<string | null>;
+    readImageAsBase64: (request: { content: string }) => Promise<string>;
 
     changeLanguage(newConfig: Config): void;
-    toggleTheme(themeColor: "system" | "light" | "dark"): void;
+    toggleTheme(themeColor: 'system' | 'light' | 'dark'): void;
+
+    getDefaultPath(): string;
   };
-}
+};

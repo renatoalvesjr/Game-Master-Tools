@@ -74,7 +74,7 @@ export class TooltipService {
   async updateTooltip(campaignId: string, mapPageId: string, mapId: string, tooltip: TooltipType): Promise<boolean> {
     const request: Request = {
       filePath: "Campaigns/" + campaignId + "/Maps/" + mapPageId + "/MapList/" + mapId + "/Tooltips",
-      fileName: tooltip.id,
+      fileName: `${tooltip.id}.json`,
       content: JSON.stringify(tooltip)
     }
 
