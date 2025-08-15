@@ -469,6 +469,15 @@ export class MapCanvasComponent implements OnInit {
     }
   }
 
+  async deleteTooltip(marker: L.Marker) {
+    await this.tooltip.deleteTooltip(
+      this.campaignId!,
+        this.mapPage?.mapPageId!,
+        this.mapCanvas?.mapId!,
+        this.selectedMarker
+    )
+  }
+
   protected readonly close = close;
   protected readonly event = event;
 }

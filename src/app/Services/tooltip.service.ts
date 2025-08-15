@@ -87,7 +87,7 @@ export class TooltipService {
     }
   }
 
-  async deleteTooltip(campaingId: string, mapPageId: string, mapId: string, tooltip: TooltipType): Promise<boolean> {
+  async deleteTooltip(campaingId: string, mapPageId: string, mapId: string, tooltipId: string): Promise<boolean> {
     const request: Request = {
       filePath: "Campaigns/" + campaingId + "/Maps/" + mapPageId + "/MapList/" + mapId + "/Tooltips",
       fileName: tooltip.id,
