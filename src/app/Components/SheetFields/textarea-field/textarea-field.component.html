@@ -1,0 +1,13 @@
+<div class="flex flex-col gap-1 p-1 w-fit">
+  <div class="flex gap-2 items-baseline">
+    <label [for]="id" class="text-black/70 dark:text-white/70">{{
+      title
+    }}</label>
+    <p class="text-sm text-gray-500/50">{{ id }}</p>
+  </div>
+  <textarea
+    [id]="id"
+    [value]="value"
+    class="field-sizing-content w-50 border border-black bg-white text-black p-2 rounded-md"
+  ></textarea>
+</div>

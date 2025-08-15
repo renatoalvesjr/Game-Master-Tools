@@ -1,0 +1,20 @@
+<div class="flex flex-col gap-1 p-1 w-fit">
+  <div class="flex gap-2 items-baseline">
+    <label [for]="id" class="text-black/70 dark:text-white/70">{{
+      name
+    }}</label>
+    <p class="text-sm text-gray-500/50">{{ id }}</p>
+  </div>
+  <select
+    [name]="id"
+    [id]="id"
+    class="field-input rounded-md px-2 py-1 border border-black dark:border-white dark:text-black dark:bg-white text-black bg-white"
+    [value]="defaultValue"
+  >
+    @for (option of options; track $index) {
+      <option [value]="option" [selected]="option === defaultValue">
+        {{ option }}
+      </option>
+    }
+  </select>
+</div>

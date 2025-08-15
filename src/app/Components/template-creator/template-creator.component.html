@@ -1,0 +1,186 @@
+<div
+  class="border-2 rounded-md my-4 p-4 dark:border-neutral-700 dark:bg-neutral-900 border-gray-300 bg-white"
+>
+  <div class="flex items-center justify-between mb-4">
+    <div class="flex items-center gap-2">
+      <h1 class="text-3xl font-bold dark:text-white text-black">
+        {{ selectedTemplate.name }}
+      </h1>
+    </div>
+    <div class="flex gap-2">
+      <p-button
+        [title]="showAddSection ? 'Close' : 'Add New Section'"
+        (click)="showAddSection = !showAddSection"
+      ></p-button>
+      <p-button title="Print" (click)="printSheet()"></p-button>
+    </div>
+  </div>
+
+  @if (showAddSection) {
+    <form
+      [formGroup]="sectionForm"
+      class="flex flex-col gap-4 p-4 border rounded-md my-4 dark:border-neutral-600 dark:bg-neutral-800 border-gray-300 bg-gray-100"
+    >
+      <div class="flex items-center gap-2">
+        <label
+          for="section-name"
+          class="min-w-[120px] dark:text-white/70 text-black/70"
+          >Nome da Seção:</label
+        >
+        <input
+          type="text"
+          id="section-name"
+          class="flex-grow border rounded-md px-2 py-1 focus:outline-none focus:ring-2 dark:bg-neutral-700 dark:text-white dark:border-neutral-600 dark:focus:ring-blue-500 bg-white text-black border-gray-300 focus:ring-blue-500"
+          formControlName="sectionName"
+          placeholder="Ex: Atributos"
+        />
+      </div>
+      <div class="flex gap-2 justify-end">
+        <p-button
+          title="Adicionar no Início"
+          (click)="addSectionStart($event)"
+        ></p-button>
+        <p-button
+          title="Adicionar no Final"
+          (click)="addSectionEnd($event)"
+        ></p-button>
+      </div>
+    </form>
+  }
+
+  @for (section of selectedTemplate.sections; track section.id) {
+    <div
+      class="my-4 p-4 border rounded-md dark:border-neutral-600 dark:bg-neutral-800 border-gray-300 bg-gray-100"
+    >
+      <div
+        class="flex items-center justify-between border-b pb-2 mb-4 dark:border-neutral-500 border-gray-400"
+      >
+        <h3 class="text-xl font-semibold dark:text-white text-black">
+          {{ section.name }}
+        </h3>
+        <p-button
+          title="Adicionar Campo"
+          (click)="showAddField = !showAddField"
+        ></p-button>
+      </div>
+      @if (showAddField) {
+        <form
+          [formGroup]="fieldForm"
+          class="flex flex-col gap-4 p-4 border rounded-md my-4 dark:border-neutral-600 dark:bg-neutral-800 border-gray-300 bg-gray-100"
+        >
+          <div class="flex items-center gap-2">
+            <label
+              for="field-name"
+              class="min-w-[120px] dark:text-white/70 text-black/70"
+              >Nome do Campo:</label
+            >
+            <input
+              type="text"
+              id="field-name"
+              class="flex-grow border rounded-md px-2 py-1 focus:outline-none focus:ring-2 dark:bg-neutral-700 dark:text-white dark:border-neutral-600 dark:focus:ring-blue-500 bg-white text-black border-gray-300 focus:ring-blue-500"
+              formControlName="fieldName"
+              placeholder="Ex: Força"
+            />
+          </div>
+
+          <div class="flex items-center gap-2">
+            <label
+              for="field-type"
+              class="min-w-[120px] dark:text-white/70 text-black/70"
+              >Tipo do Campo:</label
+            >
+            <select
+              id="field-type"
+              class="flex-grow border rounded-md px-2 py-1 dark:bg-neutral-700 dark:text-white dark:border-neutral-600 bg-white text-black border-gray-300"
+              formControlName="fieldType"
+            >
+              <option value="text">Texto</option>
+              <option value="number">Número</option>
+              <option value="textarea">Área de Texto</option>
+              <option value="boolean">Booleano</option>
+              <option value="select">Seleção</option>
+            </select>
+          </div>
+
+          @if (fieldForm.get("fieldType")?.value === "select") {
+            <div class="flex items-center gap-2">
+              <label
+                for="field-options"
+                class="min-w-[120px] dark:text-white/70 text-black/70"
+                >Opções (separadas por vírgula):</label
+              >
+              <input
+                type="text"
+                id="field-options"
+                class="flex-grow border rounded-md px-2 py-1 dark:bg-neutral-700 dark:text-white dark:border-neutral-600 bg-white text-black border-gray-300"
+                formControlName="fieldOptions"
+                placeholder="opção1,opção2,opção3"
+              />
+            </div>
+          }
+
+          <div class="flex gap-2 justify-end">
+            <p-button
+              title="Adicionar Campo"
+              type="submit"
+              [disabled]="!fieldForm.valid"
+              label="Adicionar Campo"
+              (click)="addFields($event, section)"
+            ></p-button>
+          </div>
+        </form>
+      }
+      <div class="flex flex-wrap gap-4">
+        @for (field of section.fields; track field.id) {
+          <div
+            class="field-item"
+            [ngClass]="{
+              'flex flex-col w-full':
+                field.type !== 'number' && field.type !== 'boolean',
+              'flex flex-col w-full md:w-1/2 lg:w-1/4': field.type !== 'number',
+              'flex items-center gap-2 w-fit':
+                field.type === 'number' || field.type === 'boolean',
+            }"
+          >
+            @if (field.type === "select" && field.options) {
+              <app-select-field
+                [id]="field.id"
+                [name]="field.name"
+                [options]="field.options"
+                [defaultValue]="field.defaultValue"
+              />
+            } @else if (field.type === "textarea") {
+              <app-textarea-field
+                [id]="field.id"
+                [value]="field.defaultValue"
+                [title]="field.name"
+              ></app-textarea-field>
+            } @else if (field.type === "boolean") {
+              <app-boolan-field
+                type="checkbox"
+                [name]="field.name"
+                [id]="field.id"
+                [checked]="field.defaultValue"
+                class="dark:bg-neutral-800"
+              />
+            } @else if (field.type === "number") {
+              <app-number-field
+                [type]="field.type"
+                [name]="field.name"
+                [id]="field.id"
+                [content]="field.defaultValue"
+              />
+            } @else {
+              <app-text-field
+                [id]="field.id"
+                [name]="field.name"
+                [content]="field.defaultValue"
+                [type]="field.type"
+              ></app-text-field>
+            }
+          </div>
+        }
+      </div>
+    </div>
+  }
+</div>

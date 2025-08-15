@@ -1,0 +1,15 @@
+<div class="flex flex-col gap-1 p-1 w-fit">
+  <div class="flex gap-2 items-baseline">
+    <label [for]="id" class="text-black/70 dark:text-white/70">{{
+      name
+    }}</label>
+    <p class="text-sm text-gray-500/50">{{ id }}</p>
+  </div>
+  <input
+    [type]="type"
+    [name]="id"
+    [id]="id"
+    class="w-20 rounded-md px-1 text-center border border-black dark:border-white dark:bg-white dark:text-black bg-white text-black [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+    [value]="content"
+  />
+</div>

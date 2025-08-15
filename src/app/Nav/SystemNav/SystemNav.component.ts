@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {TranslatePipe} from "@ngx-translate/core";
+import { SettingsComponent } from "../../Pages/System/system.component";
 
 @Component({
     selector: 'app-SystemNav',
@@ -7,8 +8,9 @@ import {TranslatePipe} from "@ngx-translate/core";
     styleUrls: ['./SystemNav.component.css'],
     standalone: true,
     imports: [
-        TranslatePipe
-    ]
+    TranslatePipe,
+    SettingsComponent
+]
 })
 export class SystemNavComponent implements OnInit {
   constructor() {}

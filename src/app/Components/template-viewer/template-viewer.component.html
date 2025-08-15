@@ -1,0 +1,89 @@
+<div class="border-2 border-white/10 rounded-md my-4 p-2">
+  <div #sections>
+    <div class="mb-2 pb-4">
+      <h1>{{ selectedTemplate.name }}</h1>
+      <div class="flex gap-4">
+      </div>
+    </div>
+    @for (section of selectedTemplate.sections; track $index) {
+      <div class="flex flex-col">
+        <div class="border-b flex gap-2">
+          <h3>
+            {{ section.name }}
+          </h3>
+          <span class="text-sm text-white/20">{{ section.id }}</span>
+        </div>
+      </div>
+      <div #fields class="m-2">
+        @for (field of section.fields; track $index) {
+          <div class="w-fit m-2 flex flex-col">
+            @if (field.type === "select" && field.options) {
+              <div class="flex gap-2">
+                <select
+                  [name]="field.id"
+                  [id]="field.id"
+                  class="border-2 border-amber-200 text-black bg-white rounded-sm"
+                  [value]="field.defaultValue"
+                >
+                  @for (option of field.options; track $index) {
+                    <option [value]="option">{{ option }}</option>
+                  }
+                </select>
+                <label [for]="field.id">{{ field.name }} </label>
+                <span class="text-sm text-white/20">{{ field.id }}</span>
+              </div>
+            } @else if (field.type === "textarea") {
+              <div class="flex flex-col">
+                <div class="flex gap-2">
+                  <label [for]="field.id">{{ field.name }} </label>
+                  <span class="text-sm text-white/20">{{ field.id }}</span>
+                </div>
+                <textarea
+                  [name]="field.id"
+                  [id]="field.id"
+                  class="border bg-white text-black p-1 border-sm"
+                  [value]="field.defaultValue"
+                ></textarea>
+              </div>
+            } @else if (field.type === "boolean") {
+              <div class="flex gap-2">
+                <label [for]="field.id">{{ field.name }} </label>
+                <input
+                  type="checkbox"
+                  [name]="field.id"
+                  [id]="field.id"
+                  [checked]="field.defaultValue"
+                />
+                <span class="text-sm text-white/20">{{ field.id }}</span>
+              </div>
+            } @else {
+              <div
+                class="{{
+                  field.type === 'number'
+                    ? 'flex flex-row-reverse gap-2'
+                    : 'flex flex-col'
+                }}"
+              >
+                <span class="text-sm text-white/20">{{ field.id }}</span>
+
+                <label [for]="field.id">{{ field.name }} </label>
+
+                <input
+                  [type]="field.type"
+                  [name]="field.id"
+                  [id]="field.id"
+                  class="border bg-white text-black border-sm {{
+                    field.type === 'number'
+                      ? 'w-20 rounded-md px-1 text-center [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none'
+                      : 'p-1'
+                  }}"
+                  [value]="field.defaultValue"
+                />
+              </div>
+            }
+          </div>
+        }
+      </div>
+    }
+  </div>
+</div>
