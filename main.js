@@ -9,7 +9,8 @@ let appWindow;
 const defaultConfig = {
   language: 'en-US',
   supportedLanguages: ['en-US', 'pt-BR', 'zh-Hans','zh-Hant', 'de-DE','es-ES','fr-FR'],
-  colorMode: 'dark'
+  colorMode: 'dark',
+  version: '1.0.2'
 }
 
 
@@ -129,6 +130,9 @@ async function systemTheme() {
   return nativeTheme.shouldUseDarkColors;
 }
 
+async function update101to102(){
+
+}
 async function onStart() {
   if (!fs.existsSync(path.join(defaultPath, "config/config.json"))) {
     fs.mkdirSync(path.join(defaultPath, "config"), {recursive: true});
