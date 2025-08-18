@@ -7,7 +7,7 @@
       "systems": "Sistemas",
       "sound": "Soundboard",
       "config": "Configurações",
-      "create-campaign": "Criar nova Campanha",
+      "create-campaign": "Criar Nova Campanha",
       "home": "Início"
     },
     "campaign-navigation": {
@@ -27,7 +27,7 @@
     "zh-Hant": "Chinês Tradicional"
   },
   "settings": {
-    "language":"Idioma: ",
+    "language": "Idioma: ",
     "dark-mode": "Modo Escuro: "
   },
   "button": {
@@ -44,7 +44,7 @@
     "close": "Fechar",
     "ok": "Ok",
     "yes": "Sim",
-    "no": "Nao",
+    "no": "Não",
     "exit": "Sair",
     "insert": "Inserir",
     "remove": "Remover",
@@ -63,25 +63,25 @@
     "add-note": "Adicionar Nota",
     "add-map": "Adicionar Mapa",
     "add-item": "Adicionar Item",
-    "add-pin": "Adicionar Pin",
+    "add-pin": "Adicionar Pino",
     "rename-page": "Renomear Página",
     "rename-note": "Renomear Nota",
     "rename-map": "Renomear Mapa",
     "rename-item": "Renomear Item",
     "rename-character": "Renomear Personagem",
-    "rename-pin": "Renomear Pin",
+    "rename-pin": "Renomear Pino",
     "delete-page": "Excluir Página",
     "delete-note": "Excluir Nota",
     "delete-map": "Excluir Mapa",
     "delete-item": "Excluir Item",
     "delete-character": "Excluir Personagem",
-    "delete-pin": "Excluir Pin",
+    "delete-pin": "Excluir Pino",
     "duplicate-page": "Duplicar Página",
     "duplicate-note": "Duplicar Nota",
     "duplicate-map": "Duplicar Mapa",
     "duplicate-item": "Duplicar Item",
     "duplicate-character": "Duplicar Personagem",
-    "duplicate-pin": "Duplicar Pin",
+    "duplicate-pin": "Duplicar Pino",
     "export-note": "Exportar Nota",
     "export-map": "Exportar Mapa",
     "export-item": "Exportar Item",
@@ -92,17 +92,19 @@
     "move-item": "Mover Item",
     "move-character": "Mover Personagem",
     "move-pin": "Mover Pino",
-    "change-pin-color": "Alterar Cor do Pin",
-    "edit-pin-label": "Editar Rótulo do Pin",
-    "center-on-pin": "Centralizar no Pin",
-    "hide-pin": "Ocultar Pin",
-    "show-pin": "Mostrar Pin",
+    "change-pin-color": "Alterar Cor do Pino",
+    "edit-pin-label": "Editar Rótulo do Pino",
+    "center-on-pin": "Centralizar no Pino",
+    "hide-pin": "Ocultar Pino",
+    "show-pin": "Mostrar Pino",
     "close": "Fechar",
     "page-color": "Alterar Cor"
   },
   "page-text": {
     "no-campaign-manager": "Selecione uma campanha para visualizar suas configurações ou crie uma nova campanha.",
-    "rclick-instruction": "Clique com o botão direito do mapa para adicionar pins."
+    "rclick-instruction": "Clique com o botão direito no mapa para adicionar pins.",
+    "no-map-title": "Nenhum mapa selecionado",
+    "no-map-description": "Selecione um novo mapa para começar a criar seu mundo"
   },
   "label": {
     "name": "Nome: ",
@@ -111,7 +113,7 @@
     "system": "Sistema: ",
     "select-system": "Selecione um Sistema",
     "system-name": "Nome do Sistema: ",
-    "active": "Adicionar ao sidebar depois de criação",
+    "active": "Adicionar à barra lateral após a criação",
     "creation-date": "Data de criação: ",
     "update-date": "Data da última atualização: ",
     "url": "URL: ",
@@ -121,12 +123,23 @@
     "opacity": "Opacidade: ",
     "danger-zone": "Zona Perigosa",
     "enable-options": "Habilitar Opções",
-    "recent-campaigns": "Campanhas Recentes: "
+    "recent-campaigns": "Campanhas Recentes: ",
+    "create-campaign-name": "Nome da Campanha",
+    "create-campaign-description": "Descrição da Campanha",
+    "create-campaign-system": "Sistema usado",
+    "create-campaign-select-system": "Selecione um sistema",
+    "create-campaign-custom-system": "Nome do Sistema Personalizado",
+    "create-campaign-image": "Imagem da Campanha",
+    "create-campaign-active": "Campanha Ativa"
   },
   "placeholders": {
     "name": "Nome...",
     "description": "Descrição...",
-    "url": "URL da imagem..."
+    "url": "URL da imagem...",
+    "tooltip-content": "Digite a nota aqui ...",
+    "tooltip-title": "Título da dica",
+    "campaign-description": "A descrição da sua campanha...",
+    "campaign-name": "O Título da Sua Campanha..."
   },
   "hover": {
     "rename": "Renomear",
@@ -140,30 +153,32 @@
     "show": "Ver mais",
     "hide": "Esconder",
     "close": "Fechar",
-    "redo": "Redo",
-    "undo": "Undo",
-    "clear": "Limpar",
+    "redo": "Refazer",
+    "undo": "Desfazer",
+    "clear-formatting": "Limpar Formatação",
     "save": "Salvar",
-    "decrease": "Diminuir",
-    "increase": "Aumentar",
+    "decrease": "Diminuir Fonte",
+    "increase": "Aumentar Fonte",
     "bold": "Negrito",
     "italic": "Itálico",
     "underline": "Sublinhado",
     "strike": "Tachado",
     "superscript": "Sobrescrito",
     "subscript": "Subscrito",
-    "color-wheel": "Seletor de cores",
+    "color-wheel": "Seletor de Cores",
     "link": "Link",
     "image": "Imagem",
-    "bullet-list": "Lista de itens",
-    "ordered-list": "Lista numerada",
-    "task-list": "Lista de tarefas",
+    "bullet-list": "Lista de Itens",
+    "ordered-list": "Lista Numerada",
+    "task-list": "Lista de Tarefas",
     "code": "Código",
     "highlight": "Destaque",
-    "align-left": "Alinhar a esquerda",
-    "align-center": "Alinhar ao centro",
-    "align-right": "Alinhar a direita",
-    "align-justify": "Justificar"
+    "align-left": "Alinhar à Esquerda",
+    "align-center": "Alinhar ao Centro",
+    "align-right": "Alinhar à Direita",
+    "align-justify": "Justificar",
+    "light-mode": "Modo Claro",
+    "dark-mode": "Modo Escuro"
   },
   "pin-colors": {
     "red": "Pin Vermelho",
@@ -172,5 +187,9 @@
     "yellow": "Pin Amarelo",
     "black": "Pin Preto",
     "white": "Pin Branco"
+  },
+  "alt": {
+    "logo": "Logotipo Game Master Tools",
+    "campaign-image": "Imagem Personalizada da Campanha"
   }
 }

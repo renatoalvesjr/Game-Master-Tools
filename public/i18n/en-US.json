@@ -123,14 +123,23 @@
     "opacity": "Opacity: ",
     "danger-zone": "Danger Zone",
     "enable-options": "Enable Options",
-    "recent-campaigns": "Recent Campaigns: "
+    "recent-campaigns": "Recent Campaigns: ",
+    "create-campaign-name": "Campaign Name",
+    "create-campaign-description": "Campaign Description",
+    "create-campaign-system": "System used",
+    "create-campaign-select-system": "Select a system",
+    "create-campaign-custom-system": "Custom System Name",
+    "create-campaign-image": "Campaign Image",
+    "create-campaign-active": "Active Campaign"
   },
   "placeholders": {
     "name": "Name...",
     "description": "Description...",
     "url": "Image URL...",
     "tooltip-content": "Type note here ...",
-    "tooltip-title": "Tooltip title"
+    "tooltip-title": "Tooltip title",
+    "campaign-description": "The description of your campaign...",
+    "campaign-name": "Your Campaign Title..."
   },
   "hover": {
     "rename": "Rename",
@@ -146,10 +155,10 @@
     "close": "Close",
     "redo": "Redo",
     "undo": "Undo",
-    "clear": "Clear",
+    "clear-formatting": "Clear Formatting",
     "save": "Save",
-    "decrease": "Decrease",
-    "increase": "Increase",
+    "decrease": "Decrease Font Size",
+    "increase": "Increase Font Size",
     "bold": "Bold",
     "italic": "Italic",
     "underline": "Underline",
@@ -167,7 +176,9 @@
     "align-left": "Align left",
     "align-center": "Align center",
     "align-right": "Align right",
-    "align-justify": "Justify"
+    "align-justify": "Justify",
+    "light-mode": "Light Mode",
+    "dark-mode": "Dark Mode"
   },
   "pin-colors": {
     "red": "Red Pin",
@@ -179,6 +190,6 @@
   },
   "alt": {
     "logo": "Logo Game Master Tools",
-    "campaign-image": "Campaign Image"
+    "campaign-image": "Custom Campaign Image"
   }
 }

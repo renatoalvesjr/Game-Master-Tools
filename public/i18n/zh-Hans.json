@@ -1,14 +1,14 @@
 {
-  "not-ready-yet": "系统功能尚未开发，请等待新版本。",
+  "not-ready-yet": "系统功能尚未开发。请等待新版本。",
   "navigation": {
     "titles": {
-      "campaign-management": "战役管理",
+      "campaign-management": "战役管理器",
       "item-vault": "物品库",
       "systems": "系统",
       "sound": "音效板",
       "config": "设置",
       "create-campaign": "创建新战役",
-      "home": "首页"
+      "home": "主页"
     },
     "campaign-navigation": {
       "notes": "笔记",
@@ -27,8 +27,8 @@
     "zh-Hant": "繁体中文"
   },
   "settings": {
-    "language":"语言: ",
-    "dark-mode": "暗黑模式: "
+    "language": "语言：",
+    "dark-mode": "深色模式："
   },
   "button": {
     "save": "保存",
@@ -48,83 +48,98 @@
     "exit": "退出",
     "insert": "插入",
     "remove": "移除",
-    "change": "更改"
+    "change": "更改",
+    "change-map": "更改地图"
   },
   "editor": {
     "paragraph": "段落",
-    "heading1": "标题1",
-    "heading2": "标题2",
-    "heading3": "标题3"
+    "heading1": "标题 1",
+    "heading2": "标题 2",
+    "heading3": "标题 3"
   },
   "menu-options": {
     "add-page": "添加页面",
     "add-character": "添加角色",
     "add-note": "添加笔记",
     "add-map": "添加地图",
-    "add-item": "添加项目",
+    "add-item": "添加物品",
     "add-pin": "添加图钉",
     "rename-page": "重命名页面",
     "rename-note": "重命名笔记",
     "rename-map": "重命名地图",
-    "rename-item": "重命名项目",
+    "rename-item": "重命名物品",
     "rename-character": "重命名角色",
     "rename-pin": "重命名图钉",
     "delete-page": "删除页面",
     "delete-note": "删除笔记",
     "delete-map": "删除地图",
-    "delete-item": "删除项目",
+    "delete-item": "删除物品",
     "delete-character": "删除角色",
     "delete-pin": "删除图钉",
     "duplicate-page": "复制页面",
     "duplicate-note": "复制笔记",
     "duplicate-map": "复制地图",
-    "duplicate-item": "复制项目",
+    "duplicate-item": "复制物品",
     "duplicate-character": "复制角色",
     "duplicate-pin": "复制图钉",
     "export-note": "导出笔记",
     "export-map": "导出地图",
-    "export-item": "导出项目",
+    "export-item": "导出物品",
     "export-character": "导出角色",
     "move-page": "移动页面",
     "move-note": "移动笔记",
     "move-map": "移动地图",
-    "move-item": "移动项目",
+    "move-item": "移动物品",
     "move-character": "移动角色",
     "move-pin": "移动图钉",
     "change-pin-color": "更改图钉颜色",
     "edit-pin-label": "编辑图钉标签",
-    "center-on-pin": "定位到图钉",
+    "center-on-pin": "居中显示图钉",
     "hide-pin": "隐藏图钉",
     "show-pin": "显示图钉",
     "close": "关闭",
     "page-color": "更改颜色"
   },
   "page-text": {
-    "no-campaign-manager": "选择战役以查看其设置或创建新战役。"
+    "no-campaign-manager": "选择一个战役来查看其设置或创建一个新战役。",
+    "rclick-instruction": "右键单击地图以添加图钉。",
+    "no-map-title": "未选择地图",
+    "no-map-description": "选择一张新地图以开始创建您的世界"
   },
   "label": {
-    "name": "名称: ",
-    "description": "描述: ",
-    "image": "图片: ",
-    "system": "系统: ",
-    "select-system": "选择系统",
-    "system-name": "系统名称: ",
+    "name": "名称：",
+    "description": "描述：",
+    "image": "图像：",
+    "system": "系统：",
+    "select-system": "选择一个系统",
+    "system-name": "系统名称：",
     "active": "创建后添加到侧边栏",
-    "creation-date": "创建日期: ",
-    "update-date": "最后更新日期: ",
-    "url": "URL: ",
-    "width": "宽度: ",
-    "height": "高度: ",
-    "color": "颜色: ",
-    "opacity": "不透明度: ",
-    "danger-zone": "危险区域",
+    "creation-date": "创建日期：",
+    "update-date": "上次更新日期：",
+    "url": "网址：",
+    "width": "宽度：",
+    "height": "高度：",
+    "color": "颜色：",
+    "opacity": "不透明度：",
+    "danger-zone": "危险区",
     "enable-options": "启用选项",
-    "recent-campaigns": "近期战役: "
+    "recent-campaigns": "最近的战役：",
+    "create-campaign-name": "战役名称",
+    "create-campaign-description": "战役描述",
+    "create-campaign-system": "使用的系统",
+    "create-campaign-select-system": "选择一个系统",
+    "create-campaign-custom-system": "自定义系统名称",
+    "create-campaign-image": "战役图像",
+    "create-campaign-active": "活跃战役"
   },
   "placeholders": {
     "name": "名称...",
     "description": "描述...",
-    "url": "图片URL..."
+    "url": "图像网址...",
+    "tooltip-content": "在此处键入笔记...",
+    "tooltip-title": "工具提示标题",
+    "campaign-description": "您的战役描述...",
+    "campaign-name": "您的战役标题..."
   },
   "hover": {
     "rename": "重命名",
@@ -139,29 +154,31 @@
     "hide": "隐藏",
     "close": "关闭",
     "redo": "重做",
-    "undo": "撤销",
-    "clear": "清空",
+    "undo": "撤消",
+    "clear-formatting": "清除格式",
     "save": "保存",
-    "decrease": "减少",
-    "increase": "增加",
+    "decrease": "减小字号",
+    "increase": "增大字号",
     "bold": "粗体",
     "italic": "斜体",
     "underline": "下划线",
     "strike": "删除线",
     "superscript": "上标",
     "subscript": "下标",
-    "color-wheel": "颜色选择器",
+    "color-wheel": "拾色器",
     "link": "链接",
-    "image": "图片",
-    "bullet-list": "无序列表",
-    "ordered-list": "有序列表",
+    "image": "图像",
+    "bullet-list": "项目符号列表",
+    "ordered-list": "编号列表",
     "task-list": "任务列表",
     "code": "代码",
-    "highlight": "高亮",
+    "highlight": "高亮显示",
     "align-left": "左对齐",
-    "align-center": "居中",
+    "align-center": "居中对齐",
     "align-right": "右对齐",
-    "align-justify": "两端对齐"
+    "align-justify": "两端对齐",
+    "light-mode": "浅色模式",
+    "dark-mode": "深色模式"
   },
   "pin-colors": {
     "red": "红色图钉",
@@ -170,5 +187,9 @@
     "yellow": "黄色图钉",
     "black": "黑色图钉",
     "white": "白色图钉"
+  },
+  "alt": {
+    "logo": "Game Master Tools 徽标",
+    "campaign-image": "自定义战役图像"
   }
 }

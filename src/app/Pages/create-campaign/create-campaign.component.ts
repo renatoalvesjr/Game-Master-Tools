@@ -23,7 +23,7 @@ export class CreateCampaignComponent {
   }
 
   campaignForm = new FormGroup({
-    campaignName: new FormControl('Nova Campanha'),
+    campaignName: new FormControl(''),
     campaignDescription: new FormControl(''),
     campaignImageUrl: new FormControl('https://www.roleplayingtips.com/wpcms/wp-content/uploads/campaign-seeds-1020x510.jpg'),
     campaignSystemName: new FormControl(''),
