@@ -9,5 +9,4 @@ contextBridge.exposeInMainWorld('electronAPI', {
   toggleTheme: (data) => ipcRenderer.invoke('toggleTheme', data),
   selectImage: () => ipcRenderer.invoke('select-image'),
   readImageAsBase64: (data) => ipcRenderer.invoke('readImageAsBase64', data),
-  getDefaultPath: () => ipcRenderer.invoke('getDefaultPath'),
 })

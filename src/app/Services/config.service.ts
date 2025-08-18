@@ -7,7 +7,8 @@ import {TranslateService} from '@ngx-translate/core';
 interface Config {
   colorMode: "system" | "light" | "dark",
   language: string,
-  supportedLanguages: string[]
+  supportedLanguages: string[],
+  version: string
 }
 
 @Injectable({

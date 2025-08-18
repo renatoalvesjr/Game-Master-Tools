@@ -20,7 +20,7 @@ export class SettingsComponent {
   async changeLanguage(event: Event) {
     const selectElement = event.target as HTMLSelectElement
     const languages = this.translate.getLangs();
-    if(languages.includes(selectElement.value)) {
+    if (languages.includes(selectElement.value)) {
       console.log("Changing language to " + selectElement.value);
       this.translate.use(selectElement.value);
       await this.configService.changeLanguage(selectElement.value);
