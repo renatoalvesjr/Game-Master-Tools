@@ -6,13 +6,17 @@ let url = require('url')
 
 let appWindow;
 
+const defaultPath = app.getPath("appData") + "/GameMasterTools/";
+
+const criticalVersions = [''];
+const nonCriticalVersions = ['1.0.1', '1.0.2'];
+
 const defaultConfig = {
   language: 'en-US',
-  supportedLanguages: ['en-US', 'pt-BR', 'zh-Hans','zh-Hant', 'de-DE','es-ES','fr-FR'],
+  supportedLanguages: ['en-US', 'pt-BR', 'zh-Hans', 'zh-Hant', 'de-DE', 'es-ES', 'fr-FR'],
   colorMode: 'dark',
   version: '1.0.2'
 }
-
 
 function initWindow() {
   appWindow = new BrowserWindow({
@@ -68,24 +72,17 @@ app.whenReady().then(() => {
   ipcMain.handle('systemtheme', systemTheme)
   ipcMain.handle('select-image', selectFile)
   ipcMain.handle('readImageAsBase64', readImageAsBase64)
-  ipcMain.handle('getDefaultPath', getDefaultPath)
 
   app.on('activate', function () {
     if (BrowserWindow.getAllWindows().length === 0) initWindow()
   })
 })
 
-const defaultPath = app.getPath("appData") + "/GameMasterTools/";
-
-function getDefaultPath() {
-  return defaultPath;
-}
-
 async function selectFile() {
   const result = await dialog.showOpenDialog({
     properties: ['openFile'],
     filters: [
-      { name: 'Images', extensions: ['jpg', 'jpeg', 'png', 'webp'] },
+      {name: 'Images', extensions: ['jpg', 'jpeg', 'png', 'webp']},
     ]
   });
 
@@ -97,8 +94,29 @@ async function selectFile() {
   return result.filePaths[0];
 }
 
+async function copySelectedFile(event, data) {
+  const campaignId = data['content'];
 
-async function readImageAsBase64(event,data) {
+  const result = await dialog.showOpenDialog({
+    properties: ['openFile'],
+    filters: [
+      {name: 'Images', extensions: ['jpg', 'jpeg', 'png', 'webp']},
+    ]
+  });
+
+  if (result.canceled || result.filePaths.length === 0) {
+    console.error('Nenhum arquivo selecionado ou o usuário cancelou.');
+    return null;
+  }
+
+  const selectedFilePath = result.filePaths[0];
+
+  fs.copyFile(selectedFilePath, defaultPath + "/Campaigns/" + campaignId + "/Images/");
+
+  return selectedFilePath;
+}
+
+async function readImageAsBase64(event, data) {
   const path = data['content']
   if (!path || typeof path !== 'string') {
     console.error('Caminho fornecido é inválido:', path);
@@ -130,9 +148,6 @@ async function systemTheme() {
   return nativeTheme.shouldUseDarkColors;
 }
 
-async function update101to102(){
-
-}
 async function onStart() {
   if (!fs.existsSync(path.join(defaultPath, "config/config.json"))) {
     fs.mkdirSync(path.join(defaultPath, "config"), {recursive: true});
@@ -152,18 +167,23 @@ async function checkSettings() {
     const configFile = fs.readFileSync(path.join(defaultPath, "config/config.json"), "utf-8");
     const config = JSON.parse(configFile);
 
+    if (!config.language || !defaultConfig.supportedLanguages.includes(config.language)) {
+      config.language = defaultConfig.language;
+      conflict = true;
+    }
+
     if (config.supportedLanguages !== defaultConfig.supportedLanguages || !config.supportedLanguages) {
       config.supportedLanguages = defaultConfig.supportedLanguages;
       conflict = true;
     }
 
-    if (!config.colorMode || config.colorMode !== 'dark' || config.colorMode !== 'light' || config.colorMode !== 'system') {
+    if (!config.colorMode && (config.colorMode === 'dark' || config.colorMode === 'light' || config.colorMode === 'system')) {
       config.colorMode = defaultConfig.colorMode;
       conflict = true;
     }
 
-    if (!config.language || !defaultConfig.supportedLanguages.includes(config.language)) {
-      config.language = defaultConfig.language;
+    if (!config.defaultPath) {
+      config.defaultPath = defaultConfig.defaultPath;
       conflict = true;
     }
 
