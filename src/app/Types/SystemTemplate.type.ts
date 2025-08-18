@@ -99,6 +99,12 @@ export const DND_TEMPLATE: SystemTemplate = {
           type: 'number',
           defaultValue: 1,
         },
+        {
+          id: 'field_descricao',
+          name: 'Descrição',
+          type: 'textarea',
+          defaultValue: 'O Lendário Aventureiro Sem Nome, um poderoso Mago com grandes poderes.'
+        }
       ],
     },
     {
@@ -109,7 +115,7 @@ export const DND_TEMPLATE: SystemTemplate = {
           id: 'field_itens',
           name: 'Itens Carregados',
           type: 'textarea',
-          defaultValue: '1 poção de cura, 1 saco de dormir, 1 ',
+          defaultValue: '1 poção de cura, 1 saco de dormir, 10 rações de viagem',
         },
         {
           id: 'field_moedas',

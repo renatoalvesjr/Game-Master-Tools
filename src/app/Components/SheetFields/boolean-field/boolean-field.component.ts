@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 
 @Component({
-  selector: 'app-boolan-field',
+  selector: 'app-boolean-field',
   imports: [],
   templateUrl: 'boolean-field.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,

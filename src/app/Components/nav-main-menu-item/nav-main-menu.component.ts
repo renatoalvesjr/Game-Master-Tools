@@ -15,4 +15,5 @@ import {TranslatePipe} from '@ngx-translate/core';
 export class NavMainMenuComponent {
 
   @Input() item: SystemNavList | null = null;
+  @Input() active: boolean = false;
 }

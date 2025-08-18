@@ -1,4 +1,4 @@
-import {inject, Injectable} from '@angular/core';
+import {DOCUMENT, Inject, inject, Injectable} from '@angular/core';
 import {CampaignService} from './campaign.service';
 import {WindowRef} from './window.service';
 import {Request} from '../Types/Request.type';
@@ -18,7 +18,7 @@ export class ConfigService {
   window = inject(WindowRef).getWindow();
 
 
-  constructor(private translate: TranslateService) {
+  constructor(private translate: TranslateService, @Inject(DOCUMENT) private document: Document) {
     this.window.electronAPI.onStart().then();
   }
 
@@ -46,8 +46,13 @@ export class ConfigService {
       this.translate.addLangs(config.supportedLanguages);
       this.translate.setDefaultLang('en-US');
       this.translate.use(config.language);
+      this.setHtmlLangAttribute(config.language);
       this.window.electronAPI.toggleTheme(config.colorMode);
     });
+  }
+
+  private setHtmlLangAttribute(newLang: string) {
+    this.document.documentElement.lang = newLang;
   }
 
 
@@ -61,6 +66,8 @@ export class ConfigService {
       fileName: "config.json",
       content: JSON.stringify(newConfig)
     }
+    this.translate.use(language);
+    this.setHtmlLangAttribute(language);
 
     await this.window.electronAPI.saveFile(request);
   }

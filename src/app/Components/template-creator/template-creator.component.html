@@ -25,7 +25,7 @@
         <label
           for="section-name"
           class="min-w-[120px] dark:text-white/70 text-black/70"
-          >Nome da Seção:</label
+        >Nome da Seção:</label
         >
         <input
           type="text"
@@ -72,7 +72,7 @@
             <label
               for="field-name"
               class="min-w-[120px] dark:text-white/70 text-black/70"
-              >Nome do Campo:</label
+            >Nome do Campo:</label
             >
             <input
               type="text"
@@ -87,7 +87,7 @@
             <label
               for="field-type"
               class="min-w-[120px] dark:text-white/70 text-black/70"
-              >Tipo do Campo:</label
+            >Tipo do Campo:</label
             >
             <select
               id="field-type"
@@ -107,7 +107,7 @@
               <label
                 for="field-options"
                 class="min-w-[120px] dark:text-white/70 text-black/70"
-                >Opções (separadas por vírgula):</label
+              >Opções (separadas por vírgula):</label
               >
               <input
                 type="text"
@@ -134,13 +134,6 @@
         @for (field of section.fields; track field.id) {
           <div
             class="field-item"
-            [ngClass]="{
-              'flex flex-col w-full':
-                field.type !== 'number' && field.type !== 'boolean',
-              'flex flex-col w-full md:w-1/2 lg:w-1/4': field.type !== 'number',
-              'flex items-center gap-2 w-fit':
-                field.type === 'number' || field.type === 'boolean',
-            }"
           >
             @if (field.type === "select" && field.options) {
               <app-select-field
@@ -156,7 +149,7 @@
                 [title]="field.name"
               ></app-textarea-field>
             } @else if (field.type === "boolean") {
-              <app-boolan-field
+              <app-boolean-field
                 type="checkbox"
                 [name]="field.name"
                 [id]="field.id"

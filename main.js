@@ -33,7 +33,7 @@ function initWindow() {
       // ),
       // protocol: "file",
       // slashes: true,
-      pathname: "http://localhost:4200",
+      pathname: "http://localhost:4200", // para desenvolvimento local
     })
   ).then();
 
@@ -134,7 +134,7 @@ async function onStart() {
     fs.mkdirSync(path.join(defaultPath, "config"), {recursive: true});
     fs.writeFileSync(path.join(defaultPath, "config/config.json"), JSON.stringify(defaultConfig));
     console.log(defaultPath);
-    
+
     return JSON.stringify(defaultConfig);
   } else {
     await checkSettings();

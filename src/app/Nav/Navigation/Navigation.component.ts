@@ -30,7 +30,7 @@ export class NavigationComponent implements OnInit {
       name: 'navigation.titles.campaign-management',
       route: 'campaign-management',
       icon: 'menu_book',
-      active: false,
+      active: true,
     },
     {
       name: 'navigation.titles.item-vault',
@@ -42,7 +42,7 @@ export class NavigationComponent implements OnInit {
       name: 'navigation.titles.systems',
       route: 'systems',
       icon: 'shelves',
-      active: false,
+      active: true,
     },
     {
       name: 'navigation.titles.sound',
@@ -57,13 +57,13 @@ export class NavigationComponent implements OnInit {
       name: 'navigation.titles.config',
       route: 'settings',
       icon: 'settings',
-      active: false,
+      active: true,
     },
     {
       name: 'navigation.titles.home',
       route: '/',
       icon: 'home',
-      active: false,
+      active: true,
     }
   ];
 

@@ -8,9 +8,11 @@
           @for (item of superiorNavList; track item) {
             <app-nav-main-menu-item
               [item]="item"
-              routerLink="/{{ item.route }}"
+              [routerLink]="item.active?('/'+item.route):(router.url)"
               routerLinkActive="dark:text-ambar-100 text-amber-900 text-2xl"
-              [routerLinkActiveOptions]="{ exact: true }"
+              [title]="item.active ? (item.name | translate):'not-ready-yet'|translate"
+              [active]="item.active"
+              [routerLinkActiveOptions]="{ exact: item.active}"
             ></app-nav-main-menu-item>
           }
         </div>
