@@ -43,7 +43,6 @@ export class CreateCampaignComponent {
       campaignImageUrl: this.campaignForm.value.campaignImageUrl!,
       active: this.campaignForm.value.active!,
     }
-    console.log('Creating camapign...', campaign);
     await this.campaignService.createCampaign(campaign);
     await this.router.navigate(['/campaign/:campaignId', {campaignId: campaign.campaignId}]);
   }

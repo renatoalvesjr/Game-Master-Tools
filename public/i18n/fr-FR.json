@@ -49,7 +49,8 @@
     "insert": "Insérer",
     "remove": "Retirer",
     "change": "Changer",
-    "change-map": "Changer de Carte"
+    "change-map": "Changer de Carte",
+    "save-description": "Sauvegarder la Description"
   },
   "editor": {
     "paragraph": "Paragraphe",

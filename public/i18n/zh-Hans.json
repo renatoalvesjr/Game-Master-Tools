@@ -49,7 +49,8 @@
     "insert": "插入",
     "remove": "移除",
     "change": "更改",
-    "change-map": "更改地图"
+    "change-map": "更改地图",
+    "save-description": "保存描述"
   },
   "editor": {
     "paragraph": "段落",

@@ -1,14 +1,14 @@
-import {Component, inject, OnInit} from '@angular/core';
-import {CampaignCardComponent} from './campaign-card/campaign-card.component';
-import {CampaignService} from '../../Services/campaign.service';
-import {Campaign} from '../../Types/Campaign.type';
-import {RouterLink} from '@angular/router';
-import {PButtonComponent} from '../../Components/Buttons/p-button/p-button.component';
-import {FormatDatePipe} from '../../Pipe/format-date.pipe';
-import {FormsModule} from '@angular/forms';
-import {UtilsService} from '../../Services/utils.service';
-import {SvgIconComponent} from 'angular-svg-icon';
-import {TranslateModule, TranslateService} from '@ngx-translate/core';
+import { Component, inject, OnInit } from '@angular/core';
+import { CampaignCardComponent } from './campaign-card/campaign-card.component';
+import { CampaignService } from '../../Services/campaign.service';
+import { Campaign } from '../../Types/Campaign.type';
+import { RouterLink } from '@angular/router';
+import { PButtonComponent } from '../../Components/Buttons/p-button/p-button.component';
+import { FormatDatePipe } from '../../Pipe/format-date.pipe';
+import { FormsModule } from '@angular/forms';
+import { UtilsService } from '../../Services/utils.service';
+import { SvgIconComponent } from 'angular-svg-icon';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-CampaignManagement',
@@ -23,7 +23,7 @@ import {TranslateModule, TranslateService} from '@ngx-translate/core';
     SvgIconComponent,
     TranslateModule,
   ],
-  standalone: true
+  standalone: true,
 })
 export class CampaignManagementComponent implements OnInit {
   campaignService: CampaignService = inject(CampaignService);
@@ -33,10 +33,10 @@ export class CampaignManagementComponent implements OnInit {
   campaigns: Campaign[] = [];
   array: number[] = [];
   dangerMode: boolean = false;
-  campaignDescriptionElement: HTMLElement| null = null;
+  campaignDescriptionElement: HTMLElement | null = null;
 
   constructor(private translate: TranslateService) {
-    this.translate.use(this.translate.currentLang)
+    this.translate.use(this.translate.currentLang);
   }
 
   async ngOnInit() {
@@ -46,7 +46,7 @@ export class CampaignManagementComponent implements OnInit {
   async loadCampaign() {
     this.campaignService.campaigns.subscribe((campaigns: Campaign[]) => {
       this.campaigns = campaigns;
-    })
+    });
   }
 
   selectCampaign(campaign: Campaign) {
@@ -59,27 +59,35 @@ export class CampaignManagementComponent implements OnInit {
   }
 
   async deleteCampaign(campaignId: string) {
-    this.campaignSelected = null
+    this.campaignSelected = null;
     await this.campaignService.deleteCampaign(campaignId);
     await this.loadCampaign();
   }
 
-
   toggleCampaignDescriptionEdit() {
-this.campaignDescriptionElement = document.getElementById(`campaign-${this.campaignSelected!.campaignId}-description`);
+    this.campaignDescriptionElement = document.getElementById(
+      `campaign-${this.campaignSelected!.campaignId}-description`,
+    );
     if (this.campaignSelected) {
-      const campaignDescriptionElement = document.getElementById(`campaign-${this.campaignSelected.campaignId}-description`);
+      const campaignDescriptionElement = document.getElementById(
+        `campaign-${this.campaignSelected.campaignId}-description`,
+      );
       if (!campaignDescriptionElement) {
         return;
       }
-      campaignDescriptionElement.contentEditable = campaignDescriptionElement.contentEditable === 'true' ? 'false' : 'true';
+      campaignDescriptionElement.contentEditable =
+        campaignDescriptionElement.contentEditable === 'true'
+          ? 'false'
+          : 'true';
       campaignDescriptionElement.focus();
     }
   }
 
   async saveCampaignDescription() {
     if (this.campaignSelected) {
-      const campaignDescriptionElement = document.getElementById(`campaign-${this.campaignSelected.campaignId}-description`);
+      const campaignDescriptionElement = document.getElementById(
+        `campaign-${this.campaignSelected.campaignId}-description`,
+      );
       if (!campaignDescriptionElement) {
         return;
       }
@@ -94,7 +102,9 @@ this.campaignDescriptionElement = document.getElementById(`campaign-${this.campa
 
   async changeCampaignName() {
     if (this.campaignSelected) {
-      const campaignNameElement = document.getElementById(`campaign-${this.campaignSelected.campaignId}-name`);
+      const campaignNameElement = document.getElementById(
+        `campaign-${this.campaignSelected.campaignId}-name`,
+      );
       if (!campaignNameElement) {
         return;
       }
@@ -109,7 +119,10 @@ this.campaignDescriptionElement = document.getElementById(`campaign-${this.campa
       const disableContentEditable = async () => {
         campaignNameElement.contentEditable = 'false';
         campaignNameElement.removeEventListener('blur', disableContentEditable);
-        campaignNameElement.removeEventListener('keydown', disableContentEditable);
+        campaignNameElement.removeEventListener(
+          'keydown',
+          disableContentEditable,
+        );
 
         const updatedName = campaignNameElement.innerText.trim();
         if (updatedName !== this.campaignSelected!.campaignName.trim()) {
@@ -119,7 +132,7 @@ this.campaignDescriptionElement = document.getElementById(`campaign-${this.campa
 
         this.campaignSelected!.campaignUpdateDate = this.utils.getTimeNow();
         this.campaignService.updateCampaign(this.campaignSelected!).then();
-      }
+      };
       const onKeyDown = async (evt: KeyboardEvent) => {
         if (evt.key === 'Enter') {
           await disableContentEditable();
@@ -127,7 +140,7 @@ this.campaignDescriptionElement = document.getElementById(`campaign-${this.campa
           evt.preventDefault();
           return;
         }
-      }
+      };
 
       campaignNameElement.addEventListener('blur', disableContentEditable);
       campaignNameElement.addEventListener('keydown', onKeyDown);
@@ -136,7 +149,9 @@ this.campaignDescriptionElement = document.getElementById(`campaign-${this.campa
 
   async changeCampaignImage() {
     if (this.campaignSelected) {
-      const campaignImageElement = document.getElementById(`campaign-${this.campaignSelected.campaignId}-image`);
+      const campaignImageElement = document.getElementById(
+        `campaign-${this.campaignSelected.campaignId}-image`,
+      );
       if (!campaignImageElement) {
         return;
       }
@@ -150,8 +165,14 @@ this.campaignDescriptionElement = document.getElementById(`campaign-${this.campa
 
       const disableContentEditable = async () => {
         campaignImageElement.contentEditable = 'false';
-        campaignImageElement.removeEventListener('blur', disableContentEditable);
-        campaignImageElement.removeEventListener('keydown', disableContentEditable);
+        campaignImageElement.removeEventListener(
+          'blur',
+          disableContentEditable,
+        );
+        campaignImageElement.removeEventListener(
+          'keydown',
+          disableContentEditable,
+        );
 
         const updatedUrl = campaignImageElement.innerText.trim();
         if (updatedUrl !== this.campaignSelected!.campaignImageUrl.trim()) {
@@ -161,7 +182,7 @@ this.campaignDescriptionElement = document.getElementById(`campaign-${this.campa
 
         this.campaignSelected!.campaignUpdateDate = this.utils.getTimeNow();
         this.campaignService.updateCampaign(this.campaignSelected!).then();
-      }
+      };
       const onKeyDown = async (evt: KeyboardEvent) => {
         if (evt.key === 'Enter') {
           await disableContentEditable();
@@ -169,12 +190,10 @@ this.campaignDescriptionElement = document.getElementById(`campaign-${this.campa
           evt.preventDefault();
           return;
         }
-      }
+      };
 
       campaignImageElement.addEventListener('blur', disableContentEditable);
       campaignImageElement.addEventListener('keydown', onKeyDown);
     }
   }
-
 }
-
