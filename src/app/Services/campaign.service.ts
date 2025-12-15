@@ -1,14 +1,14 @@
-import {inject, Injectable} from '@angular/core';
-import {Campaign} from '../Types/Campaign.type';
-import {WindowRef} from './window.service';
-import {BehaviorSubject} from 'rxjs';
-import {Request} from '../Types/Request.type';
+import { inject, Injectable } from '@angular/core';
+import { Campaign } from '../Types/Campaign.type';
+import { WindowRef } from './window.service';
+import { BehaviorSubject } from 'rxjs';
+import { Request } from '../Types/Request.type';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CampaignService {
-  window = inject(WindowRef).getWindow()
+  window = inject(WindowRef).getWindow();
 
   private campaignSubject = new BehaviorSubject<Campaign[]>([]);
   campaigns = this.campaignSubject.asObservable();
@@ -24,18 +24,19 @@ export class CampaignService {
   async loadAllCampaigns() {
     const request: Request = {
       filePath: 'Campaigns/',
-      fileName: '/campaign.json'
-    }
+      fileName: '/campaign.json',
+    };
 
-    await this.window.electronAPI.returnAllFiles(request).then((value: string[]) => {
-      const campaigns: Campaign[] = [];
-      value.forEach((value) => {
-        campaigns.push(JSON.parse(value) as Campaign);
+    await this.window.electronAPI
+      .returnAllFiles(request)
+      .then((value: string[]) => {
+        const campaigns: Campaign[] = [];
+        value.forEach((value) => {
+          campaigns.push(JSON.parse(value) as Campaign);
+        });
+        this.campaignSubject.next(campaigns);
       });
-      this.campaignSubject.next(campaigns);
-    })
   }
-
 
   /**
    * Returns a campaign with the given ID.
@@ -49,7 +50,7 @@ export class CampaignService {
 
     const request: Request = {
       filePath: 'Campaigns/' + campaignId + '/campaign.json',
-    }
+    };
 
     try {
       // Read the content of the file
@@ -77,6 +78,8 @@ export class CampaignService {
     const filePath = 'Campaigns/' + campaign.campaignId + '/';
     const fileName = '/campaign.json';
     const content = JSON.stringify(campaign);
+
+    console.debug('Creating campaign:', campaign);
 
     const request: Request = {
       filePath,
@@ -116,7 +119,7 @@ export class CampaignService {
   async deleteCampaign(campaignId: string): Promise<void> {
     const currentCampaigns = this.campaignSubject.value;
     const updatedCampaigns = currentCampaigns.filter(
-      (campaign) => campaign.campaignId !== campaignId
+      (campaign) => campaign.campaignId !== campaignId,
     );
     this.campaignSubject.next(updatedCampaigns);
 

@@ -42,7 +42,7 @@ export class NavigationComponent implements OnInit {
       name: 'navigation.titles.systems',
       route: 'systems',
       icon: 'shelves',
-      active: false,
+      active: true,
     },
     {
       name: 'navigation.titles.sound',
