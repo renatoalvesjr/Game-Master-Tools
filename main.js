@@ -1,14 +1,31 @@
-const {app, ipcMain, BrowserWindow, nativeTheme, dialog} = require("electron");
+const { app, ipcMain, BrowserWindow, nativeTheme, dialog } = require("electron");
 const path = require("path");
 let fs = require('fs');
 // noinspection JSUnusedLocalSymbols
 let url = require('url')
 
+let localUrl = new URL('http://localhost:4200');
+
+const args = process.argv.slice(2);
+
+let prod = false;
+
+args.forEach(arg => {
+  if (arg.startsWith('--prod=')) {
+    const prodValue = arg.split('=')[1]
+    if (prodValue == 'true') {
+      prod = true;
+      console.log('Running on Production');
+    }
+  }
+})
+
+
 let appWindow;
 
 const defaultConfig = {
   language: 'en-US',
-  supportedLanguages: ['en-US', 'pt-BR', 'zh-Hans','zh-Hant', 'de-DE','es-ES','fr-FR'],
+  supportedLanguages: ['en-US', 'pt-BR', 'zh-Hans', 'zh-Hant', 'de-DE', 'es-ES', 'fr-FR'],
   colorMode: 'dark',
   version: '1.0.2'
 }
@@ -26,19 +43,20 @@ function initWindow() {
       webSecurity: false
     },
   });
-  appWindow.loadURL(
-    url.format({
-      // pathname: path.join(
-      //   __dirname,
-      //   "/dist/game-master-tools/browser/index.html"
-      // ),
-      // protocol: "file",
-      // slashes: true,
-      pathname: "http://localhost:4200", // para desenvolvimento local
-    })
-  ).then();
+  if (prod) {
+    appWindow.loadURL(url.format({
+      protocol: 'file',
+      slashes: true,
+      pathname: path.join(
+        __dirname,
+        "/dist/game-master-tools/browser/index.html",
+      )
+    }));
+  } else {
+    appWindow.loadURL(url.format(localUrl));
+  }
 
-  // appWindow.setMenu(null);
+  if (prod) appWindow.setMenu(null);
   appWindow.webContents.session.setSpellCheckerEnabled(false);
 
   appWindow.once("ready-to-show", () => {
@@ -70,7 +88,7 @@ app.whenReady().then(() => {
   ipcMain.handle('readImageAsBase64', readImageAsBase64)
   ipcMain.handle('getDefaultPath', getDefaultPath)
 
-  app.on('activate', function () {
+  app.on('activate', function() {
     if (BrowserWindow.getAllWindows().length === 0) initWindow()
   })
 })
@@ -98,7 +116,7 @@ async function selectFile() {
 }
 
 
-async function readImageAsBase64(event,data) {
+async function readImageAsBase64(event, data) {
   const path = data['content']
   if (!path || typeof path !== 'string') {
     console.error('Caminho fornecido é inválido:', path);
@@ -130,12 +148,12 @@ async function systemTheme() {
   return nativeTheme.shouldUseDarkColors;
 }
 
-async function update101to102(){
+async function update101to102() {
 
 }
 async function onStart() {
   if (!fs.existsSync(path.join(defaultPath, "config/config.json"))) {
-    fs.mkdirSync(path.join(defaultPath, "config"), {recursive: true});
+    fs.mkdirSync(path.join(defaultPath, "config"), { recursive: true });
     fs.writeFileSync(path.join(defaultPath, "config/config.json"), JSON.stringify(defaultConfig));
     console.log(defaultPath);
 
@@ -253,7 +271,7 @@ async function saveFile(event, data) {
 
   // Check if the directory exists, create it if it does not
   if (!fs.existsSync(filePath)) {
-    fs.mkdirSync(filePath, {recursive: true, mode: 0o777});
+    fs.mkdirSync(filePath, { recursive: true, mode: 0o777 });
   }
 
   // Save the file
@@ -276,7 +294,7 @@ async function deleteFile(event, data) {
 
   // Recursively delete the file or directory
   try {
-    return fs.rmSync(fullPath, {recursive: true});
+    return fs.rmSync(fullPath, { recursive: true });
   } catch (err) {
     throw Error('Error deleting file: ' + err);
   }
